@@ -1,0 +1,10 @@
+﻿@* 円のフォーム *@
+@model CircleModel
+
+<form asp-action="Save">
+	<input type="hidden" name="@nameof(GeometryType)" value="@Model.GeometryType" />
+	<input asp-for="X" />
+	<input asp-for="Y" />
+	<input asp-for="R" />
+	<button>Save</button>
+</form>

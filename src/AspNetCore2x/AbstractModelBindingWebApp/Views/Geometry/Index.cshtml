@@ -10,5 +10,11 @@
 	<title>Index</title>
 </head>
 <body>
+	@* 線分と円で適当なモデルを作ってフォームをレンダリング *@
+	<h2>@GeometryType.Line</h2>
+	<partial name="_LineForm" model="new LineModel { X1 = 1, Y1 = 3, X2 = 2, Y2 = 4 }" />
+
+	<h2>@GeometryType.Circle</h2>
+	<partial name="_CircleForm" model="new CircleModel { R = 1, X = 2, Y = 3 }" />
 </body>
 </html>

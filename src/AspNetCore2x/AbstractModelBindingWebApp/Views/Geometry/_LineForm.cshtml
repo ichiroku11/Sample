@@ -1,0 +1,12 @@
+﻿@** 線分のフォーム *@
+@model LineModel
+
+@* 雑だけど許して *@
+<form asp-action="Save">
+	<input type="hidden" name="@nameof(GeometryType)" value="@Model.GeometryType" />
+	<input asp-for="X1" />
+	<input asp-for="Y1" />
+	<input asp-for="X2" />
+	<input asp-for="Y2" />
+	<button>Save</button>
+</form>
