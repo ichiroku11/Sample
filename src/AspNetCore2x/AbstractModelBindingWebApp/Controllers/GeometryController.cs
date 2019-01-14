@@ -12,7 +12,6 @@ namespace AbstractModelBindingWebApp.Controllers {
 			return View();
 		}
 
-		/*
 		// POSTされたGeometryTypeの値によって、生成するモデルを切り替える
 		private async Task<GeometryModel> CreateModel() {
 			var valueProvider = await CompositeValueProvider.CreateAsync(ControllerContext);
@@ -45,12 +44,13 @@ namespace AbstractModelBindingWebApp.Controllers {
 			// 適当な結果
 			return Json(model);
 		}
-		*/
 
+		/*
 		// 別解
 		[HttpPost]
 		public IActionResult Save(GeometryModel model) {
 			return Json(model);
 		}
+		*/
 	}
 }

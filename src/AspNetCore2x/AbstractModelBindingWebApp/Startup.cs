@@ -15,9 +15,11 @@ namespace AbstractModelBindingWebApp {
 		public void ConfigureServices(IServiceCollection services) {
 			// MVCで利用するサービスを登録する
 			services.AddMvc(options => {
+				/*
 				// 別解
 				// GeometryModelのモデルバインダープロバイダーを登録する
 				options.ModelBinderProviders.Insert(0, new GeometryModelBinderProvider());
+				*/
 			}).SetCompatibilityVersion(CompatibilityVersion.Latest);
 
 			services.Configure<RouteOptions>(options => {

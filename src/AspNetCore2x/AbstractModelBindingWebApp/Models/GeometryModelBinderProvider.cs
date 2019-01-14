@@ -13,7 +13,7 @@ namespace AbstractModelBindingWebApp.Models {
 			// モデルの具象クラスを特定する方がスマートかと思ったけど、
 			// ここではPOSTされたデータ（ValueProvider）にアクセスできない様子
 
-			// バインドする型からGeometryModelBinderを返すだけとする
+			// バインドする型がGeometryModelなら、GeometryModelBinderを返すだけとする
 			if (context.Metadata.ModelType != typeof(GeometryModel)) {
 				return null;
 			}
