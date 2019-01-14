@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AbstractModelBindingWebApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,8 +15,9 @@ namespace AbstractModelBindingWebApp {
 		public void ConfigureServices(IServiceCollection services) {
 			// MVCで利用するサービスを登録する
 			services.AddMvc(options => {
-				// todo:
-				//options.ModelBinderProviders.Insert(0, new GeometryModelBinderProvider());
+				// 別解
+				// GeometryModelのモデルバインダープロバイダーを登録する
+				options.ModelBinderProviders.Insert(0, new GeometryModelBinderProvider());
 			}).SetCompatibilityVersion(CompatibilityVersion.Latest);
 
 			services.Configure<RouteOptions>(options => {
