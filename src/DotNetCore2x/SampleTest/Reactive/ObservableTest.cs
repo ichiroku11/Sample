@@ -45,24 +45,27 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
+		public void Empty_onCompletedだけが呼ばれる() {
+			Observable.Empty<int>().Subscribe(
+				value => Assert.False(true),
+				exception => Assert.False(true),
+				// onCompletedだけ
+				() => Assert.True(true));
+		}
+
+		[Fact]
 		public void Throw_onErrorだけが呼ばれる() {
 			var original = new Exception();
 			Observable.Throw<int>(original).Subscribe(
 				value => Assert.False(true),
+				// onErrorだけ
 				exception => Assert.Equal(exception, original),
 				() => Assert.True(false));
 		}
 
 		[Fact]
-		public void Empty_onCompletedだけが呼ばれる() {
-			Observable.Empty<int>().Subscribe(
-				value => Assert.False(true),
-				exception => Assert.False(true),
-				() => Assert.True(true));
-		}
-
-		[Fact]
 		public void Never_何も呼ばれない() {
+			// 何も呼ばれない
 			Observable.Never<int>().Subscribe(
 				value => Assert.False(true),
 				exception => Assert.False(true),
