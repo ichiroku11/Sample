@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -70,6 +71,20 @@ namespace SampleTest.Reactive {
 				value => Assert.False(true),
 				exception => Assert.False(true),
 				() => Assert.False(true));
+		}
+
+		[Fact]
+		public void FromAsync_TaskをObservableに() {
+			var task = Task.Run(() => 1);
+			Observable.FromAsync(() => task).Subscribe(
+				value => {
+					_output.WriteLine($"onNext: {value}");
+					Assert.Equal(1, value);
+				},
+				() => {
+					_output.WriteLine($"onCompleted");
+					Assert.True(true);
+				});
 		}
 	}
 }
