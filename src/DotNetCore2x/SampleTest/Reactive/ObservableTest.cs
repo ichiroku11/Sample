@@ -22,6 +22,7 @@ namespace SampleTest.Reactive {
 			// Act
 			Observable.Range(0, 3).Subscribe(
 				value => {
+					// 0, 1, 2と呼ばれる
 					_output.WriteLine($"onNext: {value}");
 					Assert.False(completed);
 
@@ -29,7 +30,7 @@ namespace SampleTest.Reactive {
 				},
 				exception => {
 					// エラーが発生しないので呼ばれない
-					Assert.True(false);
+					Assert.False(true);
 				},
 				() => {
 					_output.WriteLine($"onCompleted");
@@ -41,6 +42,31 @@ namespace SampleTest.Reactive {
 			// Assert
 			Assert.Equal(new List<int>() { 0, 1, 2, }, values);
 			Assert.True(completed);
+		}
+
+		[Fact]
+		public void Throw_onErrorだけが呼ばれる() {
+			var original = new Exception();
+			Observable.Throw<int>(original).Subscribe(
+				value => Assert.False(true),
+				exception => Assert.Equal(exception, original),
+				() => Assert.True(false));
+		}
+
+		[Fact]
+		public void Empty_onCompletedだけが呼ばれる() {
+			Observable.Empty<int>().Subscribe(
+				value => Assert.False(true),
+				exception => Assert.False(true),
+				() => Assert.True(true));
+		}
+
+		[Fact]
+		public void Never_何も呼ばれない() {
+			Observable.Never<int>().Subscribe(
+				value => Assert.False(true),
+				exception => Assert.False(true),
+				() => Assert.False(true));
 		}
 	}
 }
