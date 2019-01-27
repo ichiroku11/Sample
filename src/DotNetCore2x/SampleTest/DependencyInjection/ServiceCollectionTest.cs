@@ -29,7 +29,7 @@ namespace SampleTest.DependencyInjection {
 
 
 		[Fact]
-		public void AddTransient_サービスを要求されるたびに生成される() {
+		public void AddTransient_サービスを要求されるたびに異なるインスタンスが生成される() {
 			// Arrange
 			var services = new ServiceCollection();
 			services.AddTransient<SampleService>();
@@ -44,6 +44,7 @@ namespace SampleTest.DependencyInjection {
 			_output.WriteLine($"{service2.Value}");
 
 			// Assert
+			Assert.NotSame(service1, service2);
 			Assert.NotEqual(service1.Value, service2.Value);
 		}
 
@@ -63,6 +64,7 @@ namespace SampleTest.DependencyInjection {
 			_output.WriteLine($"{service2.Value}");
 
 			// Assert
+			Assert.Same(service1, service2);
 			Assert.Equal(service1.Value, service2.Value);
 		}
 
@@ -84,7 +86,7 @@ namespace SampleTest.DependencyInjection {
 		}
 
 		[Fact]
-		public void AddScoped_こういうことかな() {
+		public void AddScoped_同じスコープ内では同じインスタンスを取得できる() {
 			// Arrange
 			var services = new ServiceCollection();
 			services.AddScoped<SampleService>();
@@ -92,44 +94,54 @@ namespace SampleTest.DependencyInjection {
 			var provider = services.BuildServiceProvider();
 
 			// Act
-			var guids = new List<Guid>();
-
+			// Assert
 			{
 				var service1 = provider.GetRequiredService<SampleService>();
-				guids.Add(service1.Value);
 				_output.WriteLine($"{service1.Value}");
 
 				var service2 = provider.GetRequiredService<SampleService>();
 				_output.WriteLine($"{service2.Value}");
-				guids.Add(service2.Value);
+
+				Assert.Same(service1, service2);
+				Assert.Equal(service1.Value, service2.Value);
 			}
 
 			using (var scope = provider.CreateScope()) {
 				var service1 = scope.ServiceProvider.GetRequiredService<SampleService>();
-				guids.Add(service1.Value);
 				_output.WriteLine($"{service1.Value}");
 
 				var service2 = scope.ServiceProvider.GetRequiredService<SampleService>();
 				_output.WriteLine($"{service2.Value}");
-				guids.Add(service2.Value);
-			}
 
+				Assert.Same(service1, service2);
+				Assert.Equal(service1.Value, service2.Value);
+			}
+		}
+
+		[Fact]
+		public void AddScoped_異なるスコープでは異なるインスタンスが生成される() {
+			// Arrange
+			var services = new ServiceCollection();
+			services.AddScoped<SampleService>();
+
+			var provider = services.BuildServiceProvider();
+
+			// Act
+			var service1 = default(SampleService);
 			using (var scope = provider.CreateScope()) {
-				var service1 = scope.ServiceProvider.GetRequiredService<SampleService>();
-				guids.Add(service1.Value);
-				_output.WriteLine($"{service1.Value}");
-
-				var service2 = scope.ServiceProvider.GetRequiredService<SampleService>();
-				_output.WriteLine($"{service2.Value}");
-				guids.Add(service2.Value);
+				service1 = scope.ServiceProvider.GetRequiredService<SampleService>();
 			}
+			_output.WriteLine($"{service1.Value}");
+
+			var service2 = default(SampleService);
+			using (var scope = provider.CreateScope()) {
+				service2 = scope.ServiceProvider.GetRequiredService<SampleService>();
+			}
+			_output.WriteLine($"{service2.Value}");
 
 			// Assert
-			Assert.Equal(guids[0], guids[1]);
-			Assert.Equal(guids[2], guids[3]);
-			Assert.Equal(guids[4], guids[5]);
-
-			Assert.NotEqual(guids[2], guids[4]);
+			Assert.NotSame(service1, service2);
+			Assert.NotEqual(service1.Value, service2.Value);
 		}
 	}
 }
