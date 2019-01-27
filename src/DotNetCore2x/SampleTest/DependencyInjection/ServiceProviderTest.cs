@@ -17,6 +17,21 @@ namespace SampleTest.DependencyInjection {
 			public string GetValue() => nameof(SampleService);
 		}
 
+		private interface ISampleScenario {
+			string GetValue();
+		}
+
+		private class SampleScenario : ISampleScenario {
+			private readonly ISampleService _service;
+
+			public SampleScenario(ISampleService service) {
+				_service = service;
+			}
+
+			public string GetValue() => $"{nameof(SampleScenario)}.{_service.GetValue()}";
+		}
+
+
 		[Fact]
 		public void GetRequiredService_基本的な使い方() {
 			// サービス（DIで取得するオブジェクト）の情報を格納するコレクション
@@ -56,21 +71,6 @@ namespace SampleTest.DependencyInjection {
 
 			// Assert
 			Assert.Null(service);
-		}
-
-
-		private interface ISampleScenario {
-			string GetValue();
-		}
-
-		private class SampleScenario : ISampleScenario {
-			private readonly ISampleService _service;
-
-			public SampleScenario(ISampleService service) {
-				_service = service;
-			}
-
-			public string GetValue() => $"{nameof(SampleScenario)}.{_service.GetValue()}";
 		}
 
 		[Fact]
