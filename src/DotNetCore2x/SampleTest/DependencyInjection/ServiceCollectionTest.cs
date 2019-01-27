@@ -29,7 +29,7 @@ namespace SampleTest.DependencyInjection {
 
 
 		[Fact]
-		public void AddTransient_() {
+		public void AddTransient_サービスを要求されるたびに生成される() {
 			// Arrange
 			var services = new ServiceCollection();
 			services.AddTransient<SampleService>();
@@ -45,6 +45,42 @@ namespace SampleTest.DependencyInjection {
 
 			// Assert
 			Assert.NotEqual(service1.Value, service2.Value);
+		}
+
+		[Fact(DisplayName = "AddSingleton_サービスを最初に要求されたときに生成され、それ以降は同じインスタンスが取得できる")]
+		public void AddSingleton_サービスを最初に要求されたときに生成される() {
+			// Arrange
+			var services = new ServiceCollection();
+			services.AddSingleton<SampleService>();
+
+			var provider = services.BuildServiceProvider();
+
+			// Act
+			var service1 = provider.GetRequiredService<SampleService>();
+			var service2 = provider.GetRequiredService<SampleService>();
+
+			_output.WriteLine($"{service1.Value}");
+			_output.WriteLine($"{service2.Value}");
+
+			// Assert
+			Assert.Equal(service1.Value, service2.Value);
+		}
+
+		[Fact]
+		public void AddSingleton_生成したインスタンスを登録する() {
+			// Arrange
+			var services = new ServiceCollection();
+			services.AddSingleton(new SampleService(Guid.Empty));
+
+			var provider = services.BuildServiceProvider();
+
+			// Act
+			var service = provider.GetRequiredService<SampleService>();
+
+			_output.WriteLine($"{service.Value}");
+
+			// Assert
+			Assert.Equal(Guid.Empty, service.Value);
 		}
 	}
 }
