@@ -82,5 +82,54 @@ namespace SampleTest.DependencyInjection {
 			// Assert
 			Assert.Equal(Guid.Empty, service.Value);
 		}
+
+		[Fact]
+		public void AddScoped_こういうことかな() {
+			// Arrange
+			var services = new ServiceCollection();
+			services.AddScoped<SampleService>();
+
+			var provider = services.BuildServiceProvider();
+
+			// Act
+			var guids = new List<Guid>();
+
+			{
+				var service1 = provider.GetRequiredService<SampleService>();
+				guids.Add(service1.Value);
+				_output.WriteLine($"{service1.Value}");
+
+				var service2 = provider.GetRequiredService<SampleService>();
+				_output.WriteLine($"{service2.Value}");
+				guids.Add(service2.Value);
+			}
+
+			using (var scope = provider.CreateScope()) {
+				var service1 = scope.ServiceProvider.GetRequiredService<SampleService>();
+				guids.Add(service1.Value);
+				_output.WriteLine($"{service1.Value}");
+
+				var service2 = scope.ServiceProvider.GetRequiredService<SampleService>();
+				_output.WriteLine($"{service2.Value}");
+				guids.Add(service2.Value);
+			}
+
+			using (var scope = provider.CreateScope()) {
+				var service1 = scope.ServiceProvider.GetRequiredService<SampleService>();
+				guids.Add(service1.Value);
+				_output.WriteLine($"{service1.Value}");
+
+				var service2 = scope.ServiceProvider.GetRequiredService<SampleService>();
+				_output.WriteLine($"{service2.Value}");
+				guids.Add(service2.Value);
+			}
+
+			// Assert
+			Assert.Equal(guids[0], guids[1]);
+			Assert.Equal(guids[2], guids[3]);
+			Assert.Equal(guids[4], guids[5]);
+
+			Assert.NotEqual(guids[2], guids[4]);
+		}
 	}
 }
