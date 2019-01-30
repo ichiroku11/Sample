@@ -10,7 +10,7 @@ namespace SampleTest {
 		[InlineData("0001", 1)]
 		[InlineData("10", 2)]
 		[InlineData("11111111", 255)]
-		public void Int32_2進数に変換できる(string text, int expected) {
+		public void ToInt32_2進数文字列をInt32に変換できる(string text, int expected) {
 			// Arrange
 			// Act
 			var actual = Convert.ToInt32(text, 2);
@@ -22,7 +22,7 @@ namespace SampleTest {
 		[Theory]
 		[InlineData("2")]
 		[InlineData("a")]
-		public void Int32_2進数に変換できずFormatExceptionがスローされる(string text) {
+		public void ToInt32_2進数文字列をInt32に変換できずFormatExceptionがスローされる(string text) {
 			// Arrange
 			// Act
 			// Assert
