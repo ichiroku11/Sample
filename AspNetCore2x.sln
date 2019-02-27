@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidatableObjectWebApp", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieAuthWebApp", "src\AspNetCore2x\CookieAuthWebApp\CookieAuthWebApp.csproj", "{B17542E4-C6D6-43D9-B054-89DCC964566A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerilogWebApp", "src\AspNetCore2x\SerilogWebApp\SerilogWebApp.csproj", "{3AE2D703-663B-41C3-95BD-BB74C6459B2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B17542E4-C6D6-43D9-B054-89DCC964566A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B17542E4-C6D6-43D9-B054-89DCC964566A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B17542E4-C6D6-43D9-B054-89DCC964566A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AE2D703-663B-41C3-95BD-BB74C6459B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AE2D703-663B-41C3-95BD-BB74C6459B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AE2D703-663B-41C3-95BD-BB74C6459B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AE2D703-663B-41C3-95BD-BB74C6459B2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
