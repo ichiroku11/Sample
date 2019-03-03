@@ -16,8 +16,7 @@ namespace PostRedirectGetWebApp.Filters {
 				return;
 			}
 
-			var controller = context.Controller as Controller;
-			if (controller == null) {
+			if (!(context.Controller is Controller controller)) {
 				// ありえるの？
 				return;
 			}

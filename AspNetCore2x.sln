@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieAuthWebApp", "src\Asp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerilogWebApp", "src\AspNetCore2x\SerilogWebApp\SerilogWebApp.csproj", "{3AE2D703-663B-41C3-95BD-BB74C6459B2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostRedirectGetWebApp", "src\AspNetCore2x\PostRedirectGetWebApp\PostRedirectGetWebApp.csproj", "{4ACF7F05-43E0-478F-81CE-207820074ACD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostRedirectGetWebApp", "src\AspNetCore2x\PostRedirectGetWebApp\PostRedirectGetWebApp.csproj", "{4ACF7F05-43E0-478F-81CE-207820074ACD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

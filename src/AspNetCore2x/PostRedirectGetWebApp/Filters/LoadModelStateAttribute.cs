@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace PostRedirectGetWebApp.Filters {
 	public class LoadModelStateAttribute : ActionFilterAttribute {
 		public override void OnActionExecuting(ActionExecutingContext context) {
-			var controller = context.Controller as Controller;
-			if (controller == null) {
+			if (!(context.Controller is Controller controller)) {
 				// ありえるの？
 				return;
 			}
