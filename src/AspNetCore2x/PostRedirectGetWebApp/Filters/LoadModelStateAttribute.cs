@@ -14,6 +14,10 @@ namespace PostRedirectGetWebApp.Filters {
 			}
 
 			// todo: TempDataから復元する
+			var modelState = controller.TempData.GetModelState();
+			if (modelState != null) {
+				controller.ModelState.Merge(modelState);
+			}
 		}
 	}
 }

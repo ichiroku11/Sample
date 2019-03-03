@@ -16,18 +16,17 @@ namespace PostRedirectGetWebApp.Filters {
 		}
 
 		public static ModelStateDictionary GetModelState(this ITempDataDictionary tempData) {
+			/*
 			// todo: いる？
 			if (!tempData.ContainsKey(_modelStateKey)) {
 				return null;
 			}
+			*/
 
 			var json = tempData[_modelStateKey] as string;
-			// todo: ↓でもいい？
-			/*
-			if(string.IsNullOrWhiteSpace(json)) {
+			if (string.IsNullOrWhiteSpace(json)) {
 				return null;
 			}
-			*/
 
 			return JsonConvertHelper.DeerializeModelState(json);
 		}
