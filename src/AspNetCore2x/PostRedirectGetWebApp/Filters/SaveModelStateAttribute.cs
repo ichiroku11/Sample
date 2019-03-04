@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace PostRedirectGetWebApp.Filters {
 	public class SaveModelStateAttribute : ActionFilterAttribute {
+		// リダイレクトかどうか
 		private static bool IsRedirectResult(IActionResult result)
 			=> result is RedirectToActionResult || result is RedirectToRouteResult;
 
@@ -26,6 +27,7 @@ namespace PostRedirectGetWebApp.Filters {
 				return;
 			}
 
+			// TempDataにModelStateを保存する
 			controller.TempData.AddModelState(controller.ModelState);
 		}
 	}

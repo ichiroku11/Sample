@@ -16,13 +16,6 @@ namespace PostRedirectGetWebApp.Filters {
 		}
 
 		public static ModelStateDictionary GetModelState(this ITempDataDictionary tempData) {
-			/*
-			// todo: いる？
-			if (!tempData.ContainsKey(_modelStateKey)) {
-				return null;
-			}
-			*/
-
 			var json = tempData[_modelStateKey] as string;
 			if (string.IsNullOrWhiteSpace(json)) {
 				return null;
