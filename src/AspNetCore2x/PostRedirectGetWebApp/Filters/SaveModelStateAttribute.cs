@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace PostRedirectGetWebApp.Filters {
+	// ModelStateを保存する属性
 	public class SaveModelStateAttribute : ActionFilterAttribute {
 		// リダイレクトかどうか
 		private static bool IsRedirectResult(IActionResult result)
