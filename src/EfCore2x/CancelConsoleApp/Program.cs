@@ -13,10 +13,13 @@ namespace CancelConsoleApp {
 				IntegratedSecurity = true,
 			}.ToString();
 
+
 		private static async Task<int> QueryAsync(CancellationToken token) {
 			using (var connection = new SqlConnection(_connectionString)) {
+				Console.WriteLine(nameof(SqlConnection.OpenAsync));
 				await connection.OpenAsync(token);
 
+				// 5秒待って値を取得する
 				var sql = @"
 -- CancelTest
 waitfor delay '00:00:05';
@@ -24,17 +27,17 @@ select 100;";
 
 				using (var command = new SqlCommand(sql, connection)) {
 					try {
-						Console.WriteLine("ExecuteReaderAsync");
+						Console.WriteLine(nameof(SqlCommand.ExecuteReaderAsync));
 						using (var reader = await command.ExecuteReaderAsync(token)) {
 
-							Console.WriteLine("ReadAsync");
-							while (await reader.ReadAsync(token)) {
-								var value = await reader.GetFieldValueAsync<int>(0, token);
+							Console.WriteLine(nameof(SqlDataReader.ReadAsync));
+							await reader.ReadAsync(token);
 
-								return value;
-							}
+							Console.WriteLine(nameof(SqlDataReader.GetFieldValueAsync));
+							return await reader.GetFieldValueAsync<int>(0, token);
 						}
 					} catch (Exception exception) {
+						// todo:
 						Console.WriteLine("catch:");
 						Console.WriteLine(exception);
 					}
@@ -45,13 +48,14 @@ select 100;";
 		}
 
 		static async Task Main(string[] args) {
-			// キャンセルしない
 			{
+				// キャンセルしない
 				await QueryAsync(CancellationToken.None);
 			}
 
-			// キャンセルする
 			{
+				// キャンセルする
+				// 2秒後
 				var timeout = TimeSpan.FromSeconds(2);
 				var tokenSource = new CancellationTokenSource(timeout);
 
