@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using System.Linq;
 using Xunit;
 
 namespace SampleTest {
 	public class EnumerableTest {
 		[Fact]
-		public void Prepend_ƒV[ƒPƒ“ƒX‚ÌÅ‰‚É—v‘f‚ğ’Ç‰Á‚·‚é() {
+		public void Prepend_ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã®æœ€åˆã«è¦ç´ ã‚’è¿½åŠ ã™ã‚‹() {
 			// Arrange
 			var source = new[] { 2, 3, 4 };
 
@@ -17,7 +17,7 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void Append_ƒV[ƒPƒ“ƒX‚ÌÅŒã‚É—v‘f‚ğ’Ç‰Á‚·‚é() {
+		public void Append_ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã®æœ€å¾Œã«è¦ç´ ã‚’è¿½åŠ ã™ã‚‹() {
 			// Arrange
 			var source = new[] { 2, 3, 4 };
 
@@ -29,30 +29,55 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void Min_”ñnull‚Ì‹ó‚ÌƒV[ƒPƒ“ƒX‚ÅŒÄ‚Ño‚·‚ÆInvalidOperationException() {
-			// ”ñnull‚Ìê‡‚Í—áŠO
+		public void Min_énullã®ç©ºã®ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã§å‘¼ã³å‡ºã™ã¨InvalidOperationException() {
+			// énullã®å ´åˆã¯ä¾‹å¤–
 			Assert.Throws<InvalidOperationException>(() => Enumerable.Empty<int>().Min());
 
-			// null‹–—eŒ^‚Ìê‡‚Ínull
+			// nullè¨±å®¹å‹ã®å ´åˆã¯null
 			Assert.Null(Enumerable.Empty<int?>().Min());
 		}
 
 		[Fact]
-		public void Max_”ñnull‚Ì‹ó‚ÌƒV[ƒPƒ“ƒX‚ÅŒÄ‚Ño‚·‚ÆInvalidOperationException() {
-			// ”ñnull‚Ìê‡‚Í—áŠO
+		public void Max_énullã®ç©ºã®ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã§å‘¼ã³å‡ºã™ã¨InvalidOperationException() {
+			// énullã®å ´åˆã¯ä¾‹å¤–
 			Assert.Throws<InvalidOperationException>(() => Enumerable.Empty<int>().Max());
 
-			// null‹–—eŒ^‚Ìê‡‚Ínull
+			// nullè¨±å®¹å‹ã®å ´åˆã¯null
 			Assert.Null(Enumerable.Empty<int?>().Max());
 		}
 
 		[Fact]
-		public void Average_”ñnull‚Ì‹ó‚ÌƒV[ƒPƒ“ƒX‚ÅŒÄ‚Ño‚·‚ÆInvalidOperationException() {
-			// ”ñnull‚Ìê‡‚Í—áŠO
+		public void Average_énullã®ç©ºã®ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã§å‘¼ã³å‡ºã™ã¨InvalidOperationException() {
+			// énullã®å ´åˆã¯ä¾‹å¤–
 			Assert.Throws<InvalidOperationException>(() => Enumerable.Empty<int>().Average());
 
-			// null‹–—eŒ^‚Ìê‡‚Ínull
+			// nullè¨±å®¹å‹ã®å ´åˆã¯null
 			Assert.Null(Enumerable.Empty<int?>().Average());
+		}
+
+		[Fact]
+		public void Take_å¼•æ•°ã«ãƒã‚¤ãƒŠã‚¹ã®å€¤ã‚’æŒ‡å®šã™ã‚‹ã¨ç©ºã®ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ãŒè¿”ã£ã¦ãã‚‹() {
+			// Arrange
+			var source = new[] { 1, 2, 3 };
+
+			// Act
+			var actual = source.Take(-1);
+
+			// Assert
+			Assert.Empty(actual);
+		}
+
+		[Fact]
+		public void Skip_å¼•æ•°ã«ãƒã‚¤ãƒŠã‚¹ã®å€¤ã‚’æŒ‡å®šã™ã‚‹ã¨åŒã˜ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ãŒè¿”ã£ã¦ãã‚‹() {
+			// Arrange
+			var source = new[] { 1, 2, 3 };
+
+			// Act
+			var actual = source.Skip(-1);
+
+			// Assert
+			Assert.NotSame(source, actual);
+			Assert.Equal(source, actual);
 		}
 	}
 }
