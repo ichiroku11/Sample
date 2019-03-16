@@ -11,8 +11,7 @@ namespace CancelConsoleApp {
 		// パラメータを使わないSqlCommandを生成
 		private static SqlCommand CreateCommandNoParameter(SqlConnection connection) {
 			// 5s待機して1を取得
-			const string sql = @"
--- CancelTest
+			const string sql = @"-- CancelTest
 waitfor delay '00:00:05';
 select 1;";
 
@@ -22,8 +21,7 @@ select 1;";
 		// パラメータを使うSqlCommandを生成
 		private static SqlCommand CreateCommandWithParameter(SqlConnection connection) {
 			// 5s待機して2を取得
-			const string sql = @"
--- CancelTest
+			const string sql = @"-- CancelTest
 waitfor delay '00:00:05';
 select @p;";
 
@@ -53,7 +51,10 @@ select @p;";
 		public async Task<int> RunAsync(CancellationToken token) {
 			using (var connection = new SqlConnection(_connectionString)) {
 				// コネクションを開く
-				await connection.OpenAsync(token);
+				connection.Open();
+				// SQL Serverが返す結果を確認したいので、
+				// あえて接続時にはキャンセルできないようにしておく
+				//await connection.OpenAsync(token);
 
 				using (var command = CreateCommand(connection)) {
 					try {

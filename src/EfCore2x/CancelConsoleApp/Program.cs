@@ -14,21 +14,35 @@ namespace CancelConsoleApp {
 			}.ToString();
 
 		static async Task Main(string[] args) {
-			{
-				// キャンセルしない
-				var result = await new SampleQuery(_connectionString).RunAsync(CancellationToken.None);
-				Console.WriteLine(result);
-			}
+			var session = new EventSession(_connectionString);
 
-			{
-				// キャンセルする
+			try {
+				session.DropIfExists();
+				session.Create();
+				session.Start();
 
-				// 2秒後
-				var timeout = TimeSpan.FromSeconds(2);
-				var tokenSource = new CancellationTokenSource(timeout);
+				{
+					// キャンセルしない
+					var result = await new SampleQuery(_connectionString).RunAsync(CancellationToken.None);
+					Console.WriteLine(result);
+				}
+				/*
+				{
+					// キャンセルする
 
-				var result = await new SampleQuery(_connectionString).RunAsync(tokenSource.Token);
-				Console.WriteLine(result);
+					// 2秒後
+					var timeout = TimeSpan.FromSeconds(2);
+					var tokenSource = new CancellationTokenSource(timeout);
+
+					var result = await new SampleQuery(_connectionString).RunAsync(tokenSource.Token);
+					Console.WriteLine(result);
+				}
+				*/
+				foreach (var @event in session.GetEvents()) {
+					Console.WriteLine(@event.SqlText);
+				}
+			} finally {
+				// session.Drop();
 			}
 		}
 	}
