@@ -19,14 +19,15 @@ namespace CancelConsoleApp {
 		// セッションを作成
 		public void Create() {
 			using (var connection = new SqlConnection(_connectionString)) {
-				const string sql = @";
+				// クエリの先頭が「-- CancelTest」で始まるものが対象
+				var sql = $@";
 create event session test_xes
 	on Server
 	add event sqlserver.sql_batch_completed(
-		where batch_text like N'-- CancelTest%'
+		where batch_text like N'-- {SampleQuery.Tag}%'
 	),
 	add event sqlserver.rpc_completed(
-		where statement like N'-- CancelTest%'
+		where statement like N'-- {SampleQuery.Tag}%'
 	)
 	add target package0.ring_buffer;";
 

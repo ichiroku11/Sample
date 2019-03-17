@@ -38,6 +38,7 @@ namespace CancelConsoleApp {
 					Console.WriteLine(result);
 				}
 				*/
+				// todo:
 				foreach (var @event in session.GetEvents()) {
 					Console.WriteLine(@event.SqlText);
 				}

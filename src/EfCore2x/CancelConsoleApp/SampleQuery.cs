@@ -8,24 +8,26 @@ using System.Threading.Tasks;
 namespace CancelConsoleApp {
 	// サンプルクエリ
 	public class SampleQuery {
+		public const string Tag = "CancelTest";
+
 		// パラメータを使わないSqlCommandを生成
 		private static SqlCommand CreateCommandNoParameter(SqlConnection connection) {
 			// 5s待機して1を取得
-			const string sql = @"-- CancelTest
+			const string sql = @"
 waitfor delay '00:00:05';
 select 1;";
 
-			return new SqlCommand(sql, connection);
+			return new SqlCommand(sql.PrependTag(Tag), connection);
 		}
 
 		// パラメータを使うSqlCommandを生成
 		private static SqlCommand CreateCommandWithParameter(SqlConnection connection) {
 			// 5s待機して2を取得
-			const string sql = @"-- CancelTest
+			const string sql = @"
 waitfor delay '00:00:05';
 select @p;";
 
-			var command = new SqlCommand(sql, connection);
+			var command = new SqlCommand(sql.PrependTag(Tag), connection);
 			command.Parameters.AddWithValue("@p", 2);
 			return command;
 		}
