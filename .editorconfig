@@ -1,0 +1,13 @@
+# 参考
+# https://editorconfig.org/
+# https://docs.microsoft.com/ja-jp/visualstudio/ide/create-portable-custom-editor-options?view=vs-2017
+# https://github.com/aspnet/AspNetCore/blob/master/.editorconfig
+
+root = true
+
+[*]
+charset = utf-8
+indent_style = tab
+insert_final_newline = true
+tab_width = 4
+trim_trailing_whitespace = true
