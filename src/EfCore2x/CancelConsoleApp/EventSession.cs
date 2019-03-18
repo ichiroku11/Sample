@@ -17,7 +17,7 @@ namespace CancelConsoleApp {
 
 
 		// セッションを作成
-		public void Create() {
+		public EventSession Create() {
 			using (var connection = new SqlConnection(_connectionString)) {
 				// クエリの先頭が「-- CancelTest」で始まるものが対象
 				var sql = $@";
@@ -33,10 +33,12 @@ create event session test_xes
 
 				connection.Execute(sql);
 			}
+
+			return this;
 		}
 
 		// セッションを削除
-		public void DropIfExists() {
+		public EventSession DropIfExists() {
 			using (var connection = new SqlConnection(_connectionString)) {
 				const string sql = @";
 if exists(
@@ -48,10 +50,12 @@ if exists(
 
 				connection.Execute(sql);
 			}
+
+			return this;
 		}
 
 		// セッションを開始
-		public void Start() {
+		public EventSession Start() {
 			using (var connection = new SqlConnection(_connectionString)) {
 				const string sql = @";
 alter event session test_xes
@@ -60,6 +64,8 @@ alter event session test_xes
 
 				connection.Execute(sql);
 			}
+
+			return this;
 		}
 
 		// イベントを取得

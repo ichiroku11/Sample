@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace CancelConsoleApp {
 	// サンプルクエリ
 	public class SampleQuery {
+		// クエリの先頭に付けるコメント
 		public const string Tag = "CancelTest";
 
 		// パラメータを使わないSqlCommandを生成
