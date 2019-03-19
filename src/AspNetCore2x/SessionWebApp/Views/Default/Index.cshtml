@@ -1,28 +1,33 @@
+@using Microsoft.AspNetCore.Http
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
 	Layout = null;
+}
+@functions {
+	private ISession Session => ViewContext.HttpContext.Session;
 }
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
-	<title>Cookie</title>
+	<title>Session</title>
 </head>
 <body>
-	@if (ViewContext.HttpContext.Request.Cookies.Any()) {
-		foreach (var cookie in ViewContext.HttpContext.Request.Cookies) {
+	<p>@Session.Id</p>
+	@if (Session.Keys.Any()) {
+		foreach (var key in Session.Keys) {
 			<form asp-action="Delete" asp-antiforgery="false" method="post">
-				<input name="key" value="@cookie.Key" readonly />
+				<input name="key" value="@key" readonly />
 				:
-				<input value="@cookie.Value" readonly />
+				<input value="@Session.GetString(key)" readonly />
 				<button type="submit">Delete</button>
 			</form>
 		}
 	} else {
-		<p>Cookie not found</p>
+		<p>Session is empty</p>
 	}
 	<div>
-		<form asp-action="Add" asp-antiforgery="false" method="post">
+		<form asp-action="Set" asp-antiforgery="false" method="post">
 			<input name="key" placeholder="Key" />
 			:
 			<input name="value" placeholder="Value" />
