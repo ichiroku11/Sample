@@ -1,0 +1,35 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Cookie</title>
+</head>
+<body>
+	@if (ViewContext.HttpContext.Request.Cookies.Any()) {
+		foreach (var cookie in ViewContext.HttpContext.Request.Cookies) {
+			<form asp-action="Delete" asp-antiforgery="false" method="post">
+				<input name="key" value="@cookie.Key" readonly />
+				:
+				<input value="@cookie.Value" readonly />
+				<button type="submit">Delete</button>
+			</form>
+		}
+	} else {
+		<p>Cookie not found</p>
+	}
+	<div>
+		<form asp-action="Add" asp-antiforgery="false" method="post">
+			<input name="key" placeholder="Key" />
+			:
+			<input name="value" placeholder="Value" />
+			<button type="submit">Add</button>
+		</form>
+	</div>
+</body>
+</html>

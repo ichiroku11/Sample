@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerilogWebApp", "src\AspNet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostRedirectGetWebApp", "src\AspNetCore2x\PostRedirectGetWebApp\PostRedirectGetWebApp.csproj", "{4ACF7F05-43E0-478F-81CE-207820074ACD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieWebApp", "src\AspNetCore2x\CookieWebApp\CookieWebApp.csproj", "{49EDB380-4C08-4C5C-9FA7-40F83BD845B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4ACF7F05-43E0-478F-81CE-207820074ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ACF7F05-43E0-478F-81CE-207820074ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ACF7F05-43E0-478F-81CE-207820074ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49EDB380-4C08-4C5C-9FA7-40F83BD845B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49EDB380-4C08-4C5C-9FA7-40F83BD845B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49EDB380-4C08-4C5C-9FA7-40F83BD845B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49EDB380-4C08-4C5C-9FA7-40F83BD845B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
