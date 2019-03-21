@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerilogWebApp", "src\AspNet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostRedirectGetWebApp", "src\AspNetCore2x\PostRedirectGetWebApp\PostRedirectGetWebApp.csproj", "{4ACF7F05-43E0-478F-81CE-207820074ACD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieWebApp", "src\AspNetCore2x\CookieWebApp\CookieWebApp.csproj", "{49EDB380-4C08-4C5C-9FA7-40F83BD845B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieWebApp", "src\AspNetCore2x\CookieWebApp\CookieWebApp.csproj", "{49EDB380-4C08-4C5C-9FA7-40F83BD845B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionWebApp", "src\AspNetCore2x\SessionWebApp\SessionWebApp.csproj", "{B4C3EA9E-F653-416D-9B75-8295E93FC021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SessionWebApp", "src\AspNetCore2x\SessionWebApp\SessionWebApp.csproj", "{B4C3EA9E-F653-416D-9B75-8295E93FC021}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleTest", "src\AspNetCore2x\SampleTest\SampleTest.csproj", "{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{B4C3EA9E-F653-416D-9B75-8295E93FC021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4C3EA9E-F653-416D-9B75-8295E93FC021}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4C3EA9E-F653-416D-9B75-8295E93FC021}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
