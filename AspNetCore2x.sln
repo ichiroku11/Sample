@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieWebApp", "src\AspNetC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SessionWebApp", "src\AspNetCore2x\SessionWebApp\SessionWebApp.csproj", "{B4C3EA9E-F653-416D-9B75-8295E93FC021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleTest", "src\AspNetCore2x\SampleTest\SampleTest.csproj", "{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleTest", "src\AspNetCore2x\SampleTest\SampleTest.csproj", "{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAuthWebApp", "src\AspNetCore2x\BasicAuthWebApp\BasicAuthWebApp.csproj", "{555EF568-ED42-4648-B0AB-E34531670C24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5596D0D-AAAC-48DF-AFD6-7F5463D5A50F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{555EF568-ED42-4648-B0AB-E34531670C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{555EF568-ED42-4648-B0AB-E34531670C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{555EF568-ED42-4648-B0AB-E34531670C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{555EF568-ED42-4648-B0AB-E34531670C24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
