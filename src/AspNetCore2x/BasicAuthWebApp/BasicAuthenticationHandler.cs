@@ -18,7 +18,8 @@ namespace BasicAuthWebApp {
 		}
 
 		protected override Task<AuthenticateResult> HandleAuthenticateAsync() {
-			throw new NotImplementedException();
+			// todo:
+			return Task.FromResult(AuthenticateResult.NoResult());
 		}
 	}
 }
