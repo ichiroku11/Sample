@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -16,8 +17,11 @@ namespace BasicAuthWebApp.Test {
 		public async Task HomeIndex_Get_Unauthorized() {
 			using (var clinet = _factory.CreateClient()) {
 				var response = await clinet.GetAsync("/");
-
 				Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+
+				var headers = response.Headers.WwwAuthenticate;
+				Assert.Single(headers);
+				Assert.Equal("Basic", headers.First().Scheme);
 			}
 		}
 	}

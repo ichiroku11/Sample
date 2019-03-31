@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 
 namespace BasicAuthWebApp {
+	// 参考
+	// https://github.com/blowdart/idunno.Authentication/
 	public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions> {
 		private class HeaderNames {
 			public const string WwwAuthenticate = "WWW-Authenticate";
@@ -24,28 +26,36 @@ namespace BasicAuthWebApp {
 			: base(options, logger, encoder, clock) {
 		}
 
-		protected override Task<AuthenticateResult> HandleAuthenticateAsync() {
-			return Task.FromResult(AuthenticateResult.NoResult());
-			// todo:
-			/*
-			var header = Request.Headers[HeaderNames.Authorization];
-			if (StringValues.IsNullOrEmpty(header)) {
+		protected override async Task<AuthenticateResult> HandleAuthenticateAsync() {
+			var headerValue = (string)Request.Headers[HeaderNames.Authorization];
+			if (string.IsNullOrEmpty(headerValue)) {
 				// todo:
-				return Task.FromResult(AuthenticateResult.NoResult());
+				return AuthenticateResult.NoResult();
 			}
-			*/
+
+			if (!headerValue.StartsWith("Basic ")) {
+				return AuthenticateResult.NoResult();
+			}
+
+			var encodedCredentials = headerValue.Substring("Basic ".Length).Trim();
+			if (string.IsNullOrEmpty(encodedCredentials)) {
+				return AuthenticateResult.Fail("Missing credentials");
+			}
+
+			// todo: userName, password
+
+			// todo:
+			await Task.Delay(0);
+
+			return AuthenticateResult.NoResult();
 		}
 
 
 		protected override Task HandleChallengeAsync(AuthenticationProperties properties) {
-			return base.HandleChallengeAsync(properties);
-			// todo:
-			/*
 			Response.StatusCode = 401;
 			Response.Headers.Append(HeaderNames.WwwAuthenticate, "Basic");
 
 			return Task.CompletedTask;
-			*/
 		}
 	}
 }
