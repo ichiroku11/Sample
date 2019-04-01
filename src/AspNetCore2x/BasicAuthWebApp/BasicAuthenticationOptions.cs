@@ -6,5 +6,13 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace BasicAuthWebApp {
 	public class BasicAuthenticationOptions : AuthenticationSchemeOptions {
+		public BasicAuthenticationOptions() {
+			Events = new BasicAuthenticationEvents();
+		}
+
+		public new BasicAuthenticationEvents Events {
+			get => (BasicAuthenticationEvents)base.Events;
+			set => base.Events = value;
+		}
 	}
 }
