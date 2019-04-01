@@ -13,7 +13,19 @@ namespace BasicAuthWebApp {
 	// 参考
 	// https://github.com/blowdart/idunno.Authentication/
 	public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions> {
-		private class HeaderNames {
+		private static bool TryExtractCredentials(
+			string encodedCredentials,
+			out string userName,
+			out string password) {
+			// todo:
+
+			userName = "x";
+			password = "1";
+
+			return true;
+		}
+
+		private static class HeaderNames {
 			public const string WwwAuthenticate = "WWW-Authenticate";
 			public const string Authorization = "Authorization";
 		}
@@ -51,15 +63,21 @@ namespace BasicAuthWebApp {
 			}
 
 			// todo: encodedCredentails => userName, password
+			if (!TryExtractCredentials(encodedCredentials, out var userName, out var password)) {
+				return AuthenticateResult.Fail("Invalid credentials");
+			}
 
 			// todo: AuthenticationProperties
-			var context = new BasicValidatePrincipalContext(Context, Scheme, Options, null);
-			await Events.ValidatePrincipal(context);
+			var context = new BasicValidateCredentialsContext(Context, Scheme, Options, null);
+			await Events.ValidateCredentials(context);
+
+			if (context.Principal == null) {
+				return AuthenticateResult.Fail("Invalid username or password");
+			}
 
 			// todo:
-			//AuthenticateResult.Success()
-
-			return AuthenticateResult.NoResult();
+			var ticket = new AuthenticationTicket(context.Principal, context.Properties, Scheme.Name);
+			return AuthenticateResult.Success(ticket);
 		}
 
 

@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace BasicAuthWebApp {
 	public class BasicAuthenticationEvents {
-		public Func<BasicValidatePrincipalContext, Task> OnValidatePrincipal { get; set; }
+		// todo: Validateじゃない気がする
+		public Func<BasicValidateCredentialsContext, Task> OnValidateCredentials { get; set; }
 			= context => Task.CompletedTask;
 
-		public virtual Task ValidatePrincipal(BasicValidatePrincipalContext context) => OnValidatePrincipal(context);
+		public virtual Task ValidateCredentials(BasicValidateCredentialsContext context) => OnValidateCredentials(context);
 	}
 }

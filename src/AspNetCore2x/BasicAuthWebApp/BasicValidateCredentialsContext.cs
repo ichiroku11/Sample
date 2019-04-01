@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 
 namespace BasicAuthWebApp {
-	public class BasicValidatePrincipalContext : PrincipalContext<BasicAuthenticationOptions> {
-		public BasicValidatePrincipalContext(
+	// todo: Validateじゃない気もする
+	// todo: PrincipalContextを使う？
+	public class BasicValidateCredentialsContext : PrincipalContext<BasicAuthenticationOptions> {
+		public BasicValidateCredentialsContext(
 			HttpContext context,
 			AuthenticationScheme scheme,
 			BasicAuthenticationOptions options,
