@@ -26,6 +26,14 @@ namespace BasicAuthWebApp {
 			: base(options, logger, encoder, clock) {
 		}
 
+		protected new BasicAuthenticationEvents Events {
+			get => (BasicAuthenticationEvents)base.Events;
+			set => base.Events = value;
+		}
+
+		protected override Task<object> CreateEventsAsync()
+			=> Task.FromResult<object>(new BasicAuthenticationEvents());
+
 		protected override async Task<AuthenticateResult> HandleAuthenticateAsync() {
 			var headerValue = (string)Request.Headers[HeaderNames.Authorization];
 			if (string.IsNullOrEmpty(headerValue)) {
@@ -42,10 +50,14 @@ namespace BasicAuthWebApp {
 				return AuthenticateResult.Fail("Missing credentials");
 			}
 
-			// todo: userName, password
+			// todo: encodedCredentails => userName, password
+
+			// todo: AuthenticationProperties
+			var context = new BasicValidatePrincipalContext(Context, Scheme, Options, null);
+			await Events.ValidatePrincipal(context);
 
 			// todo:
-			await Task.Delay(0);
+			//AuthenticateResult.Success()
 
 			return AuthenticateResult.NoResult();
 		}
