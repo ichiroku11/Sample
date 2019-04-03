@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleTest", "src\DotNetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpConsoleApp", "src\DotNetCore2x\TcpConsoleApp\TcpConsoleApp.csproj", "{98389D66-C961-4963-9751-E8C61D3A0278}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdpConsoleApp", "src\DotNetCore2x\UdpConsoleApp\UdpConsoleApp.csproj", "{A2FCEE9B-4C12-49FA-AF99-2CD5BF8E66FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UdpConsoleApp", "src\DotNetCore2x\UdpConsoleApp\UdpConsoleApp.csproj", "{A2FCEE9B-4C12-49FA-AF99-2CD5BF8E66FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamedPipeConsoleApp", "src\DotNetCore2x\NamedPipeConsoleApp\NamedPipeConsoleApp.csproj", "{4C53539B-5642-4EAC-BD9B-66970F18A770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A2FCEE9B-4C12-49FA-AF99-2CD5BF8E66FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2FCEE9B-4C12-49FA-AF99-2CD5BF8E66FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2FCEE9B-4C12-49FA-AF99-2CD5BF8E66FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C53539B-5642-4EAC-BD9B-66970F18A770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C53539B-5642-4EAC-BD9B-66970F18A770}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C53539B-5642-4EAC-BD9B-66970F18A770}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C53539B-5642-4EAC-BD9B-66970F18A770}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
