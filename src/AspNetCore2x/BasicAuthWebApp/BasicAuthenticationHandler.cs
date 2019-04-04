@@ -13,18 +13,6 @@ namespace BasicAuthWebApp {
 	// 参考
 	// https://github.com/blowdart/idunno.Authentication/
 	public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions> {
-		private static bool TryExtractCredentials(
-			string encodedCredentials,
-			out string userName,
-			out string password) {
-			// todo:
-
-			userName = "x";
-			password = "1";
-
-			return true;
-		}
-
 		private static class HeaderNames {
 			public const string WwwAuthenticate = "WWW-Authenticate";
 			public const string Authorization = "Authorization";
@@ -62,8 +50,7 @@ namespace BasicAuthWebApp {
 				return AuthenticateResult.Fail("Missing credentials");
 			}
 
-			// todo: encodedCredentails => userName, password
-			if (!TryExtractCredentials(encodedCredentials, out var userName, out var password)) {
+			if (!BasicCredentialsHelper.TryDecode(encodedCredentials, out var userName, out var password)) {
 				return AuthenticateResult.Fail("Invalid credentials");
 			}
 
