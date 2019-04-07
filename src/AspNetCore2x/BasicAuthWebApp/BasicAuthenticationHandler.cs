@@ -54,16 +54,13 @@ namespace BasicAuthWebApp {
 				return AuthenticateResult.Fail("Invalid credentials");
 			}
 
-			// todo: AuthenticationProperties
-			var context = new BasicValidateCredentialsContext(Context, Scheme, Options, null);
-			await Events.ValidateCredentials(context);
-
-			if (context.Principal == null) {
+			var principal = await Options.Authenticator.AuthenticateAsync(userName, password);
+			if (principal == null) {
 				return AuthenticateResult.Fail("Invalid username or password");
 			}
 
 			// todo:
-			var ticket = new AuthenticationTicket(context.Principal, context.Properties, Scheme.Name);
+			var ticket = new AuthenticationTicket(principal, new AuthenticationProperties(), Scheme.Name);
 			return AuthenticateResult.Success(ticket);
 		}
 

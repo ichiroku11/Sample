@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +16,7 @@ namespace BasicAuthWebApp {
 			services
 				.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
 				.AddBasic(options => {
+					options.Authenticator = new BasicAuthenticator();
 				});
 
 			// MVC
