@@ -11,3 +11,9 @@ indent_style = tab
 insert_final_newline = true
 tab_width = 4
 trim_trailing_whitespace = true
+
+[*.{cs,cshtml}]
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = false
+csharp_new_line_before_catch = false
+csharp_new_line_before_finally = false
