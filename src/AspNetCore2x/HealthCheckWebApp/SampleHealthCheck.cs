@@ -15,9 +15,8 @@ namespace HealthCheckWebApp {
 		public Task<HealthCheckResult> CheckHealthAsync(
 			HealthCheckContext context,
 			CancellationToken cancellationToken = default) {
-			_logger.LogInformation(nameof(CheckHealthAsync));
+			_logger.LogInformation($"{nameof(SampleHealthCheck)}.{nameof(CheckHealthAsync)}");
 
-			// todo:
 			return Task.FromResult(HealthCheckResult.Healthy());
 		}
 	}

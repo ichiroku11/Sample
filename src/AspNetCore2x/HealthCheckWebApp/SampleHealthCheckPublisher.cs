@@ -16,8 +16,7 @@ namespace HealthCheckWebApp {
 		}
 
 		public Task PublishAsync(HealthReport report, CancellationToken cancellationToken) {
-			// todo:
-			_logger.LogInformation(nameof(PublishAsync));
+			_logger.LogInformation($"{nameof(SampleHealthCheckPublisher)}.{nameof(PublishAsync)}");
 			_logger.LogInformation(JsonConvert.SerializeObject(report));
 
 			return Task.CompletedTask;
