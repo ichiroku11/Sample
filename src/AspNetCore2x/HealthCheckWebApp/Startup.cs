@@ -24,21 +24,22 @@ namespace HealthCheckWebApp {
 				.AddCheck<SampleHealthCheck>(
 					name: "sample-check-nourishing",
 					tags: new[] { "tag-nourishing" });
-
 			services.AddHealthChecks()
 				.AddCheck(
 					name: "sample-check-junk",
+					// ラムダ式でもヘルスチェックを指定できる
 					check: () => {
 						_logger.LogInformation($"DelegateHealthCheck.{nameof(IHealthCheck.CheckHealthAsync)}");
 						return HealthCheckResult.Unhealthy();
 					},
 					tags: new[] { "tag-junk" });
 
-			services.AddSingleton<IHealthCheckPublisher, SampleHealthCheckPublisher>();
-
-			services.Configure<HealthCheckPublisherOptions>(options => {
-				// todo:
-			});
+			// todo:
+			services
+				.AddSingleton<IHealthCheckPublisher, SampleHealthCheckPublisher>()
+				.Configure<HealthCheckPublisherOptions>(options => {
+					// todo:
+				});
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
@@ -46,12 +47,13 @@ namespace HealthCheckWebApp {
 				app.UseDeveloperExceptionPage();
 			}
 
+			// パイプラインにヘルチェックを追加
 			app.UseHealthChecks(
 				path: "/health/nourishing",
 				options: new HealthCheckOptions {
+					// タグを使ってフィルタ
 					Predicate = registration => registration.Tags.Contains("tag-nourishing"),
 				});
-
 			app.UseHealthChecks(
 				path: "/health/junk",
 				options: new HealthCheckOptions {

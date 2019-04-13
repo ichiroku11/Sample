@@ -17,6 +17,8 @@ namespace HealthCheckWebApp {
 			CancellationToken cancellationToken = default) {
 			_logger.LogInformation($"{nameof(SampleHealthCheck)}.{nameof(CheckHealthAsync)}");
 
+			// ここでシステムをチェックする
+
 			return Task.FromResult(HealthCheckResult.Healthy());
 		}
 	}
