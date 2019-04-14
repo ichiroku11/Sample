@@ -4,8 +4,7 @@ using System.Text;
 using Xunit;
 
 namespace SampleTest {
-	// null合体演算子
-
+	// null合体演算子のテスト
 	public class NullCoalescingOperatorTest {
 		[Fact]
 		public void Null合体演算子_左辺がnullでない場合は左辺の値を返す() {
