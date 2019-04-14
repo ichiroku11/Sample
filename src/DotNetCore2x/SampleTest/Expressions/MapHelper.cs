@@ -4,12 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Xunit;
 
-namespace SampleTest {
-	public class ExpressionTest {
+namespace SampleTest.Expressions {
+	public static class MapHelper {
 		// AutoMapperのようなマッピングメソッドを生成する
-		private Func<TSource, TResult> CreateMapper<TSource, TResult>() {
+		public static Func<TSource, TResult> CreateMapper<TSource, TResult>() {
 			// 関数パラメータの宣言
 			var source = Expression.Parameter(typeof(TSource), "source");
 
@@ -50,29 +49,6 @@ namespace SampleTest {
 			var lambda = Expression.Lambda<Func<TSource, TResult>>(block, source);
 
 			return lambda.Compile();
-		}
-
-		// テスト用：コピー元
-		private class From {
-			public int Id { get; set; }
-			public string Name { get; set; }
-		}
-
-		// テスト用：コピー先
-		private class To {
-			public int Id { get; set; }
-			public string Name { get; set; }
-		}
-
-		[Fact]
-		public void CreateMapper_AutoMapperみたいな機能を構築する() {
-			var mapper = CreateMapper<From, To>();
-
-			var from = new From { Id = 1, Name = "x" };
-			var to = mapper(from);
-
-			Assert.Equal(from.Id, to.Id);
-			Assert.Equal(from.Name, to.Name);
 		}
 	}
 }
