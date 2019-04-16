@@ -6,13 +6,14 @@ using Xunit;
 namespace SampleTest {
 	// null条件演算子のテスト
 	public class NullConditionalOperatorTest {
-		[Fact(Skip = "何をテストしようか")]
+		[Fact]
 		public void Null条件演算子_何を試そう() {
-			/*
-			var action = default(Action);
-
+			var value = false;
+			Action action = () => value = true;
 			action?.Invoke();
-			*/
+
+			Assert.True(value);
+
 		}
 	}
 }
