@@ -26,7 +26,7 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public Task SetCanceled() {
+		public void SetCanceled() {
 			// 指定した時間が経過した後にキャンセルするローカル関数
 			Task cancelAsync(int milliseconds) {
 				var source = new TaskCompletionSource<int>();
@@ -39,12 +39,10 @@ namespace SampleTest {
 
 			// 100ms後にキャンセルされる
 			Assert.ThrowsAsync<TaskCanceledException>(async () => await cancelAsync(100));
-
-			return Task.CompletedTask;
 		}
 
 		[Fact]
-		public Task SetException() {
+		public void SetException() {
 			// 指定した時間が経過した後に例外をスローするローカル関数
 			Task throwAsync<TException>(TException exception, int milliseconds)
 				where TException : Exception {
@@ -59,8 +57,6 @@ namespace SampleTest {
 			// 100ms後に例外スローされる
 			Assert.ThrowsAsync<ArgumentOutOfRangeException>(
 				async () => await throwAsync(new ArgumentOutOfRangeException(), 100));
-
-			return Task.CompletedTask;
 		}
 	}
 }
