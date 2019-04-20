@@ -46,6 +46,7 @@ namespace SampleTest {
 				var response = await client.SendAsync(request, CancellationToken.None);
 
 				// Assert
+				Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 				Assert.Equal("Request", request.Headers.GetValues("X-SampleHandler").Single());
 				Assert.Equal("Response", response.Headers.GetValues("X-SampleHandler").Single());
 			}
