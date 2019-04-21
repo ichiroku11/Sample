@@ -23,8 +23,7 @@ namespace HealthCheckWebApp {
 			services.AddHealthChecks()
 				.AddCheck<SampleHealthCheck>(
 					name: "sample-check-nourishing",
-					tags: new[] { "tag-nourishing" });
-			services.AddHealthChecks()
+					tags: new[] { "tag-nourishing" })
 				.AddCheck(
 					name: "sample-check-junk",
 					// ラムダ式でもヘルスチェックを指定できる
