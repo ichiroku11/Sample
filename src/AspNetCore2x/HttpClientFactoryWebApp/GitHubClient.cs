@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,22 @@ namespace HttpClientFactoryWebApp {
 		public GitHubClient(HttpClient client) {
 			_client = client;
 			_client.BaseAddress = new Uri("https://api.github.com");
-			_client.DefaultRequestHeaders.Accept.TryParseAdd("application/vnd.github.v3+json");
+
+			// ユーザエージェントは必須らしい
+			// https://developer.github.com/v3/#user-agent-required
+			_client.DefaultRequestHeaders.UserAgent.TryParseAdd("Sample");
+			//_client.DefaultRequestHeaders.Accept.TryParseAdd("application/vnd.github.v3+json");
 		}
 
-		public Task<Gist> GetGistAsync(string id) {
-			// todo:
-			return Task.FromResult(new Gist());
+		public async Task<Gist> GetGistAsync(string gistId) {
+			var request = new HttpRequestMessage(HttpMethod.Get, $"/gists/{gistId}");
+
+			var response = await _client.SendAsync(request);
+			response.EnsureSuccessStatusCode();
+
+			var content = await response.Content.ReadAsStringAsync();
+
+			return JsonConvert.DeserializeObject<Gist>(content);
 		}
 	}
 }

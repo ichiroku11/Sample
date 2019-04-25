@@ -13,9 +13,16 @@ namespace HttpClientFactoryWebApp.Controllers {
 		}
 
 		public async Task<IActionResult> Index() {
-			var gist = await _client.GetGistAsync("990d9fa349c798094b91cd90b185a4b6");
+			// とりあえずこれを取得
+			// https://gist.github.com/ichiroku11/8b7df06784249371c899ef4ea8064b3f
+			var gist = await _client.GetGistAsync("8b7df06784249371c899ef4ea8064b3f");
 
-			return Content("HttpClientFactory");
+			var file = gist?.Files?.FirstOrDefault();
+			if (file == null) {
+				return NotFound();
+			}
+
+			return Content(file.Value.Value.Content);
 		}
 	}
 }
