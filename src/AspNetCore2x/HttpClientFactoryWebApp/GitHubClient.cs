@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HttpClientFactoryWebApp {
+	// GitHub API呼び出し
 	public class GitHubClient {
 		private readonly HttpClient _client;
 
@@ -19,6 +20,7 @@ namespace HttpClientFactoryWebApp {
 			//_client.DefaultRequestHeaders.Accept.TryParseAdd("application/vnd.github.v3+json");
 		}
 
+		// 指定したIDのgistを取得
 		public async Task<Gist> GetGistAsync(string gistId) {
 			var request = new HttpRequestMessage(HttpMethod.Get, $"/gists/{gistId}");
 
