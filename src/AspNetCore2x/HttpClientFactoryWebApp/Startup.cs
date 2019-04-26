@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace HttpClientFactoryWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
+			// https://docs.microsoft.com/ja-jp/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2
 			// 型指定されたクライアント（Typed client）を登録
 			services.AddHttpClient<GitHubClient>(client => {
 				// ここでカスタマイズすることもできる
