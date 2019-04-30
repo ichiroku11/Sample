@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HttpClientFactoryWebApp {
@@ -12,9 +11,10 @@ namespace HttpClientFactoryWebApp {
 		public void ConfigureServices(IServiceCollection services) {
 			// https://docs.microsoft.com/ja-jp/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2
 			// 型指定されたクライアント（Typed client）を登録
-			services.AddHttpClient<GitHubClient>(client => {
-				// ここでカスタマイズすることもできる
-			});
+			services
+				.AddHttpClient<GitHubApiClient>(client => {
+					// ここでカスタマイズすることもできる
+				});
 
 			services.AddMvc();
 		}

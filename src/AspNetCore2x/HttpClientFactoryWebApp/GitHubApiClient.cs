@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace HttpClientFactoryWebApp {
 	// GitHub API呼び出し
-	public class GitHubClient {
+	public class GitHubApiClient {
 		private readonly HttpClient _client;
 
-		public GitHubClient(HttpClient client) {
+		public GitHubApiClient(HttpClient client) {
 			_client = client;
 			_client.BaseAddress = new Uri("https://api.github.com");
 

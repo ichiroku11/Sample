@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HttpClientFactoryWebApp.Controllers {
 	public class DefaultController : Controller {
-		private readonly GitHubClient _client;
+		private readonly GitHubApiClient _client;
 
-		public DefaultController(GitHubClient client) {
+		public DefaultController(GitHubApiClient client) {
 			_client = client;
 		}
 
