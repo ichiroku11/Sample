@@ -9,12 +9,18 @@ using Microsoft.Extensions.DependencyInjection;
 namespace HttpClientFactoryWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
+			// ハンドラをHttpClientに追加するために
+			// ハンドラをサービスに登録
+			services.AddTransient<GitHubHttpClientHandler>();
+
 			// https://docs.microsoft.com/ja-jp/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2
 			// 型指定されたクライアント（Typed client）を登録
 			services
 				.AddHttpClient<GitHubApiClient>(client => {
 					// ここでカスタマイズすることもできる
-				});
+				})
+				// HttpClientにハンドラを追加する
+				.AddHttpMessageHandler<GitHubHttpClientHandler>();
 
 			services.AddMvc();
 		}

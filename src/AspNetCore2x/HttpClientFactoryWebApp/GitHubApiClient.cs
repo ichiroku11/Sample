@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,12 @@ using System.Threading.Tasks;
 namespace HttpClientFactoryWebApp {
 	// GitHub API呼び出し
 	public class GitHubApiClient {
+		private readonly ILogger _logger;
 		private readonly HttpClient _client;
 
-		public GitHubApiClient(HttpClient client) {
+		public GitHubApiClient(ILogger<GitHubApiClient> logger, HttpClient client) {
+			_logger = logger;
+
 			_client = client;
 			_client.BaseAddress = new Uri("https://api.github.com");
 
@@ -22,6 +26,8 @@ namespace HttpClientFactoryWebApp {
 
 		// 指定したIDのgistを取得
 		public async Task<Gist> GetGistAsync(string gistId) {
+			_logger.LogInformation($"{nameof(GetGistAsync)}");
+
 			var request = new HttpRequestMessage(HttpMethod.Get, $"/gists/{gistId}");
 
 			var response = await _client.SendAsync(request);
