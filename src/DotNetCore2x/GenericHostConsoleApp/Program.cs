@@ -6,26 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace GenericHostConsoleApp {
-	class SampleService : IHostedService {
-		private readonly ILogger _logger;
-
-		public SampleService(ILogger<SampleService> logger) {
-			_logger = logger;
-		}
-
-		public Task StartAsync(CancellationToken cancellationToken) {
-			_logger.LogInformation(nameof(StartAsync));
-
-			return Task.CompletedTask;
-		}
-
-		public Task StopAsync(CancellationToken cancellationToken) {
-			_logger.LogInformation(nameof(StopAsync));
-
-			return Task.CompletedTask;
-		}
-	}
-
 	class Program {
 		static async Task Main(string[] args) {
 			Console.WriteLine("Hello World!");
@@ -38,6 +18,7 @@ namespace GenericHostConsoleApp {
 					/*
 					var env = hostingContext.HostingEnvironment;
 
+					// Install-Package Microsoft.Extensions.Configuration.Json
 					config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 						  .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 					*/
@@ -49,7 +30,11 @@ namespace GenericHostConsoleApp {
 				.ConfigureLogging((context, logging) => {
 					// todo: WebHost.cs
 					logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+
+					// Install-Package Microsoft.Extensions.Logging.Console
 					logging.AddConsole();
+
+					// Install-Package Microsoft.Extensions.Logging.Debug
 					logging.AddDebug();
 					//logging.AddEventSourceLogger();
 				})
