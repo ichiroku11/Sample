@@ -13,8 +13,7 @@ namespace GenericHostConsoleApp {
 			// https://docs.microsoft.com/ja-jp/aspnet/core/fundamentals/host/generic-host
 			await new HostBuilder()
 				.ConfigureAppConfiguration((context, config) => {
-					// todo: json
-					// todo: WebHost.cs
+					// appsettings.jsonを読み込む設定
 					/*
 					var env = hostingContext.HostingEnvironment;
 
@@ -24,11 +23,11 @@ namespace GenericHostConsoleApp {
 					*/
 				})
 				.ConfigureServices(services => {
-					// todo:
+					// 実行するホステッドサービスを追加
 					services.AddHostedService<SampleService>();
 				})
 				.ConfigureLogging((context, logging) => {
-					// todo: WebHost.cs
+					// ログの構成
 					logging.AddConfiguration(context.Configuration.GetSection("Logging"));
 
 					// Install-Package Microsoft.Extensions.Logging.Console
@@ -36,6 +35,7 @@ namespace GenericHostConsoleApp {
 
 					// Install-Package Microsoft.Extensions.Logging.Debug
 					logging.AddDebug();
+
 					//logging.AddEventSourceLogger();
 				})
 				.RunConsoleAsync();
