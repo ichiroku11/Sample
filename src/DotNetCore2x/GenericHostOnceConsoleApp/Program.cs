@@ -22,6 +22,9 @@ namespace GenericHostOnceConsoleApp {
 				})
 				.UseConsoleLifetime();
 
+			// ホストを開始して、サービスの実行が終わったら、ホストも終了する
+			// 参考
+			// https://github.com/aspnet/Hosting/blob/release/2.1/samples/GenericHostSample/ProgramFullControl.cs
 			using (var host = builder.Build()) {
 				// 開始する
 				await host.StartAsync();
