@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UdpConsoleApp", "src\DotNet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NamedPipeConsoleApp", "src\DotNetCore2x\NamedPipeConsoleApp\NamedPipeConsoleApp.csproj", "{4C53539B-5642-4EAC-BD9B-66970F18A770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHostConsoleApp", "src\DotNetCore2x\GenericHostConsoleApp\GenericHostConsoleApp.csproj", "{13A66BF2-ACB6-4727-98B7-B959FAB60B5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericHostConsoleApp", "src\DotNetCore2x\GenericHostConsoleApp\GenericHostConsoleApp.csproj", "{13A66BF2-ACB6-4727-98B7-B959FAB60B5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHostOnceConsoleApp", "src\DotNetCore2x\GenericHostOnceConsoleApp\GenericHostOnceConsoleApp.csproj", "{ED7BFDB0-AADE-4CED-9946-7EE62FF25083}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{13A66BF2-ACB6-4727-98B7-B959FAB60B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13A66BF2-ACB6-4727-98B7-B959FAB60B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13A66BF2-ACB6-4727-98B7-B959FAB60B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED7BFDB0-AADE-4CED-9946-7EE62FF25083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED7BFDB0-AADE-4CED-9946-7EE62FF25083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED7BFDB0-AADE-4CED-9946-7EE62FF25083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED7BFDB0-AADE-4CED-9946-7EE62FF25083}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
