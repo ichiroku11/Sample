@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace GenericHostConsoleApp {
+	// バックグラウンドで実行されるサービス
 	class SampleService : IHostedService {
 		private readonly ILogger _logger;
 
