@@ -28,5 +28,17 @@ namespace SampleTest {
 				Task.FromCanceled(new CancellationToken(false));
 			});
 		}
+
+		[Fact]
+		public void Wait_例外はAggregateExceptionに集約される() {
+			// Arrange
+			// Act
+			var task = Task.FromCanceled(new CancellationToken(true));
+
+			// Assert
+			var exception = Assert.Throws<AggregateException>(() => task.Wait());
+			Assert.Single(exception.InnerExceptions);
+			Assert.IsType<TaskCanceledException>(exception.InnerException);
+		}
 	}
 }
