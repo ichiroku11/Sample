@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace SampleTest {
+	// AngleSharpを試してみる
+	// https://anglesharp.github.io/
+	// https://github.com/AngleSharp/AngleSharp/blob/master/doc/Basics.md
 	public class AngleSharpTest {
 		[Fact]
 		public async Task OpenAsyncでドキュメントを読み込む() {
