@@ -4,12 +4,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SampleTest {
 	public class CancellationTokenSourceTest : IDisposable {
+		private readonly ITestOutputHelper _output;
 		private readonly CancellationTokenSource _source;
 
-		public CancellationTokenSourceTest() {
+
+		public CancellationTokenSourceTest(ITestOutputHelper output) {
+			_output = output;
 			_source = new CancellationTokenSource();
 		}
 
@@ -22,18 +26,49 @@ namespace SampleTest {
 		[Fact]
 		public async Task Cancel_awaitするとTaskCanceledExceptionがスローされる() {
 			// Arrange
-			var token = _source.Token;
-
 			// Act
-			var task = Task.Delay(Timeout.Infinite, token);
 
+			// 無限に待機するタスク
+			var task = Task.Delay(Timeout.Infinite, _source.Token);
+
+			// トークンソースでキャンセルする
 			_source.Cancel();
 
 			// Assert
+			await Assert.ThrowsAsync<TaskCanceledException>(async () => {
+				// タスクの完了、キャンセルを待機
+				await task;
+			});
+		}
+
+		[Fact]
+		public async Task Cancel_キャンセルするとRegisterで登録したコールバックが呼ばれる() {
+			// Arrange
+			// Act
+			// Assert
+			var token = _source.Token;
+
+			// キャンセル時のコールバックを指定する
+			var callback = false;
+			token.Register(() => {
+				_output.WriteLine("canceled");
+				callback = true;
+			});
+
+			var task = Task.Delay(Timeout.Infinite, token);
+
+			// コールバックはまだ呼ばれていない
+			Assert.False(callback);
+
+			// キャンセル
+			_source.Cancel();
+
+			// コールバックが呼ばれた
+			Assert.True(callback);
+
 			await Assert.ThrowsAsync<TaskCanceledException>(async () => {
 				await task;
 			});
 		}
 	}
-
 }
