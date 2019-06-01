@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace ProducerConsumerConsoleApp {
 	public class ConsumerService : IHostedService {
 		public Task StartAsync(CancellationToken cancellationToken) {
+			// todo:
 			return Task.CompletedTask;
 		}
 
 		public Task StopAsync(CancellationToken cancellationToken) {
+			// todo:
 			return Task.CompletedTask;
 		}
 	}
