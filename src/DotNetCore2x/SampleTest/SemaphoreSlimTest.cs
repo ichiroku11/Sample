@@ -24,6 +24,8 @@ namespace SampleTest {
 			}
 		}
 
+		// todo: これダメだ
+		/*
 		[Fact]
 		public async Task 使ってみる2() {
 			// Arrange
@@ -47,6 +49,7 @@ namespace SampleTest {
 				await task;
 			}
 		}
+		*/
 
 		// todo: 上手く書けない
 		/*
