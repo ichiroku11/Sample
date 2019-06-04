@@ -15,13 +15,37 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void SemaphoreSlimを使ってみる() {
+		public void 使ってみる() {
 			// Arrange
 			// Act
 			// Assert
-			var semaphore = new SemaphoreSlim(0);
+			using (var semaphore = new SemaphoreSlim(0)) {
+				Assert.Equal(0, semaphore.CurrentCount);
+			}
+		}
 
-			Assert.Equal(0, semaphore.CurrentCount);
+		[Fact]
+		public async Task 使ってみる2() {
+			// Arrange
+			// Act
+			// Assert
+			using (var semaphore = new SemaphoreSlim(1)) {
+				var step = 0;
+
+				var task = Task.Run(async () => {
+					await semaphore.WaitAsync();
+
+					Interlocked.Increment(ref step);
+				});
+
+				Assert.Equal(0, step);
+
+				semaphore.Release();
+
+				Assert.Equal(1, step);
+
+				await task;
+			}
 		}
 
 		// todo: 上手く書けない
