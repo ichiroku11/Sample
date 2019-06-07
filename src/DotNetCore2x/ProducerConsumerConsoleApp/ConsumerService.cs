@@ -16,11 +16,9 @@ namespace ProducerConsumerConsoleApp {
 
 		protected override async Task ExecuteCoreAsync(CancellationToken stoppingToken) {
 			while (!stoppingToken.IsCancellationRequested) {
-				// todo:
-				// 取り出す
+				Console.WriteLine($"{nameof(ConsumerService)}: Dequeue(before)");
 				var bytes = await _queue.DequeueAsync(stoppingToken);
-
-				// todo:
+				Console.WriteLine($"{nameof(ConsumerService)}: Dequeue(after) {HexHelper.ToString(bytes)}");
 			}
 		}
 	}

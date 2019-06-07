@@ -15,15 +15,22 @@ namespace ProducerConsumerConsoleApp {
 		}
 
 		protected override async Task ExecuteCoreAsync(CancellationToken stoppingToken) {
-			while (!stoppingToken.IsCancellationRequested) {
-				// todo: ランダムな時間待機する
-				await Task.Delay(1000, stoppingToken);
+			var random = new Random();
 
-				// todo: ランダムな値を生成してキューに追加する
-				var item = new byte[] {
-					0x00, 0x01, 0x02, 0x03, 0x04,
-				};
-				_queue.Enqueue(item);
+			while (!stoppingToken.IsCancellationRequested) {
+				// ランダムな時間待機する
+				var sec = random.Next(1, 5);
+
+				Console.WriteLine($"{nameof(ProducerService)}: Wait {sec}s");
+				await Task.Delay(TimeSpan.FromSeconds(sec));
+
+				// ランダムな値をキューに追加する
+				var bytes = new byte[5];
+				random.NextBytes(bytes);
+
+				Console.WriteLine($"{nameof(ProducerService)}: Enqueue(before) {HexHelper.ToString(bytes)}");
+				_queue.Enqueue(bytes);
+				Console.WriteLine($"{nameof(ProducerService)}: Enqueue(after) {HexHelper.ToString(bytes)}");
 			}
 		}
 	}
