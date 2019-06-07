@@ -14,11 +14,21 @@ namespace ProducerConsumerConsoleApp {
 			_queue = queue;
 		}
 
+		private void WriteLine(string message) => ConsoleHelper.WriteLine(message, ConsoleColor.Cyan);
+
 		protected override async Task ExecuteCoreAsync(CancellationToken stoppingToken) {
+			var random = new Random();
+
 			while (!stoppingToken.IsCancellationRequested) {
-				Console.WriteLine($"{nameof(ConsumerService)}: Dequeue(before)");
+				WriteLine($"{nameof(ConsumerService)}: Dequeue(before)");
 				var bytes = await _queue.DequeueAsync(stoppingToken);
-				Console.WriteLine($"{nameof(ConsumerService)}: Dequeue(after) {HexHelper.ToString(bytes)}");
+				WriteLine($"{nameof(ConsumerService)}: Dequeue(after) {HexHelper.ToString(bytes)}");
+
+				// ランダムな時間待機する（何か処理する想定）
+				var sec = random.Next(1, 5);
+
+				WriteLine($"{nameof(ConsumerService)}: Wait {sec}s");
+				await Task.Delay(TimeSpan.FromSeconds(sec));
 			}
 		}
 	}
