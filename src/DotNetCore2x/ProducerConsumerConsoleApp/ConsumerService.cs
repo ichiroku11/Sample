@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 namespace ProducerConsumerConsoleApp {
 	public class ConsumerService : WorkerService {
 		private readonly IBlockingQueue<IEnumerable<byte>> _queue;
+		private readonly IConsoleHelper _console;
 
-		public ConsumerService(IApplicationLifetime lifetime, IBlockingQueue<IEnumerable<byte>> queue)
+		public ConsumerService(
+			IApplicationLifetime lifetime,
+			IBlockingQueue<IEnumerable<byte>> queue,
+			IConsoleHelper console)
 			: base(lifetime) {
 			_queue = queue;
+			_console = console;
 		}
 
-		private void WriteLine(string message) => ConsoleHelper.WriteLine(message, ConsoleColor.Cyan);
+		private void WriteLine(string message) => _console.WriteLine(message, ConsoleColor.Cyan);
 
 		protected override async Task ExecuteCoreAsync(CancellationToken stoppingToken) {
 			var random = new Random();
@@ -25,10 +30,9 @@ namespace ProducerConsumerConsoleApp {
 				WriteLine($"{nameof(ConsumerService)}: Dequeue(after) {HexHelper.ToString(bytes)}");
 
 				// ランダムな時間待機する（何か処理する想定）
-				var sec = random.Next(1, 5);
-
+				var sec = random.Next(1, 3);
 				WriteLine($"{nameof(ConsumerService)}: Wait {sec}s");
-				await Task.Delay(TimeSpan.FromSeconds(sec));
+				await Task.Delay(TimeSpan.FromSeconds(sec), stoppingToken);
 			}
 		}
 	}

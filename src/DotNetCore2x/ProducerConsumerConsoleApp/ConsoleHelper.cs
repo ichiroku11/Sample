@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ProducerConsumerConsoleApp {
-	public static class ConsoleHelper {
-
+	public class ConsoleHelper : IConsoleHelper {
 		private static readonly object _lock = new object();
 
-		public static void WriteLine(string message, ConsoleColor color) {
+		public void WriteLine(string message, ConsoleColor color) {
+			// キューにためて処理した方がいい気がする
 			lock (_lock) {
 				Console.ForegroundColor = color;
 				Console.WriteLine(message);

@@ -17,6 +17,7 @@ namespace ProducerConsumerConsoleApp {
 				.ConfigureServices(services => {
 					services
 						.AddSingleton<IBlockingQueue<IEnumerable<byte>>, BlockingQueue<IEnumerable<byte>>>()
+						.AddSingleton<IConsoleHelper, ConsoleHelper>()
 						.AddHostedService<ProducerService>()
 						.AddHostedService<ConsumerService>();
 				})
