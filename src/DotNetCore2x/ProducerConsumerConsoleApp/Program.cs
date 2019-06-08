@@ -16,6 +16,8 @@ namespace ProducerConsumerConsoleApp {
 				})
 				.ConfigureServices(services => {
 					services
+						// もう1つ使いたい場合はどうすれば？
+						// 1つはProducerServiceとConsumerServiceで共有したい
 						.AddSingleton(typeof(IBlockingQueue<>), typeof(BlockingQueue<>))
 						.AddSingleton<IConsoleHelper, ConsoleHelper>()
 						.AddHostedService<ProducerService>()
