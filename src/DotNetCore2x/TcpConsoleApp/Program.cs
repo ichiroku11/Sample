@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -21,14 +21,14 @@ namespace TcpConsoleApp {
 					Content = new string(request.Content.Reverse().ToArray()),
 				});
 			// 接続を待機
-			var task = Task.Run(() => server.Listen());
+			var task = Task.Run(() => server.RunAsync());
 
 			// クライアント
 			Task.WaitAll(
 				// リクエストを送信してレスポンスを受信
-				new Client<Message, Message>(endpoint).Send(new Message { Id = 10, Content = "あいうえお" }),
-				new Client<Message, Message>(endpoint).Send(new Message { Id = 20, Content = "かきくけこ" }),
-				new Client<Message, Message>(endpoint).Send(new Message { Id = 30, Content = "さしすせそ" })
+				new Client<Message, Message>(endpoint).SendAsync(new Message { Id = 10, Content = "あいうえお" }),
+				new Client<Message, Message>(endpoint).SendAsync(new Message { Id = 20, Content = "かきくけこ" }),
+				new Client<Message, Message>(endpoint).SendAsync(new Message { Id = 30, Content = "さしすせそ" })
 			);
 
 			// サーバを終了

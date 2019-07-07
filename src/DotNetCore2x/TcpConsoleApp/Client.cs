@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -16,7 +16,7 @@ namespace TcpConsoleApp {
 		}
 
 		// サーバにリクエストを送信してレスポンスを受信する
-		public async Task<TResponse> Send(TRequest request) {
+		public async Task<TResponse> SendAsync(TRequest request) {
 			using (var client = new TcpClient()) {
 				// 1. サーバに接続
 				await client.ConnectAsync(_endpoint.Address, _endpoint.Port);

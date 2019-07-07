@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -39,7 +39,7 @@ namespace TcpConsoleApp {
 		}
 
 		// 接続を待つ
-		public async Task Listen() {
+		public async Task RunAsync() {
 			Console.WriteLine($"Server listen:");
 			// 1. クライアントからの接続を待つ
 			_listener.Start();
