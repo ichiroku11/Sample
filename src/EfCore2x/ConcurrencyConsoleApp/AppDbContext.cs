@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -14,30 +15,26 @@ namespace ConcurrencyConsoleApp {
 				IntegratedSecurity = true,
 			}.ToString();
 
-		// todo:
-		/*
 		// 参考
 		// https://docs.microsoft.com/ja-jp/ef/core/miscellaneous/logging
-		private static readonly LoggerFactory _factory
+		private static readonly LoggerFactory _loggerFactory
 			= new LoggerFactory(
 				new[] {
-					// Ver3.0でObsoleteは消えるらしい
+					// Information以上のログを残す
+					// EF Core 3.0でObsoleteは消えるらしい
 					new ConsoleLoggerProvider((_, level) => level >= LogLevel.Information, true),
 				});
-		*/
 
 		public DbSet<Monster> Monsters { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 			optionsBuilder
-				// todo:
-				/*
 				// ロガーファクトリ
 				.UseLoggerFactory(_loggerFactory)
-				*/
-				// デフォルトでトラッキングしようにする
-				.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-				.UseSqlServer(_connectionString);
+				// SQL Server
+				.UseSqlServer(_connectionString)
+				// デフォルトでトラッキングしない
+				.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
