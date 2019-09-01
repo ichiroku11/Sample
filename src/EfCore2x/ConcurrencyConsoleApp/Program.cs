@@ -1,5 +1,7 @@
+using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace ConcurrencyConsoleApp {
@@ -62,6 +64,45 @@ values
 					Console.WriteLine(excetipn);
 				}
 			}
+
+			/*
+			// SQL（ExecuteSqlCommandAsync）で更新
+			// 結果が0件になるだけ
+			using (var dbContext = new AppDbContext()) {
+				var sql = @"
+update dbo.Monster
+set Hp = @hp
+where Id = @id and Ver = @ver;";
+
+				var parameters = new[] {
+					new SqlParameter("@hp", second.Hp),
+					new SqlParameter("@id", second.Id),
+					new SqlParameter("@ver", second.Ver),
+				};
+
+				var result = await dbContext.Database.ExecuteSqlCommandAsync(sql, parameters);
+				Console.WriteLine($"{nameof(result)}: {result}");
+				// result: 0
+			}
+
+			// SQL（Dapper）で更新
+			// 結果が0件になるだけ
+			using (var dbContext = new AppDbContext()) {
+				var sql = @"
+update dbo.Monster
+set Hp = @hp
+where Id = @id and Ver = @ver;";
+
+				var parameters = new {
+					hp = second.Hp,
+					id = second.Id,
+					ver = second.Ver,
+				};
+				var result = await dbContext.Database.GetDbConnection().ExecuteAsync(sql, parameters);
+				Console.WriteLine($"{nameof(result)}: {result}");
+				// result: 0
+			}
+			*/
 		}
 
 		static async Task Main(string[] args) {
