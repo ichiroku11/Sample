@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstConsoleApp", "src\EfCore2x\FirstConsoleApp\FirstConsoleApp.csproj", "{70D7CE7A-7F9A-4D9F-8A41-8B51D73F6BB7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CancelConsoleApp", "src\EfCore2x\CancelConsoleApp\CancelConsoleApp.csproj", "{F03A5573-B62A-4DE2-98C5-3201C74DAD65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcurrencyConsoleApp", "src\EfCore2x\ConcurrencyConsoleApp\ConcurrencyConsoleApp.csproj", "{B7FADBA5-73DC-4886-BE80-C6F36AB3AE23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F03A5573-B62A-4DE2-98C5-3201C74DAD65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F03A5573-B62A-4DE2-98C5-3201C74DAD65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F03A5573-B62A-4DE2-98C5-3201C74DAD65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7FADBA5-73DC-4886-BE80-C6F36AB3AE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7FADBA5-73DC-4886-BE80-C6F36AB3AE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7FADBA5-73DC-4886-BE80-C6F36AB3AE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7FADBA5-73DC-4886-BE80-C6F36AB3AE23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
