@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientFactoryWebApp", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthCheckUiWebApp", "src\AspNetCore2x\HealthCheckUiWebApp\HealthCheckUiWebApp.csproj", "{902FA3FA-91EF-4F08-9A26-C61425F68118}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionPatternWebApp", "src\AspNetCore2x\OptionPatternWebApp\OptionPatternWebApp.csproj", "{BF7AB0F0-3B55-437A-B250-78F89CBDB5F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionPatternWebApp", "src\AspNetCore2x\OptionPatternWebApp\OptionPatternWebApp.csproj", "{BF7AB0F0-3B55-437A-B250-78F89CBDB5F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantWebApp", "src\AspNetCore2x\MultiTenantWebApp\MultiTenantWebApp.csproj", "{C13481E0-60B4-487A-9EBD-C2E158FA03B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{BF7AB0F0-3B55-437A-B250-78F89CBDB5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF7AB0F0-3B55-437A-B250-78F89CBDB5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF7AB0F0-3B55-437A-B250-78F89CBDB5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C13481E0-60B4-487A-9EBD-C2E158FA03B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C13481E0-60B4-487A-9EBD-C2E158FA03B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C13481E0-60B4-487A-9EBD-C2E158FA03B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C13481E0-60B4-487A-9EBD-C2E158FA03B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
