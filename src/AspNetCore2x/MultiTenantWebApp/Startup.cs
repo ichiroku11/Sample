@@ -5,11 +5,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MultiTenantWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
+			// MVC
+			services.AddMvc(options => {
+				// todo:
+				/*
+				// グローバル認証
+				var policy = new AuthorizationPolicyBuilder()
+					.RequireAuthenticatedUser()
+					.Build();
+				options.Filters.Add(new AuthorizeFilter(policy));
+				*/
+			});
+
+			services.Configure<RouteOptions>(options => {
+				// URL小文字
+				options.LowercaseUrls = true;
+			});
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
@@ -17,8 +34,11 @@ namespace MultiTenantWebApp {
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.Run(async (context) => {
-				await context.Response.WriteAsync("Hello World!");
+			// MVC
+			app.UseMvc(routes => {
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Default}/{action=Index}/{id?}");
 			});
 		}
 	}
