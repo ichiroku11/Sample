@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace MultiTenantWebApp.Controllers {
 	public class DefaultController : Controller {
 		public IActionResult Index() {
-			return Content("");
+			// ログイン済み
+			return Content(User.Identity.Name);
 		}
 	}
 }
