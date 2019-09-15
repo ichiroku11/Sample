@@ -1,0 +1,22 @@
+@using MultiTenantWebApp.Models
+@model IEnumerable<Blog>
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title></title>
+</head>
+<body>
+	<p>@User.Identity.Name</p>
+	<ul>
+		@foreach (var blog in Model) {
+			<li>@blog.Title</li>
+		}
+	</ul>
+</body>
+</html>
