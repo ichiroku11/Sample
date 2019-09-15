@@ -12,7 +12,9 @@
 	<title></title>
 </head>
 <body>
-	<p>@User.Identity.Name</p>
+	<p>User: @User.Identity.Name</p>
+	<p>Tenant ID: @User.GetTenantId()</p>
+	<p>Blogs: </p>
 	<ul>
 		@foreach (var blog in Model) {
 			<li>@blog.Title</li>

@@ -16,8 +16,7 @@ namespace MultiTenantWebApp.Models {
 		public int GetTenantId() {
 			if (!_tenantId.HasValue) {
 				// クレームからテナントIDを取得
-				var claim = _httpContextAccessor.HttpContext.User.FindFirst(AppClaimTypes.TenantId);
-				_tenantId = int.Parse(claim.Value);
+				_tenantId = _httpContextAccessor.HttpContext.User.GetTenantId();
 			}
 
 			return _tenantId.Value;
