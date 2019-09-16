@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace MultiTenantWebApp.Models {
-	public class TenantIdProvider : ITenantIdProvider<int> {
+	public class TenantIdProvider : ITenantIdProvider {
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private int? _tenantId;
 

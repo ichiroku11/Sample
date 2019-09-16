@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using MultiTenantWebApp.Models;
 
 namespace MultiTenantWebApp {
 	public class Startup {
@@ -34,6 +35,13 @@ namespace MultiTenantWebApp {
 				// URL小文字
 				options.LowercaseUrls = true;
 			});
+
+			// todo: シングルトンじゃないとダメ
+			// todo: なぜ？
+			//services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddScoped<ITenantIdProvider, TenantIdProvider>();
+			services.AddDbContext<AppDbContext>();
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace MultiTenantWebApp.Models {
-	public interface ITenantIdProvider<TValue> {
-		TValue GetTenantId();
+	public interface ITenantIdProvider {
+		int GetTenantId();
 	}
 }

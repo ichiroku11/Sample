@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace MultiTenantWebApp.Models {
 	public class AppDbContext : DbContext {
 		// todo: 初期化用SQL
+		// プログラムで書けるといいけど
 		/*
 drop table if exists dbo.Blog;
 
@@ -33,9 +34,9 @@ values
 				IntegratedSecurity = true,
 			}.ToString();
 
-		private readonly ITenantIdProvider<int> _tenantIdProvider;
+		private readonly ITenantIdProvider _tenantIdProvider;
 
-		public AppDbContext(ITenantIdProvider<int> tenantIdProvider) {
+		public AppDbContext(ITenantIdProvider tenantIdProvider) {
 			_tenantIdProvider = tenantIdProvider;
 		}
 
