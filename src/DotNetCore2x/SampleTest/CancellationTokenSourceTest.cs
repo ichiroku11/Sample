@@ -89,7 +89,7 @@ namespace SampleTest {
 
 			var task = Task.Delay(Timeout.Infinite, token);
 
-			var timeout = 100;
+			var timeout = 1000;
 
 			// 100ms後にキャンセルする
 			_source.CancelAfter(timeout);
