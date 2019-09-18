@@ -70,5 +70,42 @@ namespace SampleTest {
 				await task;
 			});
 		}
+
+		// 完璧なテストじゃないかも
+		/*
+		[Fact]
+		public async Task CancelAfter_指定ms後にキャンセルする() {
+			// Arrange
+			// Act
+			// Assert
+			var token = _source.Token;
+
+			// キャンセル時のコールバックを指定する
+			var callback = false;
+			token.Register(() => {
+				_output.WriteLine("canceled");
+				callback = true;
+			});
+
+			var task = Task.Delay(Timeout.Infinite, token);
+
+			var timeout = 100;
+
+			// 100ms後にキャンセルする
+			_source.CancelAfter(timeout);
+
+			// コールバックはまだ呼ばれていない
+			Assert.False(callback);
+
+			await Task.Delay(timeout);
+
+			// コールバックが呼ばれた
+			Assert.True(callback);
+
+			await Assert.ThrowsAsync<TaskCanceledException>(async () => {
+				await task;
+			});
+		}
+		*/
 	}
 }
