@@ -61,6 +61,61 @@ namespace SampleTest {
 			}
 		}
 
+		// しっくりこないかも・・・
+		[Fact]
+		public void Release_WaitAsyncしたタスクにReleaseで通知する() {
+			// Arrange
+			// Act
+			// Assert
+			using (var source = new CancellationTokenSource())
+			using (var semaphore = new SemaphoreSlim(0)) {
+				var task = Task.Run(async () => {
+					_output.WriteLine($"WaitAsync Before");
+
+					source.Cancel();
+					await semaphore.WaitAsync();
+
+					_output.WriteLine($"WaitAsync After");
+				});
+
+				source.Token.Register(() => {
+					// タスクは完了していない
+					Assert.False(task.IsCompleted);
+
+					_output.WriteLine($"Release Before");
+
+					// Releaseすると待機してたタスクが動き出す
+					semaphore.Release();
+
+					_output.WriteLine($"Release After");
+				});
+
+				Task.WaitAll(task);
+			}
+		}
+
+		[Fact]
+		public async Task WaitAsync_戻り値はセマフォに入れると完了済みのTaskになり入れないと未完了タスクになる() {
+			// Arrange
+			// Act
+			// Assert
+			using (var semaphore = new SemaphoreSlim(1)) {
+				// タスク1は完了している
+				var task1 = semaphore.WaitAsync();
+				Assert.True(task1.IsCompleted);
+				await task1;
+
+				// タスク2は完了していない
+				var task2 = semaphore.WaitAsync();
+				Assert.False(task2.IsCompleted);
+
+				// リリースするとタスク2が完了する
+				semaphore.Release();
+				await task2;
+				Assert.True(task2.IsCompleted);
+			}
+		}
+
 		// todo: これダメだ
 		/*
 		[Fact]
