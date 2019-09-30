@@ -24,6 +24,43 @@ namespace SampleTest {
 			}
 		}
 
+		[Fact]
+		public void Release_セマフォに残っている数が増える() {
+			// Arrange
+			// Act
+			// Assert
+			using (var semaphore = new SemaphoreSlim(0)) {
+				Assert.Equal(0, semaphore.CurrentCount);
+
+				// リリースするごとにセマフォに残っている数は増える
+				semaphore.Release();
+				Assert.Equal(1, semaphore.CurrentCount);
+
+				semaphore.Release();
+				Assert.Equal(2, semaphore.CurrentCount);
+			}
+		}
+
+		[Fact]
+		public void Release_最大値までセマフォに残っている数が増える() {
+			// Arrange
+			// Act
+			// Assert
+			// 初期値と最大値を指定
+			using (var semaphore = new SemaphoreSlim(0, 1)) {
+				Assert.Equal(0, semaphore.CurrentCount);
+
+				// リリースするとセマフォに残っている数が増えるが
+				semaphore.Release();
+				Assert.Equal(1, semaphore.CurrentCount);
+
+				// 最大値を超えてリリースすると例外がスロー
+				Assert.Throws<SemaphoreFullException>(() => {
+					semaphore.Release();
+				});
+			}
+		}
+
 		// todo: これダメだ
 		/*
 		[Fact]
