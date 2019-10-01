@@ -60,7 +60,37 @@ namespace SampleTest {
 				});
 			}
 		}
+		
+		[Fact]
+		public async Task CurrentCount_0以下の値にはならない様子() {
+			// Arrange
+			// Act
+			// Assert
+			// 初期値と最大値を指定
+			using (var semaphore = new SemaphoreSlim(1)) {
+				Assert.Equal(1, semaphore.CurrentCount);
 
+				// WaitするとCurrentCountが1つ減る
+				await semaphore.WaitAsync();
+				Assert.Equal(0, semaphore.CurrentCount);
+
+				// さらにWaitすると完了しないタスクが返り、
+				// CurrentCountは0のまま（最小が0かも）
+				var task = semaphore.WaitAsync();
+				Assert.False(task.IsCompleted);
+				Assert.Equal(0, semaphore.CurrentCount);
+
+				// ReleaseしてもCurrentCountは0のまま
+				semaphore.Release();
+				Assert.Equal(0, semaphore.CurrentCount);
+				await task;
+
+				// さらにReleaseするとCurrentCountが1増える
+				semaphore.Release();
+				Assert.Equal(1, semaphore.CurrentCount);
+			}
+		}
+		
 		// しっくりこないかも・・・
 		[Fact]
 		public void Release_WaitAsyncしたタスクにReleaseで通知する() {
