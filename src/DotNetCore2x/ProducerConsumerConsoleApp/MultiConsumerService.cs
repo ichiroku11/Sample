@@ -7,8 +7,19 @@ using Microsoft.Extensions.Hosting;
 
 namespace ProducerConsumerConsoleApp {
 	public class MultiConsumerService : WorkerService {
-		public MultiConsumerService(IApplicationLifetime lifetime) : base(lifetime) {
+		private readonly IBlockingQueue<IEnumerable<byte>> _queue;
+		private readonly IConsoleHelper _console;
+
+		public MultiConsumerService(
+			IApplicationLifetime lifetime,
+			IBlockingQueue<IEnumerable<byte>> queue,
+			IConsoleHelper console)
+			: base(lifetime) {
+			_queue = queue;
+			_console = console;
 		}
+
+		private void WriteLine(string message) => _console.WriteLine(message, ConsoleColor.Cyan);
 
 		protected override Task ExecuteCoreAsync(CancellationToken stoppingToken) {
 			throw new NotImplementedException();

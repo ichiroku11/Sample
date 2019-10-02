@@ -21,7 +21,8 @@ namespace ProducerConsumerConsoleApp {
 						.AddSingleton(typeof(IBlockingQueue<>), typeof(BlockingQueue<>))
 						.AddSingleton<IConsoleHelper, ConsoleHelper>()
 						.AddHostedService<ProducerService>()
-						.AddHostedService<ConsumerService>();
+						.AddHostedService<MultiConsumerService>();
+						//.AddHostedService<ConsumerService>();
 				})
 				.RunConsoleAsync();
 		}
