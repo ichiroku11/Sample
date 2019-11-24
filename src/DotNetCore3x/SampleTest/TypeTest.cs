@@ -13,7 +13,7 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void IsAssignableFrom_確認する() {
+		public void IsAssignableFrom() {
 			var baseType = typeof(Base);
 			var derivedType = typeof(Derived);
 			var interfaceType = typeof(IInterface);
@@ -30,5 +30,24 @@ namespace SampleTest {
 			// IInterface型の変数に、Derived型のインスタンスを割り当てることができる
 			Assert.True(interfaceType.IsAssignableFrom(derivedType));
 		}
+
+		[Fact]
+		public void IsSubclassOf() {
+			var baseType = typeof(Base);
+			var derivedType = typeof(Derived);
+			var interfaceType = typeof(IInterface);
+
+			// BaseはDerivedのサブクラスではない
+			Assert.False(baseType.IsSubclassOf(derivedType));
+
+			// DerivedはBaseのサブクラスである
+			Assert.True(derivedType.IsSubclassOf(baseType));
+
+			// Derived（インターフェイスの実装）はIInterfaceのサブクラスではない
+			Assert.False(derivedType.IsSubclassOf(interfaceType));
+		}
+
+
+
 	}
 }
