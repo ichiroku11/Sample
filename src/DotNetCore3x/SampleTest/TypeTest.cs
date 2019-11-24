@@ -21,7 +21,7 @@ namespace SampleTest {
 			// Base型の変数に、Derived型のインスタンスを割り当てることができる
 			Assert.True(baseType.IsAssignableFrom(derivedType));
 
-			// Derived型の変数に、Base型のインスタンスを割り当てることができる
+			// Derived型の変数に、Base型のインスタンスを割り当てることができない
 			Assert.False(derivedType.IsAssignableFrom(baseType));
 
 			// Base型の変数に、Base型のインスタンスを割り当てることができる
