@@ -47,7 +47,15 @@ namespace SampleTest {
 			Assert.False(derivedType.IsSubclassOf(interfaceType));
 		}
 
+		// リフレクションではないけど
+		[Fact]
+		public void IsOperator() {
+			var @base = new Base();
+			var derived = new Derived();
 
-
+			Assert.True(@base is Base);
+			Assert.True(derived is Base);
+			Assert.True(derived is IInterface);
+		}
 	}
 }
