@@ -6,6 +6,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace SampleTest {
+	// https://docs.microsoft.com/ja-jp/dotnet/standard/serialization/system-text-json-how-to?view=netcore-3.0
 	public class JsonSerializerTest {
 		private readonly ITestOutputHelper _output;
 
@@ -49,6 +50,56 @@ namespace SampleTest {
   ""text"": ""Abc""
 }";
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void Serialize_DictionaryKeyPolicyを使った違いを確認する() {
+			var model = new {
+				Number = 1,
+				Items = new Dictionary<string, int> {
+{ "Key1", 10 },
+},
+			};
+
+			// DictionaryKeyPolicyを指定しないとディクショナリオブジェクトのプロパティ名が大文字になる
+			{
+				var options = new JsonSerializerOptions {
+					//DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+					WriteIndented = true
+				};
+
+				var actual = JsonSerializer.Serialize(model, options);
+				_output.WriteLine(actual);
+
+				var expected = @"{
+  ""number"": 1,
+  ""items"": {
+    ""Key1"": 10
+  }
+}";
+				Assert.Equal(expected, actual);
+			}
+
+			// DictionaryKeyPolicyを指定してディクショナリオブジェクトのプロパティ名を小文字にする
+			{
+				var options = new JsonSerializerOptions {
+					DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+					WriteIndented = true
+				};
+
+				var actual = JsonSerializer.Serialize(model, options);
+				_output.WriteLine(actual);
+
+				var expected = @"{
+  ""number"": 1,
+  ""items"": {
+    ""key1"": 10
+  }
+}";
+				Assert.Equal(expected, actual);
+			}
 		}
 	}
 }
