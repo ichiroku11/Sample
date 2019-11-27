@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthCheckUiWebApp", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionPatternWebApp", "src\AspNetCore2x\OptionPatternWebApp\OptionPatternWebApp.csproj", "{BF7AB0F0-3B55-437A-B250-78F89CBDB5F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantWebApp", "src\AspNetCore2x\MultiTenantWebApp\MultiTenantWebApp.csproj", "{C13481E0-60B4-487A-9EBD-C2E158FA03B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiTenantWebApp", "src\AspNetCore2x\MultiTenantWebApp\MultiTenantWebApp.csproj", "{C13481E0-60B4-487A-9EBD-C2E158FA03B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallbackRouteWebApp", "src\AspNetCore2x\FallbackRouteWebApp\FallbackRouteWebApp.csproj", "{528DAA01-AEE7-4AF3-9755-971776532165}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{C13481E0-60B4-487A-9EBD-C2E158FA03B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C13481E0-60B4-487A-9EBD-C2E158FA03B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C13481E0-60B4-487A-9EBD-C2E158FA03B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{528DAA01-AEE7-4AF3-9755-971776532165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528DAA01-AEE7-4AF3-9755-971776532165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528DAA01-AEE7-4AF3-9755-971776532165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528DAA01-AEE7-4AF3-9755-971776532165}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
