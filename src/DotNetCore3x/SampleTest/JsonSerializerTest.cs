@@ -57,8 +57,8 @@ namespace SampleTest {
 			var model = new {
 				Number = 1,
 				Items = new Dictionary<string, int> {
-{ "Key1", 10 },
-},
+					{ "Key1", 10 },
+				},
 			};
 
 			// DictionaryKeyPolicyを指定しないとディクショナリオブジェクトのプロパティ名が大文字になる
