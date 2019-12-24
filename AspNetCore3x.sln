@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileProviderWebApp", "src\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallbackRouteWebApp", "src\AspNetCore3x\FallbackRouteWebApp\FallbackRouteWebApp.csproj", "{A0D2794A-F212-4003-8A5D-3596FDD56B6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieAuthWebApp", "src\AspNetCore3x\CookieAuthWebApp\CookieAuthWebApp.csproj", "{6E3F7D3D-8F34-40EB-9E2F-2C11EB773AA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A0D2794A-F212-4003-8A5D-3596FDD56B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0D2794A-F212-4003-8A5D-3596FDD56B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0D2794A-F212-4003-8A5D-3596FDD56B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3F7D3D-8F34-40EB-9E2F-2C11EB773AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3F7D3D-8F34-40EB-9E2F-2C11EB773AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3F7D3D-8F34-40EB-9E2F-2C11EB773AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3F7D3D-8F34-40EB-9E2F-2C11EB773AA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
