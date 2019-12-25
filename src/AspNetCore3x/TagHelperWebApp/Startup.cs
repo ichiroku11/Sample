@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 namespace TagHelperWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
+			services.AddControllersWithViews();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -21,9 +22,9 @@ namespace TagHelperWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/", async context => {
-					await context.Response.WriteAsync("Hello World!");
-				});
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller=Default}/{action=Index}/{id?}");
 			});
 		}
 	}
