@@ -38,21 +38,23 @@ namespace CookieAuthWebApp {
 				// https://qiita.com/masakura/items/85c59e60cac7f0638c1b
 
 				endpoints.MapGet("/challenge", async context => {
-					// todo: Comment
+					// ログインURL（CookieAuthenticationOptions.LoginPath）へのリダイレクト（302）を返す
+					// 401 Unauthorizedを返すようなイメージだと思う
 					await context.ChallengeAsync();
 				});
 
 				endpoints.MapGet("/forbid", async context => {
-					// todo: Comment
+					// アクセス禁止URL（CookieAuthenticationOptions.AccessDeniedPath）へのリダイレクト（302）を返す
+					// 403 Forbiddenを返すようなイメージだと思う
 					await context.ForbidAsync();
 				});
 
 				endpoints.MapGet("/signin", async context => {
 					// todo: Comment
+
 					// authenticationTypeを指定しないとSignInAsyncで例外が
 					var identity = new ClaimsIdentity(authenticationType: "Test");
 					identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "1"));
-					identity.AddClaim(new Claim(ClaimTypes.Name, "Taro"));
 					var principal = new ClaimsPrincipal(identity);
 
 					// todo: Comment
@@ -69,13 +71,12 @@ namespace CookieAuthWebApp {
 					// todo: AuthenticationMiddleware
 					// todo: UseAuthentication
 					var result = await context.AuthenticateAsync();
+					await context.Response.WriteAsync($"{nameof(result.Succeeded)}: {result.Succeeded}");
+					await context.Response.WriteAsync(Environment.NewLine);
 
 					var principal = result.Principal;
-					await context.Response.WriteAsync($"{nameof(ClaimTypes.NameIdentifier)}:");
-					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.NameIdentifier));
-					await context.Response.WriteAsync(Environment.NewLine);
-					await context.Response.WriteAsync($"{nameof(ClaimTypes.Name)}:");
-					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.Name));
+					await context.Response.WriteAsync($"{nameof(ClaimTypes.NameIdentifier)}: ");
+					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
 				});
 
 				endpoints.MapGet("/", async context => {
