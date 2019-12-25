@@ -50,33 +50,44 @@ namespace CookieAuthWebApp {
 				});
 
 				endpoints.MapGet("/signin", async context => {
-					// todo: Comment
+					// とあるユーザでログインしたとする
 
-					// authenticationTypeを指定しないとSignInAsyncで例外が
+					// プリンシパルを作成
+					// authenticationTypeを指定しないとSignInAsyncで例外が発生する
 					var identity = new ClaimsIdentity(authenticationType: "Test");
 					identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "1"));
 					var principal = new ClaimsPrincipal(identity);
 
-					// todo: Comment
+					// サインイン
+					// 認証クッキーをつけたレスポンスを返す
 					await context.SignInAsync(principal);
+					// Set-Cookie: auth=***;
 				});
 
 				endpoints.MapGet("/signout", async context => {
-					// todo: Comment
+					// サインアウト
+					// 認証クッキーをクリアするレスポンスを返す
 					await context.SignOutAsync();
+					// Set-Cookie: auth=; expires=Thu, 01 Jan 1970 00:00:00 GMT;
 				});
 
 				endpoints.MapGet("/authenticate", async context => {
-					// todo: Comment
-					// todo: AuthenticationMiddleware
-					// todo: UseAuthentication
+					// 認証クッキーからプリンシパルを作成する
+					// UseAuthentication/AuthenticationMiddlewareでやってくれてること
+
 					var result = await context.AuthenticateAsync();
+					var principal = result.Principal;
 					await context.Response.WriteAsync($"{nameof(result.Succeeded)}: {result.Succeeded}");
 					await context.Response.WriteAsync(Environment.NewLine);
-
-					var principal = result.Principal;
 					await context.Response.WriteAsync($"{nameof(ClaimTypes.NameIdentifier)}: ");
 					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
+
+					// 認証した（~/sigininにリクエストを送った）後だと
+					// Succeeded: True
+					// NameIdentifier: 1
+					// 認証していないと
+					// Succeeded: False
+					// NameIdentifier: 
 				});
 
 				endpoints.MapGet("/", async context => {
