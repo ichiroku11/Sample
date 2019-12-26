@@ -15,6 +15,7 @@ namespace TagHelperWebApp.TagHelpers {
 
 		public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output) {
 			Name = "_Modal";
+
 			return base.ProcessAsync(context, output);
 		}
 	}
