@@ -1,4 +1,4 @@
-
+@using TagHelperWebApp.TagHelpers
 @{
 	Layout = null;
 }
@@ -12,15 +12,20 @@
 </head>
 <body>
 	<div>
-		<h3>IfTagHelper</h3>
+		<h3>@nameof(IfTagHelper)</h3>
 		<span if="true">true</span>
 		<span if="false">false</span>
 	</div>
 	<div>
-		<h3>PrePostTagHelper</h3>
+		<h3>@nameof(PrePostTagHelper)</h3>
 		<pre-post>
 			<span>Content</span>
 		</pre-post>
+	</div>
+	<div>
+		<h3>@nameof(ModalPartialTagHelper)</h3>
+		<modal-partial>
+		</modal-partial>
 	</div>
 </body>
 </html>
