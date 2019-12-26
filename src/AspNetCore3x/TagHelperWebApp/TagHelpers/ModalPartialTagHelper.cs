@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TagHelperWebApp.Models;
 
 namespace TagHelperWebApp.TagHelpers {
 	public class ModalPartialTagHelper : PartialTagHelper {
@@ -13,10 +14,15 @@ namespace TagHelperWebApp.TagHelpers {
 			: base(viewEngine, viewBufferScope) {
 		}
 
-		public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output) {
+		public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output) {
 			Name = "_Modal";
 
-			return base.ProcessAsync(context, output);
+			var bodyContent = await output.GetChildContentAsync();
+			Model = new ModalPartialViewModel {
+				BodyContent = bodyContent,
+			};
+
+			await base.ProcessAsync(context, output);
 		}
 	}
 }
