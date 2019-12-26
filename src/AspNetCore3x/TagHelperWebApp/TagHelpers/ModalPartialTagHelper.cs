@@ -20,11 +20,10 @@ namespace TagHelperWebApp.TagHelpers {
 		public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output) {
 			Name = "_Modal";
 
-			var bodyContent = await output.GetChildContentAsync();
 			Model = new ModalPartialViewModel {
 				Id = Id,
 				Title = Title,
-				BodyContent = bodyContent,
+				Body = await output.GetChildContentAsync(),
 			};
 
 			await base.ProcessAsync(context, output);
