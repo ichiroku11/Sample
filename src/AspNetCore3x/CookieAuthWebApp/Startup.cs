@@ -53,7 +53,8 @@ namespace CookieAuthWebApp {
 					// とあるユーザでログインしたとする
 
 					// プリンシパルを作成
-					// authenticationTypeを指定しないとSignInAsyncで例外が発生する
+					// authenticationTypeを指定しないとIsAuthenticatedがfalseになり、SignInAsyncで例外が発生する
+					// https://docs.microsoft.com/ja-jp/dotnet/core/compatibility/aspnetcore#identity-signinasync-throws-exception-for-unauthenticated-identity
 					var identity = new ClaimsIdentity(authenticationType: "Test");
 					identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "1"));
 					var principal = new ClaimsPrincipal(identity);
