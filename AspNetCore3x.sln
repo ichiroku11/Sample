@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallbackRouteWebApp", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieAuthWebApp", "src\AspNetCore3x\CookieAuthWebApp\CookieAuthWebApp.csproj", "{6E3F7D3D-8F34-40EB-9E2F-2C11EB773AA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagHelperWebApp", "src\AspNetCore3x\TagHelperWebApp\TagHelperWebApp.csproj", "{465028E7-D914-4237-ADD5-01489CB27A64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagHelperWebApp", "src\AspNetCore3x\TagHelperWebApp\TagHelperWebApp.csproj", "{465028E7-D914-4237-ADD5-01489CB27A64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncSuffixTrimmedWebApp", "src\AspNetCore3x\AsyncSuffixTrimmedWebApp\AsyncSuffixTrimmedWebApp.csproj", "{AB230E14-7A5B-49AA-9020-38473B0290B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{465028E7-D914-4237-ADD5-01489CB27A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{465028E7-D914-4237-ADD5-01489CB27A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{465028E7-D914-4237-ADD5-01489CB27A64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB230E14-7A5B-49AA-9020-38473B0290B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB230E14-7A5B-49AA-9020-38473B0290B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB230E14-7A5B-49AA-9020-38473B0290B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB230E14-7A5B-49AA-9020-38473B0290B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
