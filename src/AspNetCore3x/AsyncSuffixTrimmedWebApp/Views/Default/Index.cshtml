@@ -11,13 +11,7 @@
 	<title>Index</title>
 </head>
 <body>
-	<a asp-action="Sample" asp-controller="Default">Sample</a>
-	<p>@Url.Action("Sample", "Default")</p>
-	@*
-	<a asp-action="SampleAsync" asp-controller="Default">SampleAsync</a>
-	<p>@Url.Action("SampleAsync", "Default")</p>
-	<a asp-action="NothingAsync" asp-controller="Default">NothingAsync</a>
-	<p>@Url.Action("NothingAsync", "Default")</p>
-	*@
+	<a asp-action="Sample" asp-controller="Default">@Url.Action("Sample", "Default")</a>
+	<a asp-action="SampleAsync" asp-controller="Default">@Url.Action("SampleAsync", "Default")</a>
 </body>
 </html>
