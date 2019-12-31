@@ -29,11 +29,11 @@ namespace TagHelperWebApp.TagHelpers {
 			// pre要素にclass属性を設定
 			output.Attributes.Add("class", "content");
 
-			// コンテンツ"外"の前後にhtmlを挿入
+			// 要素の前後にhtmlを挿入
 			output.PreElement.SetHtmlContent($"<div class=\"outer\">");
 			output.PostElement.SetHtmlContent($"</div>");
 
-			// コンテンツ"内"の前後にhtmlを挿入
+			// コンテンツ（要素の中）の前後にhtmlを挿入
 			output.PreContent.SetHtmlContent($"<code class=\"inner\">");
 			output.PostContent.SetHtmlContent($"</code>");
 
