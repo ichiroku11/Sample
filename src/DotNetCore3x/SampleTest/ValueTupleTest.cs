@@ -5,6 +5,27 @@ using System.Text;
 using Xunit;
 
 namespace SampleTest {
+	// 分解の確認用
+	public struct Vector3 {
+		public Vector3(int x = 0, int y = 0, int z = 0) {
+			X = x;
+			Y = y;
+			Z = z;
+		}
+
+		public int X { get; }
+		public int Y { get; }
+		public int Z { get; }
+
+		// 分解メソッド
+		public void Deconstruct(out int x, out int y, out int z) => (x, y, z) = (X, Y, Z);
+	}
+
+	public static class Vector3Extensions {
+		// 拡張メソッドによる分解メソッド
+		public static void Deconstruct(this Vector3 vector, out int x, out int y) => (x, y, _) = vector;
+	}
+
 	public class ValueTupleTest {
 		[Fact(DisplayName = "ValueTuple_名前がないタプルはItem1、Item2といったフィルード名でアクセスできる")]
 		public void ValueTuple_Unnamed() {
@@ -74,6 +95,27 @@ namespace SampleTest {
 			Assert.Equal((1, 0), items.First());
 			Assert.Equal((2, 1), items.Skip(1).First());
 			Assert.Equal((3, 2), items.Last());
+		}
+
+		[Fact]
+		public void Deconstruct_ユーザ定義型の分解を試す() {
+			var vector = new Vector3(1, 2, 3);
+
+			var (x, y, z) = vector;
+
+			Assert.Equal(1, x);
+			Assert.Equal(2, y);
+			Assert.Equal(3, z);
+		}
+
+		[Fact]
+		public void Deconstruct_ユーザ定義型の拡張メソッドによる分解を試す() {
+			var vector = new Vector3(1, 2, 3);
+
+			var (x, y) = vector;
+
+			Assert.Equal(1, x);
+			Assert.Equal(2, y);
 		}
 	}
 }
