@@ -26,7 +26,7 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void ValueTuple_プロジェクション初期化子() {
+		public void ValueTuple_タプルのプロジェクション初期化子() {
 			var x = 1;
 			var y = 2;
 
@@ -36,6 +36,14 @@ namespace SampleTest {
 
 			Assert.Equal(x, tuple.x);
 			Assert.Equal(y, tuple.y);
+		}
+
+		[Fact]
+		public void ValueTuple_タプルは比較できる() {
+			var left = (x: 1, y: 2);
+			var right = (x: 1, y: 2);
+
+			Assert.True(left == right);
 		}
 	}
 }
