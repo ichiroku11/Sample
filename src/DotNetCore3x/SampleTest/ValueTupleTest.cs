@@ -45,5 +45,23 @@ namespace SampleTest {
 
 			Assert.True(left == right);
 		}
+
+		[Fact]
+		public void ValueTuple_タプルをメソッドの戻り値として使う() {
+			// タプルを返すメソッド
+			static (int min, int max) getRange() => (1, 3);
+
+			var range = getRange();
+			Assert.Equal(1, range.min);
+			Assert.Equal(3, range.max);
+
+			// タプルを分解する
+			var (min, max) = getRange();
+			// 以下の書き方も可
+			//(int min, int max) = getRange();
+			//(var min, var max) = getRange();
+			Assert.Equal(1, min);
+			Assert.Equal(3, max);
+		}
 	}
 }
