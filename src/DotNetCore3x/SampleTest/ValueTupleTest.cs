@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -55,13 +56,24 @@ namespace SampleTest {
 			Assert.Equal(1, range.min);
 			Assert.Equal(3, range.max);
 
-			// タプルを分解する
+			// タプルを分解する（たぶんこっちの方がよい？）
 			var (min, max) = getRange();
 			// 以下の書き方も可
 			//(int min, int max) = getRange();
 			//(var min, var max) = getRange();
 			Assert.Equal(1, min);
 			Assert.Equal(3, max);
+		}
+
+		[Fact]
+		public void ValueTuple_タプルをLINQで使う() {
+			static IEnumerable<(int value, int index)> getItems()
+				=> Enumerable.Range(1, 3).Select((value, index) => (value, index));
+
+			var items = getItems();
+			Assert.Equal((1, 0), items.First());
+			Assert.Equal((2, 1), items.Skip(1).First());
+			Assert.Equal((3, 2), items.Last());
 		}
 	}
 }
