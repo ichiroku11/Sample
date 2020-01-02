@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Auth0WebApp {
+	// 参考
+	// https://auth0.com/docs/quickstart/webapp/aspnet-core-3
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
 			services
@@ -18,7 +20,11 @@ namespace Auth0WebApp {
 					options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				})
 				// クッキー認証
-				.AddCookie();
+				.AddCookie()
+				// OpenID Connectによる認証
+				.AddOpenIdConnect(authenticationScheme: "Auth0", options => {
+					// todo:
+				});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
