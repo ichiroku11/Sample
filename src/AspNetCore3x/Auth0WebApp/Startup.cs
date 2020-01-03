@@ -23,6 +23,7 @@ namespace Auth0WebApp {
 		}
 
 		public void ConfigureServices(IServiceCollection services) {
+			// 認証
 			services
 				// 認証サービスを追加
 				.AddAuthentication(options => {
@@ -59,6 +60,9 @@ namespace Auth0WebApp {
 					// todo:
 
 				});
+
+			// MVC
+			services.AddControllersWithViews();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -69,9 +73,9 @@ namespace Auth0WebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/", async context => {
-					await context.Response.WriteAsync("Hello World!");
-				});
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller=Default}/{action=Index}/{id?}");
 			});
 		}
 	}
