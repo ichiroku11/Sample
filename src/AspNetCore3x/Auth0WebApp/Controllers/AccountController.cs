@@ -13,12 +13,12 @@ namespace Auth0WebApp.Controllers {
 				new AuthenticationProperties {
 					RedirectUri = "/",
 				},
-				"Auth0");
+				Auth0Defaults.AuthenticationScheme);
 		}
 
 		public IActionResult Logout() {
 			return SignOut(
-				"Auth0",
+				Auth0Defaults.AuthenticationScheme,
 				CookieAuthenticationDefaults.AuthenticationScheme);
 		}
 	}

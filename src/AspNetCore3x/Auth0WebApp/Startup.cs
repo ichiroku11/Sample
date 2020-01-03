@@ -32,7 +32,7 @@ namespace Auth0WebApp {
 				// クッキー認証
 				.AddCookie()
 				// OpenID Connectによる認証
-				.AddOpenIdConnect(authenticationScheme: "Auth0", options => {
+				.AddOpenIdConnect(Auth0Defaults.AuthenticationScheme, options => {
 					// appsettings.jsonのAuth0オプション
 					var auth0Options = _config.GetSection("Auth0").Get<Auth0Options>();
 
