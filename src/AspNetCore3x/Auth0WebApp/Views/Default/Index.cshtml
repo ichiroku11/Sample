@@ -12,33 +12,35 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		@*
-		<div class="row">
-			<div class="col">
-				<a class="btn btn-sm btn-primary">ログイン</a>
+			<div class="row">
+				<div class="col">
+					<a class="btn btn-sm btn-primary">ログイン</a>
+				</div>
 			</div>
-		</div>
 		*@
 		<div class="row">
 			<div class="col">
 				@if (User.Identity.IsAuthenticated) {
-					<table class="table table-sm table-hover">
-						<thead class="thead-light">
-							<tr>
-								<th>@nameof(Claim.Type)</th>
-								<th>@nameof(Claim.Value)</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var claim in User.Claims) {
+					<div class="table-responsive">
+						<table class="table table-sm table-hover">
+							<thead class="thead-light">
 								<tr>
-									<td>@claim.Type</td>
-									<td>@claim.Value</td>
+									<th>@nameof(Claim.Type)</th>
+									<th>@nameof(Claim.Value)</th>
 								</tr>
-							}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								@foreach (var claim in User.Claims.OrderBy(item => item.Type)) {
+									<tr>
+										<td>@claim.Type</td>
+										<td>@claim.Value</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
 				}
 			</div>
 		</div>
