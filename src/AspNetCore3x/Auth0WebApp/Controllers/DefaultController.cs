@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Auth0WebApp.Controllers {
 	public class DefaultController : Controller {
 		public IActionResult Index() {
-			return Content(nameof(Index));
+			return View();
 		}
 	}
 }
