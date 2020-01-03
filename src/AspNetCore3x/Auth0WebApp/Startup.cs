@@ -49,10 +49,12 @@ namespace Auth0WebApp {
 					options.Scope.Add("openid");
 
 					options.Events = new OpenIdConnectEvents {
-						OnRedirectToIdentityProviderForSignOut = (context) => {
-
+						OnRedirectToIdentityProvider = (context) => {
 							// todo:
-
+							return Task.CompletedTask;
+						},
+						OnRedirectToIdentityProviderForSignOut = (context) => {
+							// todo:
 							return Task.CompletedTask;
 						},
 					};
