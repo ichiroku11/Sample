@@ -74,6 +74,8 @@ namespace Auth0WebApp {
 
 			app.UseRouting();
 
+			app.UseAuthentication();
+
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllerRoute(
 					name: "default",
