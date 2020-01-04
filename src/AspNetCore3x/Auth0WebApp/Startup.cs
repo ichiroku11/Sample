@@ -46,7 +46,9 @@ namespace Auth0WebApp {
 					options.CallbackPath = new PathString("/callback");
 					options.ClaimsIssuer = "Auth0";
 					options.ResponseType = OpenIdConnectResponseType.Code;
-					options.Scope.Add("openid");
+
+					// デフォルトで"openid"と"profile"が追加されているっぽいから不要
+					//options.Scope.Add("openid");
 
 					options.Events = new OpenIdConnectEvents {
 						OnRedirectToIdentityProvider = (context) => {
