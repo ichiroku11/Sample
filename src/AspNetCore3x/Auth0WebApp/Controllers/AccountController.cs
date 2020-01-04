@@ -18,6 +18,9 @@ namespace Auth0WebApp.Controllers {
 
 		public IActionResult Logout() {
 			return SignOut(
+				new AuthenticationProperties {
+					RedirectUri = "/",
+				},
 				Auth0Defaults.AuthenticationScheme,
 				CookieAuthenticationDefaults.AuthenticationScheme);
 		}

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -43,20 +44,48 @@ namespace Auth0WebApp {
 					options.ClientId = auth0Options.ClientId;
 					options.ClientSecret = auth0Options.ClientSecret;
 
-					options.CallbackPath = new PathString("/callback");
+					// CallbackPathのデフォルト値はこれ
+					// Auth0側で「Allowed Callback URLs」でこのURLを指定すれば
+					//options.CallbackPath = new PathString("/signin-oidc");
+
+					// todo:
+					// SignedOutCallbackPathのデフォルト値はこれ
+					// 使っていないっぽい
+					//options.SignedOutCallbackPath = new PathString("/signout-callback-oidc");
+
 					options.ClaimsIssuer = "Auth0";
+
 					options.ResponseType = OpenIdConnectResponseType.Code;
 
 					// デフォルトで"openid"と"profile"が追加されているっぽいから不要
 					//options.Scope.Add("openid");
 
 					options.Events = new OpenIdConnectEvents {
+						/*
 						OnRedirectToIdentityProvider = (context) => {
-							// todo:
 							return Task.CompletedTask;
 						},
+						*/
 						OnRedirectToIdentityProviderForSignOut = (context) => {
-							// todo:
+							var request = context.Request;
+
+							// Auth0をログアウトしてから戻ってくるこのアプリURL
+							var returnToUri = UriHelper.BuildAbsolute(
+								request.Scheme,
+								request.Host,
+								request.PathBase,
+								context.Properties.RedirectUri);
+
+							var queryString = QueryString
+								.Create("client_id", auth0Options.ClientId)
+								.Add("returnTo", returnToUri);
+
+							// Auth0のログアウトURL
+							var logoutUri = $"{auth0Options.Authority}/v2/logout{queryString}";
+
+							context.Response.Redirect(logoutUri);
+							context.HandleResponse();
+
 							return Task.CompletedTask;
 						},
 					};
