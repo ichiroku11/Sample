@@ -45,12 +45,12 @@ namespace Auth0WebApp {
 					options.ClientSecret = auth0Options.ClientSecret;
 
 					// CallbackPathのデフォルト値はこれ
-					// Auth0側で「Allowed Callback URLs」でこのURLを指定すれば
+					// Auth0側で「Allowed Callback URLs」でこのURLを指定すればOK
 					//options.CallbackPath = new PathString("/signin-oidc");
 
 					// todo:
 					// SignedOutCallbackPathのデフォルト値はこれ
-					// 使っていないっぽい
+					// でも使っていないっぽい
 					//options.SignedOutCallbackPath = new PathString("/signout-callback-oidc");
 
 					options.ClaimsIssuer = "Auth0";
