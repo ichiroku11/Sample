@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingConsoleApp", "src\Ef
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth0WebApp", "src\AspNetCore3x\Auth0WebApp\Auth0WebApp.csproj", "{AE38FDF3-9498-4204-A1C0-D4B1F257F5A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionPatternWebApp", "src\AspNetCore3x\OptionPatternWebApp\OptionPatternWebApp.csproj", "{53247B1A-4230-4417-BBEA-FF9C096A0766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionPatternWebApp", "src\AspNetCore3x\OptionPatternWebApp\OptionPatternWebApp.csproj", "{53247B1A-4230-4417-BBEA-FF9C096A0766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendGridWebApp", "src\AspNetCore3x\SendGridWebApp\SendGridWebApp.csproj", "{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{53247B1A-4230-4417-BBEA-FF9C096A0766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53247B1A-4230-4417-BBEA-FF9C096A0766}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53247B1A-4230-4417-BBEA-FF9C096A0766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{765C2FB2-677A-4811-BB69-5F762945FA32} = {6D512DED-4C07-406B-9393-59F588F56B36}
 		{AE38FDF3-9498-4204-A1C0-D4B1F257F5A8} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{53247B1A-4230-4417-BBEA-FF9C096A0766} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
+		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
