@@ -60,7 +60,7 @@ namespace Auth0WebApp {
 					// デフォルトで"openid"と"profile"が追加されているっぽいから不要
 					//options.Scope.Add("openid");
 
-					options.Events = new OpenIdConnectEvents {
+					options.Events = new LoggingOpenIdConnectEvents {
 						/*
 						OnRedirectToIdentityProvider = (context) => {
 							return Task.CompletedTask;
@@ -75,6 +75,7 @@ namespace Auth0WebApp {
 								request.Host,
 								request.PathBase,
 								context.Properties.RedirectUri);
+							// todo: ↑options.SignedOutCallbackPathもありか？
 
 							var queryString = QueryString
 								.Create("client_id", auth0Options.ClientId)
