@@ -23,6 +23,8 @@ namespace CookieAuthWebApp {
 				// クッキーを使った認証に必要なサービスを追加
 				.AddCookie(options => {
 					options.Cookie.Name = "auth";
+
+					options.Events = new LoggingCookieAuthenticationEvents();
 				});
 		}
 
