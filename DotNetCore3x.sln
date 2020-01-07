@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth0WebApp", "src\AspNetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionPatternWebApp", "src\AspNetCore3x\OptionPatternWebApp\OptionPatternWebApp.csproj", "{53247B1A-4230-4417-BBEA-FF9C096A0766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendGridWebApp", "src\AspNetCore3x\SendGridWebApp\SendGridWebApp.csproj", "{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendGridWebApp", "src\AspNetCore3x\SendGridWebApp\SendGridWebApp.csproj", "{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedCacheWebApp", "src\AspNetCore3x\DistributedCacheWebApp\DistributedCacheWebApp.csproj", "{4AF839A1-E714-44C5-BD49-49B92C2A031F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AF839A1-E714-44C5-BD49-49B92C2A031F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AF839A1-E714-44C5-BD49-49B92C2A031F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AF839A1-E714-44C5-BD49-49B92C2A031F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AF839A1-E714-44C5-BD49-49B92C2A031F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{AE38FDF3-9498-4204-A1C0-D4B1F257F5A8} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{53247B1A-4230-4417-BBEA-FF9C096A0766} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{EEACA712-3DB2-4137-B5C8-AF2170F9D5AB} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
+		{4AF839A1-E714-44C5-BD49-49B92C2A031F} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
