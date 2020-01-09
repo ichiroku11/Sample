@@ -15,6 +15,7 @@ namespace DistributedCacheWebApp.Controllers {
 		}
 
 		public async Task<IActionResult> Get() {
+			// キャッシュから取得
 			var value = await _cache.GetStringAsync(_cacheKey);
 			if (string.IsNullOrWhiteSpace(value)) {
 				return Content("get error");
@@ -28,12 +29,14 @@ namespace DistributedCacheWebApp.Controllers {
 				return Content("set error");
 			}
 
+			// キャッシュに設定
 			await _cache.SetStringAsync(_cacheKey, $"{value}");
 
 			return Content($"set: {value}");
 		}
 
 		public async Task<IActionResult> Remove() {
+			// キャッシュから削除
 			await _cache.RemoveAsync(_cacheKey);
 
 			return Content($"remove");
