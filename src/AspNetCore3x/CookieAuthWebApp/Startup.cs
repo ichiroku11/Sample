@@ -15,12 +15,12 @@ namespace CookieAuthWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
 			services
-				// 認証に必要なサービスを追加
+				// 認証サービスを追加
 				// 戻り値はAuthenticationBuilder
 				.AddAuthentication(options => {
 					options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				})
-				// クッキーを使った認証に必要なサービスを追加
+				// クッキー認証ハンドラを追加
 				.AddCookie(options => {
 					options.Cookie.Name = "auth";
 
