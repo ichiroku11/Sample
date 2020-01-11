@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Html
 @using TagHelperWebApp.TagHelpers
 @{
 	Layout = null;
@@ -29,6 +30,17 @@
 		<modal-partial id="sample-modal" title="Modal title">
 			<p>Modal body text goes here.</p>
 		</modal-partial>
+
+		<h5>PartialTagHelperをそのまま使う場合</h5>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sample-modal-bypartial">Launch modal</button>
+		@{
+			var model = new ModalPartialViewModel {
+				Id = "sample-modal-bypartial",
+				Title = "Modal title",
+				Body = new HtmlString("<p>Modal body text goes here.</p>"),
+			};
+			<partial name="_Modal" model="model" />
+		}
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

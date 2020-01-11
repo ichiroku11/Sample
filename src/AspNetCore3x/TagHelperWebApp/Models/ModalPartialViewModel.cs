@@ -8,6 +8,6 @@ namespace TagHelperWebApp.Models {
 	public class ModalPartialViewModel {
 		public string Id { get; set; }
 		public string Title { get; set; }
-		public IHtmlContentContainer Body { get; set; }
+		public IHtmlContent Body { get; set; }
 	}
 }
