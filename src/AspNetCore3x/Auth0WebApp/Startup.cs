@@ -31,7 +31,9 @@ namespace Auth0WebApp {
 					options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				})
 				// クッキー認証ハンドラを追加
-				.AddCookie()
+				.AddCookie(options => {
+					options.Cookie.Name = "auth";
+				})
 				// OpenID Connect認証ハンドラを追加
 				.AddOpenIdConnect(Auth0Defaults.AuthenticationScheme, options => {
 					// appsettings.jsonのAuth0オプション
