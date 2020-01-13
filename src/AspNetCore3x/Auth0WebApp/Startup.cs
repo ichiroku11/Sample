@@ -33,6 +33,8 @@ namespace Auth0WebApp {
 				// クッキー認証ハンドラを追加
 				.AddCookie(options => {
 					options.Cookie.Name = "auth";
+
+					options.Events = new LoggingCookieAuthenticationEvents();
 				})
 				// OpenID Connect認証ハンドラを追加
 				.AddOpenIdConnect(Auth0Defaults.AuthenticationScheme, options => {
