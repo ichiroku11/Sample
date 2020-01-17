@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace SampleTest {
+namespace SampleTest.Threading {
 	public class SemaphoreSlimTest {
 		private readonly ITestOutputHelper _output;
 

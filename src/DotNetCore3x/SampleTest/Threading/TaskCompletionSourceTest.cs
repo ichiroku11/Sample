@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Threading {
 	// TaskCompletionSourceを使ったサンプル
 	public class TaskCompletionSourceTest {
 		[Fact]

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Http {
 	public class HttpClientTest : IDisposable {
 		private class Startup {
 			private static void ConfigureQueryTest(IApplicationBuilder app) {

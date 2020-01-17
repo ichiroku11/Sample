@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace SampleTest {
+namespace SampleTest.Threading {
 	public class CancellationTokenSourceTest : IDisposable {
 		private readonly ITestOutputHelper _output;
 		private readonly CancellationTokenSource _source;

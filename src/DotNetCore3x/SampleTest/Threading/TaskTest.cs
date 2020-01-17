@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Threading {
 	public class TaskTest {
 		[Fact]
 		public async Task FromCanceled_キャンセルされたCancellationTokenを渡す() {

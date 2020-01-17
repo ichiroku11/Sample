@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Http {
 	public class HttpMessageHandlerTest {
 		// 何もしないハンドラ
 		// HttpClientHandlerのかわり
