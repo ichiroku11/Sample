@@ -1,10 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
 namespace SampleTest {
 	public class StackTest {
+		[Fact]
+		public void Pop_空の場合に呼び出すとInvalidOperationException() {
+			// Arrange
+			// Act
+			var stack = new Stack<int>();
+
+			// Assert
+			Assert.Throws<InvalidOperationException>(() => {
+				stack.Pop();
+			});
+		}
+
 		[Fact]
 		public void Pop_コンストラクタで指定したコレクションの逆順で取得できる() {
 			// Arrange
