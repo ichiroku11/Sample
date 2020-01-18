@@ -19,7 +19,10 @@ namespace SampleTest {
 			var stream = new MemoryStream();
 
 			// jsonのバイト配列にシリアライズして書き込む
-			var json = JsonSerializer.SerializeToUtf8Bytes(new { sample = value });
+			var json = JsonSerializer.SerializeToUtf8Bytes(
+				new Options {
+					Sample = value
+				});
 			stream.Write(json, 0, json.Length);
 
 			stream.Position = 0;
@@ -28,7 +31,7 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void AddJsonStream_後勝ちを確認する() {
+		public void AddJsonStream_構成を2つ読み込むと後勝ち() {
 			// Arrange
 			using var stream1 = GetConfigJsonStream("abc");
 			using var stream2 = GetConfigJsonStream("efg");
@@ -36,6 +39,7 @@ namespace SampleTest {
 			// Action
 			var builder = new ConfigurationBuilder()
 				.AddJsonStream(stream1)
+				// 上書きする
 				.AddJsonStream(stream2);
 			var options = builder.Build().Get<Options>();
 
@@ -44,7 +48,7 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void AddConfiguration_後勝ちを確認する() {
+		public void AddConfiguration_構成を2つ読み込むと後勝ち() {
 			// Arrange
 			using var stream1 = GetConfigJsonStream("abc");
 			using var stream2 = GetConfigJsonStream("efg");
@@ -61,6 +65,7 @@ namespace SampleTest {
 			var config2 = new ConfigurationBuilder()
 				// config1を使う
 				.AddConfiguration(config1)
+				// 上書きする
 				.AddJsonStream(stream2)
 				.Build();
 
