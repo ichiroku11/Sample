@@ -9,7 +9,9 @@ namespace AzureStorageConsoleApp {
 			await Host
 				.CreateDefaultBuilder(args)
 				.ConfigureServices(services => {
-					services.AddHostedService<SampleService>();
+					services
+						.AddHostedService<SampleService>()
+						.AddTransient<BlobSample>();
 				})
 				.RunConsoleAsync();
 		}
