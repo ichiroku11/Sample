@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,15 +16,22 @@ namespace AzureStorageConsoleApp {
 			_logger = logger;
 		}
 
-		public Task RunAsync() {
+		public async Task RunAsync() {
 			_logger.LogInformation(nameof(RunAsync));
 
+			// 参考
 			// https://docs.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-dotnet
 
+			var serviceClient = new BlobServiceClient(_connectionString);
 
+			var containerClient = serviceClient.GetBlobContainerClient("sample");
+			// todo:
+			var container = await containerClient.CreateIfNotExistsAsync();
 
-
-			return Task.CompletedTask;
+			// BLOB一覧を取得
+			await foreach (var item in containerClient.GetBlobsAsync()) {
+				_logger.LogInformation(item.Name);
+			}
 		}
 	}
 }
