@@ -21,6 +21,8 @@ namespace AzureStorageConsoleApp {
 			// https://docs.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-dotnet
 
 
+
+
 			return Task.CompletedTask;
 		}
 	}

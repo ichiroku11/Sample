@@ -25,9 +25,12 @@ namespace AzureStorageConsoleApp {
 		public Task StartAsync(CancellationToken cancellationToken) {
 			_logger.LogInformation(nameof(StartAsync));
 
+			// アプリケーションの開始が完了したら
 			_lifetime.ApplicationStarted.Register(async () => {
+				// Blobサンプルを実行
 				await _services.GetRequiredService<BlobSample>().RunAsync();
 
+				// アプリケーションを終了
 				_lifetime.StopApplication();
 			});
 
