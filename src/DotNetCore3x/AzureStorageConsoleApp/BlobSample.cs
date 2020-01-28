@@ -18,8 +18,7 @@ namespace AzureStorageConsoleApp {
 			_logger = logger;
 		}
 
-		private async Task UpoladBlobAsync(
-			BlobContainerClient containerClient, string blobName, string blobContent) {
+		private async Task UpoladBlobAsync(BlobContainerClient containerClient, string blobName, string blobContent) {
 			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(blobContent));
 
 			var blobClient = containerClient.GetBlobClient(blobName);
@@ -32,13 +31,11 @@ namespace AzureStorageConsoleApp {
 			var response = await blobClient.UploadAsync(stream);
 		}
 
-		private async Task<string> DownloadBlobAsync(
-			BlobContainerClient containerClient, string blobName) {
-
+		private async Task<string> DownloadBlobAsync(BlobContainerClient containerClient, string blobName) {
 			var blobClient = containerClient.GetBlobClient(blobName);
 			var response = await blobClient.DownloadAsync();
 
-			using var reader = new StreamReader(response.Value.Content);
+			using var reader = new StreamReader(response.Value.Content, Encoding.UTF8);
 			return await reader.ReadToEndAsync();
 		}
 
