@@ -26,6 +26,8 @@ namespace CookieAuthWebApp {
 
 					options.Events = new LoggingCookieAuthenticationEvents();
 				});
+
+			services.AddScoped<IClaimsTransformation, LoggingClaimsTransformation>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
