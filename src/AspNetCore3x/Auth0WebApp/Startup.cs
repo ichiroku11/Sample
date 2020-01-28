@@ -99,6 +99,8 @@ namespace Auth0WebApp {
 
 				});
 
+			services.AddScoped<IClaimsTransformation, LoggingClaimsTransformation>();
+
 			// MVC
 			services.AddControllersWithViews();
 		}
