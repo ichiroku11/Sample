@@ -18,27 +18,6 @@ namespace AzureStorageConsoleApp {
 			_logger = logger;
 		}
 
-		private async Task UpoladBlobAsync(BlobContainerClient containerClient, string blobName, string blobContent) {
-			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(blobContent));
-
-			var blobClient = containerClient.GetBlobClient(blobName);
-
-			var exists = await blobClient.ExistsAsync();
-			if (exists) {
-				return;
-			}
-
-			var response = await blobClient.UploadAsync(stream);
-		}
-
-		private async Task<string> DownloadBlobAsync(BlobContainerClient containerClient, string blobName) {
-			var blobClient = containerClient.GetBlobClient(blobName);
-			var response = await blobClient.DownloadAsync();
-
-			using var reader = new StreamReader(response.Value.Content, Encoding.UTF8);
-			return await reader.ReadToEndAsync();
-		}
-
 		public async Task RunAsync() {
 			_logger.LogInformation(nameof(RunAsync));
 			// 参考
@@ -48,12 +27,11 @@ namespace AzureStorageConsoleApp {
 
 			var containerClient = serviceClient.GetBlobContainerClient("sample");
 
-			// todo:
-			var container = await containerClient.CreateIfNotExistsAsync();
+			await containerClient.CreateIfNotExistsAsync();
 
 			// Blobをアップロード
-			await UpoladBlobAsync(containerClient, "a.txt", "Aaa");
-			await UpoladBlobAsync(containerClient, "b.txt", "Bbb");
+			await containerClient.UploadTextAsync("a.txt", "Aaa");
+			await containerClient.UploadTextAsync("b.txt", "Bbb");
 
 			// Blob一覧
 			await foreach (var item in containerClient.GetBlobsAsync()) {
@@ -61,8 +39,8 @@ namespace AzureStorageConsoleApp {
 			}
 
 			// Blobをダウンロード
-			_logger.LogInformation(await DownloadBlobAsync(containerClient, "a.txt"));
-			_logger.LogInformation(await DownloadBlobAsync(containerClient, "b.txt"));
+			_logger.LogInformation(await containerClient.DownloadTextAsync("a.txt"));
+			_logger.LogInformation(await containerClient.DownloadTextAsync("b.txt"));
 		}
 	}
 }
