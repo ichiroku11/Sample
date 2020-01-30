@@ -6,7 +6,7 @@ namespace LoggingConsoleApp {
 	class Program {
 		static void Main(string[] args) {
 			// 準備
-			using (var dbContext = new AppDbContext()) {
+			using (var context = new AppDbContext()) {
 				var sql = @"
 drop table if exists dbo.Monster;
 
@@ -21,12 +21,12 @@ output inserted.*
 values
 	(1, N'スライム'),
 	(2, N'ドラキー');";
-				dbContext.Database.ExecuteSqlRaw(sql);
+				context.Database.ExecuteSqlRaw(sql);
 			}
 
-			using (var dbContext = new AppDbContext()) {
+			using (var context = new AppDbContext()) {
 				// データを取得
-				var monsters = dbContext.Monsters.ToList();
+				var monsters = context.Monsters.ToList();
 				foreach (var monster in monsters) {
 					Console.WriteLine($"#{monster.Id} {monster.Name}");
 				}
@@ -34,7 +34,7 @@ values
 				//#2 ドラキー
 
 				/*
-				var monsters = dbContext.Monsters.FromSqlRaw("select * from dbo.Monster;");
+				var monsters = context.Monsters.FromSqlRaw("select * from dbo.Monster;");
 				foreach (var monster in monsters) {
 					Console.WriteLine($"#{monster.Id} {monster.Name}");
 				}
