@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CookieAuthWebApp {
+namespace CookieAuthnWebApp {
 	public class LoggingCookieAuthenticationEvents : CookieAuthenticationEvents {
 		private ILogger _logger;
 
