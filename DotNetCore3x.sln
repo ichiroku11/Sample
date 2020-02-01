@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RawSqlConsoleApp", "src\EfC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieAuthnWebApp", "src\AspNetCore3x\CookieAuthnWebApp\CookieAuthnWebApp.csproj", "{0798EF70-E8FF-4492-9E71-47EF159A5CCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolicyAuthzWebApp", "src\AspNetCore3x\PolicyAuthzWebApp\PolicyAuthzWebApp.csproj", "{2DC72D46-0CC6-411A-A4D0-5B48B270C32F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{0798EF70-E8FF-4492-9E71-47EF159A5CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0798EF70-E8FF-4492-9E71-47EF159A5CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0798EF70-E8FF-4492-9E71-47EF159A5CCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DC72D46-0CC6-411A-A4D0-5B48B270C32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DC72D46-0CC6-411A-A4D0-5B48B270C32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DC72D46-0CC6-411A-A4D0-5B48B270C32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DC72D46-0CC6-411A-A4D0-5B48B270C32F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +145,7 @@ Global
 		{5F683138-0376-48A0-A481-33F5AAB89C23} = {31E0DF25-725C-41CB-BDEC-D5876935533F}
 		{E390E56D-302B-460A-AFA9-1299DC960BE5} = {6D512DED-4C07-406B-9393-59F588F56B36}
 		{0798EF70-E8FF-4492-9E71-47EF159A5CCD} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
+		{2DC72D46-0CC6-411A-A4D0-5B48B270C32F} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
