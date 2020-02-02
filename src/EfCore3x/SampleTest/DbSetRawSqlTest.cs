@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace SampleTest {
+	// 参考
+	// https://docs.microsoft.com/ja-jp/ef/core/querying/raw-sql
 	public class DbSetRawSqlTest {
+		#region FromSqlInterpolated
 		[Fact]
 		public async Task FromSqlInterpolated_パラメータを使わないクエリ() {
 			using var context = new AppDbContext();
@@ -56,8 +59,9 @@ namespace SampleTest {
 			Assert.Equal(1, sample.Id);
 			Assert.Equal("a", sample.Name);
 		}
+		#endregion
 
-
+		#region FromSqlRaw
 		[Fact]
 		public async Task FromSqlRaw_パラメータを使わないクエリ() {
 			using var context = new AppDbContext();
@@ -85,5 +89,6 @@ namespace SampleTest {
 			Assert.Equal(1, sample.Id);
 			Assert.Equal("a", sample.Name);
 		}
+		#endregion
 	}
 }
