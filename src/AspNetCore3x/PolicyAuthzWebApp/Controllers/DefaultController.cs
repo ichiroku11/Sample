@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace PolicyAuthzWebApp.Controllers {
 	public class DefaultController : Controller {
 		public IActionResult Index() {
-			return Content($"{nameof(DefaultController.Index)}");
+			return Content($"{nameof(Index)}");
 		}
 	}
 }
