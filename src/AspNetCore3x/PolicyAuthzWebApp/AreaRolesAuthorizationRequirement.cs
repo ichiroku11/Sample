@@ -34,7 +34,7 @@ namespace PolicyAuthzWebApp {
 		}
 
 		protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, AreaRolesAuthorizationRequirement requirement) {
-			var area = GetAreaName(context);
+			var area = GetAreaName(context.Resource);
 
 			if (string.IsNullOrEmpty(area)) {
 				return Task.CompletedTask;

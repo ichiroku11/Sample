@@ -13,7 +13,7 @@ namespace PolicyAuthzWebApp {
 
 		public static AuthorizationPolicyBuilder RequireAreaRoles(
 			this AuthorizationPolicyBuilder builder, string area, params string[] roles) {
-			return RequireAreaRoles(builder, area, roles);
+			return RequireAreaRoles(builder, area, (IEnumerable<string>)roles);
 		}
 	}
 }

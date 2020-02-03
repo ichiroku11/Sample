@@ -25,15 +25,21 @@ namespace PolicyAuthzWebApp {
 				options.AddPolicy("Authenticated", builder => {
 					builder.RequireAuthenticatedUser();
 				});
+				// todo:
+				/*
 				options.AddPolicy("AreaRoles", builder => {
 					builder.RequireAreaRoles(area: "Admin", roles: "admin");
 				});
+				*/
 			});
 
 			// MVC
 			services.AddControllers(options => {
 				options.Filters.Add(new AuthorizeFilter("Authenticated"));
+				// todo:
+				/*
 				options.Filters.Add(new AuthorizeFilter("AreaRoles"));
+				*/
 			});
 		}
 
@@ -54,6 +60,11 @@ namespace PolicyAuthzWebApp {
 			*/
 
 			app.UseEndpoints(endpoints => {
+				endpoints.MapAreaControllerRoute(
+					name: "admin",
+					areaName: "Admin",
+					pattern: "Admin/{controller=Default}/{action=Index}/{id?}");
+
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller=Default}/{action=Index}/{id?}");
