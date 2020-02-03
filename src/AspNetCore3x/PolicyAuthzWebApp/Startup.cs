@@ -25,11 +25,15 @@ namespace PolicyAuthzWebApp {
 				options.AddPolicy("Authenticated", builder => {
 					builder.RequireAuthenticatedUser();
 				});
+				options.AddPolicy("AreaRoles", builder => {
+					builder.RequireAreaRoles(area: "Admin", roles: "admin");
+				});
 			});
 
 			// MVC
 			services.AddControllers(options => {
 				options.Filters.Add(new AuthorizeFilter("Authenticated"));
+				options.Filters.Add(new AuthorizeFilter("AreaRoles"));
 			});
 		}
 
