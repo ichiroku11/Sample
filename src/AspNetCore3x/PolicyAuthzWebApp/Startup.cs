@@ -40,7 +40,14 @@ namespace PolicyAuthzWebApp {
 
 			app.UseRouting();
 
+			// 認証
 			app.UseAuthentication();
+
+			/*
+			// 承認
+			// AuthorizeAttributeのために必要
+			app.UseAuthorization();
+			*/
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllerRoute(
