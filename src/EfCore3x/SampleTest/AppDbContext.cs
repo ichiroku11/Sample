@@ -30,5 +30,9 @@ namespace SampleTest {
 			}.ToString();
 			optionsBuilder.UseSqlServer(connectionString);
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder) {
+			modelBuilder.Entity<Sample>().ToTable(nameof(Sample));
+		}
 	}
 }
