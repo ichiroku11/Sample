@@ -24,7 +24,14 @@ namespace CookieAuthnWebApp {
 				.AddCookie(options => {
 					options.Cookie.Name = "auth";
 
-					options.Events = new LoggingCookieAuthenticationEvents();
+					options.Events = new LoggingCookieAuthenticationEvents {
+						OnSigningIn = (CookieSigningInContext context) => {
+							// Claimを追加できる
+							var identity = (ClaimsIdentity)context.Principal.Identity;
+							identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+							return Task.CompletedTask;
+						},
+					};
 				});
 
 			services.AddScoped<IClaimsTransformation, LoggingClaimsTransformation>();
@@ -86,13 +93,16 @@ namespace CookieAuthnWebApp {
 					await context.Response.WriteAsync(Environment.NewLine);
 					await context.Response.WriteAsync($"{nameof(ClaimTypes.NameIdentifier)}: ");
 					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
-
 					// 認証した（~/sigininにリクエストを送った）後だと
 					// Succeeded: True
 					// NameIdentifier: 1
 					// 認証していないと
 					// Succeeded: False
-					// NameIdentifier: 
+					// NameIdentifier:
+
+					await context.Response.WriteAsync(Environment.NewLine);
+					await context.Response.WriteAsync($"{nameof(ClaimTypes.Role)}: ");
+					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.Role) ?? "");
 				});
 
 				endpoints.MapGet("/", async context => {
