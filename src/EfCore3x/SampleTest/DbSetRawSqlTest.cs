@@ -89,6 +89,32 @@ namespace SampleTest {
 			Assert.Equal(1, sample.Id);
 			Assert.Equal("a", sample.Name);
 		}
+
+		[Fact]
+		public async Task FromSqlRaw_HasQueryFilterを確認する() {
+			using var context = new AppDbContext();
+
+			var samples = await context.Samples
+				.FromSqlRaw("select 1 as Id, null as Name")
+				.ToListAsync();
+			var sample = samples.FirstOrDefault();
+
+			Assert.Null(sample);
+		}
+
+		[Fact]
+		public async Task FromSqlRaw_IgnoreQueryFiltersを確認する() {
+			using var context = new AppDbContext();
+
+			var samples = await context.Samples
+				.FromSqlRaw("select 1 as Id, null as Name")
+				.IgnoreQueryFilters()
+				.ToListAsync();
+			var sample = samples.FirstOrDefault();
+
+			Assert.Equal(1, sample.Id);
+			Assert.Null(sample.Name);
+		}
 		#endregion
 	}
 }

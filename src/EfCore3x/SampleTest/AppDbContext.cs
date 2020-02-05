@@ -32,7 +32,10 @@ namespace SampleTest {
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
-			modelBuilder.Entity<Sample>().ToTable(nameof(Sample));
+			modelBuilder.Entity<Sample>()
+				.ToTable(nameof(Sample))
+				// グローバルフィルタ
+				.HasQueryFilter(entity => entity.Name != null);
 		}
 	}
 }
