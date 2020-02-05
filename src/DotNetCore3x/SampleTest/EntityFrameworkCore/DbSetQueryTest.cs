@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.EntityFrameworkCore {
 	public class DbSetQueryTest : IDisposable {
 		private AppDbContext _context;
 

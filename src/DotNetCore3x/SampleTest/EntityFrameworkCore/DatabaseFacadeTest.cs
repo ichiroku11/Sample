@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.EntityFrameworkCore {
 	public class DatabaseFacadeTest {
 		[Fact]
 		public async Task ExecuteSqlRawAsync_select文の結果を取得できない() {

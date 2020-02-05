@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.AspNetCore {
 	public class UriHelperTest {
 		[Fact]
 		public void BuildAbsolute_とりあえず使ってみる() {

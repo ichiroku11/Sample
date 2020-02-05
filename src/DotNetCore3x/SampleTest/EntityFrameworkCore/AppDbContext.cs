@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SampleTest {
+namespace SampleTest.EntityFrameworkCore {
 	public class AppDbContext : DbContext {
 		private static readonly ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => {
 			builder

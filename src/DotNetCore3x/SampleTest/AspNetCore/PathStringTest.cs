@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.AspNetCore {
 	public class PathStringTest {
 		[Fact]
 		public void PathString_とりあえず使ってみる() {

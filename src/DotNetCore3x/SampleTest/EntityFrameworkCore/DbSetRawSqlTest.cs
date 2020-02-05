@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.EntityFrameworkCore {
 	// 参考
 	// https://docs.microsoft.com/ja-jp/ef/core/querying/raw-sql
 	public class DbSetRawSqlTest {
