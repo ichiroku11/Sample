@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 namespace VuejsWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
+			services.AddRazorPages();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -21,9 +22,7 @@ namespace VuejsWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/", async context => {
-					await context.Response.WriteAsync("Hello World!");
-				});
+				endpoints.MapRazorPages();
 			});
 		}
 	}
