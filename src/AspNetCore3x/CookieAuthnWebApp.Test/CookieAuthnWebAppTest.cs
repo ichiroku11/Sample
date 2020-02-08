@@ -33,5 +33,24 @@ namespace CookieAuthnWebApp.Test {
 				new Uri(_factory.Server.BaseAddress, "/account/login").ToString(),
 				response.Headers.Location.GetLeftPart(UriPartial.Path));
 		}
+
+		[Fact]
+		public async Task GetForbid_AccountAccessDeniedへのリダイレクト() {
+			// Arrange
+			var options = new WebApplicationFactoryClientOptions {
+				AllowAutoRedirect = false,
+			};
+			var client = _factory.CreateClient(options);
+
+			// Act
+			var response = await client.GetAsync("/forbid");
+
+			// Assert
+			Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
+			Assert.Equal(
+				new Uri(_factory.Server.BaseAddress, "/account/accessdenied").ToString(),
+				response.Headers.Location.GetLeftPart(UriPartial.Path));
+
+		}
 	}
 }
