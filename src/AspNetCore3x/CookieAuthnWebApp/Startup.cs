@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -24,6 +25,11 @@ namespace CookieAuthnWebApp {
 				.AddCookie(options => {
 					options.Cookie.Name = "auth";
 
+					// リダイレクト用のパスを小文字に
+					options.AccessDeniedPath = CookieAuthenticationDefaults.AccessDeniedPath.ToString().ToLower();
+					options.LoginPath = CookieAuthenticationDefaults.LoginPath.ToString().ToLower();
+					options.LogoutPath = CookieAuthenticationDefaults.LogoutPath.ToString().ToLower();
+
 					options.Events = new LoggingCookieAuthenticationEvents {
 						OnSigningIn = (CookieSigningInContext context) => {
 							// Claimを追加できる
@@ -35,6 +41,14 @@ namespace CookieAuthnWebApp {
 				});
 
 			services.AddScoped<IClaimsTransformation, LoggingClaimsTransformation>();
+
+			// URL、クエリ文字列を小文字
+			/*
+			services.Configure<RouteOptions>(options => {
+				options.LowercaseQueryStrings = true;
+				options.LowercaseUrls = true;
+			});
+			*/
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
