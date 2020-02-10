@@ -14,7 +14,8 @@ namespace CookieAuthnWebApp.Test {
 		}
 
 		public void Dispose() {
-			_factory.Dispose();
+			// だめっぽい
+			//_factory.Dispose();
 		}
 
 		[Fact]
@@ -23,10 +24,10 @@ namespace CookieAuthnWebApp.Test {
 			var options = new WebApplicationFactoryClientOptions {
 				AllowAutoRedirect = false,
 			};
-			var client = _factory.CreateClient(options);
+			using var client = _factory.CreateClient(options);
 
 			// Act
-			var response = await client.GetAsync("/challenge");
+			using var response = await client.GetAsync("/challenge");
 
 			// Assert
 			Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
@@ -41,10 +42,10 @@ namespace CookieAuthnWebApp.Test {
 			var options = new WebApplicationFactoryClientOptions {
 				AllowAutoRedirect = false,
 			};
-			var client = _factory.CreateClient(options);
+			using var client = _factory.CreateClient(options);
 
 			// Act
-			var response = await client.GetAsync("/forbid");
+			using var response = await client.GetAsync("/forbid");
 
 			// Assert
 			Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
@@ -62,10 +63,10 @@ namespace CookieAuthnWebApp.Test {
 		[Fact]
 		public async Task GetAuthenticate_サインインしていない状態で正しい結果を取得できる() {
 			// Arrange
-			var client = _factory.CreateClient();
+			using var client = _factory.CreateClient();
 
 			// Act
-			var response = await client.GetAsync("/authenticate");
+			using var response = await client.GetAsync("/authenticate");
 			var content = await response.Content.ReadAsStringAsync();
 			var result = JsonSerializer.Deserialize<AuthenticateResult>(content);
 
@@ -79,10 +80,10 @@ namespace CookieAuthnWebApp.Test {
 		[Fact]
 		public async Task GetSignin_レスポンスにSetCookieヘッダが含まれる() {
 			// Arrange
-			var client = _factory.CreateClient();
+			using var client = _factory.CreateClient();
 
 			// Act
-			var response = await client.GetAsync("/signin");
+			using var response = await client.GetAsync("/signin");
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -93,10 +94,10 @@ namespace CookieAuthnWebApp.Test {
 		[Fact]
 		public async Task GetSignout_レスポンスにSetCookieヘッダが含まれる() {
 			// Arrange
-			var client = _factory.CreateClient();
+			using var client = _factory.CreateClient();
 
 			// Act
-			var response = await client.GetAsync("/signout");
+			using var response = await client.GetAsync("/signout");
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
