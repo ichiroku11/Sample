@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -50,7 +51,29 @@ namespace CookieAuthnWebApp.Test {
 			Assert.Equal(
 				new Uri(_factory.Server.BaseAddress, "/account/accessdenied").ToString(),
 				response.Headers.Location.GetLeftPart(UriPartial.Path));
+		}
 
+		private class AuthenticateResult {
+			public bool	Succeeded { get; set; }
+			public string NameIdentifier { get; set; }
+			public string Role { get; set; }
+		}
+
+		[Fact]
+		public async Task GetAuthenticate_サインインしていない状態で正しい結果を取得できる() {
+			// Arrange
+			var client = _factory.CreateClient();
+
+			// Act
+			var response = await client.GetAsync("/authenticate");
+			var content = await response.Content.ReadAsStringAsync();
+			var result = JsonSerializer.Deserialize<AuthenticateResult>(content);
+
+			// Assert
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.False(result.Succeeded);
+			Assert.Null(result.NameIdentifier);
+			Assert.Null(result.Role);
 		}
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -103,20 +104,25 @@ namespace CookieAuthnWebApp {
 
 					var result = await context.AuthenticateAsync();
 					var principal = result.Principal;
-					await context.Response.WriteAsync($"{nameof(result.Succeeded)}: {result.Succeeded}");
-					await context.Response.WriteAsync(Environment.NewLine);
-					await context.Response.WriteAsync($"{nameof(ClaimTypes.NameIdentifier)}: ");
-					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
+
+					var model = new {
+						result.Succeeded,
+						NameIdentifier = principal?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "",
+						Role = principal?.FindFirstValue(ClaimTypes.Role) ?? "",
+					};
+					var options = new JsonSerializerOptions {
+						PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+					};
+					var json = JsonSerializer.Serialize(model, options);
+					await context.Response.WriteAsync(json);
 					// 認証した（~/sigininにリクエストを送った）後だと
 					// Succeeded: True
 					// NameIdentifier: 1
+					// Role: Admin
 					// 認証していないと
 					// Succeeded: False
 					// NameIdentifier:
-
-					await context.Response.WriteAsync(Environment.NewLine);
-					await context.Response.WriteAsync($"{nameof(ClaimTypes.Role)}: ");
-					await context.Response.WriteAsync(principal?.FindFirstValue(ClaimTypes.Role) ?? "");
+					// Role:
 				});
 
 				endpoints.MapGet("/", async context => {
