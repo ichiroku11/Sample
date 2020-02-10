@@ -103,6 +103,14 @@ namespace SampleTest {
 			}
 		}
 
+		[Fact]
+		public void Deserialize_ValueTupleに変換できない() {
+			var (number, text) = JsonSerializer.Deserialize<(int number, string text)>(@"{""number"":1,""text"":""Abc""}");
+
+			Assert.Equal(0, number);
+			Assert.Null(text);
+		}
+
 		private class ExtensionDataSample {
 			public int Number { get; set; }
 			public string Text { get; set; }
