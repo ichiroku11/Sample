@@ -106,14 +106,15 @@ namespace CookieAuthnWebApp.Test {
 		}
 
 		// todo:
-		/*
-		[Fact]
+		[Fact(Skip = "クッキーの維持ができない？")]
 		public async Task GetAuthenticate_サインインした状態で正しい結果を取得できる() {
 			// Arrange
-			var client = _factory.CreateClient();
+			var options = new WebApplicationFactoryClientOptions {
+			};
+			var client = _factory.CreateClient(options);
 
 			// Act
-			(await client.GetAsync("/signin")).EnsureSuccessStatusCode();
+			await client.GetAsync("/signin");
 
 			var response = await client.GetAsync("/authenticate");
 			var content = await response.Content.ReadAsStringAsync();
@@ -125,6 +126,5 @@ namespace CookieAuthnWebApp.Test {
 			Assert.Equal("1", result.NameIdentifier);
 			Assert.Equal("Admin", result.Role);
 		}
-		*/
 	}
 }
