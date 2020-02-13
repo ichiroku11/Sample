@@ -43,7 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolicyAuthzWebApp", "src\As
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VuejsWebApp", "src\AspNetCore3x\VuejsWebApp\VuejsWebApp.csproj", "{E709CD5F-AB33-44F9-BADE-9E30B94AC052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieAuthnWebApp.Test", "src\AspNetCore3x\CookieAuthnWebApp.Test\CookieAuthnWebApp.Test.csproj", "{46BDF6E6-B98F-4301-93C2-2325E63E668C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieAuthnWebApp.Test", "src\AspNetCore3x\CookieAuthnWebApp.Test\CookieAuthnWebApp.Test.csproj", "{46BDF6E6-B98F-4301-93C2-2325E63E668C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptWebApp", "src\AspNetCore3x\TypeScriptWebApp\TypeScriptWebApp.csproj", "{21756B5A-F615-4393-BF47-89477E91E3AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{46BDF6E6-B98F-4301-93C2-2325E63E668C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46BDF6E6-B98F-4301-93C2-2325E63E668C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46BDF6E6-B98F-4301-93C2-2325E63E668C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21756B5A-F615-4393-BF47-89477E91E3AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21756B5A-F615-4393-BF47-89477E91E3AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21756B5A-F615-4393-BF47-89477E91E3AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21756B5A-F615-4393-BF47-89477E91E3AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{2DC72D46-0CC6-411A-A4D0-5B48B270C32F} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{E709CD5F-AB33-44F9-BADE-9E30B94AC052} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{46BDF6E6-B98F-4301-93C2-2325E63E668C} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
+		{21756B5A-F615-4393-BF47-89477E91E3AF} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
