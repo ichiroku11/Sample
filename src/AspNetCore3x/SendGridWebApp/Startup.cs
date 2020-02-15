@@ -20,7 +20,9 @@ namespace SendGridWebApp {
 		public void ConfigureServices(IServiceCollection services) {
 			services.Configure<SendGridOptions>(_config.GetSection("SendGrid"));
 
-			services.AddScoped<SendGridSendTextMailSample>();
+			services
+				.AddScoped<SendGridSendTextMailSample>()
+				.AddScoped<SendGridSendHtmlMailSample>();
 		}
 
 		private static RequestDelegate CreateDelegate<TSample>() where TSample : ISendGridSample {
@@ -38,7 +40,8 @@ namespace SendGridWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/send", CreateDelegate<SendGridSendTextMailSample>());
+				endpoints.MapGet("/sendtext", CreateDelegate<SendGridSendTextMailSample>());
+				endpoints.MapGet("/sendhtml", CreateDelegate<SendGridSendHtmlMailSample>());
 				endpoints.MapGet("/", async context => {
 					await context.Response.WriteAsync("Hello SendGrid!");
 				});
