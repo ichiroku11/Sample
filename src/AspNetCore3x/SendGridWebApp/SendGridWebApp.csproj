@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>764f7ea6-5d19-49af-aa32-149dd2067893</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SendGrid" Version="9.12.6" />
+  </ItemGroup>
 
 </Project>
