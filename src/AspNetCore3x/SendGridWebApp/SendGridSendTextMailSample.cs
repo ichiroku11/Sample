@@ -8,10 +8,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SendGridWebApp {
-	public class SendGridTextSample : ISendGridSample {
+	public class SendGridSendTextMailSample : ISendGridSample {
 		private readonly SendGridOptions _options;
 
-		public SendGridTextSample(IOptionsMonitor<SendGridOptions> options) {
+		public SendGridSendTextMailSample(IOptionsMonitor<SendGridOptions> options) {
 			_options = options.CurrentValue;
 		}
 
