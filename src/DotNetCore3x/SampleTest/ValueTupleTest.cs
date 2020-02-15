@@ -12,6 +12,10 @@ namespace SampleTest {
 			Y = y;
 			Z = z;
 		}
+		// 次のようにも書けるみたい
+		/*
+		public Vector3(int x = 0, int y = 0, int z = 0) => (X, Y, Z) = (x, y, z);
+		*/
 
 		public int X { get; }
 		public int Y { get; }
