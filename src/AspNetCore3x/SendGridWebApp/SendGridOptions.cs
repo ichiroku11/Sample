@@ -7,5 +7,6 @@ namespace SendGridWebApp {
 	public class SendGridOptions {
 		public string ApiKey { get; set; }
 		public string To { get; set; }
+		public string TemplateId { get; set; }
 	}
 }
