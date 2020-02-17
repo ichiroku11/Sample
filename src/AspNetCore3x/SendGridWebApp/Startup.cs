@@ -25,7 +25,7 @@ namespace SendGridWebApp {
 				.AddScoped<SendGridSendHtmlMailSample>();
 		}
 
-		private static RequestDelegate CreateDelegate<TSample>() where TSample : ISendGridSample {
+		private static RequestDelegate CreateDelegate<TSample>() where TSample : SendGridSample {
 			return async context => {
 				var sample = context.RequestServices.GetRequiredService<TSample>();
 				await sample.RunAsync(context);
