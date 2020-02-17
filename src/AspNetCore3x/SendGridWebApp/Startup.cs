@@ -21,8 +21,8 @@ namespace SendGridWebApp {
 			services.Configure<SendGridOptions>(_config.GetSection("SendGrid"));
 
 			services
-				.AddScoped<SendGridSendTextMailSample>()
-				.AddScoped<SendGridSendHtmlMailSample>()
+				.AddScoped<SendGridSendTextSample>()
+				.AddScoped<SendGridSendHtmlSample>()
 				.AddScoped<SendGridSendTemplateSample>();
 		}
 
@@ -41,8 +41,8 @@ namespace SendGridWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/sendtext", CreateDelegate<SendGridSendTextMailSample>());
-				endpoints.MapGet("/sendhtml", CreateDelegate<SendGridSendHtmlMailSample>());
+				endpoints.MapGet("/sendtext", CreateDelegate<SendGridSendTextSample>());
+				endpoints.MapGet("/sendhtml", CreateDelegate<SendGridSendHtmlSample>());
 				endpoints.MapGet("/sendtemplate", CreateDelegate<SendGridSendTemplateSample>());
 				endpoints.MapGet("/", async context => {
 					await context.Response.WriteAsync("Hello SendGrid!");

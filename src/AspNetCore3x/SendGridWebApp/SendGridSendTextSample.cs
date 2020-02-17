@@ -8,19 +8,19 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SendGridWebApp {
-	public class SendGridSendHtmlMailSample : SendGridSample {
-		public SendGridSendHtmlMailSample(IOptionsMonitor<SendGridOptions> options) : base(options) {
+	public class SendGridSendTextSample : SendGridSample {
+		public SendGridSendTextSample(IOptionsMonitor<SendGridOptions> options) : base(options) {
 		}
 
 		public override async Task RunAsync(HttpContext context) {
 			var client = new SendGridClient(Options.ApiKey);
 
 			var message = MailHelper.CreateSingleEmail(
-				from: new EmailAddress("test@example.com", nameof(SendGridSendHtmlMailSample)),
+				from: new EmailAddress("test@example.com", nameof(SendGridSendTextSample)),
 				to: new EmailAddress(Options.To),
 				subject: "Hello, SendGrid!",
-				plainTextContent: null,
-				htmlContent: "<p>This mail was sent with <strong>SendGrid</strong>.</p>");
+				plainTextContent: "This mail was sent with SendGrid.",
+				htmlContent: null);
 
 			var response = await client.SendEmailAsync(message);
 			await WriteResponseAsync(context, response);
