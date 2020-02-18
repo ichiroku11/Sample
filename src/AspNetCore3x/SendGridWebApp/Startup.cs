@@ -24,7 +24,8 @@ namespace SendGridWebApp {
 				.AddScoped<SendGridSendTextSample>()
 				.AddScoped<SendGridSendHtmlSample>()
 				.AddScoped<SendGridSendTemplateSample>()
-				.AddScoped<SendGridGetTemplateListSample>();
+				.AddScoped<SendGridGetTemplateListSample>()
+				.AddScoped<SendGridGetTemplateSample>();
 		}
 
 		private static RequestDelegate CreateDelegate<TSample>() where TSample : SendGridSample {
@@ -45,6 +46,7 @@ namespace SendGridWebApp {
 				endpoints.MapGet("/send/text", CreateDelegate<SendGridSendTextSample>());
 				endpoints.MapGet("/send/html", CreateDelegate<SendGridSendHtmlSample>());
 				endpoints.MapGet("/send/template", CreateDelegate<SendGridSendTemplateSample>());
+				endpoints.MapGet("/template/{id}", CreateDelegate<SendGridGetTemplateSample>());
 				endpoints.MapGet("/template", CreateDelegate<SendGridGetTemplateListSample>());
 				endpoints.MapGet("/", async context => {
 					await context.Response.WriteAsync("Hello SendGrid!");
