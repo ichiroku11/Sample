@@ -19,13 +19,13 @@ namespace SendGridWebApp {
 				From = new EmailAddress("test@example.com", nameof(SendGridSendTemplateSample)),
 			};
 			message.AddTo(new EmailAddress(Options.To));
-
 			message.SetTemplateId(Options.TemplateId);
 			message.SetTemplateData(new {
 				name = "Taro",
 			});
 
 			var response = await client.SendEmailAsync(message);
+
 			await WriteResponseAsync(context, response);
 		}
 	}

@@ -23,6 +23,7 @@ namespace SendGridWebApp {
 				htmlContent: "<p>This mail was sent with <strong>SendGrid</strong>.</p>");
 
 			var response = await client.SendEmailAsync(message);
+
 			await WriteResponseAsync(context, response);
 		}
 	}
