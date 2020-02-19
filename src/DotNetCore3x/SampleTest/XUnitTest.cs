@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace SampleTest {
@@ -22,5 +23,21 @@ namespace SampleTest {
 			// テストごとに呼ばれる
 			_output.WriteLine("Teardown");
 		}
+
+		// パラメータを使わないテスト
+		[Fact]
+		public void Fact属性でパラメータを使わないテスト() {
+			Assert.True(true);
+		}
+
+		// パラメータを使ったテスト
+		[Theory]
+		// テストデータを埋め込む
+		[InlineData(2)]
+		[InlineData(4)]
+		public void Theory属性とInlineData属性でパラメータを使ったテスト(int value) {
+			Assert.Equal(0, value % 2);
+		}
+
 	}
 }
