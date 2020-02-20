@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,7 +41,7 @@ namespace SampleTest {
 			Assert.Equal(0, value % 2);
 		}
 
-		// パラメータを生成するプロパティ
+		// テストデータを生成するプロパティ
 		public static IEnumerable<object[]> EvenNumbers {
 			get {
 				yield return new object[] { 2 };
@@ -57,7 +58,7 @@ namespace SampleTest {
 			Assert.Equal(0, value % 2);
 		}
 
-		// パラメータを生成するメソッド
+		// テストデータを生成するメソッド
 		public static IEnumerable<object[]> GetEvenNumbers(int count) {
 			foreach (var index in Enumerable.Range(0, count)) {
 				yield return new object[] { 2 * index };
@@ -73,6 +74,22 @@ namespace SampleTest {
 			Assert.Equal(0, value % 2);
 		}
 
+		// テストデータを生成するクラス
+		public class EvenNumberEnumerable : IEnumerable<object[]> {
+			public IEnumerator<object[]> GetEnumerator() {
+				yield return new object[] { 2 };
+				yield return new object[] { 4 };
+			}
+			IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		}
 
+		[Theory]
+		// クラスからテストデータを取得する
+		[ClassData(typeof(EvenNumberEnumerable))]
+		public void Theory属性とClassData属性でクラスからテストデータを生成したテスト(int value) {
+			_output.WriteLine($"{value}");
+
+			Assert.Equal(0, value % 2);
+		}
 	}
 }
