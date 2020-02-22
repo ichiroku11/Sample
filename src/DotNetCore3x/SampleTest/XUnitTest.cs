@@ -91,5 +91,14 @@ namespace SampleTest {
 
 			Assert.Equal(0, value % 2);
 		}
+
+		[Fact]
+		public void 例外が発生するテスト() {
+			static void action() => throw new InvalidOperationException();
+
+			Assert.Throws<InvalidOperationException>(() => {
+				action();
+			});
+		}
 	}
 }
