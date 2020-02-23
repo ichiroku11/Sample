@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Collections {
 	public class ArrayTest {
 		[Fact]
 		public void Index_試してみる() {

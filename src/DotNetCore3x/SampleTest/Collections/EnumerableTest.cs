@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Collections {
 	public class EnumerableTest {
 		[Fact]
 		public void Prepend_シーケンスの最初に要素を追加する() {

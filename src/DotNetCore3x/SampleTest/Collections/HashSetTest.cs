@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Collections {
 	public class HashSetTest {
 		private class Sample {
 			public int Id { get; set; }

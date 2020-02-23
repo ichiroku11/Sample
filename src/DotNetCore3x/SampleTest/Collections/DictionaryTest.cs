@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Collections {
 	public class DictionaryTest {
 		[Fact]
 		public void Add_同じキーを追加すると例外がスローされる() {

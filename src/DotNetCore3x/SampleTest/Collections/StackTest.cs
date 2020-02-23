@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace SampleTest {
+namespace SampleTest.Collections {
 	public class StackTest {
 		[Fact]
 		public void Pop_空の場合に呼び出すとInvalidOperationException() {
