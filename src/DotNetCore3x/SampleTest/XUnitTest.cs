@@ -8,7 +8,7 @@ using Xunit.Abstractions;
 
 namespace SampleTest {
 	// xUnit.netの使い方
-	public class XUnitTest {
+	public class XUnitTest : IDisposable {
 		// デバッグのメッセージの出力用
 		private readonly ITestOutputHelper _output;
 
