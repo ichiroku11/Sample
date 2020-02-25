@@ -4,7 +4,7 @@ using System.Text;
 using Xunit;
 
 namespace SampleTest {
-	// isを使ったパターンマッチングのテスト
+	// isを使ったパターンマッチングを試す
 	// https://docs.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/is
 	public class IsPatternMatchingTest {
 		[Fact]
