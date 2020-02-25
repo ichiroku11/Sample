@@ -7,10 +7,23 @@ using Xunit;
 
 namespace SampleTest.EntityFrameworkCore {
 	public class DbSetQueryTest : IDisposable {
-		private AppDbContext _context;
+		private class Sample {
+			public int Id { get; set; }
+			public string Name { get; set; }
+		}
+
+		private class SampleDbContext : AppDbContext {
+			public DbSet<Sample> Samples { get; set; }
+
+			protected override void OnModelCreating(ModelBuilder modelBuilder) {
+				modelBuilder.Entity<Sample>().ToTable(nameof(Sample));
+			}
+		}
+
+		private SampleDbContext _context;
 
 		public DbSetQueryTest() {
-			_context = new AppDbContext();
+			_context = new SampleDbContext();
 
 			Init();
 		}

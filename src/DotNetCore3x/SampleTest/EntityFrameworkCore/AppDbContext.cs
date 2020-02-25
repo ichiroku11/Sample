@@ -18,8 +18,6 @@ namespace SampleTest.EntityFrameworkCore {
 			ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 		}
 
-		public DbSet<Sample> Samples { get; set; }
-
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 			optionsBuilder.UseLoggerFactory(_loggerFactory);
 
@@ -29,13 +27,6 @@ namespace SampleTest.EntityFrameworkCore {
 				IntegratedSecurity = true,
 			}.ToString();
 			optionsBuilder.UseSqlServer(connectionString);
-		}
-
-		protected override void OnModelCreating(ModelBuilder modelBuilder) {
-			modelBuilder.Entity<Sample>()
-				.ToTable(nameof(Sample))
-				// グローバルフィルタ
-				.HasQueryFilter(entity => entity.Name != null);
 		}
 	}
 }
