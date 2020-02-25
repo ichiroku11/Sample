@@ -6,12 +6,30 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace SampleTest.EntityFrameworkCore {
+	// 参考
+	// https://docs.microsoft.com/ja-jp/ef/core/modeling/value-conversions
 	public class ValueConversionTest {
 		private enum MonsterCategory : byte {
 			None = 0,
 			Slime,
 			Animal,
 			Fly,
+		}
+
+		private static class MonsterCategoryHelper {
+			// 最初から2文字の文字列
+			public static string ToString(MonsterCategory value)
+				=> value.ToString().Substring(0, 2).ToLower();
+
+			// 2文字の文字列からenum値に（ちょっと雑）
+			public static MonsterCategory ToEnum(string value)
+				=> value switch
+				{
+					"sl" => MonsterCategory.Slime,
+					"an" => MonsterCategory.Animal,
+					"fl" => MonsterCategory.Fly,
+					_ => MonsterCategory.None,
+				};
 		}
 
 		private class Monster {
@@ -41,16 +59,19 @@ namespace SampleTest.EntityFrameworkCore {
 			protected override void OnModelCreating(ModelBuilder modelBuilder) {
 				modelBuilder.Entity<Monster>().ToTable(nameof(Monster))
 					.Property(entity => entity.Category)
+					// enum <=> stringに変換する
 					.HasConversion<string>();
 			}
 		}
 
 		private class EnumChar2MonsterDbContext : MonsterDbContext {
 			protected override void OnModelCreating(ModelBuilder modelBuilder) {
-				// todo:
 				modelBuilder.Entity<Monster>().ToTable(nameof(Monster))
 					.Property(entity => entity.Category)
-					.HasConversion<string>();
+					.HasConversion(
+						// enum <=> char[2]に変換する
+						value => MonsterCategoryHelper.ToString(value),
+						value => MonsterCategoryHelper.ToEnum(value));
 			}
 		}
 
@@ -60,7 +81,8 @@ namespace SampleTest.EntityFrameworkCore {
 				await context.Database.ExecuteSqlRawAsync(sql);
 			}
 			{
-				var sql = context switch {
+				var sql = context switch
+				{
 					EnumStringMonsterDbContext _ => @"
 create table dbo.Monster(
 	Id int,
@@ -99,6 +121,7 @@ create table dbo.Monster(
 		[Theory]
 		[InlineData(ConvertType.Default)]
 		[InlineData(ConvertType.String)]
+		[InlineData(ConvertType.Char2)]
 		public async Task Enumは数値や文字列に変換できるAsync(ConvertType convertType) {
 			using var context = convertType switch
 			{
@@ -110,18 +133,27 @@ create table dbo.Monster(
 			try {
 				await InitAsync(context);
 
-				var expected = new Monster {
+				var expected1 = new Monster {
 					Id = 1,
 					Name = "スライム",
 					Category = MonsterCategory.Slime,
 				};
-				await AddAsync(context, expected);
+				var expected2 = new Monster {
+					Id = 2,
+					Name = "ドラキー",
+					Category = MonsterCategory.Fly,
+				};
+				await AddAsync(context, expected1, expected2);
 
-				var actual = await FindAsync(context, 1);
+				var actual1 = await FindAsync(context, 1);
+				Assert.Equal(expected1.Id, actual1.Id);
+				Assert.Equal(expected1.Name, actual1.Name);
+				Assert.Equal(expected1.Category, actual1.Category);
 
-				Assert.Equal(expected.Id, actual.Id);
-				Assert.Equal(expected.Name, actual.Name);
-				Assert.Equal(expected.Category, actual.Category);
+				var actual2 = await FindAsync(context, 2);
+				Assert.Equal(expected2.Id, actual2.Id);
+				Assert.Equal(expected2.Name, actual2.Name);
+				Assert.Equal(expected2.Category, actual2.Category);
 			} catch (Exception) {
 				AssertHelper.Fail();
 			}
