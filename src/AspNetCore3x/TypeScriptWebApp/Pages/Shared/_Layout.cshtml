@@ -1,5 +1,16 @@
-<!DOCTYPE html>
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment Env
+@{
+	var page = ViewContext.RouteData.Values["page"] as string;
 
+	// 現在のページに対応するjsファイルが見つかればscriptタグを作成する
+	// 例
+	// 現在のページ：/index
+	// jsファイル：~/js/index.bundle.js
+	var jsPath = @$"js{page.ToLower()}.bundle.js";
+	var jsFile = Env.WebRootFileProvider.GetFileInfo(jsPath);
+}
+<!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
@@ -14,6 +25,8 @@
 	</main>
 	<footer>
 	</footer>
-	<script src="~/js/index.bundle.js" asp-append-version="true"></script>
+	@if (jsFile.Exists) {
+		<script src="~/@jsPath" asp-append-version="true"></script>
+	}
 </body>
 </html>
