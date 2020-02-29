@@ -15,6 +15,7 @@
 <head>
 	<meta name="viewport" content="width=device-width" />
 	<title>@ViewBag.Title - TypeScript Sample</title>
+	@RenderSection("style", required: true)
 </head>
 <body>
 	<header>
@@ -28,5 +29,6 @@
 	@if (jsFile.Exists) {
 		<script src="~/@jsPath" asp-append-version="true"></script>
 	}
+	@RenderSection("script", required: true)
 </body>
 </html>
