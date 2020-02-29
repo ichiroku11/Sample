@@ -1,0 +1,6 @@
+# TypeScript build results
+scripts/**.js
+scripts/**.js.map
+
+# TypeScript bundle results
+wwwroot/js
