@@ -2,7 +2,8 @@ const path = require("path");
 
 const config = {
 	entry: {
-		index: path.resolve(__dirname, "scripts/index.ts")
+		index: path.resolve(__dirname, "scripts/index.ts"),
+		"vuejs/usewebpack": path.resolve(__dirname, "scripts/vuejs/usewebpack.ts")
 	},
 	output: {
 		filename: "[name].bundle.js",
@@ -14,7 +15,10 @@ const config = {
 		]
 	},
 	resolve: {
-		extensions: [".ts"]
+		extensions: [".ts"],
+		alias: {
+			vue: "vue/dist/vue.js"
+		}
 	}
 };
 
