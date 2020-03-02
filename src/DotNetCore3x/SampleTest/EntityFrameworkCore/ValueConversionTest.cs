@@ -75,39 +75,39 @@ namespace SampleTest.EntityFrameworkCore {
 			}
 		}
 
-		private static async Task InitAsync(MonsterDbContext context) {
+		private static async Task CreateTableAsync(MonsterDbContext context) {
+			var sql = context switch
 			{
-				var sql = @"drop table if exists dbo.Monster;";
-				await context.Database.ExecuteSqlRawAsync(sql);
-			}
-			{
-				var sql = context switch
-				{
-					EnumStringMonsterDbContext _ => @"
+				EnumStringMonsterDbContext _ => @"
 create table dbo.Monster(
 	Id int,
 	Name nvarchar(20),
 	Category varchar(10),
 	constraint PK_Monster primary key(Id)
 );",
-					EnumChar2MonsterDbContext _ => @"
+				EnumChar2MonsterDbContext _ => @"
 create table dbo.Monster(
 	Id int,
 	Name nvarchar(20),
 	Category char(2),
 	constraint PK_Monster primary key(Id)
 );",
-					_ => @"
+				_ => @"
 create table dbo.Monster(
 	Id int,
 	Name nvarchar(20),
 	Category tinyint,
 	constraint PK_Monster primary key(Id)
 );",
-				};
-				await context.Database.ExecuteSqlRawAsync(sql);
-			}
+			};
+			await context.Database.ExecuteSqlRawAsync(sql);
 		}
+
+		private static async Task DropTableAsync(MonsterDbContext context) {
+			var sql = @"drop table if exists dbo.Monster;";
+			await context.Database.ExecuteSqlRawAsync(sql);
+		}
+
 
 		private static async Task AddAsync(MonsterDbContext context, params Monster[] monsters) {
 			await context.Monsters.AddRangeAsync(monsters);
@@ -131,7 +131,8 @@ create table dbo.Monster(
 			};
 
 			try {
-				await InitAsync(context);
+				await DropTableAsync(context);
+				await CreateTableAsync(context);
 
 				var expected1 = new Monster {
 					Id = 1,
@@ -156,6 +157,8 @@ create table dbo.Monster(
 				Assert.Equal(expected2.Category, actual2.Category);
 			} catch (Exception) {
 				AssertHelper.Fail();
+			} finally {
+				await DropTableAsync(context);
 			}
 		}
 	}
