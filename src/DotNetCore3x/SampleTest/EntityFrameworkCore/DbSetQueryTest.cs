@@ -25,21 +25,21 @@ namespace SampleTest.EntityFrameworkCore {
 		public DbSetQueryTest() {
 			_context = new SampleDbContext();
 
-			Init();
+			DropTable();
+			InitTable();
 		}
 
 		public void Dispose() {
+			DropTable();
+
 			if (_context != null) {
 				_context.Dispose();
 				_context = null;
 			}
 		}
 
-		private void Init() {
-			// 準備
+		private void InitTable() {
 			var sql = @"
-drop table if exists dbo.Sample;
-
 create table dbo.Sample(
 	Id int,
 	Name nvarchar(10),
@@ -51,6 +51,11 @@ output inserted.*
 values
 	(1, N'a'),
 	(2, N'b');";
+			_context.Database.ExecuteSqlRaw(sql);
+		}
+
+		private void DropTable() {
+			var sql = @"drop table if exists dbo.Sample;";
 			_context.Database.ExecuteSqlRaw(sql);
 		}
 
