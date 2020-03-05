@@ -79,5 +79,16 @@ namespace SampleTest.Collections {
 			Assert.NotSame(source, actual);
 			Assert.Equal(source, actual);
 		}
+
+		[Fact]
+		public void SequenceEqual_2つのコレクションが等しいか比較できる() {
+			// Arrange
+			var first = new[] { 1, 2, 3 };
+			var second = new[] { 1, 2, 3 };
+
+			// Act
+			// Assert
+			Assert.True(first.SequenceEqual(second));
+		}
 	}
 }
