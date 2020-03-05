@@ -27,8 +27,12 @@ namespace AzureStorageConsoleApp {
 
 			// アプリケーションの開始が完了したら
 			_lifetime.ApplicationStarted.Register(async () => {
-				// Blobサンプルを実行
-				await _services.GetRequiredService<BlobSample>().RunAsync();
+				try {
+					// Blobサンプルを実行
+					await _services.GetRequiredService<BlobSample>().RunAsync();
+				} catch (Exception) {
+					throw;
+				}
 
 				// アプリケーションを終了
 				_lifetime.StopApplication();
