@@ -3,9 +3,7 @@
 @{
 	Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
@@ -13,34 +11,42 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-	<div>
-		<h3>@nameof(IfTagHelper)</h3>
-		<span if="true">true</span>
-		<span if="false">false</span>
-	</div>
-	<div>
-		<h3>@nameof(PrePostTagHelper)</h3>
-		<pre-post>
-			<span>Content</span>
-		</pre-post>
-	</div>
-	<div>
-		<h3>@nameof(ModalPartialTagHelper)</h3>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sample-modal">Launch modal</button>
-		<modal-partial id="sample-modal" title="Modal title">
-			<p>Modal body text goes here.</p>
-		</modal-partial>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<h4>@nameof(IfTagHelper)</h4>
+				<span if="true">true</span>
+				<span if="false">false</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h4>@nameof(PrePostTagHelper)</h4>
+				<pre-post>
+					<span>Content</span>
+				</pre-post>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h4>@nameof(ModalPartialTagHelper)</h4>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sample-modal">Launch modal</button>
+				<modal-partial id="sample-modal" title="Modal title">
+					<p>Modal body text goes here.</p>
+				</modal-partial>
 
-		<h5>PartialTagHelperをそのまま使う場合</h5>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sample-modal-bypartial">Launch modal</button>
-		@{
-			var model = new ModalPartialViewModel {
-				Id = "sample-modal-bypartial",
-				Title = "Modal title",
-				Body = new HtmlString("<p>Modal body text goes here.</p>"),
-			};
-			<partial name="_Modal" model="model" />
-		}
+				<h5>PartialTagHelperをそのまま使う場合</h5>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sample-modal-bypartial">Launch modal</button>
+				@{
+					var model = new ModalPartialViewModel {
+						Id = "sample-modal-bypartial",
+						Title = "Modal title",
+						Body = new HtmlString("<p>Modal body text goes here.</p>"),
+					};
+					<partial name="_Modal" model="model" />
+				}
+			</div>
+		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
