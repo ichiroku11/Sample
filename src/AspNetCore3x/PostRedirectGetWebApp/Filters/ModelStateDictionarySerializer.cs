@@ -10,6 +10,7 @@ namespace PostRedirectGetWebApp.Filters {
 		// JSONシリアライズ用のオブジェクト
 		private class JsonEntry {
 			public string Key { get; set; }
+			// todo: コンバータを試す
 			public object RawValue { get; set; }
 			public string AttemptedValue { get; set; }
 			public IEnumerable<string> ErrorMessages { get; set; }
@@ -33,8 +34,7 @@ namespace PostRedirectGetWebApp.Filters {
 
 			var entries = JsonSerializer.Deserialize<JsonEntry[]>(json);
 			foreach (var entry in entries) {
-				// todo
-				// rawValueがダメ
+				// todo: rawValueが微妙
 				modelStates.SetModelValue(entry.Key, entry.RawValue, entry.AttemptedValue);
 				foreach (var errorMessage in entry.ErrorMessages) {
 					modelStates.AddModelError(entry.Key, errorMessage);
