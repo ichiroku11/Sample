@@ -25,6 +25,8 @@ namespace TagHelperWebApp.Controllerss {
 
 		[HttpPost]
 		public IActionResult Form(FormCommand command) {
+			// ModelStateEntry.RawValueはstringかstring[]っぽい
+			// checkboxにチェックを入れるとstring[]
 			foreach (var entry in ModelState) {
 				var builder = new StringBuilder();
 				builder.Append("ModelState:")

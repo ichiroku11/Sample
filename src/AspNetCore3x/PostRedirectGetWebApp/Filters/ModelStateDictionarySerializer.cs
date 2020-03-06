@@ -10,8 +10,9 @@ namespace PostRedirectGetWebApp.Filters {
 		// JSONシリアライズ用のオブジェクト
 		private class JsonEntry {
 			public string Key { get; set; }
-			// todo: コンバータを試す
-			public object RawValue { get; set; }
+			// ModelStateEntry.RawValueはおそらくstringかstring[]になる
+			// JSONでstringとstring[]の2パターンの読み込みが難しそうなのでstring[]として扱う
+			public string[] RawValues { get; set; }
 			public string AttemptedValue { get; set; }
 			public IEnumerable<string> ErrorMessages { get; set; }
 		}
@@ -20,7 +21,11 @@ namespace PostRedirectGetWebApp.Filters {
 		public static string Serialize(ModelStateDictionary modelStates) {
 			var entries = modelStates.Select(entry => new JsonEntry {
 				Key = entry.Key,
-				RawValue = entry.Value.RawValue,
+				RawValues = entry.Value.RawValue switch {
+					string rawValue => new[] { rawValue },
+					string[] rawValues => rawValues,
+					_ => throw new InvalidOperationException(),
+				},
 				AttemptedValue = entry.Value.AttemptedValue,
 				ErrorMessages = entry.Value.Errors.Select(error => error.ErrorMessage),
 			});
@@ -34,8 +39,10 @@ namespace PostRedirectGetWebApp.Filters {
 
 			var entries = JsonSerializer.Deserialize<JsonEntry[]>(json);
 			foreach (var entry in entries) {
-				// todo: rawValueが微妙
-				modelStates.SetModelValue(entry.Key, entry.RawValue, entry.AttemptedValue);
+				var rawValue = entry.RawValues.Length == 1
+					? (object)entry.RawValues[0]
+					: entry.RawValues;
+				modelStates.SetModelValue(entry.Key, rawValue, entry.AttemptedValue);
 				foreach (var errorMessage in entry.ErrorMessages) {
 					modelStates.AddModelError(entry.Key, errorMessage);
 				}
