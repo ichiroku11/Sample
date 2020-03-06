@@ -14,7 +14,7 @@ namespace PostRedirectGetWebApp.Filters {
 		public static void AddModelState(this ITempDataDictionary tempData, ModelStateDictionary modelState) {
 			// TempDataがシリアライズできるのは単純データのみ
 			// JSON文字列をTempDataに格納する
-			var json = ModelStateDictionarySerializer.Serialize(modelState);
+			var json = ModelStateDictionaryJsonSerializer.Serialize(modelState);
 
 			tempData.Add(_modelStateKey, json);
 		}
@@ -26,7 +26,7 @@ namespace PostRedirectGetWebApp.Filters {
 				return null;
 			}
 
-			return ModelStateDictionarySerializer.Deserialize(json);
+			return ModelStateDictionaryJsonSerializer.Deserialize(json);
 		}
 	}
 }

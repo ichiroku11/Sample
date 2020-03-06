@@ -6,7 +6,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace PostRedirectGetWebApp.Filters {
-	public static class ModelStateDictionarySerializer {
+	// ModelStateDictionaryのJsonSerializer
+	public static class ModelStateDictionaryJsonSerializer {
 		// JSONシリアライズ用のオブジェクト
 		private class JsonEntry {
 			public string Key { get; set; }
@@ -15,6 +16,13 @@ namespace PostRedirectGetWebApp.Filters {
 			public string[] RawValues { get; set; }
 			public string AttemptedValue { get; set; }
 			public IEnumerable<string> ErrorMessages { get; set; }
+		}
+
+		private static JsonSerializerOptions GetJsonSerializerSettings() {
+			return new JsonSerializerOptions {
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+			};
 		}
 
 		// JSON文字列にシリアライズ
@@ -30,14 +38,14 @@ namespace PostRedirectGetWebApp.Filters {
 				ErrorMessages = entry.Value.Errors.Select(error => error.ErrorMessage),
 			});
 
-			return JsonSerializer.Serialize(entries);
+			return JsonSerializer.Serialize(entries, GetJsonSerializerSettings());
 		}
 
 		// JSON文字列をデシリアライズ
 		public static ModelStateDictionary Deserialize(string json) {
 			var modelStates = new ModelStateDictionary();
 
-			var entries = JsonSerializer.Deserialize<JsonEntry[]>(json);
+			var entries = JsonSerializer.Deserialize<JsonEntry[]>(json, GetJsonSerializerSettings());
 			foreach (var entry in entries) {
 				var rawValue = entry.RawValues.Length == 1
 					? (object)entry.RawValues[0]

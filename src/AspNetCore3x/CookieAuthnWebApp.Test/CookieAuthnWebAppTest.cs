@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CookieAuthnWebApp.Test {
+namespace CookieAuthnWebApp {
 	public class CookieAuthnWebAppTest : IClassFixture<WebApplicationFactory<Startup>>, IDisposable {
 		private readonly WebApplicationFactory<Startup> _factory;
 

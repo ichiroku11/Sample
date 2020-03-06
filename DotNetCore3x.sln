@@ -45,7 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieAuthnWebApp.Test", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeScriptWebApp", "src\AspNetCore3x\TypeScriptWebApp\TypeScriptWebApp.csproj", "{21756B5A-F615-4393-BF47-89477E91E3AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostRedirectGetWebApp", "src\AspNetCore3x\PostRedirectGetWebApp\PostRedirectGetWebApp.csproj", "{E33006E8-5232-4213-A0E8-B133CBF2CB28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostRedirectGetWebApp", "src\AspNetCore3x\PostRedirectGetWebApp\PostRedirectGetWebApp.csproj", "{E33006E8-5232-4213-A0E8-B133CBF2CB28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostRedirectGetWebApp.Test", "src\AspNetCore3x\PostRedirectGetWebApp.Test\PostRedirectGetWebApp.Test.csproj", "{691F0441-CD83-40CF-A68C-BE9EF5F5BE38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +131,10 @@ Global
 		{E33006E8-5232-4213-A0E8-B133CBF2CB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E33006E8-5232-4213-A0E8-B133CBF2CB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E33006E8-5232-4213-A0E8-B133CBF2CB28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691F0441-CD83-40CF-A68C-BE9EF5F5BE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691F0441-CD83-40CF-A68C-BE9EF5F5BE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691F0441-CD83-40CF-A68C-BE9EF5F5BE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691F0441-CD83-40CF-A68C-BE9EF5F5BE38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +159,7 @@ Global
 		{46BDF6E6-B98F-4301-93C2-2325E63E668C} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{21756B5A-F615-4393-BF47-89477E91E3AF} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{E33006E8-5232-4213-A0E8-B133CBF2CB28} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
+		{691F0441-CD83-40CF-A68C-BE9EF5F5BE38} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
