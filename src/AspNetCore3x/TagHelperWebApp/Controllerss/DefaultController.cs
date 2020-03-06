@@ -25,12 +25,12 @@ namespace TagHelperWebApp.Controllerss {
 
 		[HttpPost]
 		public IActionResult Form(FormCommand command) {
-			foreach (var modelState in ModelState) {
+			foreach (var entry in ModelState) {
 				var builder = new StringBuilder();
 				builder.Append("ModelState:")
-					.Append($" {nameof(modelState.Key)}={modelState.Key}")
-					.Append($", {nameof(modelState.Value.RawValue)}.Type={modelState.Value.RawValue.GetType()}")
-					.Append($", {nameof(modelState.Value.RawValue)}={modelState.Value.RawValue}");
+					.Append($" {nameof(entry.Key)}={entry.Key}")
+					.Append($", {nameof(entry.Value.RawValue)}.Type={entry.Value.RawValue.GetType()}")
+					.Append($", {nameof(entry.Value.RawValue)}={entry.Value.GetRawValueAsString()}");
 				_logger.LogInformation(builder.ToString());
 			}
 

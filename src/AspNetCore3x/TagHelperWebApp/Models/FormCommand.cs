@@ -9,6 +9,8 @@ namespace TagHelperWebApp.Models {
 
 		public bool CheckBox { get; set; }
 
+		public int Radio { get; set; }
+
 		public int Select { get; set; }
 
 		public string MultilineText { get; set; }
