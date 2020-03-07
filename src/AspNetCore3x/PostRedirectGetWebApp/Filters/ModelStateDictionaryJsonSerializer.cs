@@ -18,18 +18,17 @@ namespace PostRedirectGetWebApp.Filters {
 			public IEnumerable<string> ErrorMessages { get; set; }
 		}
 
-		private static JsonSerializerOptions GetJsonSerializerSettings() {
-			return new JsonSerializerOptions {
+		private static JsonSerializerOptions _jsonSerializerOptions
+			= new JsonSerializerOptions {
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-				DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
 			};
-		}
 
 		// JSON文字列にシリアライズ
 		public static string Serialize(ModelStateDictionary modelStates) {
 			var entries = modelStates.Select(entry => new JsonEntry {
 				Key = entry.Key,
 				RawValues = entry.Value.RawValue switch {
+					null => new string[0],
 					string rawValue => new[] { rawValue },
 					string[] rawValues => rawValues,
 					_ => throw new InvalidOperationException(),
@@ -38,18 +37,20 @@ namespace PostRedirectGetWebApp.Filters {
 				ErrorMessages = entry.Value.Errors.Select(error => error.ErrorMessage),
 			});
 
-			return JsonSerializer.Serialize(entries, GetJsonSerializerSettings());
+			return JsonSerializer.Serialize(entries, _jsonSerializerOptions);
 		}
 
 		// JSON文字列をデシリアライズ
 		public static ModelStateDictionary Deserialize(string json) {
 			var modelStates = new ModelStateDictionary();
 
-			var entries = JsonSerializer.Deserialize<JsonEntry[]>(json, GetJsonSerializerSettings());
+			var entries = JsonSerializer.Deserialize<JsonEntry[]>(json, _jsonSerializerOptions);
 			foreach (var entry in entries) {
-				var rawValue = entry.RawValues.Length == 1
-					? (object)entry.RawValues[0]
-					: entry.RawValues;
+				var rawValue = entry.RawValues.Length switch {
+					0 => (object)null,
+					1 => entry.RawValues[0],
+					_ => entry.RawValues,
+				};
 				modelStates.SetModelValue(entry.Key, rawValue, entry.AttemptedValue);
 				foreach (var errorMessage in entry.ErrorMessages) {
 					modelStates.AddModelError(entry.Key, errorMessage);
