@@ -13,7 +13,7 @@ namespace TagHelperWebApp.TagHelpers {
 
 		public override void Process(TagHelperContext context, TagHelperOutput output) {
 			if (!If) {
-				// htmlを
+				// htmlを出力しない
 				output.SuppressOutput();
 			}
 		}
