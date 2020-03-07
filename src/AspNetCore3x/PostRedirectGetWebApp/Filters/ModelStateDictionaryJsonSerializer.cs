@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PostRedirectGetWebApp.Filters {
@@ -10,12 +11,35 @@ namespace PostRedirectGetWebApp.Filters {
 	public static class ModelStateDictionaryJsonSerializer {
 		// JSONシリアライズ用のオブジェクト
 		private class JsonEntry {
+			public static JsonEntry Create(string key, ModelStateEntry entry)
+				=> new JsonEntry {
+					Key = key,
+					RawValues = entry.RawValue switch {
+						null => new string[0],
+						string rawValue => new[] { rawValue },
+						string[] rawValues => rawValues,
+						_ => throw new InvalidOperationException(),
+					},
+					AttemptedValue = entry.AttemptedValue,
+					ErrorMessages = entry.Errors.Select(error => error.ErrorMessage),
+				};
+
 			public string Key { get; set; }
+
 			// ModelStateEntry.RawValueはおそらくstringかstring[]になる
 			// JSONでstringとstring[]の2パターンの読み込みが難しそうなのでstring[]として扱う
 			public string[] RawValues { get; set; }
+
 			public string AttemptedValue { get; set; }
+
 			public IEnumerable<string> ErrorMessages { get; set; }
+
+			[JsonIgnore]
+			public object RawValue => RawValues.Length switch {
+				0 => null,
+				1 => RawValues[0],
+				_ => RawValues,
+			};
 		}
 
 		private static JsonSerializerOptions _jsonSerializerOptions
@@ -25,18 +49,7 @@ namespace PostRedirectGetWebApp.Filters {
 
 		// JSON文字列にシリアライズ
 		public static string Serialize(ModelStateDictionary modelStates) {
-			var entries = modelStates.Select(entry => new JsonEntry {
-				Key = entry.Key,
-				RawValues = entry.Value.RawValue switch {
-					null => new string[0],
-					string rawValue => new[] { rawValue },
-					string[] rawValues => rawValues,
-					_ => throw new InvalidOperationException(),
-				},
-				AttemptedValue = entry.Value.AttemptedValue,
-				ErrorMessages = entry.Value.Errors.Select(error => error.ErrorMessage),
-			});
-
+			var entries = modelStates.Select(entry => JsonEntry.Create(entry.Key, entry.Value));
 			return JsonSerializer.Serialize(entries, _jsonSerializerOptions);
 		}
 
@@ -46,12 +59,7 @@ namespace PostRedirectGetWebApp.Filters {
 
 			var entries = JsonSerializer.Deserialize<JsonEntry[]>(json, _jsonSerializerOptions);
 			foreach (var entry in entries) {
-				var rawValue = entry.RawValues.Length switch {
-					0 => (object)null,
-					1 => entry.RawValues[0],
-					_ => entry.RawValues,
-				};
-				modelStates.SetModelValue(entry.Key, rawValue, entry.AttemptedValue);
+				modelStates.SetModelValue(entry.Key, entry.RawValue, entry.AttemptedValue);
 				foreach (var errorMessage in entry.ErrorMessages) {
 					modelStates.AddModelError(entry.Key, errorMessage);
 				}

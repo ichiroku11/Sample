@@ -5,6 +5,7 @@ using Xunit;
 
 namespace PostRedirectGetWebApp.Filters {
 	public class ModelStateDictionaryJsonSerializerTest {
+		// RawValue is null
 		private const string _jsonRawValueIsNull
 			= @"[{""key"":""k"",""rawValues"":[],""attemptedValue"":""a"",""errorMessages"":[]}]";
 
@@ -40,6 +41,7 @@ namespace PostRedirectGetWebApp.Filters {
 			Assert.Empty(modelState.Errors);
 		}
 
+		// RawValue is string
 		private const string _jsonRawValueIsString
 			= @"[{""key"":""k"",""rawValues"":[""r""],""attemptedValue"":""a"",""errorMessages"":[]}]";
 
@@ -76,6 +78,7 @@ namespace PostRedirectGetWebApp.Filters {
 			Assert.Empty(modelState.Errors);
 		}
 
+		// RawValue is string[]
 		private const string _jsonRawValueIsStringArray
 			= @"[{""key"":""k"",""rawValues"":[""r1"",""r2""],""attemptedValue"":""a"",""errorMessages"":[]}]";
 
