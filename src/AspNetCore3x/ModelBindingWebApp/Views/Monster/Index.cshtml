@@ -1,0 +1,16 @@
+@model MonsterViewModel
+@{
+	ViewBag.Title = "Index";
+}
+
+<form asp-action="">
+	<div>
+		<input asp-for="Form.Id" />
+	</div>
+	<div>
+		<input asp-for="Form.Name" />
+	</div>
+	<div>
+		<select asp-for="Form.Category" asp-items="Model.CategorySelectListItems"></select>
+	</div>
+</form>
