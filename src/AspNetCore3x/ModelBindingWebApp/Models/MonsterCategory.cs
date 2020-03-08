@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ModelBindingWebApp.Models {
@@ -20,24 +21,12 @@ namespace ModelBindingWebApp.Models {
 	}
 
 	public static class MonsterCategoryExtensions {
-		// todo:
-		/*
-		private static readonly object test = typeof(MonsterCategory)
-			.GetFields()
-			.SelectMany(field => field.GetV.GetCustomAttributes(false).OfType<DisplayAttribute>());
-		*/
 		private static readonly Dictionary<MonsterCategory, DisplayAttribute> _displayAttributes
-			= Enum.GetValues(typeof(MonsterCategory))
-				.OfType<MonsterCategory>()
+			= typeof(MonsterCategory)
+				.GetFields(BindingFlags.Public | BindingFlags.Static)
 				.ToDictionary(
-					category => category,
-					category => category
-						.GetType()
-						.GetField(category.ToString())
-						.GetCustomAttributes(false)
-						.OfType<DisplayAttribute>()
-						.FirstOrDefault());
-
+					field => (MonsterCategory)field.GetValue(null),
+					field => field.GetCustomAttributes<DisplayAttribute>().FirstOrDefault());
 		public static string GetDisplayName(this MonsterCategory category)
 			=> _displayAttributes[category]?.Name;
 
