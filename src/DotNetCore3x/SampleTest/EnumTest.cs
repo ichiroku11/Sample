@@ -81,5 +81,22 @@ namespace SampleTest {
 			// Assert
 			Assert.Equal("りんご", displayAttribute.Name);
 		}
+
+		[Fact]
+		public void リフレクションでenumとDisplayAttributeのDictionaryを作る() {
+			// Arrange
+			// Act
+			var displayAttributes = typeof(Fruit)
+				.GetFields(BindingFlags.Public | BindingFlags.Static)
+				.ToDictionary(
+					field => (Fruit)field.GetValue(null),
+					field => field.GetCustomAttributes<DisplayAttribute>().First());
+
+			// Assert
+			Assert.Equal(3, displayAttributes.Count);
+			Assert.Equal("りんご", displayAttributes[Fruit.Apple].Name);
+			Assert.Equal("バナナ", displayAttributes[Fruit.Banana].Name);
+			Assert.Equal("オレンジ", displayAttributes[Fruit.Orange].Name);
+		}
 	}
 }
