@@ -45,6 +45,7 @@ namespace ModelBindingWebApp.Helpers {
 		private static JsonSerializerOptions _jsonSerializerOptions
 			= new JsonSerializerOptions {
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				PropertyNameCaseInsensitive = true,
 			};
 
 		// JSON文字列にシリアライズ
