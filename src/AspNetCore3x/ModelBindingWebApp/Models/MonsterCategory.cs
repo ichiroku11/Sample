@@ -27,6 +27,7 @@ namespace ModelBindingWebApp.Models {
 				.ToDictionary(
 					field => (MonsterCategory)field.GetValue(null),
 					field => field.GetCustomAttributes<DisplayAttribute>().FirstOrDefault());
+
 		public static string GetDisplayName(this MonsterCategory category)
 			=> _displayAttributes[category]?.Name;
 
