@@ -27,7 +27,10 @@ namespace ModelBindingWebApp.Controllers {
 
 		[HttpPost]
 		[SaveModelState]
-		public IActionResult Save([Bind(Prefix = nameof(MonsterViewModel.Form))]MonsterFormModel formModel) {
+		public IActionResult Save(
+			// POSTする部分はViewModelのプロパティに指定しているため
+			// Bind属性でPrefixを指定する
+			[Bind(Prefix = nameof(MonsterViewModel.Form))]MonsterFormModel formModel) {
 			if (!ModelState.IsValid) {
 				return RedirectToAction(nameof(Index));
 			}
