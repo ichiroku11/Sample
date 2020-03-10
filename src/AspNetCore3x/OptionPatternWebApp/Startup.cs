@@ -21,7 +21,8 @@ namespace OptionPatternWebApp {
 			// 設定をクラスにバインドできるようにする
 			services.Configure<SampleOptions>(_config.GetSection("App:Sample"));
 			// 別の方法
-			//services.Configure<SampleSettings>(_config.GetSection("App").GetSection("Sample"));
+			//services.Configure<SampleOptions>(_config.GetSection("App").GetSection("Sample"));
+			services.Configure<SampleOptionsMonitor>(_config.GetSection("App:SampleMonitor"));
 
 			services.AddControllers();
 		}
