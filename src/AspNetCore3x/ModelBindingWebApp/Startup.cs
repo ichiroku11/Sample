@@ -14,6 +14,16 @@ namespace ModelBindingWebApp {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllersWithViews();
 
+			// セッションを使うなら
+			/*
+			services
+				.AddControllersWithViews()
+				// TempDataはセッションを使う
+				.AddSessionStateTempDataProvider();
+
+			services.AddSession();
+			*/
+
 			services.Configure<RouteOptions>(options => {
 				options.LowercaseUrls = true;
 				options.LowercaseQueryStrings = true;
@@ -26,6 +36,9 @@ namespace ModelBindingWebApp {
 			}
 
 			app.UseRouting();
+
+			// セッションを使うなら
+			//app.UseSession();
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllerRoute(
