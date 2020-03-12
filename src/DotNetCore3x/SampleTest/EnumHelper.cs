@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SampleTest {
 	public static class EnumHelper<TEnum> where TEnum : Enum {
-		// TEnum => TAttributeのDictionaryを取得
+		// TEnum=>TAttributeのDictionaryを取得
 		public static Dictionary<TEnum, TAttribute> GetAttributes<TAttribute>()
 			where TAttribute : Attribute {
 			return typeof(TEnum)
