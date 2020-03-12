@@ -20,7 +20,7 @@ namespace SampleTest {
 		public void GetAttributes_取得できる() {
 			// Arrange
 			// Act
-			var attributes = EnumHelper<Fruit>.GetAttributes<DisplayAttribute>();
+			var attributes = EnumHelper.GetAttributes<Fruit, DisplayAttribute>();
 
 			// Assert
 			Assert.Equal(3, attributes.Count);

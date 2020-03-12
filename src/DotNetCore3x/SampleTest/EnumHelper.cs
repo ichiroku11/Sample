@@ -7,9 +7,10 @@ using System.Reflection;
 using System.Text;
 
 namespace SampleTest {
-	public static class EnumHelper<TEnum> where TEnum : Enum {
+	public static class EnumHelper {
 		// TEnum=>TAttributeのDictionaryを取得
-		public static Dictionary<TEnum, TAttribute> GetAttributes<TAttribute>()
+		public static Dictionary<TEnum, TAttribute> GetAttributes<TEnum, TAttribute>()
+			where TEnum : Enum
 			where TAttribute : Attribute {
 			return typeof(TEnum)
 				.GetFields(BindingFlags.Public | BindingFlags.Static)
