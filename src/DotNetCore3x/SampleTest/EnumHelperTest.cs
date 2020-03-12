@@ -17,10 +17,10 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void GetDisplayAttributes_取得できる() {
+		public void GetAttributes_取得できる() {
 			// Arrange
 			// Act
-			var attributes = EnumHelper.GetDisplayAttributes<Fruit>();
+			var attributes = EnumHelper<Fruit>.GetAttributes<DisplayAttribute>();
 
 			// Assert
 			Assert.Equal(3, attributes.Count);
