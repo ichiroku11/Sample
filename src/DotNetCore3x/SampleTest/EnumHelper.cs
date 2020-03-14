@@ -18,5 +18,8 @@ namespace SampleTest {
 					field => (TEnum)field.GetValue(null),
 					field => field.GetCustomAttributes<TAttribute>().FirstOrDefault());
 		}
+
+		// TEnum一覧の取得
+		public static IEnumerable<TEnum> GetValues<TEnum>() => Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
 	}
 }
