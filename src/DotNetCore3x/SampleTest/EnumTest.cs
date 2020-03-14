@@ -58,6 +58,16 @@ namespace SampleTest {
 		}
 
 		[Fact]
+		public void Parse_文字列をEnumに変換できる() {
+			// Arrange
+			// Act
+			var apple = Enum.Parse<Fruit>("apple", ignoreCase: true);
+
+			// Assert
+			Assert.Equal(Fruit.Apple, apple);
+		}
+
+		[Fact]
 		public void リフレクションでenum値を列挙する() {
 			// Arrange
 			// Act
