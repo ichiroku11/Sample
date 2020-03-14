@@ -12,7 +12,12 @@ using Microsoft.Extensions.Hosting;
 namespace ModelBindingWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddControllersWithViews();
+			services
+				.AddControllersWithViews()
+				.AddViewOptions(options => {
+					// クライアント側バリーデーションを無効にする
+					options.HtmlHelperOptions.ClientValidationEnabled = false;
+				});
 
 			// セッションを使うなら
 			/*
