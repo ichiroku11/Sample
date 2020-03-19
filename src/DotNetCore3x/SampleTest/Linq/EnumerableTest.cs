@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace SampleTest.Collections {
+namespace SampleTest.Linq {
 	public class EnumerableTest {
 		[Fact]
 		public void Prepend_シーケンスの最初に要素を追加する() {
