@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace SampleTest {
+	// todo: EqualityComparer<T>を継承するべき？
 	// IEqualityComparerの実装
 	public class EqualityComparer<TElement, TKey> : IEqualityComparer<TElement> {
 		private readonly Func<TElement, TKey> _keySelector;
