@@ -26,6 +26,15 @@ namespace SampleTest {
 				Fruit.Orange
 			};
 
+		[Flags]
+		private enum Attributes : byte {
+			None = 0,
+			Read = 0b0001,
+			Write = 0b0010,
+			Execute = 0b0100,
+			ReadWrite = Read | Write,
+		}
+
 		[Fact]
 		public void IsDefined_数値を識別できる() {
 			// Arrange
@@ -65,6 +74,59 @@ namespace SampleTest {
 
 			// Assert
 			Assert.Equal(Fruit.Apple, apple);
+		}
+
+		[Fact]
+		public void HasFlag_フラグが設定されているか確認する() {
+			// Arrange
+			var attribute = Attributes.ReadWrite;
+
+			// Act
+			// Assert
+			Assert.True(attribute.HasFlag(Attributes.Read));
+			Assert.True(attribute.HasFlag(Attributes.Write));
+			Assert.True(attribute.HasFlag(Attributes.ReadWrite));
+			Assert.False(attribute.HasFlag(Attributes.Execute));
+		}
+
+		[Fact]
+		public void BitwiseOperator_フラグを設定する() {
+			// Arrange
+			var attribute = Attributes.Read;
+			attribute |= Attributes.Write;
+
+			// Act
+			// Assert
+			Assert.True(attribute.HasFlag(Attributes.Read));
+			Assert.True(attribute.HasFlag(Attributes.Write));
+			Assert.True(attribute.HasFlag(Attributes.ReadWrite));
+		}
+
+		[Fact]
+		public void BitwiseOperator_フラグをクリアする() {
+			// Arrange
+			var attribute = Attributes.Read | Attributes.Execute;
+			attribute &= ~Attributes.Execute;
+
+			// Act
+			// Assert
+			Assert.True(attribute.HasFlag(Attributes.Read));
+			// 元から設定されていない
+			Assert.False(attribute.HasFlag(Attributes.Write));
+			Assert.False(attribute.HasFlag(Attributes.Execute));
+		}
+
+		[Fact]
+		public void BitwiseOperator_フラグをクリアする_設定されていない値をクリアしても問題ない() {
+			// Arrange
+			var attribute = Attributes.Read;
+			attribute &= ~(Attributes.Write | Attributes.Execute);
+
+			// Act
+			// Assert
+			Assert.True(attribute.HasFlag(Attributes.Read));
+			Assert.False(attribute.HasFlag(Attributes.Write));
+			Assert.False(attribute.HasFlag(Attributes.Execute));
 		}
 
 		[Fact]
