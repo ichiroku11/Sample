@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace SampleTest {
-	// todo: EqualityComparer<T>を継承するべき？
-	// IEqualityComparerの実装
-	public class EqualityComparer<TElement, TKey> : IEqualityComparer<TElement> {
+	// EqualityComparerの実装
+	public class EqualityComparer<TElement, TKey> : EqualityComparer<TElement> {
 		private readonly Func<TElement, TKey> _keySelector;
 
 		public EqualityComparer(Func<TElement, TKey> keySelector) {
@@ -13,7 +13,7 @@ namespace SampleTest {
 		}
 
 		// 指定したオブジェクトが等しいかどうか
-		public bool Equals(TElement x, TElement y) {
+		public override bool Equals([AllowNull]TElement x, [AllowNull]TElement y) {
 			// 2つが同じインスタンスなら等しい
 			if (ReferenceEquals(x, y)) {
 				return true;
@@ -28,7 +28,7 @@ namespace SampleTest {
 		}
 
 		// 指定したオブジェクトのハッシュコードを取得
-		public int GetHashCode(TElement obj) {
+		public override int GetHashCode([DisallowNull]TElement obj) {
 			if (obj == null) {
 				return 0;
 			}
