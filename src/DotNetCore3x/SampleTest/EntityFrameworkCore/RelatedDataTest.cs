@@ -83,6 +83,7 @@ namespace SampleTest.EntityFrameworkCore {
 			_context = new MonsterDbContext();
 
 			DropTable();
+			CreateTable();
 		}
 
 		public void Dispose() {
