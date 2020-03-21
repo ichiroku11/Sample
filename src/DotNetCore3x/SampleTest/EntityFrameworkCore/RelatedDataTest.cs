@@ -140,6 +140,7 @@ delete from dbo.MonsterCategory;";
 
 			// Act
 			// Assert
+
 			// カテゴリを追加（追加した件数が正しい）
 			_context.MonsterCategories.AddRange(expected);
 			var rows = await _context.SaveChangesAsync();
@@ -150,6 +151,61 @@ delete from dbo.MonsterCategory;";
 				.OrderBy(category => category.Id)
 				.ToListAsync();
 			Assert.Equal(expected, actual, _monsterCategoryComparer);
+		}
+
+		// Includeで1対1の関連データを読み込む
+		// - AddRangeでMonsterとMonsterCategoryを同時にinsert
+		// - Includeを使わずにMonster一覧を取得
+		// - Includeを使ってMonster一覧を取得するときにMonsterCategoryも取得
+		[Fact]
+		public async Task モンスターを追加する際にカテゴリも追加して取得できる() {
+			// Arrange
+			await InitAsync();
+
+			var expectedMonsters = _monsters.Values
+				.Select(monster => new Monster {
+					Id = monster.Id,
+					CategoryId = monster.CategoryId,
+					Name = monster.Name,
+					Category = _monsterCategories[monster.CategoryId]
+				})
+				.OrderBy(monster => monster.Id);
+			var expectedCategories = expectedMonsters
+				.Select(monster => monster.Category)
+				.Distinct(_monsterCategoryComparer);
+
+			// Act
+			// Assert
+
+			// モンスターを追加
+			_context.Monsters.AddRange(expectedMonsters);
+			var rows = await _context.SaveChangesAsync();
+
+			// カテゴリも追加された数になる
+			Assert.Equal(expectedMonsters.Count() + expectedCategories.Count(), rows);
+
+			// 追加されたカテゴリを取得できる
+			var actualCategories = await _context.MonsterCategories
+				.OrderBy(category => category.Id)
+				.ToListAsync();
+			Assert.Equal(expectedCategories, actualCategories, _monsterCategoryComparer);
+
+			// 追加したモンスターを取得できる
+			var actualMonsters = await _context.Monsters
+				.OrderBy(category => category.Id)
+				.ToListAsync();
+			Assert.Equal(expectedMonsters, actualMonsters, _monsterComparer);
+			// Categoryプロパティはすべてnull
+			Assert.All(actualMonsters, monster => Assert.Null(monster.Category));
+
+			// モンスターとカテゴリをあわせて取得できる
+			actualMonsters = await _context.Monsters
+				.Include(monster => monster.Category)
+				.OrderBy(category => category.Id)
+				.ToListAsync();
+			Assert.Equal(expectedMonsters, actualMonsters, _monsterComparer);
+			// Categoryプロパティが設定されている
+			Assert.All(actualMonsters, monster => Assert.Equal(_monsterCategories[monster.CategoryId], monster.Category, _monsterCategoryComparer));
 		}
 	}
 }
