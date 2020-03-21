@@ -134,6 +134,22 @@ create table dbo.Monster(
 	constraint PK_Monster primary key(Id),
 	constraint FK_Monster_MonsterCategory
 		foreign key(CategoryId) references dbo.MonsterCategory(Id)
+);
+
+create table dbo.Item(
+	Id int not null,
+	Name nvarchar(10) not null,
+	constraint PK_Item primary key(Id),
+);
+
+create table dbo.MonsterItem(
+	MonsterId int not null,
+	ItemId int not null,
+	constraint PK_MonsterItem primary key(MonsterId, ItemId),
+	constraint FK_MonsterItem_Monster
+		foreign key(MonsterId) references dbo.Monster(Id),
+	constraint FK_MonsterItem_Item
+		foreign key(ItemId) references dbo.Item(Id)
 );";
 
 			return _context.Database.ExecuteSqlRaw(sql);
@@ -141,6 +157,8 @@ create table dbo.Monster(
 
 		private int DropTable() {
 			var sql = @"
+drop table if exists dbo.MonsterItem;
+drop table if exists dbo.Item;
 drop table if exists dbo.Monster;
 drop table if exists dbo.MonsterCategory;";
 
@@ -149,6 +167,8 @@ drop table if exists dbo.MonsterCategory;";
 
 		private Task<int> InitAsync() {
 			var sql = @"
+delete from dbo.MonsterItem;
+delete from dbo.Item;
 delete from dbo.Monster;
 delete from dbo.MonsterCategory;";
 
@@ -231,5 +251,35 @@ delete from dbo.MonsterCategory;";
 			// Categoryプロパティが設定されている
 			Assert.All(actualMonsters, monster => Assert.Equal(_monsterCategories[monster.CategoryId], monster.Category, _monsterCategoryComparer));
 		}
+
+		// todo:
+		/*
+		// Includeで1対多の関連データを読み込む
+		[Fact]
+		public async Task Include_OneMany() {
+			// Arrange
+			await InitAsync();
+
+			// todo:
+			// Itemをinsert
+			// MonsterとMonsterItemをinsert
+
+			// Act
+			// Assert
+
+			// todo:
+			// MonsterとMonsterItemをIncludeで取得
+
+		}
+
+		[Fact]
+		public async Task Include_ManyMany() {
+			// Arrange
+			await InitAsync();
+
+			// Act
+			// Assert
+		}
+		*/
 	}
 }
