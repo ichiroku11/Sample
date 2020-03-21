@@ -29,14 +29,8 @@ namespace SampleTest.EntityFrameworkCore {
 
 			// Navigation
 			public MonsterCategory Category { get; set; }
-			// todo:
-			/*
 			public List<MonsterItem> Items { get; set; }
-			*/
 		}
-
-		// todo:
-		/*
 		private class Item {
 			public int Id { get; set; }
 			public string Name { get; set; }
@@ -45,8 +39,23 @@ namespace SampleTest.EntityFrameworkCore {
 		private class MonsterItem {
 			public int MonsterId { get; set; }
 			public int ItemId { get; set; }
+
+			// Navigation
+			public Monster Monster { get; set; }
+			public Item Item { get; set; }
 		}
-		*/
+
+		private static readonly EqualityComparer<MonsterCategory> _monsterCategoryComparer
+			= EqualityComparerFactory<MonsterCategory>.Create(category => new { category.Id, category.Name });
+
+		private static readonly EqualityComparer<Monster> _monsterComparer
+			= EqualityComparerFactory<Monster>.Create(monster => new { monster.Id, monster.CategoryId, monster.Name });
+
+		private static readonly EqualityComparer<Item> _itemComparer
+			= EqualityComparerFactory<Item>.Create(item => new { item.Id, item.Name });
+
+		private static readonly EqualityComparer<MonsterItem> _monsterItemComparer
+			= EqualityComparerFactory<MonsterItem>.Create(item => new { item.MonsterId, item.ItemId });
 
 		private static readonly IReadOnlyDictionary<int, MonsterCategory> _monsterCategories
 			= new Dictionary<int, MonsterCategory>() {
@@ -55,17 +64,28 @@ namespace SampleTest.EntityFrameworkCore {
 				{ 3, new MonsterCategory { Id = 3, Name = "Fly", } }
 			};
 
-		private static readonly IReadOnlyDictionary<int, Monster> _monsters
-			= new Dictionary<int, Monster> {
-				{ 1, new Monster { Id = 1, CategoryId = 1, Name = "スライム", } },
-				{ 2, new Monster { Id = 2, CategoryId = 2, Name = "ドラキー", } },
+		private static readonly IReadOnlyCollection<Monster> _monsters
+			= new[] {
+				new Monster { Id = 1, CategoryId = 1, Name = "スライム", },
+				new Monster { Id = 2, CategoryId = 2, Name = "ドラキー", },
 			};
 
-		private static readonly EqualityComparer<MonsterCategory> _monsterCategoryComparer
-			= EqualityComparerFactory<MonsterCategory>.Create(category => new { category.Id, category.Name });
+		private static readonly IReadOnlyDictionary<int, Item> _items
+			= new Dictionary<int, Item> {
+				{ 1, new Item { Id = 1, Name = "やくそう", } },
+				{ 2, new Item { Id = 2, Name = "スライムゼリー", } },
+				{ 3, new Item { Id = 3, Name = "キメラのつばさ", } },
+			};
 
-		private static readonly EqualityComparer<Monster> _monsterComparer
-			= EqualityComparerFactory<Monster>.Create(monster => new { monster.Id, monster.CategoryId, monster.Name });
+		private static readonly IReadOnlyCollection<MonsterItem> _monsterItems
+			= new[] {
+				// スライム => やくそう、スライムゼリー
+				new MonsterItem { MonsterId = 1, ItemId = 1, },
+				new MonsterItem { MonsterId = 1, ItemId = 2, },
+				// ドラキー => やくそう、キメラのつばさ
+				new MonsterItem { MonsterId = 2, ItemId = 1, },
+				new MonsterItem { MonsterId = 2, ItemId = 3, },
+			};
 
 		private class MonsterDbContext : AppDbContext {
 			public DbSet<MonsterCategory> MonsterCategories { get; set; }
@@ -74,6 +94,10 @@ namespace SampleTest.EntityFrameworkCore {
 			protected override void OnModelCreating(ModelBuilder modelBuilder) {
 				modelBuilder.Entity<MonsterCategory>().ToTable(nameof(MonsterCategory));
 				modelBuilder.Entity<Monster>().ToTable(nameof(Monster));
+				modelBuilder.Entity<Item>().ToTable(nameof(Item));
+				modelBuilder.Entity<MonsterItem>().ToTable(nameof(MonsterItem))
+					// 複合主キー
+					.HasKey(monsterItem => new { monsterItem.MonsterId, monsterItem.ItemId });
 			}
 		}
 
@@ -162,7 +186,7 @@ delete from dbo.MonsterCategory;";
 			// Arrange
 			await InitAsync();
 
-			var expectedMonsters = _monsters.Values
+			var expectedMonsters = _monsters
 				.Select(monster => new Monster {
 					Id = monster.Id,
 					CategoryId = monster.CategoryId,
