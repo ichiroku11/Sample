@@ -90,6 +90,8 @@ namespace SampleTest.EntityFrameworkCore {
 		private class MonsterDbContext : AppDbContext {
 			public DbSet<MonsterCategory> MonsterCategories { get; set; }
 			public DbSet<Monster> Monsters { get; set; }
+			public DbSet<Item> Items { get; set; }
+			public DbSet<MonsterItem> MonsterItems { get; set; }
 
 			protected override void OnModelCreating(ModelBuilder modelBuilder) {
 				modelBuilder.Entity<MonsterCategory>().ToTable(nameof(MonsterCategory));
@@ -220,7 +222,6 @@ delete from dbo.MonsterCategory;";
 
 			// Act
 			// Assert
-
 			// モンスターを追加
 			// ナビゲーションプロパティに設定されているカテゴリも追加される
 			_context.Monsters.AddRange(expectedMonsters);
@@ -250,19 +251,17 @@ delete from dbo.MonsterCategory;";
 			// Arrange
 			await InitAsync();
 
-			var expected = _monsters.OrderBy(monster => monster.Id);
-
-			// Act
-			// Assert
-
 			// カテゴリを追加
 			_context.MonsterCategories.AddRange(_monsterCategories.Values);
 			// モンスターを追加
+			var expected = _monsters.OrderBy(monster => monster.Id);
 			_context.Monsters.AddRange(expected);
 
 			var rows = await _context.SaveChangesAsync();
 			Assert.Equal(expected.Count() + _monsterCategories.Count(), rows);
 
+			// Act
+			// Assert
 			// Includeを使わずにモンスター一覧を取得
 			var actual = await _context.Monsters
 				.OrderBy(category => category.Id)
@@ -274,33 +273,70 @@ delete from dbo.MonsterCategory;";
 			// Includeを使ってモンスター一覧とカテゴリをあわせて取得
 			actual = await _context.Monsters
 				.Include(monster => monster.Category)
-				.OrderBy(category => category.Id)
+				.OrderBy(monster => monster.Id)
 				.ToListAsync();
 			Assert.Equal(expected, actual, _monsterComparer);
 			// Categoryプロパティが設定されている
-			Assert.All(actual, monster => Assert.Equal(_monsterCategories[monster.CategoryId], monster.Category, _monsterCategoryComparer));
+			Assert.All(
+				actual,
+				monster => Assert.Equal(
+					_monsterCategories[monster.CategoryId],
+					monster.Category,
+					_monsterCategoryComparer));
 		}
 
-		// todo:
-		/*
 		// Includeで1対多の関連データを読み込む
 		[Fact]
 		public async Task Include_OneMany() {
 			// Arrange
 			await InitAsync();
 
-			// todo:
-			// Itemをinsert
-			// MonsterとMonsterItemをinsert
+			// カテゴリを追加
+			_context.MonsterCategories.AddRange(_monsterCategories.Values);
+			// アイテムを追加
+			_context.Items.AddRange(_items.Values);
+			// モンスターとモンスターアイテムを追加
+			var expected = _monsters
+				.Select(monster => new Monster {
+					Id = monster.Id,
+					CategoryId = monster.CategoryId,
+					Name = monster.Name,
+					// ナビゲーションプロパティにMonsterItemを設定
+					Items = _monsterItems.Where(item => item.MonsterId == monster.Id).ToList(),
+				})
+				.OrderBy(monster => monster.Id);
+			_context.Monsters.AddRange(expected);
+
+			var rows = await _context.SaveChangesAsync();
+			Assert.Equal(_monsterCategories.Count() + _items.Count() + expected.Count() + _monsterItems.Count(), rows);
 
 			// Act
 			// Assert
+			// Includeを使わずにモンスター一覧を取得
+			var actual = await _context.Monsters
+				.OrderBy(monster => monster.Id)
+				.ToListAsync();
+			Assert.Equal(expected, actual, _monsterComparer);
+			// Itemsプロパティはすべてnull
+			Assert.All(actual, monster => Assert.Null(monster.Items));
 
-			// todo:
-			// MonsterとMonsterItemをIncludeで取得
-
+			// Includeを使ってモンスター一覧とアイテム一覧をあわせて取得
+			actual = await _context.Monsters
+				.Include(monster => monster.Items)
+				.OrderBy(monster => monster.Id)
+				.ToListAsync();
+			Assert.Equal(expected, actual, _monsterComparer);
+			// Itemsプロパティが設定されている
+			Assert.All(
+				actual,
+				actual => Assert.Equal(
+					expected.FirstOrDefault(monster => monster.Id == actual.Id).Items,
+					actual.Items,
+					_monsterItemComparer));
 		}
 
+		// todo:
+		/*
 		// IncludeとThenIncludeで多対多の関連データを読み込む
 		[Fact]
 		public async Task Include_ManyMany() {
