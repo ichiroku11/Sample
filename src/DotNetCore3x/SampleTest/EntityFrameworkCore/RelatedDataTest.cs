@@ -335,17 +335,54 @@ delete from dbo.MonsterCategory;";
 					_monsterItemComparer));
 		}
 
-		// todo:
-		/*
 		// IncludeとThenIncludeで多対多の関連データを読み込む
 		[Fact]
 		public async Task Include_ManyMany() {
 			// Arrange
 			await InitAsync();
 
+			// カテゴリを追加
+			_context.MonsterCategories.AddRange(_monsterCategories.Values);
+			// アイテムを追加
+			_context.Items.AddRange(_items.Values);
+			// モンスターとモンスターアイテムを追加
+			var expected = _monsters
+				.Select(monster => new Monster {
+					Id = monster.Id,
+					CategoryId = monster.CategoryId,
+					Name = monster.Name,
+					// ナビゲーションプロパティにMonsterItemを設定
+					Items = _monsterItems.Where(item => item.MonsterId == monster.Id).ToList(),
+				})
+				.OrderBy(monster => monster.Id);
+			_context.Monsters.AddRange(expected);
+
+			var rows = await _context.SaveChangesAsync();
+			Assert.Equal(_monsterCategories.Count() + _items.Count() + expected.Count() + _monsterItems.Count(), rows);
+
 			// Act
 			// Assert
+			// IncludeとThenIncludeを使ってモンスター一覧とアイテム一覧、アイテムをあわせて取得
+			var actual = await _context.Monsters
+				.Include(monster => monster.Items)
+					.ThenInclude(monsterItem => monsterItem.Item)
+				.OrderBy(monster => monster.Id)
+				.ToListAsync();
+			Assert.Equal(expected, actual, _monsterComparer);
+			// Itemsプロパティが設定されている
+			Assert.All(
+				actual,
+				actual => Assert.Equal(
+					expected.FirstOrDefault(monster => monster.Id == actual.Id).Items,
+					actual.Items,
+					_monsterItemComparer));
+			// ItemプロパティのItemが正しい
+			Assert.All(
+				actual.SelectMany(monster => monster.Items),
+				actual => Assert.Equal(
+					_items[actual.ItemId],
+					actual.Item,
+					_itemComparer));
 		}
-		*/
 	}
 }
