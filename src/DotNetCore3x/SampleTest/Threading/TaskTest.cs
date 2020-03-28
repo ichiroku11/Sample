@@ -30,6 +30,16 @@ namespace SampleTest.Threading {
 		}
 
 		[Fact]
+		public async Task FromException_引数に指定した例外が発生するタスクを作る() {
+			// Arrange
+			// Act
+			var task = Task.FromException(new ArgumentException());
+
+			// Assert
+			await Assert.ThrowsAsync<ArgumentException>(async () => await task);
+		}
+
+		[Fact]
 		public void Wait_例外はAggregateExceptionに集約される() {
 			// Arrange
 			// Act
