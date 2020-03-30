@@ -12,6 +12,7 @@ namespace SampleTest {
 		// テスト対象
 		public interface ITestTarget<TValue> {
 			TValue SomeValue { get; set; }
+			TValue GetSomeValue(TValue param);
 		}
 
 		[Fact]
@@ -67,7 +68,7 @@ namespace SampleTest {
 		}
 
 		[Fact]
-		public void SetupProperty_セットしてゲットできるプロパティ() {
+		public void SetupProperty_セットしてゲットできるプロパティをエミュレートする() {
 			var mock = new Mock<ITestTarget<int>>();
 
 			// 変更できるプロパティ
@@ -79,6 +80,17 @@ namespace SampleTest {
 			// プロパティの値を変更する
 			mock.Object.SomeValue = 20;
 			Assert.Equal(20, mock.Object.SomeValue);
+		}
+
+		[Fact]
+		public void Setup_メソッドをエミュレートする() {
+			var mock = new Mock<ITestTarget<int>>();
+
+			mock.Setup(target => target.GetSomeValue(It.IsAny<int>()))
+				.Returns((int value) => value + value);
+
+			var result = mock.Object.GetSomeValue(1);
+			Assert.Equal(2, result);
 		}
 	}
 }
