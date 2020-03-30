@@ -40,5 +40,45 @@ namespace SampleTest {
 			// 取得できるのはセットアップした値
 			Assert.Equal(1, mock.Object.SomeValue);
 		}
+
+		[Fact]
+		public void Setup_コレクションのプロパティにデータを挿入したり削除したり() {
+			var mock = new Mock<ITestTarget<IList<int>>>();
+
+			// コレクションのプロパティ
+			var expected = new List<int> { 1 };
+			mock.Setup(target => target.SomeValue)
+				.Returns(expected);
+
+			var actual = mock.Object.SomeValue;
+
+			// Returnsで指定したインスタンスを取得できる
+			Assert.Same(expected, actual);
+
+			// 初期値が含まれている
+			Assert.Equal(1, actual.Count);
+			Assert.Contains(1, actual);
+
+			// コレクションに値を追加する
+			mock.Object.SomeValue.Add(2);
+			Assert.Equal(2, actual.Count);
+			Assert.Contains(1, actual);
+			Assert.Contains(2, actual);
+		}
+
+		[Fact]
+		public void SetupProperty_セットしてゲットできるプロパティ() {
+			var mock = new Mock<ITestTarget<int>>();
+
+			// 変更できるプロパティ
+			mock.SetupProperty(target => target.SomeValue, 10);
+
+			// 初期値を確認する
+			Assert.Equal(10, mock.Object.SomeValue);
+
+			// プロパティの値を変更する
+			mock.Object.SomeValue = 20;
+			Assert.Equal(20, mock.Object.SomeValue);
+		}
 	}
 }
