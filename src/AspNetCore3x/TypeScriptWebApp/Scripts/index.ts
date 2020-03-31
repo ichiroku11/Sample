@@ -1,3 +1,3 @@
-import { Greeter } from "./lib";
-
-alert(Greeter.greet("world"));
+document.addEventListener("DOMContentLoaded", event => {
+	console.log("DOMContentLoaded");
+});
