@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 namespace MiddlewareWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
+			services.AddControllers();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -18,12 +19,17 @@ namespace MiddlewareWebApp {
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseSample(true);
+
 			app.UseRouting();
 
+			app.UseSample(false);
+			//app.UseMiddleware<SampleMiddleware>();
+
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/", async context => {
-					await context.Response.WriteAsync("Hello World!");
-				});
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller=Default}/{action=Index}/{id?}");
 			});
 		}
 	}
