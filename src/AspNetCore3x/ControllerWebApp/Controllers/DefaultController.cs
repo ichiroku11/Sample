@@ -15,14 +15,14 @@ namespace ControllerWebApp.Controllers {
 			_manager = manager;
 		}
 
-		// Actionメソッドにならない
+		// privateなメソッドはActionメソッドにならない
 		private string PrivateMethod() => nameof(PrivateMethod);
-		// Actionメソッドにならない
+		// privateなGetterプロパティはActionメソッドにならない
 		private string PrivateGetterProperty => nameof(PrivateGetterProperty);
 
-		// Actionメソッドになる
+		// publicなメソッドはActionメソッドになる
 		public string PublicMethod() => nameof(PublicMethod);
-		// Actionメソッドにならない
+		// publicなGetterプロパティはActionメソッドにならない
 		public string PublicGetterProperty => nameof(PublicGetterProperty);
 
 		public IActionResult Index() {
