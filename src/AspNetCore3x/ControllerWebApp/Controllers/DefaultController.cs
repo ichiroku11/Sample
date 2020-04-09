@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace ControllerWebApp.Controllers {
 	public class DefaultController : Controller {
@@ -14,7 +16,16 @@ namespace ControllerWebApp.Controllers {
 		}
 
 		public IActionResult Index() {
-			return Content("");
+			// コントローラ一覧を取得
+			var feature = new ControllerFeature();
+			_manager.PopulateFeature(feature);
+
+			var content = new StringBuilder();
+			foreach (var controller in feature.Controllers) {
+				content.AppendLine(controller.Name);
+			}
+
+			return Content(content.ToString());
 		}
 	}
 }
