@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace ControllerWebApp.Controllers {
-	public class DefaultController : Controller {
+	public class DefaultController : AppController {
 		private readonly ApplicationPartManager _manager;
 
 		public DefaultController(ApplicationPartManager manager) {
@@ -48,7 +48,7 @@ namespace ControllerWebApp.Controllers {
 			_manager.PopulateFeature(feature);
 
 			var content = new StringBuilder();
-
+			// アクション一覧
 			foreach (var controller in feature.Controllers) {
 				foreach (var action in controller.DeclaredMethods) {
 					content.AppendLine($"{controller.Name}, {action.Name}");

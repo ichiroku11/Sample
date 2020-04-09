@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControllerWebApp.Controllers {
-	public class AccountController : Controller {
+	public class AccountController : AppController {
 		public IActionResult Index() => Content(nameof(Index));
 	}
 }
