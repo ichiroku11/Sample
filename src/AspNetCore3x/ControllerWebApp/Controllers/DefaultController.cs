@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace ControllerWebApp.Controllers {
 	public class DefaultController : AppController {
@@ -26,6 +27,14 @@ namespace ControllerWebApp.Controllers {
 		public string PublicGetterProperty => nameof(PublicGetterProperty);
 
 		public IActionResult Index() => Content($"Default.{nameof(Index)}");
+
+		[NonAction]
+		public IActionResult NonAction() => Content($"Default.{nameof(NonAction)}");
+
+		[HttpGet]
+		public IActionResult HttpGet() => Content($"Default.{nameof(HttpGet)}");
+		[HttpPost]
+		public IActionResult HttpPost() => Content($"Default.{nameof(HttpPost)}");
 
 		public IActionResult Controllers() {
 			// コントローラ一覧を取得
@@ -48,8 +57,18 @@ namespace ControllerWebApp.Controllers {
 			var content = new StringBuilder();
 			// アクション一覧
 			foreach (var controller in feature.Controllers) {
+				var controllerArea = controller.GetAttribute<AreaAttribute>(true)?.RouteValue;
 				foreach (var action in controller.DeclaredMethods) {
-					content.AppendLine($"{controller.Name}, {action.Name}");
+					var nonAction = action.GetAttribute<NonActionAttribute>(false);
+					if (nonAction != null) {
+						continue;
+					}
+
+					var actionArea = action.GetAttribute<AreaAttribute>(false)?.RouteValue;
+
+					var httpMethods = action.GetAttribute<HttpMethodAttribute>(false)?.HttpMethods ?? Enumerable.Empty<string>();
+
+					content.AppendLine($"{controllerArea ?? actionArea}, {controller.Name}, {action.Name}, {string.Join("/", httpMethods)}");
 				}
 			}
 
