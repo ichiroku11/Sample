@@ -56,38 +56,27 @@ namespace ControllerWebApp.Controllers {
 			var feature = new ControllerFeature();
 			_manager.PopulateFeature(feature);
 
-			var content = new StringBuilder();
 			// アクション一覧
-			foreach (var controller in feature.Controllers) {
-				var controllerArea = controller.GetCustomAttribute<AreaAttribute>()?.RouteValue;
-				foreach (var action in controller.DeclaredMethods) {
-					// publicなメソッド
-					if (!action.IsPublic) {
-						continue;
-					}
+			var actions = feature.Controllers
+				.SelectMany(controller => controller.DeclaredMethods)
+				// publicなメソッド
+				.Where(method => method.IsPublic)
+				// 特殊な処理をされるメソッドではない
+				.Where(method => !method.IsSpecialName)
+				// NonAction属性が指定されていない
+				.Where(method => !method.GetCustomAttributes<NonActionAttribute>().Any())
+				// 自動生成されたメソッドではない
+				.Where(method => !method.GetCustomAttributes<CompilerGeneratedAttribute>().Any());
 
-					// 特殊な処理をされるメソッドではない
-					if (action.IsSpecialName) {
-						continue;
-					}
+			var content = new StringBuilder();
+			foreach (var action in actions) {
+				var controller = action.DeclaringType;
+				var area = action.GetCustomAttribute<AreaAttribute>()?.RouteValue
+					?? controller.GetCustomAttribute<AreaAttribute>()?.RouteValue;
+				var httpMethods = action.GetCustomAttribute<HttpMethodAttribute>()?.HttpMethods
+					?? Enumerable.Empty<string>();
 
-					// アクションメソッドではない
-					var nonAction = action.GetCustomAttribute<NonActionAttribute>();
-					if (nonAction != null) {
-						continue;
-					}
-
-					// 自動生成されたプロパティではない
-					var compilerGenerated = action.GetCustomAttribute<CompilerGeneratedAttribute>();
-					if (compilerGenerated != null) {
-						continue;
-					}
-
-					var actionArea = action.GetCustomAttribute<AreaAttribute>()?.RouteValue;
-					var httpMethods = action.GetCustomAttribute<HttpMethodAttribute>()?.HttpMethods ?? Enumerable.Empty<string>();
-
-					content.AppendLine($"{controllerArea ?? actionArea}, {controller.Name}, {action.Name}, {string.Join("/", httpMethods)}");
-				}
+				content.AppendLine($"{area}, {controller.Name}, {action.Name}, {string.Join("/", httpMethods)}");
 			}
 
 			return Content(content.ToString());
