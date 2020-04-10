@@ -25,9 +25,7 @@ namespace ControllerWebApp.Controllers {
 		// publicなGetterプロパティはActionメソッドにならない
 		public string PublicGetterProperty => nameof(PublicGetterProperty);
 
-		public IActionResult Index() {
-			return Content("");
-		}
+		public IActionResult Index() => Content($"Default.{nameof(Index)}");
 
 		public IActionResult Controllers() {
 			// コントローラ一覧を取得

@@ -22,6 +22,10 @@ namespace ControllerWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
+				endpoints.MapAreaControllerRoute(
+					name: "admin",
+					areaName: "Admin",
+					pattern: "Admin/{controller=AdminDefault}/{action=Index}/{id?}");
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller=Default}/{action=Index}/{id?}");
