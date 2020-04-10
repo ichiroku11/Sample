@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -57,16 +58,18 @@ namespace ControllerWebApp.Controllers {
 			var content = new StringBuilder();
 			// アクション一覧
 			foreach (var controller in feature.Controllers) {
-				var controllerArea = controller.GetAttribute<AreaAttribute>(true)?.RouteValue;
+				var controllerArea = controller.GetCustomAttributes<AreaAttribute>().FirstOrDefault()?.RouteValue;
 				foreach (var action in controller.DeclaredMethods) {
-					var nonAction = action.GetAttribute<NonActionAttribute>(false);
-					if (nonAction != null) {
+					var nonAction = action.GetCustomAttributes<NonActionAttribute>();
+					if (nonAction.Any()) {
 						continue;
 					}
 
-					var actionArea = action.GetAttribute<AreaAttribute>(false)?.RouteValue;
+					var actionArea = action.GetCustomAttributes<AreaAttribute>().FirstOrDefault()?.RouteValue;
 
-					var httpMethods = action.GetAttribute<HttpMethodAttribute>(false)?.HttpMethods ?? Enumerable.Empty<string>();
+					var httpMethods = action
+						.GetCustomAttributes<HttpMethodAttribute>()
+						.FirstOrDefault()?.HttpMethods ?? Enumerable.Empty<string>();
 
 					content.AppendLine($"{controllerArea ?? actionArea}, {controller.Name}, {action.Name}, {string.Join("/", httpMethods)}");
 				}
