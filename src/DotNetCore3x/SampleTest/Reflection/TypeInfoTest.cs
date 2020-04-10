@@ -22,6 +22,7 @@ namespace SampleTest.Reflection {
 
 			// Assert
 			Assert.Equal(2, methods.Count());
+			Assert.All(methods, method => Assert.True(method.IsSpecialName));
 			Assert.Contains(methods, method => string.Equals(method.Name, $"get_{nameof(Sample.Value)}"));
 			Assert.Contains(methods, method => string.Equals(method.Name, $"set_{nameof(Sample.Value)}"));
 		}

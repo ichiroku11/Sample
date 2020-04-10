@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -58,18 +59,32 @@ namespace ControllerWebApp.Controllers {
 			var content = new StringBuilder();
 			// アクション一覧
 			foreach (var controller in feature.Controllers) {
-				var controllerArea = controller.GetCustomAttributes<AreaAttribute>().FirstOrDefault()?.RouteValue;
+				var controllerArea = controller.GetCustomAttribute<AreaAttribute>()?.RouteValue;
 				foreach (var action in controller.DeclaredMethods) {
-					var nonAction = action.GetCustomAttributes<NonActionAttribute>();
-					if (nonAction.Any()) {
+					// publicなメソッド
+					if (!action.IsPublic) {
 						continue;
 					}
 
-					var actionArea = action.GetCustomAttributes<AreaAttribute>().FirstOrDefault()?.RouteValue;
+					// 特殊な処理をされるメソッドではない
+					if (action.IsSpecialName) {
+						continue;
+					}
 
-					var httpMethods = action
-						.GetCustomAttributes<HttpMethodAttribute>()
-						.FirstOrDefault()?.HttpMethods ?? Enumerable.Empty<string>();
+					// アクションメソッドではない
+					var nonAction = action.GetCustomAttribute<NonActionAttribute>();
+					if (nonAction != null) {
+						continue;
+					}
+
+					// 自動生成されたプロパティではない
+					var compilerGenerated = action.GetCustomAttribute<CompilerGeneratedAttribute>();
+					if (compilerGenerated != null) {
+						continue;
+					}
+
+					var actionArea = action.GetCustomAttribute<AreaAttribute>()?.RouteValue;
+					var httpMethods = action.GetCustomAttribute<HttpMethodAttribute>()?.HttpMethods ?? Enumerable.Empty<string>();
 
 					content.AppendLine($"{controllerArea ?? actionArea}, {controller.Name}, {action.Name}, {string.Join("/", httpMethods)}");
 				}
