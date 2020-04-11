@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SampleTest.EntityFrameworkCore {
 	public class DbSetSubQueryTest : IDisposable {
@@ -13,6 +14,9 @@ namespace SampleTest.EntityFrameworkCore {
 			public string Name { get; set; }
 			public string Category { get; set; }
 			public decimal Price { get; set; }
+
+			public override string ToString()
+				=> $"{nameof(Id)} = {Id}, {nameof(Name)} = {Name}, {nameof(Category)} = {Category}, {nameof(Price)} = {Price}";
 		}
 
 		private class SampleDbContext : AppDbContext {
@@ -23,9 +27,11 @@ namespace SampleTest.EntityFrameworkCore {
 			}
 		}
 
+		private readonly ITestOutputHelper _output;
 		private SampleDbContext _context;
 
-		public DbSetSubQueryTest() {
+		public DbSetSubQueryTest(ITestOutputHelper output) {
+			_output = output;
 			_context = new SampleDbContext();
 
 			DropTable();
@@ -84,6 +90,8 @@ values
 				FROM [MenuItem] AS [m0])
 			*/
 
+			Assert.All(items, item => _output.WriteLine(item.ToString()));
+
 			Assert.Equal(3, items.Count());
 			Assert.Contains(items, item => string.Equals(item.Name, "純けい"));
 			Assert.Contains(items, item => string.Equals(item.Name, "しろ"));
@@ -112,6 +120,8 @@ values
 				FROM [MenuItem] AS [m0]
 				WHERE ([m0].[Category] = [m].[Category]) OR ([m0].[Category] IS NULL AND [m].[Category] IS NULL))
 			*/
+
+			Assert.All(items, item => _output.WriteLine(item.ToString()));
 
 			Assert.Equal(4, items.Count());
 			Assert.Contains(items, item => string.Equals(item.Name, "純けい"));
