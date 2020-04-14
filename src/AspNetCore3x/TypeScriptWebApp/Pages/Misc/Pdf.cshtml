@@ -1,0 +1,29 @@
+@page
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment Env
+@{
+	ViewBag.Title = "Misc/Pdf";
+}
+@functions {
+	private string GetSamplePdfBase64() {
+		var file = Env.WebRootFileProvider.GetFileInfo("sample.pdf");
+		var base64 = file.Exists
+			? Convert.ToBase64String(System.IO.File.ReadAllBytes(file.PhysicalPath))
+			: "";
+
+		return $"data:application/pdf;base64,{base64}";
+	}
+}
+
+<h4>embed</h4>
+<embed src="~/sample.pdf" type="application/pdf" width="300" height="300" />
+
+<h4>embed:base64</h4>
+<embed src="@GetSamplePdfBase64()" type="application/pdf" width="300" height="300" />
+
+<h4>iframe</h4>
+<iframe src="~/sample.pdf" type="application/pdf" width="300" height="300"></iframe>
+
+<h4>iframe:base64</h4>
+<iframe src="@GetSamplePdfBase64()" type="application/pdf" width="300" height="300"></iframe>
+
