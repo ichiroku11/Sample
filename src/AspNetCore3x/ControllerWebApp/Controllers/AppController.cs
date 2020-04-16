@@ -10,6 +10,10 @@ namespace ControllerWebApp.Controllers {
 		// NonActionを指定しないとActionメソッドになる
 		[NonAction]
 		public IActionResult Base() => Content(nameof(Base));
-	}
 
+		// protectedなメソッドはActionメソッドにならない
+		protected string ProtectedMethod() => nameof(ProtectedMethod);
+		// protectedなGetterプロパティはActionメソッドにならない
+		protected string ProtectedGetterProperty => nameof(ProtectedGetterProperty);
+	}
 }
