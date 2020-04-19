@@ -51,7 +51,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelBindingWebApp.Test", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiddlewareWebApp", "src\AspNetCore3x\MiddlewareWebApp\MiddlewareWebApp.csproj", "{D8B4D88C-5AB3-423C-BAE8-1107BBFB6DBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerWebApp", "src\AspNetCore3x\ControllerWebApp\ControllerWebApp.csproj", "{4C6F8C89-AE3A-48E4-B716-FE33F39EF9CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerWebApp", "src\AspNetCore3x\ControllerWebApp\ControllerWebApp.csproj", "{4C6F8C89-AE3A-48E4-B716-FE33F39EF9CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SassWebApp", "src\AspNetCore3x\SassWebApp\SassWebApp.csproj", "{DD6A780F-C096-484D-9381-9AF97E5E393D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +149,10 @@ Global
 		{4C6F8C89-AE3A-48E4-B716-FE33F39EF9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C6F8C89-AE3A-48E4-B716-FE33F39EF9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C6F8C89-AE3A-48E4-B716-FE33F39EF9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6A780F-C096-484D-9381-9AF97E5E393D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6A780F-C096-484D-9381-9AF97E5E393D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD6A780F-C096-484D-9381-9AF97E5E393D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6A780F-C096-484D-9381-9AF97E5E393D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +180,7 @@ Global
 		{BCAA3ECD-8638-4207-91F8-632CA987BA6D} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{D8B4D88C-5AB3-423C-BAE8-1107BBFB6DBA} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{4C6F8C89-AE3A-48E4-B716-FE33F39EF9CE} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
+		{DD6A780F-C096-484D-9381-9AF97E5E393D} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
