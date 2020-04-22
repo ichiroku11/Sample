@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 namespace SassWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
+			services.AddRazorPages();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -18,12 +19,12 @@ namespace SassWebApp {
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseStaticFiles();
+
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/", async context => {
-					await context.Response.WriteAsync("Hello World!");
-				});
+				endpoints.MapRazorPages();
 			});
 		}
 	}

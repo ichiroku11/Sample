@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment Env
+@{
+	var page = ViewContext.RouteData.Values["page"] as string;
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title - SCSS Sample</title>
+	@RenderSection("style", required: false)
+</head>
+<body>
+	<header>
+		<h1>@ViewBag.Title</h1>
+	</header>
+	<main>
+		@RenderBody()
+	</main>
+	<footer>
+	</footer>
+	@RenderSection("script", required: false)
+</body>
+</html>
