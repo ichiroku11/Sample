@@ -9,6 +9,7 @@
 		"sass-loader": "8.0.2",
 		"style-loader": "1.2.0",
 		"webpack": "4.41.6",
-		"webpack-cli": "3.3.11"
+		"webpack-cli": "3.3.11",
+		"webpack-fix-style-only-entries": "0.4.0"
 	}
 }
