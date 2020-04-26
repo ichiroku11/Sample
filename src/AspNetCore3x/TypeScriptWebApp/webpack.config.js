@@ -8,12 +8,12 @@ const config = {
 		"vuejs/usewebpack": path.resolve(__dirname, "scripts/vuejs/usewebpack.ts")
 	},
 	output: {
-		filename: "[name].bundle.js",
+		filename: "[name].js",
 		path: path.resolve(__dirname, "wwwroot/js")
 	},
 	module: {
 		rules: [
-			{ test: /\.ts$/, loader: "ts-loader" }
+			{ test: /\.ts$/, use: "ts-loader" }
 		]
 	},
 	resolve: {

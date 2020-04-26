@@ -6,8 +6,8 @@
 	// 現在のページに対応するjsファイルが見つかればscriptタグを作成する
 	// 例
 	// 現在のページ：/index
-	// jsファイル：~/js/index.bundle.js
-	var jsPath = @$"js{page.ToLower()}.bundle.js";
+	// jsファイル：~/js/index.js
+	var jsPath = @$"js{page.ToLower()}.js";
 	var jsFile = Env.WebRootFileProvider.GetFileInfo(jsPath);
 }
 <!DOCTYPE html>
