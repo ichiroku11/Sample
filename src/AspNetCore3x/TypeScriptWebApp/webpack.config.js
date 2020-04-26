@@ -1,3 +1,4 @@
+/// <binding ProjectOpened='Watch - Development' />
 const path = require("path");
 
 const config = {
