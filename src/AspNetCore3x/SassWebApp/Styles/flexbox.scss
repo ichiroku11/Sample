@@ -6,8 +6,13 @@ section {
 	h2 {
 		margin-bottom: 5px;
 	}
+
 	p {
-		margin: 0 5px;
+		margin: 5px 0 2px;
+
+		code {
+			font-weight: bold;
+		}
 	}
 }
 
@@ -19,7 +24,7 @@ section {
 .flex-item {
 	background-color: #60b99a;
 	color: #fff;
-	padding: 20px;
+	padding: 10px;
 	margin: 10px;
 
 	&:first-child {
@@ -34,4 +39,22 @@ section {
 }
 
 .flex-sample-basic {
+}
+
+.flex-sample-dir {
+	.flex-container.flex-dir-row {
+		flex-direction: row;
+	}
+
+	.flex-container.flex-dir-row-reverse {
+		flex-direction: row-reverse;
+	}
+
+	.flex-container.flex-dir-column {
+		flex-direction: column;
+	}
+
+	.flex-container.flex-dir-column-reverse {
+		flex-direction: column-reverse;
+	}
 }
