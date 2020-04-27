@@ -1,3 +1,16 @@
+* {
+	box-sizing: border-box;
+}
+
+section {
+	h2 {
+		margin-bottom: 5px;
+	}
+	p {
+		margin: 0 5px;
+	}
+}
+
 .flex-container {
 	background-color: #eee;
 	display: flex;
@@ -11,6 +24,12 @@
 
 	&:first-child {
 		background-color: #4584b1;
+	}
+}
+
+.flex-sample-default {
+	.flex-container {
+		display: block;
 	}
 }
 
