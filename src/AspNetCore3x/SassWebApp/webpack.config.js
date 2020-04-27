@@ -7,6 +7,7 @@ const config = {
 	entry: {
 		lib: path.resolve(__dirname, "styles/lib.scss"),
 		index: path.resolve(__dirname, "styles/index.scss"),
+		boxsizing: path.resolve(__dirname, "styles/boxsizing.scss"),
 	},
 	module: {
 		rules: [

@@ -1,0 +1,25 @@
+.box-container {
+	width: 300px;
+	border: solid #ffc129 10px;
+}
+
+.box-item {
+	border: solid #5b6dcd 10px;
+	margin-top: 10px;
+	padding: 5px;
+	width: 100%;
+
+	&:last-child {
+		margin-bottom: 10px;
+	}
+
+	/* 従来のふるまい */
+	/* 最終的な幅 = 要素の幅 + borderやpaddingの幅 */
+	&.box-item-content-box {
+		box-sizing: content-box;
+	}
+
+	&.box-item-border-box {
+		box-sizing: border-box;
+	}
+}
