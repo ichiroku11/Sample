@@ -58,3 +58,17 @@ section {
 		flex-direction: column-reverse;
 	}
 }
+
+.flex-sample-wrap {
+	.flex-container.flex-wrap-nowrap {
+		flex-wrap: nowrap;
+	}
+
+	.flex-container.flex-wrap {
+		flex-wrap: wrap;
+	}
+
+	.flex-container.flex--row-reverse {
+		flex-wrap: wrap-reverse;
+	}
+}
