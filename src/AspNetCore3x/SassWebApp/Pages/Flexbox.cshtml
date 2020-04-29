@@ -5,77 +5,51 @@
 <section class="app-sample flex-sample-default">
 	<h2>Default</h2>
 	<div class="flex-container">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="4" />
 	</div>
 </section>
 <section class="app-sample flex-sample-basic">
 	<h2>Basic</h2>
 	<p>コンテナに<code>display: flex;</code>を設定すると横並び</p>
 	<div class="flex-container">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="4" />
 	</div>
 </section>
 <section class="app-sample flex-sample-dir">
 	<h2>Direction</h2>
 	<p><code>flex-direction: row;</code></p>
 	<div class="flex-container flex-dir-row">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="4" />
 	</div>
 	<p><code>flex-direction: row-reverse;</code></p>
 	<div class="flex-container flex-dir-row-reverse">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="4" />
 	</div>
 	<p><code>flex-direction: column;</code></p>
 	<div class="flex-container flex-dir-column">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="4" />
 	</div>
 	<p><code>flex-direction: column-reverse;</code></p>
 	<div class="flex-container flex-dir-column-reverse">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="4" />
 	</div>
 </section>
 <section class="app-sample flex-sample-wrap">
 	<h2>Wrap</h2>
 	<p><code>flex-wrap: nowrap;</code></p>
 	<div class="flex-container flex-wrap-nowrap">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="9" />
 	</div>
 	<p><code>flex-wrap: wrap;</code></p>
 	<div class="flex-container flex-wrap">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="9" />
 	</div>
 	<p><code>flex-wrap: wrap-reverse;</code></p>
 	<div class="flex-container flex-wrap-reverse">
-		<div class="flex-item">Item 1</div>
-		<div class="flex-item">Item 2</div>
-		<div class="flex-item">Item 3</div>
-		<div class="flex-item">Item 4</div>
+		<partial name="_FlexItems" model="9" />
 	</div>
 </section>
+
 <section class="app-reference">
 	<ul>
 		<li><a href="https://coliss.com/articles/build-websites/operation/css/css3-flexbox-properties-by-scotch.html">CSS Flexbox の基礎知識と使い方をやさしく解説 | コリス</a></li>
