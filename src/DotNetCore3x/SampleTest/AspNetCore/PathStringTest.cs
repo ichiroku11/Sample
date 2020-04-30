@@ -20,12 +20,10 @@ namespace SampleTest.AspNetCore {
 		public void PathString_ConstructorArgumentStartWithSlash() {
 			// Arrange
 			// Act
+			// Assert
 			Assert.Throws<ArgumentException>(() => {
 				new PathString("app");
 			});
-
-			// Assert
-			//Assert.Equal("/app", path.Value);
 		}
 	}
 }
