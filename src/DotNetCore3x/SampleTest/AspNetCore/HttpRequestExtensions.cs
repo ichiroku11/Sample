@@ -8,6 +8,9 @@ namespace SampleTest.AspNetCore {
 	public static class HttpRequestExtensions {
 		private const string _schemeDelimiter = "://";
 
+		// 参考
+		// https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.extensions.urihelper?view=aspnetcore-3.1
+		// アプリケーションURLを取得
 		public static string GetAppUrl(this HttpRequest request) {
 			var scheme = request.Scheme ?? "";
 			var host = request.Host.Value ?? "";
@@ -21,9 +24,13 @@ namespace SampleTest.AspNetCore {
 				.ToString();
 		}
 
+		// Ajaxかどうか
 		public static bool IsAjax(this HttpRequest request) {
-			// todo:
-			return true;
+			// HeaderNames.XRequestedWithが定義されそう
+			return string.Equals(
+				request.Headers["X-Requested-With"],
+				"XMLHttpRequest",
+				StringComparison.Ordinal);
 		}
 	}
 }
