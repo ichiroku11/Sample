@@ -5,49 +5,36 @@
 <section class="app-sample flex-sample-default">
 	<h2>Default</h2>
 	<div class="flex-container">
-		<partial name="_FlexItems" model="4" />
+		<partial name="_FlexItems" model="3" />
 	</div>
 </section>
+
 <section class="app-sample flex-sample-basic">
 	<h2>Basic</h2>
 	<p>コンテナに<code>display: flex;</code>を設定すると横並び</p>
 	<div class="flex-container">
-		<partial name="_FlexItems" model="4" />
+		<partial name="_FlexItems" model="3" />
 	</div>
 </section>
+
 <section class="app-sample flex-sample-dir">
-	<h2>Direction</h2>
-	<p><code>flex-direction: row;</code></p>
-	<div class="flex-container flex-dir-row">
-		<partial name="_FlexItems" model="4" />
-	</div>
-	<p><code>flex-direction: row-reverse;</code></p>
-	<div class="flex-container flex-dir-row-reverse">
-		<partial name="_FlexItems" model="4" />
-	</div>
-	<p><code>flex-direction: column;</code></p>
-	<div class="flex-container flex-dir-column">
-		<partial name="_FlexItems" model="4" />
-	</div>
-	<p><code>flex-direction: column-reverse;</code></p>
-	<div class="flex-container flex-dir-column-reverse">
-		<partial name="_FlexItems" model="4" />
-	</div>
+	<h2>flex-direction</h2>
+	@foreach (var value in new[] { "row", "row-reverse", "column", "column-reverse" }) {
+		<p><code>flex-direction: @value;</code></p>
+		<div class="flex-container flex-dir-@value">
+			<partial name="_FlexItems" model="3" />
+		</div>
+	}
 </section>
+
 <section class="app-sample flex-sample-wrap">
-	<h2>Wrap</h2>
-	<p><code>flex-wrap: nowrap;</code></p>
-	<div class="flex-container flex-wrap-nowrap">
-		<partial name="_FlexItems" model="9" />
-	</div>
-	<p><code>flex-wrap: wrap;</code></p>
-	<div class="flex-container flex-wrap">
-		<partial name="_FlexItems" model="9" />
-	</div>
-	<p><code>flex-wrap: wrap-reverse;</code></p>
-	<div class="flex-container flex-wrap-reverse">
-		<partial name="_FlexItems" model="9" />
-	</div>
+	<h2>flex-wrap</h2>
+	@foreach (var value in new[] { "nowrap", "wrap", "wrap-reverse" }) {
+		<p><code>flex-wrap: @value;</code></p>
+		<div class="flex-container flex-wrap-@value">
+			<partial name="_FlexItems" model="9" />
+		</div>
+	}
 </section>
 
 <section class="app-reference">
