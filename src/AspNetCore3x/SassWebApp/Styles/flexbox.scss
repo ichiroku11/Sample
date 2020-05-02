@@ -72,3 +72,41 @@ section {
 		flex-wrap: wrap-reverse;
 	}
 }
+
+.flex-sample-jc {
+	.flex-container.flex-jc-flex-start {
+		justify-content: flex-start;
+	}
+
+	.flex-container.flex-jc-flex-end {
+		justify-content: flex-end;
+	}
+
+	.flex-container.flex-jc-start {
+		justify-content: start;
+	}
+
+	.flex-container.flex-jc-center {
+		justify-content: center;
+	}
+
+	.flex-container.flex-jc-end {
+		justify-content: end;
+	}
+
+	.flex-container.flex-jc-space-between {
+		justify-content: space-between;
+	}
+
+	.flex-container.flex-jc-space-around {
+		justify-content: space-around;
+	}
+
+	.flex-container.flex-jc-space-evenly {
+		justify-content: space-evenly;
+	}
+
+	.flex-container.flex-jc-stretch {
+		justify-content: stretch;
+	}
+}
