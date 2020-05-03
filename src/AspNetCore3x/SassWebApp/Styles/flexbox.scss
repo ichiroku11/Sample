@@ -42,71 +42,110 @@ section {
 }
 
 .flex-sample-dir {
-	.flex-container.flex-dir-row {
-		flex-direction: row;
-	}
+	.flex-container {
+		&.flex-dir-row {
+			flex-direction: row;
+		}
 
-	.flex-container.flex-dir-row-reverse {
-		flex-direction: row-reverse;
-	}
+		&.flex-dir-row-reverse {
+			flex-direction: row-reverse;
+		}
 
-	.flex-container.flex-dir-column {
-		flex-direction: column;
-	}
+		&.flex-dir-column {
+			flex-direction: column;
+		}
 
-	.flex-container.flex-dir-column-reverse {
-		flex-direction: column-reverse;
+		&.flex-dir-column-reverse {
+			flex-direction: column-reverse;
+		}
 	}
 }
 
 .flex-sample-wrap {
-	.flex-container.flex-wrap-nowrap {
-		flex-wrap: nowrap;
-	}
+	.flex-container {
+		&.flex-wrap-nowrap {
+			flex-wrap: nowrap;
+		}
 
-	.flex-container.flex-wrap-wrap {
-		flex-wrap: wrap;
-	}
+		&.flex-wrap-wrap {
+			flex-wrap: wrap;
+		}
 
-	.flex-container.flex-wrap-wrap-reverse {
-		flex-wrap: wrap-reverse;
+		&.flex-wrap-wrap-reverse {
+			flex-wrap: wrap-reverse;
+		}
 	}
 }
 
 .flex-sample-jc {
-	.flex-container.flex-jc-flex-start {
-		justify-content: flex-start;
-	}
+	.flex-container {
+		&.flex-jc-flex-start {
+			justify-content: flex-start;
+		}
 
-	.flex-container.flex-jc-flex-end {
-		justify-content: flex-end;
-	}
+		&.flex-jc-flex-end {
+			justify-content: flex-end;
+		}
 
-	.flex-container.flex-jc-start {
-		justify-content: start;
-	}
+		&.flex-jc-start {
+			justify-content: start;
+		}
 
-	.flex-container.flex-jc-center {
-		justify-content: center;
-	}
+		&.flex-jc-center {
+			justify-content: center;
+		}
 
-	.flex-container.flex-jc-end {
-		justify-content: end;
-	}
+		&.flex-jc-end {
+			justify-content: end;
+		}
 
-	.flex-container.flex-jc-space-between {
-		justify-content: space-between;
-	}
+		&.flex-jc-space-between {
+			justify-content: space-between;
+		}
 
-	.flex-container.flex-jc-space-around {
-		justify-content: space-around;
-	}
+		&.flex-jc-space-around {
+			justify-content: space-around;
+		}
 
-	.flex-container.flex-jc-space-evenly {
-		justify-content: space-evenly;
-	}
+		&.flex-jc-space-evenly {
+			justify-content: space-evenly;
+		}
 
-	.flex-container.flex-jc-stretch {
-		justify-content: stretch;
+		&.flex-jc-stretch {
+			justify-content: stretch;
+		}
+	}
+}
+
+.flex-sample-ai {
+	.flex-container {
+		height: 100px;
+
+		&.flex-ai-stretch {
+			align-items: stretch;
+		}
+
+		&.flex-ai-flex-start {
+			align-items: flex-start;
+		}
+
+		&.flex-ai-flex-end {
+			align-items: flex-end;
+		}
+
+		&.flex-ai-center {
+			align-items: center;
+		}
+
+		&.flex-ai-baseline {
+			align-items: baseline;
+
+			.flex-item {
+				&:nth-child(2) {
+					height: 70px;
+					padding-top: 20px;
+				}
+			}
+		}
 	}
 }
