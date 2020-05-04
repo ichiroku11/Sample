@@ -7,6 +7,7 @@ const config = {
 		lib: path.resolve(__dirname, "scripts/lib.ts"),
 		index: path.resolve(__dirname, "scripts/index.ts"),
 		importmodule: path.resolve(__dirname, "scripts/importmodule.ts"),
+		test: path.resolve(__dirname, "scripts/test.ts"),
 		"game/gameoflife": path.resolve(__dirname, "scripts/game/gameoflife.ts"),
 		"vuejs/usewebpack": path.resolve(__dirname, "scripts/vuejs/usewebpack.ts")
 	},
