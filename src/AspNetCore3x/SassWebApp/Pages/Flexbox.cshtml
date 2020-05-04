@@ -57,6 +57,16 @@
 	}
 </section>
 
+<section class="app-sample flex-sample-ac">
+	<h2>align-content</h2>
+	@foreach (var value in new[] { "stretch", "flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly" }) {
+		<p><code>align-content: @value;</code></p>
+		<div class="flex-container flex-ac-@value">
+			<partial name="_FlexItems" model="9" />
+		</div>
+	}
+</section>
+
 <section class="app-reference">
 	<ul>
 		<li><a href="https://coliss.com/articles/build-websites/operation/css/css3-flexbox-properties-by-scotch.html">CSS Flexbox の基礎知識と使い方をやさしく解説 | コリス</a></li>

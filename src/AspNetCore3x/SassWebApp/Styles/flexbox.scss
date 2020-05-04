@@ -149,3 +149,38 @@ section {
 		}
 	}
 }
+
+.flex-sample-ac {
+	.flex-container {
+		flex-wrap: wrap;
+		height: 200px;
+
+		&.flex-ac-stretch {
+			align-content: stretch;
+		}
+
+		&.flex-ac-flex-start {
+			align-content: flex-start;
+		}
+
+		&.flex-ac-flex-end {
+			align-content: flex-end;
+		}
+
+		&.flex-ac-center {
+			align-content: center;
+		}
+
+		&.flex-ac-space-between {
+			align-content: space-between;
+		}
+
+		&.flex-ac-space-around {
+			align-content: space-around;
+		}
+
+		&.flex-ac-space-evenly {
+			align-content: space-evenly;
+		}
+	}
+}
