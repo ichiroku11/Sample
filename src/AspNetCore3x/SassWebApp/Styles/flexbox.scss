@@ -187,20 +187,34 @@ section {
 
 .flex-sample-order {
 	.flex-item {
+		order: 0;
+		text-align: center;
+
 		&:first-child {
 			order: 1;
 		}
 
-		&:nth-child(2) {
-			order: 0;
-		}
-
-		&:nth-child(2) {
-			order: 0;
-		}
-
 		&:last-child {
 			order: -1
+		}
+
+		small {
+			display: block;
+		}
+	}
+}
+
+.flex-sample-grow {
+	.flex-item {
+		flex-grow: 1;
+		text-align: center;
+
+		&:nth-child(2) {
+			flex-grow: 3;
+		}
+
+		small {
+			display: block;
 		}
 	}
 }
