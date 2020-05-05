@@ -2,4 +2,43 @@
 @{
 	ViewBag.Title = "Test";
 }
+@section style {
+	<style>
+		* {
+			box-sizing: border-box;
+		}
 
+		ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		li {
+			padding: 0;
+			margin: 0;
+		}
+
+		.test-container {
+		}
+
+		.test-result {
+			margin-bottom: 2px;
+			padding: .75rem 1.25rem;
+		}
+
+		.test-failed {
+			background-color: #f8d7da;
+			border-color: #f5c6cb;
+			color: #721c24;
+		}
+
+		.test-done {
+			background-color: #d4edda;
+			border-color: #c3e6cb;
+			color: #155724;
+		}
+	</style>
+}
+<div class="test-container">
+</div>
