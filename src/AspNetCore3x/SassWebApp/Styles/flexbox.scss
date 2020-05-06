@@ -231,3 +231,17 @@ section {
 		}
 	}
 }
+
+.flex-sample-basis {
+	.flex-item {
+		flex-basis: auto;
+
+		&:first-child {
+			flex-basis: 30%;
+		}
+
+		&:last-child {
+			flex-basis: 200px;
+		}
+	}
+}
