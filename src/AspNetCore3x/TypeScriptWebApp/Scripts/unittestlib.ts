@@ -12,7 +12,6 @@ export class Assert {
 	}
 }
 
-
 class ResultHelper {
 	private readonly _container: HTMLElement;
 
@@ -36,13 +35,32 @@ class ResultHelper {
 	}
 }
 
-export function fact(description: string, test: () => void): void {
-	let failed = false;
-	try {
-		test();
-	} catch (ex) {
-		failed = true;
-	} finally {
-		new ResultHelper().add(description, failed);
+type TestCase = {
+	displayName: string,
+	test: () => void,
+};
+
+export class Test {
+	private readonly _testCases: TestCase[] = [];
+
+	public fact(displayName: string, test: () => void): this {
+		this._testCases.push({ displayName, test });
+		return this;
+	}
+
+	public run(): void {
+		const resultHelper = new ResultHelper();
+
+		for (let { displayName, test } of this._testCases) {
+			let failed = false;
+			try {
+				test();
+			} catch (ex) {
+				failed = true;
+			} finally {
+				resultHelper.add(displayName, failed);
+			}
+		}
 	}
 }
+

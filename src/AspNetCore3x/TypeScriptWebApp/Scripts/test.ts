@@ -1,15 +1,10 @@
-import { Assert, fact } from "./unittest";
+import { unitTestLibTest } from "./test/unittestlib.test";
+import { arrayTest } from "./test/array.test";
 
-fact("テストは成功する", () => {
-	// Arrange
-	// Act
-	// Assert
-	Assert.equal("abc", "abc");
-});
-
-fact("テストは失敗する", () => {
-	// Arrange
-	// Act
-	// Assert
-	Assert.equal("aby", "xyz");
+document.addEventListener("DOMContentLoaded", _ => {
+	const tests = [
+		unitTestLibTest,
+		arrayTest
+	];
+	tests.forEach(test => test.run());
 });
