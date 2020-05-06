@@ -32,6 +32,9 @@ class ResultHelper {
 
 	constructor(selector = ".test-container") {
 		const container = document.querySelector(selector);
+		if (!container) {
+			throw new Error("container is null");
+		}
 
 		let list = container.querySelector("ul");
 		if (!list) {
