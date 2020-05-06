@@ -4,11 +4,26 @@ class AssertError extends Error {
 }
 
 export class Assert {
+	private static arrayEqual<T>(expected: T[], actual: T[]): void {
+		if (expected.length !== actual.length) {
+			throw new AssertError();
+		}
+
+		const length = expected.length;
+		for (let index = 0; index < length; index++) {
+			Assert.equal(expected[index], actual[index]);
+		}
+	}
+
 	public static equal<T>(expected: T, actual: T): void {
-		if (expected === actual) {
+		if (Array.isArray(expected) && Array.isArray(actual)) {
+			this.arrayEqual(expected, actual);
 			return;
 		}
-		throw new AssertError();
+
+		if (expected !== actual) {
+			throw new AssertError();
+		}
 	}
 }
 
@@ -36,29 +51,34 @@ class ResultHelper {
 }
 
 type TestCase = {
-	displayName: string,
-	test: () => void,
+	testName: string,
+	testFunc: () => void,
 };
 
 export class Test {
+	private readonly _moduleName: string;
 	private readonly _testCases: TestCase[] = [];
 
-	public fact(displayName: string, test: () => void): this {
-		this._testCases.push({ displayName, test });
+	constructor(moduleName: string) {
+		this._moduleName = moduleName;
+	}
+
+	public fact(testName: string, testFunc: () => void): this {
+		this._testCases.push({ testName, testFunc });
 		return this;
 	}
 
 	public run(): void {
 		const resultHelper = new ResultHelper();
 
-		for (let { displayName, test } of this._testCases) {
+		for (let { testName, testFunc } of this._testCases) {
 			let failed = false;
 			try {
-				test();
+				testFunc();
 			} catch (ex) {
 				failed = true;
 			} finally {
-				resultHelper.add(displayName, failed);
+				resultHelper.add(`${this._moduleName}: ${testName}`, failed);
 			}
 		}
 	}

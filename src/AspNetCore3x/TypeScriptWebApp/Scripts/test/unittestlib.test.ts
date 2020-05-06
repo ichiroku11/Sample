@@ -1,17 +1,15 @@
 import { Assert, Test } from "../unittestlib";
 
-export const unitTestLibTest = new Test()
-	.fact("fact_テストが成功することを確認する", () => {
+export const assertTest = new Test("AssertTest")
+	.fact("equal_文字列が等しいと判断できる", () => {
 		// Arrange
 		// Act
 		// Assert
 		Assert.equal("abc", "abc");
-	});
-/*
-	.fact("fact_テストが失敗することを確認する", () => {
+	})
+	.fact("equal_配列が等しいと判断できる", () => {
 		// Arrange
 		// Act
 		// Assert
-		Assert.equal("aby", "xyz");
+		Assert.equal([1, 2, 3], [1, 2, 3]);
 	});
-*/

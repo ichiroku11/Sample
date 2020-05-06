@@ -1,19 +1,19 @@
 import { Assert, Test } from "../unittestlib";
 
-export const arrayTest = new Test()
+export const arrayTest = new Test("ArrayTest")
 	.fact("filter_試す", () => {
 		// Arrange
 		// Act
-		// Assert
+		const actual = [1, 2, 3, 4].filter(item => item % 2 === 0);
 
-		// todo:
-		Assert.equal(1, 1);
+		// Assert
+		Assert.equal([2, 4], actual);
 	})
 	.fact("map_試す", () => {
 		// Arrange
 		// Act
-		// Assert
+		const actual = [1, 2, 3].map(item => item + 1);
 
-		// todo:
-		Assert.equal(1, 1);
+		// Assert
+		Assert.equal([2, 3, 4], actual);
 	});
