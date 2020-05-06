@@ -24,11 +24,16 @@ section {
 .flex-item {
 	background-color: #60b99a;
 	color: #fff;
-	padding: 10px;
 	margin: 10px;
+	padding: 10px;
+	text-align: center;
 
 	&:first-child {
 		background-color: #4584b1;
+	}
+
+	small {
+		display: block;
 	}
 }
 
@@ -188,7 +193,6 @@ section {
 .flex-sample-order {
 	.flex-item {
 		order: 0;
-		text-align: center;
 
 		&:first-child {
 			order: 1;
@@ -197,24 +201,33 @@ section {
 		&:last-child {
 			order: -1
 		}
-
-		small {
-			display: block;
-		}
 	}
 }
 
 .flex-sample-grow {
 	.flex-item {
 		flex-grow: 1;
-		text-align: center;
 
 		&:nth-child(2) {
 			flex-grow: 3;
 		}
 
-		small {
-			display: block;
+		&:last-child {
+			flex-grow: 2;
+		}
+	}
+}
+
+.flex-sample-shrink {
+	.flex-item {
+		flex-shrink: 1;
+
+		&:nth-child(2) {
+			flex-shrink: 3;
+		}
+
+		&:nth-child(4) {
+			flex-shrink: 2;
 		}
 	}
 }
