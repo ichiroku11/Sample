@@ -13,7 +13,23 @@ export const functionAsteriskTest = new Test("FunctionAsteriskTest")
 	.fact("function*_使ってみる", () => {
 		// Arrange
 		// Act
-		let actual: number[] = [];
+		const generator = sample();
+
+		// actualの型
+		// actual: (number | void)[]
+		const actual = [
+			generator.next().value,
+			generator.next().value,
+			generator.next().value,
+		];
+
+		// Assert
+		Assert.equal([1, 2, 3], actual);
+	})
+	.fact("function*_forof文で使ってみる", () => {
+		// Arrange
+		// Act
+		const actual: number[] = [];
 		for (const value of sample()) {
 			actual.push(value);
 		}
