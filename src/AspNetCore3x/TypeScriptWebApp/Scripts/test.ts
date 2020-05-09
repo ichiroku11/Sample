@@ -1,12 +1,14 @@
 import { assertTest } from "./test/unittestlib.test";
 import { arrayTest } from "./test/array.test";
-import { functionAsteriskTest } from "./test/functionasterisk.test";
-import { spreadSyntaxTest } from "./test/spreadsyntax.test";
+import { destructuringAssignmentTest } from "./test/destructuring-assignment.test";
+import { functionAsteriskTest } from "./test/function-asterisk.test";
+import { spreadSyntaxTest } from "./test/spread-syntax.test";
 
 document.addEventListener("DOMContentLoaded", _ => {
 	const tests = [
 		assertTest,
 		arrayTest,
+		destructuringAssignmentTest,
 		functionAsteriskTest,
 		spreadSyntaxTest,
 	];
