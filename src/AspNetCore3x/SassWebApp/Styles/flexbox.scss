@@ -245,3 +245,28 @@ section {
 		}
 	}
 }
+
+.flex-sample-as {
+	.flex-container {
+		align-items: stretch;
+		height: 200px;
+	}
+
+	.flex-item {
+		&:first-child {
+			align-self: auto;
+		}
+
+		&:nth-child(2) {
+			align-self: flex-start;
+		}
+
+		&:nth-child(3) {
+			align-self: flex-end;
+		}
+
+		&:last-child {
+			align-self: center;
+		}
+	}
+}

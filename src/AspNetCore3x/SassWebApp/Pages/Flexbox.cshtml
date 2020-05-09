@@ -40,6 +40,11 @@
 	}
 </section>
 
+<section class="app-sample">
+	<h3>flex-flow</h3>
+	<p>flex-direction/flex-wrapのショートハンド</p>
+</section>
+
 <section class="app-sample flex-sample-jc">
 	<h3>justify-content</h3>
 	@foreach (var value in new[] { "flex-start", "flex-end", "start", "center", "end", "space-between", "space-around", "space-evenly", "stretch" }) {
@@ -115,6 +120,22 @@
 		<div class="flex-item">Item 1<small>flex-basis: 30%</small></div>
 		<div class="flex-item">Item 2<small>flex-basis: auto</small></div>
 		<div class="flex-item">Item 3<small>flex-basis: 200px</small></div>
+	</div>
+</section>
+
+<section class="app-sample">
+	<h3>flex</h3>
+	<p>flex-grow/flex-shrink/flex-basisのショートハンド</p>
+</section>
+
+<section class="app-sample flex-sample-as">
+	<h3>align-self</h3>
+	<p><code>align-items: stretch;<br />align-self: *;</code></p>
+	<div class="flex-container">
+		<div class="flex-item">Item 1<small>align-self: auto</small></div>
+		<div class="flex-item">Item 2<small>align-self: flex-start</small></div>
+		<div class="flex-item">Item 3<small>align-self: flex-end</small></div>
+		<div class="flex-item">Item 4<small>align-self: center</small></div>
 	</div>
 </section>
 
