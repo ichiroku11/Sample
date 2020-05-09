@@ -24,4 +24,13 @@ export const destructuringAssignmentTest = new Test("DestructuringAssignmentTest
 		Assert.equal(2, b);
 		Assert.equal("x", rest.x);
 		Assert.equal("y", rest.y);
+	})
+	.fact("destructuring_オブジェクトの分割代入で異なる変数名へ代入する", () => {
+		// Arrange
+		// Act
+		const { x: a, y: b } = { x: 1, y: 2 };
+
+		// Assert
+		Assert.equal(1, a);
+		Assert.equal(2, b);
 	});

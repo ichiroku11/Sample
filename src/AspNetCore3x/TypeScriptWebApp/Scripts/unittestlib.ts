@@ -17,7 +17,7 @@ export class Assert {
 
 	public static equal<T>(expected: T, actual: T): void {
 		if (Array.isArray(expected) && Array.isArray(actual)) {
-			this.arrayEqual(expected, actual);
+			Assert.arrayEqual(expected, actual);
 			return;
 		}
 
