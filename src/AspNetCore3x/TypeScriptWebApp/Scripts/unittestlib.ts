@@ -53,9 +53,11 @@ class ResultHelper {
 	}
 }
 
+type TestFunc = () => void | Promise<void>;
+
 type TestCase = {
-	testName: string,
-	testFunc: () => void,
+	testName: string;
+	testFunc: TestFunc;
 };
 
 export class Test {
@@ -66,18 +68,21 @@ export class Test {
 		this._moduleName = moduleName;
 	}
 
-	public fact(testName: string, testFunc: () => void): this {
+	public fact(testName: string, testFunc: TestFunc): this {
 		this._testCases.push({ testName, testFunc });
 		return this;
 	}
 
-	public run(): void {
+	public async run(): Promise<void> {
 		const resultHelper = new ResultHelper();
 
 		for (let { testName, testFunc } of this._testCases) {
 			let failed = false;
 			try {
-				testFunc();
+				const result = testFunc();
+				if (result instanceof Promise) {
+					await result;
+				}
 			} catch (ex) {
 				failed = true;
 			} finally {
