@@ -12,4 +12,16 @@ export const assertTest = new Test("AssertTest")
 		// Act
 		// Assert
 		Assert.equal([1, 2, 3], [1, 2, 3]);
+	})
+	.fact("true_判断できる", () => {
+		// Arrange
+		// Act
+		// Assert
+		Assert.true(true);
+	})
+	.fact("false_判断できる", () => {
+		// Arrange
+		// Act
+		// Assert
+		Assert.false(false);
 	});

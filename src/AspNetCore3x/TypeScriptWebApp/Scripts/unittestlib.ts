@@ -25,6 +25,18 @@ export class Assert {
 			throw new AssertError();
 		}
 	}
+
+	public static true(condition: boolean): void {
+		if (!condition) {
+			throw new AssertError();
+		}
+	}
+
+	public static false(condition: boolean): void {
+		if (condition) {
+			throw new AssertError();
+		}
+	}
 }
 
 class ResultHelper {
