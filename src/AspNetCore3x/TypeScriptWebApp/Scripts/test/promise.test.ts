@@ -30,6 +30,16 @@ export const promiseTest = new Test("PromiseTest")
 		// Act
 		// Asseert
 
+		let error = false;
+		try {
+			await Promise.reject("error!");
+		} catch (e) {
+			Assert.equal("error!", e as string);
+			error = true;
+		}
+
+		Assert.true(error);
+
 		// todo: 例外がスローされる
 		// Assert.throwsを作れると
 	});
