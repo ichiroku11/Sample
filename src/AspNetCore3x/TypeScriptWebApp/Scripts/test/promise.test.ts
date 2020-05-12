@@ -14,7 +14,7 @@ async function timeout() {
 }
 */
 
-export const promiseTest = new Test("promiseTest")
+export const promiseTest = new Test("PromiseTest")
 	.fact("promise_resolveはシンタックスシュガー", async () => {
 		// Arrange
 		// Act

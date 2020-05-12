@@ -12,7 +12,7 @@ import { Assert, Test } from "../unittestlib";
 // await
 // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/await
 
-export const asyncAwaitTest = new Test("asyncAwaitTest")
+export const asyncAwaitTest = new Test("AsyncAwaitTest")
 	.fact("asyncawait_試す", async () => {
 		// Arrange
 		// Act
