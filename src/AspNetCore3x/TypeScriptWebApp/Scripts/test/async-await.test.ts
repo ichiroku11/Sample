@@ -16,7 +16,7 @@ export const asyncAwaitTest = new Test("AsyncAwaitTest")
 	.fact("asyncawait_試す", async () => {
 		// Arrange
 		// Act
-		const value = await new Promise((resolve, _) => {
+		const value = await new Promise<number>((resolve, _) => {
 			setTimeout(() => resolve(1));
 		});
 
