@@ -7,6 +7,8 @@ class Animal {}
 class Bird extends Animal {}
 class Crow extends Bird {}
 
+class TestError extends Error {}
+
 export const instanceofTest = new Test("InstanceOfTest")
 	.fact("instanceof_特定のクラスのインスタンスかどうか判定できる", async () => {
 		// Arrange
@@ -26,4 +28,15 @@ export const instanceofTest = new Test("InstanceOfTest")
 		// birdは
 		Assert.false(bird instanceof Crow);	// Crowのインスタンスではない
 		Assert.true(bird instanceof Bird);	// Birdのサブクラスのインスタンスである
+	})
+	.fact("instanceof_Errorクラスのインスタンスかどうか判定できる（念のため）", () => {
+		// Arrange
+		// Act
+		// Asseert
+		const error = new TestError();
+
+		// これはもちろんtrue
+		Assert.true(error instanceof TestError);
+		// 親クラスでもtrueになる
+		Assert.true(error instanceof Error);
 	});
