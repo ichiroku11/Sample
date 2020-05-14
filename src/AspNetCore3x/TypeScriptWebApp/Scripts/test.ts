@@ -2,6 +2,7 @@ import { assertTest } from "./test/unittestlib.test";
 import { arrayTest } from "./test/array.test";
 import { asyncAwaitTest } from "./test/async-await.test";
 import { destructuringAssignmentTest } from "./test/destructuring-assignment.test";
+import { errorTest } from "./test/error.test";
 import { functionAsteriskTest } from "./test/function-asterisk.test";
 import { instanceofTest } from "./test/instanceof.test";
 import { promiseTest } from "./test/promise.test";
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		arrayTest,
 		asyncAwaitTest,
 		destructuringAssignmentTest,
+		errorTest,
 		functionAsteriskTest,
 		instanceofTest,
 		promiseTest,
