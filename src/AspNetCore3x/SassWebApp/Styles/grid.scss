@@ -7,4 +7,20 @@
 }
 
 .grid-item {
+	background: #ddd;
+	border: 3px solid #ccc;
+	border-radius: 8px;
+	padding: 10px;
+}
+
+.grid-sample-grid {
+	.grid-container {
+		grid-gap: 10px;
+	}
+}
+
+.grid-sample-default {
+	.grid-container {
+		display: block;
+	}
 }
