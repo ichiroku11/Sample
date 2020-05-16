@@ -7,6 +7,7 @@ const config = {
 	entry: {
 		lib: path.resolve(__dirname, "styles/lib.scss"),
 		boxsizing: path.resolve(__dirname, "styles/boxsizing.scss"),
+		grid: path.resolve(__dirname, "styles/grid.scss"),
 		flexbox: path.resolve(__dirname, "styles/flexbox.scss"),
 		index: path.resolve(__dirname, "styles/index.scss")
 	},
