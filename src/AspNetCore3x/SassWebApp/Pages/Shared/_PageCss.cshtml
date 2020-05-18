@@ -1,0 +1,15 @@
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment Env
+@{
+	var page = ViewContext.RouteData.Values["page"] as string;
+
+	// 現在のページに対応するcssファイルが見つかればlinkタグを作成する
+	// 例
+	// 現在のページ：/index
+	// cssファイル：~/css/index.css
+	var cssPath = @$"css{page.ToLower()}.css";
+	var cssFile = Env.WebRootFileProvider.GetFileInfo(cssPath);
+}
+@if (cssFile.Exists) {
+	<link href="~/@cssPath" rel="stylesheet" asp-append-version="true" />
+}
