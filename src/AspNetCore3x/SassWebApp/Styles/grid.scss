@@ -30,6 +30,31 @@
 		grid-template-columns: 1.5fr 1fr 1fr 3fr;
 		grid-template-rows: 180px 100px 80px 120px auto;
 	}
+
+	.grid-item-1 {
+		background: #fc2;
+		border-color: #fa0;
+		grid-row: 1 / 4;
+	}
+
+	.grid-item-2 {
+		background: #0bd;
+		border-color: #09c;
+		grid-column: 3 / 5;
+	}
+
+	.grid-item-3 {
+		background: #c6c;
+		border-color: #a4a;
+		grid-column: 2 / 4;
+		grid-row: 3 / 5;
+	}
+
+	.grid-item-4 {
+		background: #0ba;
+		border-color: #098;
+		grid-column: 1 / 5;
+	}
 }
 
 .grid-sample-default {
