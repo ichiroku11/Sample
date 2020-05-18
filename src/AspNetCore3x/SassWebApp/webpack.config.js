@@ -8,6 +8,7 @@ const config = {
 		lib: path.resolve(__dirname, "styles/lib.scss"),
 		boxsizing: path.resolve(__dirname, "styles/boxsizing.scss"),
 		grid: path.resolve(__dirname, "styles/grid.scss"),
+		gridlayout: path.resolve(__dirname, "styles/gridlayout.scss"),
 		flexbox: path.resolve(__dirname, "styles/flexbox.scss"),
 		index: path.resolve(__dirname, "styles/index.scss")
 	},
