@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerWebApp", "src\Asp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SassWebApp", "src\AspNetCore3x\SassWebApp\SassWebApp.csproj", "{DD6A780F-C096-484D-9381-9AF97E5E393D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionWebApp", "src\AspNetCore3x\SessionWebApp\SessionWebApp.csproj", "{2792781E-6BE1-4620-BA04-4A3ED1CA3291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SessionWebApp", "src\AspNetCore3x\SessionWebApp\SessionWebApp.csproj", "{2792781E-6BE1-4620-BA04-4A3ED1CA3291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
