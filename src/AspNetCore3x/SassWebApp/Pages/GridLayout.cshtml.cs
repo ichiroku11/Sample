@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace SassWebApp.Pages {
 	public class GridLayoutModel : PageModel {
 		[BindProperty(SupportsGet = true)]
-		public int Pattern { get; set; }
+		public int Pattern { get; set; } = 1;
 
 		public void OnGet() {
 		}

@@ -14,17 +14,16 @@
 	@* Gridを使ったレイアウト *@
 	<div class="grid-container grid-container-pattern@(Model.Pattern)">
 		@if (Model.Pattern == 1) {
-			<header>header(@Model.Pattern)</header>
+			<header>header</header>
 			<aside>aside</aside>
 			<main>main</main>
 			<footer>footer</footer>
 		} else if (Model.Pattern == 2) {
-			<header>header(@Model.Pattern)</header>
+			<header>header</header>
 			<nav>nav</nav>
 			<aside>aside</aside>
 			<main>main</main>
 			<footer>footer</footer>
-		} else {
 		}
 	</div>
 </body>
