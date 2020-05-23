@@ -7,9 +7,10 @@ const config = {
 	entry: {
 		lib: path.resolve(__dirname, "styles/lib.scss"),
 		boxsizing: path.resolve(__dirname, "styles/boxsizing.scss"),
+		flexbox: path.resolve(__dirname, "styles/flexbox.scss"),
+		flexboxgridwrapper: path.resolve(__dirname, "styles/flexboxgridwrapper.scss"),
 		grid: path.resolve(__dirname, "styles/grid.scss"),
 		gridlayout: path.resolve(__dirname, "styles/gridlayout.scss"),
-		flexbox: path.resolve(__dirname, "styles/flexbox.scss"),
 		index: path.resolve(__dirname, "styles/index.scss")
 	},
 	module: {
