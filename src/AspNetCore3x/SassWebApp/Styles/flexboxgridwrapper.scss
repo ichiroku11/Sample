@@ -3,8 +3,32 @@ section {
 	}
 }
 
-.flexgrid-sample-flex {
+.fg-row {
+	margin: 40px auto;
+	max-width: 600px;
+
+	div {
+		border: 1px dashed gray;
+		text-align: center;
+		padding: 12px;
+	}
 }
 
-.flexgrid-sample-grid {
+// flexbox
+.fg-row-flex {
+	display: flex;
+	flex-wrap: wrap;
+
+	div {
+		// flex: flex-grow flex-shrink flex-basis
+		// 基本幅を10px
+		flex: 1 1 100px;
+	}
+}
+
+// grid
+.fg-row-grid {
+	display: grid;
+	// 最小幅を100px
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 }
