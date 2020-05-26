@@ -3,23 +3,25 @@
 	ViewBag.Title = "Grid repeat()";
 }
 
-<section class="app-sample ">
+@functions {
+	private void RenderItems() {
+		@foreach (var no in Enumerable.Range(1, 5)) {
+			<div>Item @no</div>
+		}
+	}
+}
+
+<section class="app-sample">
 	<h3>repeat(auto-fill)</h3>
 	<div class="gridrepeat-autofill">
-		<div>Item 1</div>
-		<div>Item 2</div>
-		<div>Item 3</div>
-		<div>Item 4</div>
+		@{ RenderItems(); }
 	</div>
 </section>
 
 <section class="app-sample">
 	<h3>repeat(auto-fit)</h3>
 	<div class="gridrepeat-autofit">
-		<div>Item 1</div>
-		<div>Item 2</div>
-		<div>Item 3</div>
-		<div>Item 4</div>
+		@{ RenderItems(); }
 	</div>
 </section>
 
