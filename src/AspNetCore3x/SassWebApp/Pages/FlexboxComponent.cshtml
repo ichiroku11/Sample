@@ -13,6 +13,8 @@
 		Trash,
 	}
 
+	private static IEnumerable<Icon> _icons = Enum.GetValues(typeof(Icon)).Cast<Icon>();
+
 	private void RenderIcon(Icon icon) {
 		switch (icon) {
 			case Icon.Archive:
@@ -50,8 +52,6 @@
 				break;
 		}
 	}
-
-	private static IEnumerable<Icon> _icons = Enum.GetValues(typeof(Icon)).Cast<Icon>();
 }
 
 <section class="app-sample">
