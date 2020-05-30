@@ -54,10 +54,11 @@
 	}
 }
 
-<section class="app-sample">
-	<ul class="flexsample-icons">
-		@foreach (var icon in _icons) {
+<section class="app-sample fc-sample-menu">
+	<ul>
+		@foreach (var icon in _icons.Where(item => item != Icon.ChevronLeft)) {
 			<li><a href="#">@{ RenderIcon(icon); }</a></li>
 		}
 	</ul>
 </section>
+
