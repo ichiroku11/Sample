@@ -1,6 +1,6 @@
 @page
 @{
-	ViewBag.Title = "Components with flexbox";
+	ViewBag.Title = "Flexboxを使ったコンポーネント";
 }
 
 @functions {
@@ -13,7 +13,13 @@
 		Trash,
 	}
 
-	private static IEnumerable<Icon> _icons = Enum.GetValues(typeof(Icon)).Cast<Icon>();
+	private static IEnumerable<Icon> _icons = new[] {
+		Icon.Archive,
+		Icon.Star,
+		Icon.Tag,
+		Icon.Trash,
+		Icon.ThreeDots,
+	};
 
 	private void RenderIcon(Icon icon) {
 		switch (icon) {
@@ -55,10 +61,24 @@
 }
 
 <section class="app-sample fc-sample-menu">
-	<ul>
-		@foreach (var icon in _icons.Where(item => item != Icon.ChevronLeft)) {
-			<li><a href="#">@{ RenderIcon(icon); }</a></li>
-		}
-	</ul>
+	<div class="fc-menu-container">
+		<ul>
+			@foreach (var icon in _icons.Where(item => item != Icon.ChevronLeft)) {
+				<li><a href="#">@{ RenderIcon(icon); }</a></li>
+			}
+		</ul>
+	</div>
 </section>
 
+<section class="app-sample fc-sample-menu2">
+	<div class="fc-menu-container">
+		<ul>
+			<li><a href="#">@{ RenderIcon(Icon.ChevronLeft); }</a></li>
+		</ul>
+		<ul>
+			@foreach (var icon in _icons.Where(item => item != Icon.ChevronLeft)) {
+				<li><a href="#">@{ RenderIcon(icon); }</a></li>
+			}
+		</ul>
+	</div>
+</section>
