@@ -13,6 +13,7 @@
 		Trash,
 	}
 
+	// ChevronLeft以外
 	private static IEnumerable<Icon> _icons = new[] {
 		Icon.Archive,
 		Icon.Star,
@@ -60,23 +61,25 @@
 	}
 }
 
+@* メニューアイテムの均等割 *@
 <section class="app-sample fc-sample-menu">
 	<div class="fc-menu-container">
 		<ul>
-			@foreach (var icon in _icons.Where(item => item != Icon.ChevronLeft)) {
+			@foreach (var icon in _icons) {
 				<li><a href="#">@{ RenderIcon(icon); }</a></li>
 			}
 		</ul>
 	</div>
 </section>
 
+@* よくあるメニューアイテム（「戻る」が左） *@
 <section class="app-sample fc-sample-menu2">
 	<div class="fc-menu-container">
 		<ul>
 			<li><a href="#">@{ RenderIcon(Icon.ChevronLeft); }</a></li>
 		</ul>
 		<ul>
-			@foreach (var icon in _icons.Where(item => item != Icon.ChevronLeft)) {
+			@foreach (var icon in _icons) {
 				<li><a href="#">@{ RenderIcon(icon); }</a></li>
 			}
 		</ul>
