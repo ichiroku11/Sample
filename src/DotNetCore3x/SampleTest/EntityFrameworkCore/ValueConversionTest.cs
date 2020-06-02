@@ -8,6 +8,7 @@ using Xunit;
 namespace SampleTest.EntityFrameworkCore {
 	// 参考
 	// https://docs.microsoft.com/ja-jp/ef/core/modeling/value-conversions
+	[Collection("dbo.Monster")]
 	public class ValueConversionTest {
 		private enum MonsterCategory : byte {
 			None = 0,
