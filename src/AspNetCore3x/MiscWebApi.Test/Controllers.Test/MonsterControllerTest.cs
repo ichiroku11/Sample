@@ -24,7 +24,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 		}
 
 		[Fact]
-		public async Task Get() {
+		public async Task GetAsync() {
 			// Arrange
 			using var client = _factory.CreateClient();
 
