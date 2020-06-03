@@ -28,10 +28,25 @@ namespace MiscWebApi.Controllers {
 		// 何か時間がかかる処理
 		private Task ActionAsync() => Task.CompletedTask;
 
+		// 一覧を取得
+		// ~/api/monster
 		[HttpGet]
 		public async Task<IEnumerable<Monster>> GetAsync() {
 			await ActionAsync();
 			return _monsters.Values.OrderBy(monster => monster.Id);
+		}
+
+		// 単体を取得
+		// ~/api/monster/{id}
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Monster>> GetByIdAsync(int id) {
+			await ActionAsync();
+
+			if (!_monsters.TryGetValue(id, out var monster)) {
+				return NotFound();
+			}
+
+			return _monsters[id];
 		}
 	}
 }

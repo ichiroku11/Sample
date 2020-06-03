@@ -24,7 +24,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 		}
 
 		[Fact]
-		public async Task GetAsync() {
+		public async Task GetAsync_OK() {
 			// Arrange
 			using var client = _factory.CreateClient();
 
@@ -39,6 +39,23 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(2, monsters.Count);
 			Assert.Contains(monsters, monster => monster.Id == 1 && monster.Name == "スライム");
 			Assert.Contains(monsters, monster => monster.Id == 2 && monster.Name == "ドラキー");
+		}
+
+		[Fact]
+		public async Task GetByIdAsync_OK() {
+			// Arrange
+			using var client = _factory.CreateClient();
+
+			// Act
+			using var response = await client.GetAsync("/api/monster/1");
+			var json = await response.Content.ReadAsStringAsync();
+
+			var monster = JsonSerializer.Deserialize<Monster>(json, _jsonSerializerOptions);
+
+			// Assert
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(1, monster.Id);
+			Assert.Equal("スライム", monster.Name);
 		}
 	}
 }
