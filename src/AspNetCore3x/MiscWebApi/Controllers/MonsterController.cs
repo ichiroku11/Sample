@@ -46,7 +46,7 @@ namespace MiscWebApi.Controllers {
 				return NotFound();
 			}
 
-			return _monsters[id];
+			return monster;
 		}
 	}
 }
