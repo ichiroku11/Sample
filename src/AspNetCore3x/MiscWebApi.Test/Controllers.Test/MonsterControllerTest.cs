@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection.Emit;
 using System.Text;
 using System.Text.Json;
@@ -27,7 +28,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 		}
 
 		[Fact]
-		public async Task GetAsync_OK() {
+		public async Task GetAsync_Ok() {
 			// Arrange
 			using var client = _factory.CreateClient();
 
@@ -45,7 +46,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 		}
 
 		[Fact]
-		public async Task GetByIdAsync_OK() {
+		public async Task GetByIdAsync_Ok() {
 			// Arrange
 			using var client = _factory.CreateClient();
 
@@ -77,6 +78,28 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
 			Assert.NotNull(problem);
 			Assert.Equal((int)HttpStatusCode.NotFound, problem.Status.Value);
+		}
+
+		[Fact]
+		public async Task PostFromAsync_Ok() {
+			// Arrange
+			using var client = _factory.CreateClient();
+
+			// Act
+			var formValues = new Dictionary<string, string> {
+				{ "id", "1" },
+				{ "name", "スライム" },
+			};
+			using var content = new FormUrlEncodedContent(formValues);
+			using var response = await client.PostAsync("/api/monster/form", content);
+
+			var json = await response.Content.ReadAsStringAsync();
+			var monster = JsonSerializer.Deserialize<Monster>(json, _jsonSerializerOptions);
+
+			// Assert
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(1, monster.Id);
+			Assert.Equal("スライム", monster.Name);
 		}
 	}
 }

@@ -48,5 +48,13 @@ namespace MiscWebApi.Controllers {
 
 			return monster;
 		}
+
+		// ~/api/monster/form
+		[HttpPost("form")]
+		public async Task<ActionResult<Monster>> PostFormAsync([FromForm] Monster monster) {
+			await ActionAsync();
+
+			return monster;
+		}
 	}
 }
