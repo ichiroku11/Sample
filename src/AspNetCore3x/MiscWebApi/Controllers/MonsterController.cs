@@ -49,6 +49,7 @@ namespace MiscWebApi.Controllers {
 			return monster;
 		}
 
+		// FromForm属性：POSTされたフォームから値を取得する
 		// ~/api/monster/form
 		[HttpPost("form")]
 		public async Task<ActionResult<Monster>> PostFormAsync([FromForm] Monster monster) {
@@ -57,6 +58,8 @@ namespace MiscWebApi.Controllers {
 			return monster;
 		}
 
+		// FromBody属性：POSTされたリクエストボディから値を取得する
+		// Consumes属性がない場合、リクエストヘッダにContentTypeが必要
 		// ~/api/monster/body
 		[HttpPost("body")]
 		//[Consumes("application/json")]

@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace MiscWebApi.Test.Controllers.Test {
 	public class MonsterControllerTest : IClassFixture<WebApplicationFactory<Startup>> {
@@ -22,9 +23,11 @@ namespace MiscWebApi.Test.Controllers.Test {
 				PropertyNameCaseInsensitive = true,
 			};
 
+		private readonly ITestOutputHelper _output;
 		private readonly WebApplicationFactory<Startup> _factory;
 
-		public MonsterControllerTest(WebApplicationFactory<Startup> factory) {
+		public MonsterControllerTest(ITestOutputHelper output, WebApplicationFactory<Startup> factory) {
+			_output = output;
 			_factory = factory;
 		}
 
@@ -115,7 +118,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			// Act
 			using var content = new StringContent(requestJson);
-			// todo:
+			// Consumes属性がない場合、リクエストヘッダにContentTypeが必要
 			content.Headers.ContentType.MediaType = "application/json";
 			using var response = await client.PostAsync("/api/monster/body", content);
 
@@ -126,6 +129,29 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal(requestMonster.Id, responseMonster.Id);
 			Assert.Equal(requestMonster.Name, responseMonster.Name);
+		}
+
+		[Fact]
+		public async Task PostBodyAsync_UnsupportedMediaType() {
+			// Arrange
+			using var client = _factory.CreateClient();
+			var monster = new Monster {
+				Id = 1,
+				Name = "スライム",
+			};
+			var requestJson = JsonSerializer.Serialize(monster, _jsonSerializerOptions);
+
+			// Act
+			using var content = new StringContent(requestJson);
+			using var response = await client.PostAsync("/api/monster/body", content);
+
+			var responseJson = await response.Content.ReadAsStringAsync();
+			var problem = JsonSerializer.Deserialize<ProblemDetails>(responseJson, _jsonSerializerOptions);
+
+			// Assert
+			Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
+			Assert.NotNull(problem);
+			Assert.Equal((int)HttpStatusCode.UnsupportedMediaType, problem.Status.Value);
 		}
 	}
 }
