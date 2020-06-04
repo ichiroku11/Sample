@@ -56,5 +56,14 @@ namespace MiscWebApi.Controllers {
 
 			return monster;
 		}
+
+		// ~/api/monster/body
+		[HttpPost("body")]
+		//[Consumes("application/json")]
+		public async Task<ActionResult<Monster>> PostBodyAsync([FromBody] Monster monster) {
+			await ActionAsync();
+
+			return monster;
+		}
 	}
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection.Emit;
 using System.Text;
 using System.Text.Json;
@@ -100,6 +101,31 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal(1, monster.Id);
 			Assert.Equal("スライム", monster.Name);
+		}
+
+		[Fact]
+		public async Task PostBodyAsync_Ok() {
+			// Arrange
+			using var client = _factory.CreateClient();
+			var requestMonster = new Monster {
+				Id = 1,
+				Name = "スライム",
+			};
+			var requestJson = JsonSerializer.Serialize(requestMonster, _jsonSerializerOptions);
+
+			// Act
+			using var content = new StringContent(requestJson);
+			// todo:
+			content.Headers.ContentType.MediaType = "application/json";
+			using var response = await client.PostAsync("/api/monster/body", content);
+
+			var responseJson = await response.Content.ReadAsStringAsync();
+			var responseMonster = JsonSerializer.Deserialize<Monster>(responseJson, _jsonSerializerOptions);
+
+			// Assert
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(requestMonster.Id, responseMonster.Id);
+			Assert.Equal(requestMonster.Name, responseMonster.Name);
 		}
 	}
 }
