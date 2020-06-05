@@ -49,6 +49,14 @@ namespace MiscWebApi.Controllers {
 			return monster;
 		}
 
+		// ~/api/monster
+		[HttpPost]
+		public async Task<ActionResult<Monster>> PostAsync(Monster monster) {
+			await ActionAsync();
+
+			return monster;
+		}
+
 		// FromForm属性：POSTされたフォームから値を取得する
 		// ~/api/monster/form
 		[HttpPost("form")]

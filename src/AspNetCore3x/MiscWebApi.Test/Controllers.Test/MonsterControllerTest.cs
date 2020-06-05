@@ -102,8 +102,59 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal((int)HttpStatusCode.NotFound, problem.Status.Value);
 		}
 
+		[Theory]
+		[InlineData("/api/monster")]
+		public async Task PostAsync_Ok(string url) {
+			// Arrange
+			var requestMonster = new Monster {
+				Id = 1,
+				Name = "スライム",
+			};
+
+			using var content = GetJsonStringContent(requestMonster);
+			content.Headers.ContentType.MediaType = "application/json";
+			using var request = new HttpRequestMessage(HttpMethod.Post, url) {
+				Content = content,
+			};
+
+			// Act
+			using var response = await SendAsync(request);
+			var responseMonster = await DeserializeAsync<Monster>(response);
+
+			// Assert
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(requestMonster.Id, responseMonster.Id);
+			Assert.Equal(requestMonster.Name, responseMonster.Name);
+		}
+
+		// ContentTypeが必要
+		[Theory]
+		[InlineData("/api/monster")]
+		public async Task PostAsync_UnsupportedMediaType(string url) {
+			// Arrange
+			var monster = new Monster {
+				Id = 1,
+				Name = "スライム",
+			};
+			using var content = GetJsonStringContent(monster);
+			using var request = new HttpRequestMessage(HttpMethod.Post, url) {
+				Content = content,
+			};
+
+			// Act
+			using var response = await SendAsync(request);
+			var problem = await DeserializeAsync<ProblemDetails>(response);
+
+			// Assert
+			Assert.Equal("text/plain", request.Content.Headers.ContentType.MediaType);
+			Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
+			Assert.NotNull(problem);
+			Assert.Equal((int)HttpStatusCode.UnsupportedMediaType, problem.Status.Value);
+		}
+
+		// FromForm属性に対するPOST
 		[Fact]
-		public async Task PostFromAsync_Ok() {
+		public async Task PostFormAsync_Ok() {
 			// Arrange
 			var formValues = new Dictionary<string, string> {
 				{ "id", "1" },
@@ -115,15 +166,17 @@ namespace MiscWebApi.Test.Controllers.Test {
 			};
 
 			// Act
-			using var response = await _client.SendAsync(request);
+			using var response = await SendAsync(request);
 			var monster = await DeserializeAsync<Monster>(response);
 
 			// Assert
+			Assert.Equal("application/x-www-form-urlencoded", content.Headers.ContentType.MediaType);
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal(1, monster.Id);
 			Assert.Equal("スライム", monster.Name);
 		}
 
+		// FromBody属性
 		// JSONをPOSTする場合
 		// Content-Type: application/jsonを指定するとJSONをバインド可能
 		// Consumes属性の有無は関係ない
@@ -153,6 +206,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(requestMonster.Name, responseMonster.Name);
 		}
 
+		// FromBody属性
 		// Consumes属性がないアクションに対してJSONをPOSTする場合
 		// Content-Type: application/jsonを指定しないと（"text/plain"だと）415エラー
 		// レスポンスはProblemDetailsのJSON
