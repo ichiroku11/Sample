@@ -68,5 +68,16 @@ namespace MiscWebApi.Controllers {
 
 			return monster;
 		}
+
+		// FromBody属性：POSTされたリクエストボディから値を取得する
+		// Consumes属性があっても、リクエストヘッダに一致するContentTypeが必要
+		// ~/api/monster/body/json
+		[HttpPost("body/json")]
+		[Consumes("application/json")]
+		public async Task<ActionResult<Monster>> PostBodyJsonAsync([FromBody] Monster monster) {
+			await ActionAsync();
+
+			return monster;
+		}
 	}
 }

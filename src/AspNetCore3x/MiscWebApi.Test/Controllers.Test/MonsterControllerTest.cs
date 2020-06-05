@@ -124,10 +124,13 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal("スライム", monster.Name);
 		}
 
-		// Consumes属性がないアクションの場合
-		// リクエストヘッダにContentTypeが必要
-		[Fact]
-		public async Task PostBodyAsync_Ok() {
+		// JSONをPOSTする場合
+		// Content-Type: application/jsonを指定するとJSONをバインド可能
+		// Consumes属性の有無は関係ない
+		[Theory]
+		[InlineData("/api/monster/body")]
+		[InlineData("/api/monster/body/json")]
+		public async Task PostBodyAsync_Ok(string url) {
 			// Arrange
 			var requestMonster = new Monster {
 				Id = 1,
@@ -136,7 +139,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			using var content = GetJsonStringContent(requestMonster);
 			content.Headers.ContentType.MediaType = "application/json";
-			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/body") {
+			using var request = new HttpRequestMessage(HttpMethod.Post, url) {
 				Content = content,
 			};
 
@@ -150,18 +153,19 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(requestMonster.Name, responseMonster.Name);
 		}
 
-		// Consumes属性がないアクションに対しては
-		// Content-Type: application/json
-		// を指定しないと415エラー
-		[Fact]
-		public async Task PostBodyAsync_UnsupportedMediaType() {
+		// Consumes属性がないアクションに対してJSONをPOSTする場合
+		// Content-Type: application/jsonを指定しないと（"text/plain"だと）415エラー
+		// レスポンスはProblemDetailsのJSON
+		[Theory]
+		[InlineData("/api/monster/body")]
+		public async Task PostBodyAsync_UnsupportedMediaType(string url) {
 			// Arrange
 			var monster = new Monster {
 				Id = 1,
 				Name = "スライム",
 			};
 			using var content = GetJsonStringContent(monster);
-			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/body") {
+			using var request = new HttpRequestMessage(HttpMethod.Post, url) {
 				Content = content,
 			};
 
@@ -174,6 +178,34 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
 			Assert.NotNull(problem);
 			Assert.Equal((int)HttpStatusCode.UnsupportedMediaType, problem.Status.Value);
+		}
+
+		// Consumes属性があるアクションに対してJSONをPOSTする場合
+		// Content-Type: application/jsonを指定しないと（"text/plain"だと）415エラー
+		// レスポンスは空っぽ
+		[Theory]
+		[InlineData("/api/monster/body/json")]
+		public async Task PostBodyJsonAsync_UnsupportedMediaType(string url) {
+			// Arrange
+			var monster = new Monster {
+				Id = 1,
+				Name = "スライム",
+			};
+			using var content = GetJsonStringContent(monster);
+			using var request = new HttpRequestMessage(HttpMethod.Post, url) {
+				Content = content,
+			};
+
+			// Act
+			using var response = await SendAsync(request);
+			var responseText = await response.Content?.ReadAsStringAsync();
+
+			// Assert
+			Assert.Equal("text/plain", request.Content.Headers.ContentType.MediaType);
+			Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
+			Assert.NotNull(response.Content);
+			Assert.NotNull(responseText);
+			Assert.Equal(0, responseText.Length);
 		}
 	}
 }
