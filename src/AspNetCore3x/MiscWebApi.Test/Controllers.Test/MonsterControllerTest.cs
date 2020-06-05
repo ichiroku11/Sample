@@ -124,6 +124,8 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal("スライム", monster.Name);
 		}
 
+		// Consumes属性がないアクションの場合
+		// リクエストヘッダにContentTypeが必要
 		[Fact]
 		public async Task PostBodyAsync_Ok() {
 			// Arrange
@@ -133,7 +135,6 @@ namespace MiscWebApi.Test.Controllers.Test {
 			};
 
 			using var content = GetJsonStringContent(requestMonster);
-			// Consumes属性がない場合、リクエストヘッダにContentTypeが必要
 			content.Headers.ContentType.MediaType = "application/json";
 			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/body") {
 				Content = content,
@@ -149,6 +150,9 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal(requestMonster.Name, responseMonster.Name);
 		}
 
+		// Consumes属性がないアクションに対しては
+		// Content-Type: application/json
+		// を指定しないと415エラー
 		[Fact]
 		public async Task PostBodyAsync_UnsupportedMediaType() {
 			// Arrange
@@ -166,6 +170,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 			var problem = await DeserializeAsync<ProblemDetails>(response);
 
 			// Assert
+			Assert.Equal("text/plain", request.Content.Headers.ContentType.MediaType);
 			Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
 			Assert.NotNull(problem);
 			Assert.Equal((int)HttpStatusCode.UnsupportedMediaType, problem.Status.Value);
