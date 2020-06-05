@@ -43,6 +43,12 @@ namespace MiscWebApi.Test.Controllers.Test {
 			return response;
 		}
 
+		private async Task<TModel> DeserializeAsync<TModel>(HttpResponseMessage response) {
+			var json = await response.Content.ReadAsStringAsync();
+			var model = JsonSerializer.Deserialize<TModel>(json, _jsonSerializerOptions);
+			return model;
+		}
+
 		[Fact]
 		public async Task GetAsync_Ok() {
 			// Arrange
@@ -50,9 +56,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			// Act
 			using var response = await SendAsync(request);
-			var json = await response.Content.ReadAsStringAsync();
-
-			var monsters = JsonSerializer.Deserialize<IList<Monster>>(json, _jsonSerializerOptions);
+			var monsters = await DeserializeAsync<IList<Monster>>(response);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -68,9 +72,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			// Act
 			using var response = await SendAsync(request);
-
-			var json = await response.Content.ReadAsStringAsync();
-			var monster = JsonSerializer.Deserialize<Monster>(json, _jsonSerializerOptions);
+			var monster = await DeserializeAsync<Monster>(response);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -85,10 +87,8 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			// Act
 			using var response = await SendAsync(request);
-
 			// エラーの場合は、ProblemDetails型（RFC7807）のJSONが返ってくる
-			var json = await response.Content.ReadAsStringAsync();
-			var problem = JsonSerializer.Deserialize<ProblemDetails>(json, _jsonSerializerOptions);
+			var problem = await DeserializeAsync<ProblemDetails>(response);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -110,9 +110,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			// Act
 			using var response = await _client.SendAsync(request);
-
-			var json = await response.Content.ReadAsStringAsync();
-			var monster = JsonSerializer.Deserialize<Monster>(json, _jsonSerializerOptions);
+			var monster = await DeserializeAsync<Monster>(response);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -138,9 +136,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			// Act
 			using var response = await SendAsync(request);
-
-			var responseJson = await response.Content.ReadAsStringAsync();
-			var responseMonster = JsonSerializer.Deserialize<Monster>(responseJson, _jsonSerializerOptions);
+			var responseMonster = await DeserializeAsync<Monster>(response);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -163,9 +159,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			// Act
 			using var response = await SendAsync(request);
-
-			var responseJson = await response.Content.ReadAsStringAsync();
-			var problem = JsonSerializer.Deserialize<ProblemDetails>(responseJson, _jsonSerializerOptions);
+			var problem = await DeserializeAsync<ProblemDetails>(response);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
