@@ -43,6 +43,12 @@ namespace MiscWebApi.Test.Controllers.Test {
 			return response;
 		}
 
+		private StringContent GetJsonStringContent<TModel>(TModel model) {
+			var json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
+			var content = new StringContent(json);
+			return content;
+		}
+
 		private async Task<TModel> DeserializeAsync<TModel>(HttpResponseMessage response) {
 			var json = await response.Content.ReadAsStringAsync();
 			var model = JsonSerializer.Deserialize<TModel>(json, _jsonSerializerOptions);
@@ -125,9 +131,8 @@ namespace MiscWebApi.Test.Controllers.Test {
 				Id = 1,
 				Name = "スライム",
 			};
-			var requestJson = JsonSerializer.Serialize(requestMonster, _jsonSerializerOptions);
 
-			using var content = new StringContent(requestJson);
+			using var content = GetJsonStringContent(requestMonster);
 			// Consumes属性がない場合、リクエストヘッダにContentTypeが必要
 			content.Headers.ContentType.MediaType = "application/json";
 			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/body") {
@@ -151,8 +156,7 @@ namespace MiscWebApi.Test.Controllers.Test {
 				Id = 1,
 				Name = "スライム",
 			};
-			var requestJson = JsonSerializer.Serialize(monster, _jsonSerializerOptions);
-			using var content = new StringContent(requestJson);
+			using var content = GetJsonStringContent(monster);
 			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/body") {
 				Content = content,
 			};
