@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using MiscWebApi.Models;
@@ -7,11 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection.Emit;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -38,12 +34,22 @@ namespace MiscWebApi.Test.Controllers.Test {
 			_client = null;
 		}
 
+		private async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request) {
+			_output.WriteLine(request.ToString());
+
+			var response = await _client.SendAsync(request);
+
+			_output.WriteLine(response.ToString());
+			return response;
+		}
+
 		[Fact]
 		public async Task GetAsync_Ok() {
 			// Arrange
+			using var request = new HttpRequestMessage(HttpMethod.Get, "/api/monster");
 
 			// Act
-			using var response = await _client.GetAsync("/api/monster");
+			using var response = await SendAsync(request);
 			var json = await response.Content.ReadAsStringAsync();
 
 			var monsters = JsonSerializer.Deserialize<IList<Monster>>(json, _jsonSerializerOptions);
@@ -58,9 +64,10 @@ namespace MiscWebApi.Test.Controllers.Test {
 		[Fact]
 		public async Task GetByIdAsync_Ok() {
 			// Arrange
+			using var request = new HttpRequestMessage(HttpMethod.Get, "/api/monster/1");
 
 			// Act
-			using var response = await _client.GetAsync("/api/monster/1");
+			using var response = await SendAsync(request);
 
 			var json = await response.Content.ReadAsStringAsync();
 			var monster = JsonSerializer.Deserialize<Monster>(json, _jsonSerializerOptions);
@@ -74,8 +81,10 @@ namespace MiscWebApi.Test.Controllers.Test {
 		[Fact]
 		public async Task GetByIdAsync_NotFound() {
 			// Arrange
+			using var request = new HttpRequestMessage(HttpMethod.Get, "/api/monster/0");
+
 			// Act
-			using var response = await _client.GetAsync("/api/monster/0");
+			using var response = await SendAsync(request);
 
 			// エラーの場合は、ProblemDetails型（RFC7807）のJSONが返ってくる
 			var json = await response.Content.ReadAsStringAsync();
@@ -90,14 +99,17 @@ namespace MiscWebApi.Test.Controllers.Test {
 		[Fact]
 		public async Task PostFromAsync_Ok() {
 			// Arrange
-
-			// Act
 			var formValues = new Dictionary<string, string> {
 				{ "id", "1" },
 				{ "name", "スライム" },
 			};
 			using var content = new FormUrlEncodedContent(formValues);
-			using var response = await _client.PostAsync("/api/monster/form", content);
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/form") {
+				Content = content,
+			};
+
+			// Act
+			using var response = await _client.SendAsync(request);
 
 			var json = await response.Content.ReadAsStringAsync();
 			var monster = JsonSerializer.Deserialize<Monster>(json, _jsonSerializerOptions);
@@ -117,11 +129,15 @@ namespace MiscWebApi.Test.Controllers.Test {
 			};
 			var requestJson = JsonSerializer.Serialize(requestMonster, _jsonSerializerOptions);
 
-			// Act
 			using var content = new StringContent(requestJson);
 			// Consumes属性がない場合、リクエストヘッダにContentTypeが必要
 			content.Headers.ContentType.MediaType = "application/json";
-			using var response = await _client.PostAsync("/api/monster/body", content);
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/body") {
+				Content = content,
+			};
+
+			// Act
+			using var response = await SendAsync(request);
 
 			var responseJson = await response.Content.ReadAsStringAsync();
 			var responseMonster = JsonSerializer.Deserialize<Monster>(responseJson, _jsonSerializerOptions);
@@ -140,10 +156,13 @@ namespace MiscWebApi.Test.Controllers.Test {
 				Name = "スライム",
 			};
 			var requestJson = JsonSerializer.Serialize(monster, _jsonSerializerOptions);
+			using var content = new StringContent(requestJson);
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster/body") {
+				Content = content,
+			};
 
 			// Act
-			using var content = new StringContent(requestJson);
-			using var response = await _client.PostAsync("/api/monster/body", content);
+			using var response = await SendAsync(request);
 
 			var responseJson = await response.Content.ReadAsStringAsync();
 			var problem = JsonSerializer.Deserialize<ProblemDetails>(responseJson, _jsonSerializerOptions);
