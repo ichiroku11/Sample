@@ -183,6 +183,28 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.NotNull(problem);
 			Assert.Equal((int)HttpStatusCode.UnsupportedMediaType, problem.Status.Value);
 		}
+
+		// （Required属性の）バリエーションエラー
+		[Fact]
+		public async Task PostAsync_BadRequest() {
+			// Arrange
+			// NameのRequired属性でバリデーションエラー
+			using var content = GetContent(PostContentType.JsonString, new Monster { Id = 1, Name = "" });
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster") {
+				Content = content,
+			};
+
+			// Act
+			using var response = await SendAsync(request);
+			var problem = await DeserializeAsync<ProblemDetails>(response);
+
+			// Assert
+			Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+			Assert.NotNull(problem);
+			Assert.Equal((int)HttpStatusCode.BadRequest, problem.Status.Value);
+			// "errors"キーの値に、バリデーションエラーの内容が含まれている
+			Assert.Contains("errors", problem.Extensions);
+		}
 		#endregion
 
 		#region FromForm属性に対するPOSTアクション
