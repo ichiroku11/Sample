@@ -49,6 +49,24 @@ namespace MiscWebApi.Controllers {
 			return monster;
 		}
 
+		// FromQuery属性
+		// ~/api/monster/query
+		[HttpGet("query")]
+		public async Task<ActionResult<Monster>> GetQueryAsync([FromQuery] Monster monster) {
+			await ActionAsync();
+
+			return monster;
+		}
+
+		// FromRoute属性
+		// ~/api/monster/route
+		[HttpGet("route/{id}/{name}")]
+		public async Task<ActionResult<Monster>> GetRouteAsync([FromRoute] Monster monster) {
+			await ActionAsync();
+
+			return monster;
+		}
+
 		// FromXxx属性：なし
 		// ~/api/monster
 		[HttpPost]
