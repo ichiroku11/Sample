@@ -49,6 +49,7 @@ namespace MiscWebApi.Controllers {
 			return monster;
 		}
 
+		// FromXxx属性：なし
 		// ~/api/monster
 		[HttpPost]
 		public async Task<ActionResult<Monster>> PostAsync(Monster monster) {

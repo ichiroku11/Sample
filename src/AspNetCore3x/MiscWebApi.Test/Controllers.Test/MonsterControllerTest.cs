@@ -19,6 +19,51 @@ namespace MiscWebApi.Test.Controllers.Test {
 				PropertyNameCaseInsensitive = true,
 			};
 
+		private static readonly Monster _slime = new Monster {
+			Id = 1,
+			Name = "スライム",
+		};
+
+		private static StringContent GetJsonStringContent<TModel>(TModel model) {
+			var json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
+			var content = new StringContent(json);
+			return content;
+		}
+
+		private static async Task<TModel> DeserializeAsync<TModel>(HttpResponseMessage response) {
+			var json = await response.Content.ReadAsStringAsync();
+			var model = JsonSerializer.Deserialize<TModel>(json, _jsonSerializerOptions);
+			return model;
+		}
+
+		public enum PostContentType {
+			FormUrlEncoded,
+			JsonString,
+			JsonStringTextPlain,
+		}
+
+		private static HttpContent GetContent(PostContentType contentType, Monster monster) {
+			switch (contentType) {
+				case PostContentType.FormUrlEncoded:
+					// application/x-www-form-urlencoded
+					var formValues = new Dictionary<string, string> {
+						{ "id", monster.Id.ToString() },
+						{ "name", monster.Name },
+					};
+					return new FormUrlEncodedContent(formValues);
+				case PostContentType.JsonString:
+				case PostContentType.JsonStringTextPlain:
+					var content = GetJsonStringContent(monster);
+					content.Headers.ContentType.MediaType
+						= contentType == PostContentType.JsonString
+							? "application/json"
+							: "text/plain";
+					return content;
+			}
+
+			throw new ArgumentOutOfRangeException(nameof(contentType));
+		}
+
 		private readonly ITestOutputHelper _output;
 		private readonly WebApplicationFactory<Startup> _factory;
 		private HttpClient _client;
@@ -41,18 +86,6 @@ namespace MiscWebApi.Test.Controllers.Test {
 
 			_output.WriteLine(response.ToString());
 			return response;
-		}
-
-		private StringContent GetJsonStringContent<TModel>(TModel model) {
-			var json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
-			var content = new StringContent(json);
-			return content;
-		}
-
-		private async Task<TModel> DeserializeAsync<TModel>(HttpResponseMessage response) {
-			var json = await response.Content.ReadAsStringAsync();
-			var model = JsonSerializer.Deserialize<TModel>(json, _jsonSerializerOptions);
-			return model;
 		}
 
 		[Fact]
@@ -102,42 +135,36 @@ namespace MiscWebApi.Test.Controllers.Test {
 			Assert.Equal((int)HttpStatusCode.NotFound, problem.Status.Value);
 		}
 
+		#region FromXxx属性がないPOSTアクション
+		// JSONをバインドできる
 		[Theory]
-		[InlineData("/api/monster")]
-		public async Task PostAsync_Ok(string url) {
+		[InlineData(PostContentType.JsonString)]
+		public async Task PostAsync_Ok(PostContentType contentType) {
 			// Arrange
-			var requestMonster = new Monster {
-				Id = 1,
-				Name = "スライム",
-			};
-
-			using var content = GetJsonStringContent(requestMonster);
-			content.Headers.ContentType.MediaType = "application/json";
-			using var request = new HttpRequestMessage(HttpMethod.Post, url) {
+			using var content = GetContent(contentType, _slime);
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster") {
 				Content = content,
 			};
 
 			// Act
 			using var response = await SendAsync(request);
-			var responseMonster = await DeserializeAsync<Monster>(response);
+			var monster = await DeserializeAsync<Monster>(response);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-			Assert.Equal(requestMonster.Id, responseMonster.Id);
-			Assert.Equal(requestMonster.Name, responseMonster.Name);
+			Assert.Equal(_slime.Id, monster.Id);
+			Assert.Equal(_slime.Name, monster.Name);
 		}
 
-		// ContentTypeが必要
+		// Formデータをバインドできない
+		// Content-Typeがtext/plainのJSONをバインドできない
 		[Theory]
-		[InlineData("/api/monster")]
-		public async Task PostAsync_UnsupportedMediaType(string url) {
+		[InlineData(PostContentType.FormUrlEncoded)]
+		[InlineData(PostContentType.JsonStringTextPlain)]
+		public async Task PostAsync_UnsupportedMediaType(PostContentType contentType) {
 			// Arrange
-			var monster = new Monster {
-				Id = 1,
-				Name = "スライム",
-			};
-			using var content = GetJsonStringContent(monster);
-			using var request = new HttpRequestMessage(HttpMethod.Post, url) {
+			using var content = GetContent(contentType, _slime);
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/api/monster") {
 				Content = content,
 			};
 
@@ -146,11 +173,14 @@ namespace MiscWebApi.Test.Controllers.Test {
 			var problem = await DeserializeAsync<ProblemDetails>(response);
 
 			// Assert
-			Assert.Equal("text/plain", request.Content.Headers.ContentType.MediaType);
 			Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
 			Assert.NotNull(problem);
 			Assert.Equal((int)HttpStatusCode.UnsupportedMediaType, problem.Status.Value);
 		}
+		#endregion
+
+
+		// todo:
 
 		// FromForm属性に対するPOST
 		[Fact]
