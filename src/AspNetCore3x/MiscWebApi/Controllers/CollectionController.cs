@@ -17,7 +17,9 @@ namespace MiscWebApi.Controllers {
 
 		// ~/api/collection
 		[HttpPost]
-		public async Task<IEnumerable<int>> PostAsync(IEnumerable<int> values) {
+		public async Task<IEnumerable<int>> PostAsync(
+			// Formデータをバインドする
+			[FromForm] IEnumerable<int> values) {
 			await ActionAsync();
 
 			return values;

@@ -30,7 +30,7 @@ namespace MiscWebApi {
 		private readonly WebApplicationFactory<Startup> _factory;
 		private HttpClient _client;
 
-		public ControllerTestBase(ITestOutputHelper output, WebApplicationFactory<Startup> factory) {
+		protected ControllerTestBase(ITestOutputHelper output, WebApplicationFactory<Startup> factory) {
 			_output = output;
 			_factory = factory;
 			_client = _factory.CreateClient();
@@ -41,7 +41,9 @@ namespace MiscWebApi {
 			_client = null;
 		}
 
-		protected virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request) {
+		protected void WriteLine(string message) => _output.WriteLine(message);
+
+		protected async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request) {
 			_output.WriteLine(request.ToString());
 			if (request.Content != null) {
 				_output.WriteLine(await request.Content.ReadAsStringAsync());
