@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace MiscWebApi.Test.Controllers.Test {
+namespace MiscWebApi.Controllers.Test {
 	public partial class MonsterControllerTest {
 		public enum PostContentType {
 			FormUrlEncoded,
