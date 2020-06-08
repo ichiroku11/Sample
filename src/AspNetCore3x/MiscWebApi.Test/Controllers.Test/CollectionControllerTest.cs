@@ -14,7 +14,6 @@ namespace MiscWebApi.Controllers.Test {
 			: base(output, factory) {
 		}
 
-
 		public static IEnumerable<object[]> GetSimpleValues() {
 			// values=1&values=2
 			yield return new object[] {
@@ -32,6 +31,7 @@ namespace MiscWebApi.Controllers.Test {
 				},
 			};
 
+			// values[0]=1&values[1]=2&values[3]=3
 			yield return new object[] {
 				new Dictionary<string, string>() {
 					{ "values[0]", "1" },
@@ -41,10 +41,19 @@ namespace MiscWebApi.Controllers.Test {
 				},
 			};
 
+			// [0]=1&[1]=2
 			yield return new object[] {
 				new Dictionary<string, string>() {
 					{ "[0]", "1" },
 					{ "[1]", "2" },
+				},
+			};
+
+			// values[]=1&values[]=2
+			yield return new object[] {
+				new[] {
+					KeyValuePair.Create("values[]", "1"),
+					KeyValuePair.Create("values[]", "2"),
 				},
 			};
 		}
