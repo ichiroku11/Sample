@@ -12,7 +12,19 @@ namespace MiscWebApi.Controllers {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class DictionaryController : ControllerBase {
-		// todo: 単純型のディクショナリ
+		// 何か時間がかかる処理
+		private Task ActionAsync() => Task.CompletedTask;
+
+		// ~/api/dictionary
+		[HttpPost]
+		public async Task<IDictionary<string, int>> PostAsync(
+			// Formデータをバインドする
+			[FromForm] IDictionary<string, int> values) {
+			await ActionAsync();
+
+			return values;
+		}
+
 		// todo: 複合型のディクショナリ
 	}
 }

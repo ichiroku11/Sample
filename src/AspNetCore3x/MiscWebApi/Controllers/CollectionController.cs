@@ -25,7 +25,6 @@ namespace MiscWebApi.Controllers {
 			return values;
 		}
 
-		// todo: 単純型のコレクション
 		// todo: 複合型のコレクション
 	}
 }
