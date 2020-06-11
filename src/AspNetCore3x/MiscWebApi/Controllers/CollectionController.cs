@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MiscWebApi.Models;
 
 namespace MiscWebApi.Controllers {
 	// コレクションへのバインドを試す
@@ -25,6 +26,13 @@ namespace MiscWebApi.Controllers {
 			return values;
 		}
 
-		// todo: 複合型のコレクション
+		// ~/api/collection/complex
+		[HttpPost("complex")]
+		public async Task<IEnumerable<Sample>> PostAsync(
+			[FromForm] IEnumerable<Sample> values) {
+			await ActionAsync();
+
+			return values;
+		}
 	}
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using MiscWebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,6 +73,33 @@ namespace MiscWebApi.Controllers.Test {
 
 			// Assert
 			Assert.Equal(new[] { 1, 2 }, values);
+		}
+
+		public static IEnumerable<object[]> GetComplexValues() {
+			yield return new object[] {
+				new Dictionary<string, string>() {
+					{ "values[0].Id", "1" },
+					{ "values[0].Name", "a" },
+					{ "values[1].Id", "2" },
+					{ "values[1].Name", "b" },
+				},
+			};
+		}
+
+		[Theory(DisplayName = "IEnumerable<Sample>型のvaluesにバインドできる")]
+		[MemberData(nameof(GetComplexValues))]
+		public async Task PostAsync_BindToComplexModelEnumerable(IEnumerable<KeyValuePair<string, string>> formValues) {
+			// Arrange
+			var request = new HttpRequestMessage(HttpMethod.Post, "api/collection/complex") {
+				Content = new FormUrlEncodedContent(formValues),
+			};
+
+			// Act
+			var response = await SendAsync(request);
+			var values = await DeserializeAsync<IEnumerable<Sample>>(response);
+
+			// Assert
+			Assert.Equal(new[] { new Sample { Id = 1, Name = "a" }, new Sample { Id = 2, Name = "b" } }, values);
 		}
 	}
 }
