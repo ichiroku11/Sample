@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using MiscWebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -49,9 +50,9 @@ namespace MiscWebApi.Controllers.Test {
 			};
 		}
 
-		[Theory(DisplayName = "IDictionary<int, string>型のvaluesにバインドできる")]
+		[Theory(DisplayName = "IDictionary<string, int>型のvaluesにバインドできる")]
 		[MemberData(nameof(GetSimpleValues))]
-		public async Task PostAsync_BindToInt32StringDictionary(IEnumerable<KeyValuePair<string, string>> formValues) {
+		public async Task PostAsync_BindToStringInt32Dictionary(IEnumerable<KeyValuePair<string, string>> formValues) {
 			// Arrange
 			var request = new HttpRequestMessage(HttpMethod.Post, "api/dictionary") {
 				Content = new FormUrlEncodedContent(formValues),
@@ -66,5 +67,37 @@ namespace MiscWebApi.Controllers.Test {
 			Assert.Equal(1, values["a"]);
 			Assert.Equal(2, values["b"]);
 		}
+
+		// todo:
+		/*
+		public static IEnumerable<object[]> GetComplexValues() {
+			yield return new object[] {
+				new Dictionary<string, string>() {
+					{ "values[1].Id", "1" },
+					{ "values[1].Name", "a" },
+					{ "values[2].Id", "2" },
+					{ "values[2].Name", "b" },
+				},
+			};
+		}
+
+		[Theory(DisplayName = "IDictionary<int, Sample>型のvaluesにバインドできる")]
+		[MemberData(nameof(GetComplexValues))]
+		public async Task PostAsync_BindToComplexModelDictionary(IEnumerable<KeyValuePair<string, string>> formValues) {
+			// Arrange
+			var request = new HttpRequestMessage(HttpMethod.Post, "api/dictionary/complex") {
+				Content = new FormUrlEncodedContent(formValues),
+			};
+
+			// Act
+			var response = await SendAsync(request);
+			var values = await DeserializeAsync<Dictionary<int, Sample>>(response);
+
+			// Assert
+			Assert.Equal(2, values.Count);
+			Assert.Equal(new Sample { Id = 1, Name = "a" }, values[1]);
+			Assert.Equal(new Sample { Id = 2, Name = "b" }, values[2]);
+		}
+		*/
 	}
 }

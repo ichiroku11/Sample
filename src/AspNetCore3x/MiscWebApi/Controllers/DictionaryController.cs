@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MiscWebApi.Models;
 
 namespace MiscWebApi.Controllers {
 	// ディクショナリへのバインドを試す
@@ -25,6 +26,14 @@ namespace MiscWebApi.Controllers {
 			return values;
 		}
 
-		// todo: 複合型のディクショナリ
+		// todo: バインドできない？
+		// ~/api/dictionary/complex
+		[HttpPost("complex")]
+		public async Task<IDictionary<int, Sample>> PostAsync(
+			[FromForm] IDictionary<int, Sample> values) {
+			await ActionAsync();
+
+			return values;
+		}
 	}
 }
