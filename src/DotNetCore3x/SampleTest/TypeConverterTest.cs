@@ -79,5 +79,17 @@ namespace SampleTest {
 			// Assert
 			Assert.Equal(Fruit.Apple, actual);
 		}
+
+		[Fact]
+		public void GetStandardValues_enum値のコレクションを取得できる() {
+			// Arrange
+			var converter = TypeDescriptor.GetConverter(typeof(Fruit));
+
+			// Act
+			var actual = converter.GetStandardValues().Cast<Fruit>();
+
+			// Assert
+			Assert.Equal(_fruits, actual);
+		}
 	}
 }
