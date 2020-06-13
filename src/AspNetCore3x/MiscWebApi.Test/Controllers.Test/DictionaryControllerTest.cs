@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using MiscWebApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,19 +70,26 @@ namespace MiscWebApi.Controllers.Test {
 		}
 
 		// todo:
-		/*
 		public static IEnumerable<object[]> GetComplexValues() {
 			yield return new object[] {
 				new Dictionary<string, string>() {
-					{ "values[1].Id", "1" },
-					{ "values[1].Name", "a" },
-					{ "values[2].Id", "2" },
-					{ "values[2].Name", "b" },
+					{ "values[0].Id", "1" },
+					{ "values[0].Name", "a" },
+					{ "values[1].Id", "2" },
+					{ "values[1].Name", "b" },
+				},
+				new Dictionary<string, string>() {
+					{ "values[0].Key", "1" },
+					{ "values[0].Value.Id", "1" },
+					{ "values[0].Value.Name", "a" },
+					{ "values[1].Key", "2" },
+					{ "values[1].Value.Id", "2" },
+					{ "values[1].Value.Name", "b" },
 				},
 			};
 		}
 
-		[Theory(DisplayName = "IDictionary<int, Sample>型のvaluesにバインドできる")]
+		[Theory(DisplayName = "IDictionary<int, Sample>型のvaluesにバインドできず、NotSupportedExceptionがスローされる様子")]
 		[MemberData(nameof(GetComplexValues))]
 		public async Task PostAsync_BindToComplexModelDictionary(IEnumerable<KeyValuePair<string, string>> formValues) {
 			// Arrange
@@ -91,13 +99,9 @@ namespace MiscWebApi.Controllers.Test {
 
 			// Act
 			var response = await SendAsync(request);
-			var values = await DeserializeAsync<Dictionary<int, Sample>>(response);
 
 			// Assert
-			Assert.Equal(2, values.Count);
-			Assert.Equal(new Sample { Id = 1, Name = "a" }, values[1]);
-			Assert.Equal(new Sample { Id = 2, Name = "b" }, values[2]);
+			Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
 		}
-		*/
 	}
 }

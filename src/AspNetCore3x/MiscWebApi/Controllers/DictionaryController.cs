@@ -26,7 +26,9 @@ namespace MiscWebApi.Controllers {
 			return values;
 		}
 
-		// todo: バインドできない？
+		// どうもバインドできない様子
+		// NotSupportedExceptionがスローされる
+		// The collection type 'System.Collections.Generic.Dictionary`2[System.Int32,MiscWebApi.Models.Sample]' is not supported.
 		// ~/api/dictionary/complex
 		[HttpPost("complex")]
 		public async Task<IDictionary<int, Sample>> PostAsync(
