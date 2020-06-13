@@ -69,7 +69,6 @@ namespace MiscWebApi.Controllers.Test {
 			Assert.Equal(2, values["b"]);
 		}
 
-		// todo:
 		public static IEnumerable<object[]> GetComplexValues() {
 			yield return new object[] {
 				new Dictionary<string, string>() {
@@ -78,6 +77,9 @@ namespace MiscWebApi.Controllers.Test {
 					{ "values[1].Id", "2" },
 					{ "values[1].Name", "b" },
 				},
+			};
+
+			yield return new object[] {
 				new Dictionary<string, string>() {
 					{ "values[0].Key", "1" },
 					{ "values[0].Value.Id", "1" },
@@ -101,6 +103,7 @@ namespace MiscWebApi.Controllers.Test {
 			var response = await SendAsync(request);
 
 			// Assert
+			// バインドできない
 			Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
 		}
 	}
