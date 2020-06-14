@@ -19,7 +19,17 @@ namespace SampleTest {
 
 		private static readonly IEnumerable<Fruit> _fruits = Enum.GetValues(typeof(Fruit)).Cast<Fruit>();
 
+		// Fruit一覧を取得
 		public static IEnumerable<object[]> GetFruits() => _fruits.Select(fruit => new object[] { fruit });
+
+		// Fruit.Appleに変換できる文字列を取得
+		public static IEnumerable<object[]> GetStringsCanConvertToApple() {
+			return new[] {
+					"Apple",
+					"apple",
+					"1"
+				}.Select(fruit => new object[] { fruit });
+		}
 
 		[Fact]
 		public void GetConverter_EnumのTypeConverterはEnumConverter() {
@@ -77,8 +87,7 @@ namespace SampleTest {
 		}
 
 		[Theory]
-		[InlineData("Apple")]
-		[InlineData("apple")]
+		[MemberData(nameof(GetStringsCanConvertToApple))]
 		public void ConvertFromString_文字列からEnumに変換できる(string value) {
 			// Arrange
 			var converter = TypeDescriptor.GetConverter(typeof(Fruit));
@@ -88,6 +97,34 @@ namespace SampleTest {
 
 			// Assert
 			Assert.Equal(Fruit.Apple, actual);
+		}
+
+		[Theory]
+		[MemberData(nameof(GetStringsCanConvertToApple))]
+		public void ConvertFrom_文字列からEnumに変換できる(string value) {
+			// Arrange
+			var converter = TypeDescriptor.GetConverter(typeof(Fruit));
+
+			// Act
+			var actual = (Fruit)converter.ConvertFrom(value);
+
+			// Assert
+			Assert.Equal(Fruit.Apple, actual);
+		}
+
+		[Fact]
+		public void ConvertFrom_数値からEnumに変換できない() {
+			// Arrange
+			var converter = TypeDescriptor.GetConverter(typeof(Fruit));
+
+			// Act
+			// Assert
+			Assert.False(converter.CanConvertFrom(typeof(int)));
+
+			// 例外が発生する
+			Assert.Throws<NotSupportedException>(() => {
+				converter.ConvertFrom(1);
+			});
 		}
 
 		[Fact]
