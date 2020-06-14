@@ -21,6 +21,16 @@ namespace SampleTest {
 
 		public static IEnumerable<object[]> GetFruits() => _fruits.Select(fruit => new object[] { fruit });
 
+		[Fact]
+		public void GetConverter_EnumのTypeConverterはEnumConverter() {
+			// Arrange
+			var converter = TypeDescriptor.GetConverter(typeof(Fruit));
+
+			// Act
+			// Assert
+			Assert.IsType<EnumConverter>(converter);
+		}
+
 		[Theory]
 		[MemberData(nameof(GetFruits))]
 		public void IsValid_enum値が定義されていることを判定できる(Fruit fruit) {
