@@ -22,7 +22,7 @@ namespace MiscWebApi.Controllers.Test {
 			using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/enum/{fruit}");
 
 			// Act
-			var response = await SendAsync(request);
+			using var response = await SendAsync(request);
 			var content = await response.Content.ReadAsStringAsync();
 
 			// Assert

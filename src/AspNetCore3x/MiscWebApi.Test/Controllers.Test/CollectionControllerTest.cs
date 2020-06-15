@@ -63,12 +63,12 @@ namespace MiscWebApi.Controllers.Test {
 		[MemberData(nameof(GetSimpleValues))]
 		public async Task PostAsync_BindToInt32Enumerable(IEnumerable<KeyValuePair<string, string>> formValues) {
 			// Arrange
-			var request = new HttpRequestMessage(HttpMethod.Post, "api/collection") {
+			using var request = new HttpRequestMessage(HttpMethod.Post, "api/collection") {
 				Content = new FormUrlEncodedContent(formValues),
 			};
 
 			// Act
-			var response = await SendAsync(request);
+			using var response = await SendAsync(request);
 			var values = await DeserializeAsync<IEnumerable<int>>(response);
 
 			// Assert
@@ -90,12 +90,12 @@ namespace MiscWebApi.Controllers.Test {
 		[MemberData(nameof(GetComplexValues))]
 		public async Task PostAsync_BindToComplexModelEnumerable(IEnumerable<KeyValuePair<string, string>> formValues) {
 			// Arrange
-			var request = new HttpRequestMessage(HttpMethod.Post, "api/collection/complex") {
+			using var request = new HttpRequestMessage(HttpMethod.Post, "api/collection/complex") {
 				Content = new FormUrlEncodedContent(formValues),
 			};
 
 			// Act
-			var response = await SendAsync(request);
+			using var response = await SendAsync(request);
 			var values = await DeserializeAsync<IEnumerable<Sample>>(response);
 
 			// Assert

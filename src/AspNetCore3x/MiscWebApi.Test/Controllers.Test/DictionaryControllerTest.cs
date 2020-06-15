@@ -55,12 +55,12 @@ namespace MiscWebApi.Controllers.Test {
 		[MemberData(nameof(GetSimpleValues))]
 		public async Task PostAsync_BindToStringInt32Dictionary(IEnumerable<KeyValuePair<string, string>> formValues) {
 			// Arrange
-			var request = new HttpRequestMessage(HttpMethod.Post, "api/dictionary") {
+			using var request = new HttpRequestMessage(HttpMethod.Post, "api/dictionary") {
 				Content = new FormUrlEncodedContent(formValues),
 			};
 
 			// Act
-			var response = await SendAsync(request);
+			using var response = await SendAsync(request);
 			var values = await DeserializeAsync<IDictionary<string, int>>(response);
 
 			// Assert
@@ -95,12 +95,12 @@ namespace MiscWebApi.Controllers.Test {
 		[MemberData(nameof(GetComplexValues))]
 		public async Task PostAsync_BindToComplexModelDictionary(IEnumerable<KeyValuePair<string, string>> formValues) {
 			// Arrange
-			var request = new HttpRequestMessage(HttpMethod.Post, "api/dictionary/complex") {
+			using var request = new HttpRequestMessage(HttpMethod.Post, "api/dictionary/complex") {
 				Content = new FormUrlEncodedContent(formValues),
 			};
 
 			// Act
-			var response = await SendAsync(request);
+			using var response = await SendAsync(request);
 
 			// Assert
 			// バインドできない
