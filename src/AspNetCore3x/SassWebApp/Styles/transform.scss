@@ -6,7 +6,28 @@
 	width: 30rem;
 	justify-content: center;
 
-	.transform-item {
+	.transform-item.transform-none {
+		transform: none;
+	}
+
+	.transform-item.transform-translate {
+		transform: translate(100px, 50%);
+	}
+
+	.transform-item.transform-scale {
+		transform: scale(2, 0.5);
+	}
+
+	.transform-item.transform-rotate {
+		transform: rotate(0.25turn);
+	}
+
+	.transform-item.transform-scaletranslate {
+		transform: scale(0.5) translate(-100%, -100%);
+	}
+
+	.transform-item.transform-skew {
+		transform: skew(30deg, 45deg);
 	}
 
 	svg {
