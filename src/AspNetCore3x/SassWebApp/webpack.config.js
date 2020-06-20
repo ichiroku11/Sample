@@ -13,7 +13,8 @@ const config = {
 		grid: path.resolve(__dirname, "styles/grid.scss"),
 		gridlayout: path.resolve(__dirname, "styles/gridlayout.scss"),
 		gridrepeat: path.resolve(__dirname, "styles/gridrepeat.scss"),
-		index: path.resolve(__dirname, "styles/index.scss")
+		index: path.resolve(__dirname, "styles/index.scss"),
+		transform: path.resolve(__dirname, "styles/transform.scss")
 	},
 	module: {
 		rules: [
