@@ -10,6 +10,7 @@ const config = {
 		importmodule: path.resolve(__dirname, "scripts/importmodule.ts"),
 		test: path.resolve(__dirname, "scripts/test.ts"),
 		"game/gameoflife": path.resolve(__dirname, "scripts/game/gameoflife.ts"),
+		"misc/svgclock": path.resolve(__dirname, "scripts/misc/svgclock.ts"),
 		"vuejs/usewebpack": path.resolve(__dirname, "scripts/vuejs/usewebpack.ts")
 	},
 	module: {
