@@ -17,6 +17,22 @@ clock?.addEventListener("load", _ => {
 		face.style.cssText = "fill: white; stroke: black;";
 		clock.appendChild(face);
 
+		// 目盛りグループ
+		const ticks = document.createElementNS(namespace, "g");
+		ticks.setAttribute("transform", "translate(125, 125)");
+		clock.appendChild(ticks);
+
+		for (let index = 0; index < 12; index++) {
+			// 目盛り
+			const tick = document.createElementNS(namespace, "path");
+			tick.setAttribute("d", "M 95 0 L 100 -5 L 100 5 Z");
+			tick.setAttribute("transform", `rotate(${30 * index})`);
+
+			// 目盛りをグループに追加
+			ticks.appendChild(tick);
+		}
+
+
 	} finally {
 		clock.unsuspendRedrawAll();
 	}
