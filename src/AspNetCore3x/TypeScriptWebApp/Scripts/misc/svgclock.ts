@@ -39,14 +39,19 @@ clock?.addEventListener("load", _ => {
 
 		// 時計の針（時分秒）
 		[
-			{ id: "hour", length: 50, deg: 90 },
-			{ id: "minute", length: 80, deg: 0 },
-			{ id: "second", length: 90, deg: 30 }
-		].forEach(({ id, length, deg }, index) => {
+			{ id: "hour", length: 50, deg: 90, attr: null },
+			{ id: "minute", length: 80, deg: 0, attr: null },
+			{ id: "second", length: 90, deg: 30, attr: { stroke: "red", strokeWidth: "2px" } }
+		].forEach(({ id, length, deg, attr }) => {
 			const hand = document.createElementNS(namespace, "path");
 			hand.id = id;
 			hand.setAttribute("d", `M 125 125 L 125 ${125 - length}`);
 			hand.setAttribute("transform", `rotate(${deg}, 125, 125)`);
+
+			if (attr) {
+				hand.style.stroke = attr.stroke;
+				hand.style.strokeWidth = attr.strokeWidth;
+			}
 
 			// 時計の針をグループに追加
 			hands.appendChild(hand);
