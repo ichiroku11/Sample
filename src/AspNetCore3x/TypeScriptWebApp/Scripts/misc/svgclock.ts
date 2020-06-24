@@ -57,6 +57,13 @@ clock?.addEventListener("load", _ => {
 			hands.appendChild(hand);
 		});
 
+		// 中央のノブ
+		const knob = document.createElementNS(namespace, "circle");
+		knob.setAttribute("cx", "125");
+		knob.setAttribute("cy", "125");
+		knob.setAttribute("r", "6");
+		knob.style.setProperty("fill", "#333", null);
+		clock.appendChild(knob);
 	} finally {
 		clock.unsuspendRedrawAll();
 	}
