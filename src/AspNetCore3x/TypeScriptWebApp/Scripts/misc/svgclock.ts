@@ -32,6 +32,25 @@ clock?.addEventListener("load", _ => {
 			ticks.appendChild(tick);
 		}
 
+		// 時計の針グループ
+		const hands = document.createElementNS(namespace, "g");
+		hands.style.cssText = "stroke: black; stroke-width: 5px; stroke-linecap: round;";
+		clock.appendChild(hands);
+
+		// 時計の針（時分秒）
+		[
+			{ id: "hour", length: 50, deg: 90 },
+			{ id: "minute", length: 80, deg: 0 },
+			{ id: "second", length: 90, deg: 30 }
+		].forEach(({ id, length, deg }, index) => {
+			const hand = document.createElementNS(namespace, "path");
+			hand.id = id;
+			hand.setAttribute("d", `M 125 125 L 125 ${125 - length}`);
+			hand.setAttribute("transform", `rotate(${deg}, 125, 125)`);
+
+			// 時計の針をグループに追加
+			hands.appendChild(hand);
+		});
 
 	} finally {
 		clock.unsuspendRedrawAll();
