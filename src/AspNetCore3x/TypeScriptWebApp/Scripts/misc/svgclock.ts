@@ -39,14 +39,15 @@ clock?.addEventListener("load", _ => {
 
 		// 時計の針（時分秒）
 		[
-			{ id: "hour", length: 50, deg: 90, attr: null },
-			{ id: "minute", length: 80, deg: 0, attr: null },
-			{ id: "second", length: 90, deg: 30, attr: { stroke: "red", strokeWidth: "2px" } }
-		].forEach(({ id, length, deg, attr }) => {
+			{ id: "hour", length: 50, attr: null },
+			{ id: "minute", length: 80, attr: null },
+			{ id: "second", length: 90, attr: { stroke: "red", strokeWidth: "2px" } }
+		].forEach(({ id, length, attr }) => {
 			const hand = document.createElementNS(namespace, "path");
 			hand.id = id;
 			hand.setAttribute("d", `M 125 125 L 125 ${125 - length}`);
-			hand.setAttribute("transform", `rotate(${deg}, 125, 125)`);
+			// getItemで取得できるようにするため？
+			hand.setAttribute("transform", "rotate(0, 125, 125)");
 
 			if (attr) {
 				hand.style.stroke = attr.stroke;
@@ -66,5 +67,45 @@ clock?.addEventListener("load", _ => {
 		clock.appendChild(knob);
 	} finally {
 		clock.unsuspendRedrawAll();
+	}
+
+	const hands = {
+		hour: document.querySelector<SVGPathElement>("#hour"),
+		minute: document.querySelector<SVGPathElement>("#minute"),
+		second: document.querySelector<SVGPathElement>("#second"),
+	};
+
+	const transforms = {
+		hour: hands.hour?.transform.baseVal.getItem(0),
+		minute: hands.minute?.transform.baseVal.getItem(0),
+		second: hands.second?.transform.baseVal.getItem(0),
+	};
+
+	const secPerMinute = 60;
+	const secPerHour = 60 * 60;
+	const secPer12Hours = 60 * 60 * 12;
+
+	updateClock();
+
+	function updateClock() {
+		const date = new Date();
+		// 00:00からの秒数
+		const time = date.getMilliseconds() / 1000
+			+ date.getSeconds()
+			+ date.getMinutes() * 60
+			+ date.getHours() * 60 * 60;
+
+		// それぞれの針の回転角度
+		const degs = {
+			hour: 360 * (time % secPer12Hours) / secPer12Hours,
+			minute: 360 * (time % secPerHour) / secPerHour,
+			second: 360 * (time % secPerMinute) / secPerMinute,
+		};
+
+		transforms.hour?.setRotate(degs.hour, 125, 125);
+		transforms.minute?.setRotate(degs.minute, 125, 125);
+		transforms.second?.setRotate(degs.second, 125, 125);
+
+		requestAnimationFrame(updateClock);
 	}
 });
