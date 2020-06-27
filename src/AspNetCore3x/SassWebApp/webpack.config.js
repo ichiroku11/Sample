@@ -6,6 +6,7 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const config = {
 	entry: {
 		lib: path.resolve(__dirname, "styles/lib.scss"),
+		animation: path.resolve(__dirname, "styles/animation.scss"),
 		boxsizing: path.resolve(__dirname, "styles/boxsizing.scss"),
 		flexbox: path.resolve(__dirname, "styles/flexbox.scss"),
 		flexboxcomponent: path.resolve(__dirname, "styles/flexboxcomponent.scss"),
