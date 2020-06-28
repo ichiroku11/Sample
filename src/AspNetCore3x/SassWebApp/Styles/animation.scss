@@ -31,7 +31,8 @@
 	}
 }
 
-.animation-sample-timing {
+.animation-sample-timing,
+.animation-sample-direction {
 	.animation-container {
 		display: flex;
 		flex-flow: column;
@@ -59,9 +60,17 @@
 			animation-name: left2right;
 			animation-duration: 4s;
 			animation-delay: 1s;
-			animation-fill-mode: forwards;
 			height: 2rem;
 			width: 2rem;
+		}
+	}
+}
+
+
+.animation-sample-timing {
+	.animation-item {
+		svg {
+			animation-fill-mode: forwards;
 		}
 	}
 
@@ -94,6 +103,29 @@
 	}
 }
 
+.animation-sample-direction {
+	.animation-item svg {
+		animation-iteration-count: infinite;
+		animation-timing-function: ease-in-out;
+	}
+
+	.animation-item-normal svg {
+		animation-direction: normal;
+	}
+
+	.animation-item-reverse svg {
+		animation-direction: reverse;
+	}
+
+	.animation-item-alternate svg {
+		animation-direction: alternate;
+	}
+
+	.animation-item-alternate-reverse svg {
+		animation-direction: alternate-reverse;
+	}
+}
+
 @keyframes fadein {
 	0% {
 		opacity: 0;
@@ -123,4 +155,3 @@
 		margin-left: calc(100% - 2rem);
 	}
 }
-

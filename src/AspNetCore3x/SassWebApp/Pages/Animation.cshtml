@@ -31,6 +31,18 @@
 	</div>
 </section>
 
+<section class="app-sample animation-sample-direction">
+	<h3>animation-direction</h3>
+	<div class="animation-container">
+		@foreach (var value in new[] { "normal", "reverse", "alternate", "alternate-reverse" }) {
+			<div class="animation-item animation-item-@value">
+				<h5>@value</h5>
+				<p><partial name="_Svg" model="Svg.Truck" /></p>
+			</div>
+		}
+	</div>
+</section>
+
 
 <section class="app-reference">
 	<ul>
