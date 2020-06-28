@@ -1,7 +1,6 @@
 
-.animation-container {
-	&.animation-fadein,
-	&.animation-fadeout {
+.animation-sample-fadeinout {
+	.animation-container {
 		align-items: center;
 		background-color: #f2f2f2;
 		display: flex;
@@ -22,13 +21,44 @@
 		width: 10rem;
 	}
 
-	&.animation-fadein svg {
+	.animation-fadein svg {
 		opacity: 0;
 		animation-name: fadein;
 	}
 
-	&.animation-fadeout svg {
+	.animation-fadeout svg {
 		animation-name: fadeout;
+	}
+}
+
+.animation-sample-timing {
+	.animation-container {
+		display: flex;
+		flex-flow: column;
+	}
+
+	.animation-item {
+		display: flex;
+
+		// todo:
+		/*
+		&:not(:first-child) {
+			border-top: 1px #ccc;
+		}
+		*/
+
+		h5 {
+			padding-left: 10px;
+			flex-basis: 150px;
+		}
+
+		p {
+		}
+
+		svg {
+			height: 2rem;
+			width: 2rem;
+		}
 	}
 }
 
@@ -51,3 +81,14 @@
 		opacity: 0;
 	}
 }
+
+@keyframes left2right {
+	0% {
+		text-align: left;
+	}
+
+	100% {
+		text-align: right;
+	}
+}
+
