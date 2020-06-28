@@ -39,23 +39,27 @@
 
 	.animation-item {
 		display: flex;
-
 		// todo:
 		/*
 		&:not(:first-child) {
 			border-top: 1px #ccc;
 		}
 		*/
-
 		h5 {
 			padding-left: 10px;
-			flex-basis: 150px;
+			flex-basis: 20%;
 		}
 
 		p {
+			flex-basis: 80%;
+			padding-right: 10px;
 		}
 
 		svg {
+			animation-name: left2right;
+			animation-duration: 3s;
+			animation-timing-function: linear;
+			// todo:
 			height: 2rem;
 			width: 2rem;
 		}
@@ -84,11 +88,11 @@
 
 @keyframes left2right {
 	0% {
-		text-align: left;
+		margin-left: 0;
 	}
 
 	100% {
-		text-align: right;
+		margin-left: calc(100% - 2rem);
 	}
 }
 
