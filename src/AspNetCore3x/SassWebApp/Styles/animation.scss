@@ -57,12 +57,40 @@
 
 		svg {
 			animation-name: left2right;
-			animation-duration: 3s;
-			animation-timing-function: linear;
-			// todo:
+			animation-duration: 4s;
+			animation-delay: 1s;
+			animation-fill-mode: forwards;
 			height: 2rem;
 			width: 2rem;
 		}
+	}
+
+	.animation-item-ease svg {
+		animation-timing-function: ease;
+	}
+
+	.animation-item-ease-in svg {
+		animation-timing-function: ease-in;
+	}
+
+	.animation-item-ease-out svg {
+		animation-timing-function: ease-out;
+	}
+
+	.animation-item-ease-in-out svg {
+		animation-timing-function: ease-in-out;
+	}
+
+	.animation-item-linear svg {
+		animation-timing-function: linear;
+	}
+
+	.animation-item-steps svg {
+		animation-timing-function: steps(4, jump-both);
+	}
+
+	.animation-item-cubic-bezier svg {
+		animation-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
 	}
 }
 

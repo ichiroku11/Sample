@@ -22,7 +22,7 @@
 <section class="app-sample animation-sample-timing">
 	<h3>animation-timing-function</h3>
 	<div class="animation-container">
-		@foreach (var value in new[] { "ease", "ease-in", "ease-out", "ease-in-out", "linear" }) {
+		@foreach (var value in new[] { "ease", "ease-in", "ease-out", "ease-in-out", "linear", "steps", "cubic-bezier" }) {
 			<div class="animation-item animation-item-@value">
 				<h5>@value</h5>
 				<p><partial name="_Svg" model="Svg.Truck" /></p>
