@@ -43,6 +43,20 @@
 	</div>
 </section>
 
+<section class="app-sample animation-sample-fill-mode">
+	<h3>animation-fill-mode</h3>
+	<div class="animation-container">
+		@foreach (var value in new[] { "none", "forwards", "backwards", "both" }) {
+			<div class="animation-item animation-item-@value">
+				<h5>@value</h5>
+				<p><partial name="_Svg" model="Svg.DropletFill" /></p>
+			</div>
+		}
+	</div>
+</section>
+
+
+
 <section class="app-reference">
 	<ul>
 		<li><a href="https://developer.mozilla.org/ja/docs/Web/CSS/CSS_Animations">CSS アニメーション - CSS: カスケーディングスタイルシート | MDN</a></li>

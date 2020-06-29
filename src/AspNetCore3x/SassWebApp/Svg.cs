@@ -11,6 +11,9 @@ namespace SassWebApp {
 		// </>
 		CodeSlash,
 
+		// 水滴、インク
+		DropletFill, 
+
 		// トラック
 		Truck,
 	}

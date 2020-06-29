@@ -28,6 +28,17 @@
 	}
 }
 
+@keyframes red2orange {
+	0% {
+		color: red;
+	}
+
+	100% {
+		color: orange;
+	}
+}
+
+
 .animation-sample-fadeinout {
 	.animation-container {
 		align-items: center;
@@ -61,7 +72,8 @@
 }
 
 .animation-sample-timing,
-.animation-sample-direction {
+.animation-sample-direction,
+.animation-sample-fill-mode {
 	.animation-container {
 		display: flex;
 		flex-flow: column;
@@ -82,20 +94,17 @@
 			margin-bottom: 0.2rem;
 			padding-right: 10px;
 		}
-
-		svg {
-			animation-name: left2right;
-			animation-duration: 4s;
-			animation-delay: 1s;
-			height: 2rem;
-			width: 2rem;
-		}
 	}
 }
 
 .animation-sample-timing {
 	.animation-item svg {
+		animation-delay: 1s;
+		animation-duration: 4s;
 		animation-fill-mode: forwards;
+		animation-name: left2right;
+		height: 2rem;
+		width: 2rem;
 	}
 
 	.animation-item-ease svg {
@@ -129,8 +138,14 @@
 
 .animation-sample-direction {
 	.animation-item svg {
+		animation-delay: 1s;
+		animation-duration: 4s;
+		animation-fill-mode: forwards;
 		animation-iteration-count: infinite;
+		animation-name: left2right;
 		animation-timing-function: ease-in-out;
+		height: 2rem;
+		width: 2rem;
 	}
 
 	.animation-item-normal svg {
@@ -147,5 +162,38 @@
 
 	.animation-item-alternate-reverse svg {
 		animation-direction: alternate-reverse;
+	}
+}
+
+.animation-sample-fill-mode {
+	.animation-item {
+		p {
+			flex-basis: 40%;
+		}
+
+		svg {
+			animation-delay: 3s;
+			animation-duration: 5s;
+			animation-name: red2orange;
+			animation-timing-function: linear;
+			height: 4rem;
+			width: 4rem;
+		}
+	}
+
+	.animation-item-none svg {
+		animation-fill-mode: none;
+	}
+
+	.animation-item-forwards svg {
+		animation-fill-mode: forwards;
+	}
+
+	.animation-item-backwards svg {
+		animation-fill-mode: backwards;
+	}
+
+	.animation-item-both svg {
+		animation-fill-mode: both;
 	}
 }
