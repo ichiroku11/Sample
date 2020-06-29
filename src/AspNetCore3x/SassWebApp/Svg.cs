@@ -12,7 +12,10 @@ namespace SassWebApp {
 		CodeSlash,
 
 		// 水滴、インク
-		DropletFill, 
+		DropletFill,
+
+		// ★
+		StarFill,
 
 		// トラック
 		Truck,

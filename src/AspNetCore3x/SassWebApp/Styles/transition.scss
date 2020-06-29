@@ -1,0 +1,25 @@
+.transition-sample-rotate {
+	.transition-container {
+		align-items: center;
+		background-color: #f2f2f2;
+		display: flex;
+		height: 20rem;
+		width: 30rem;
+		justify-content: center;
+	}
+
+	svg {
+		color: cornflowerblue;
+
+		height: 10rem;
+		width: 10rem;
+
+		transition-delay: 0.2s;
+		transition-duration: 2s;
+		transition-property: transform;
+	}
+
+	svg:hover {
+		transform: rotate(360deg);
+	}
+}
