@@ -1,3 +1,32 @@
+@keyframes fadein {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 100;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		opacity: 100;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes left2right {
+	0% {
+		margin-left: 0;
+	}
+
+	100% {
+		margin-left: calc(100% - 2rem);
+	}
+}
 
 .animation-sample-fadeinout {
 	.animation-container {
@@ -39,20 +68,18 @@
 	}
 
 	.animation-item {
+		border-bottom: 1px solid #f2f2f2;
 		display: flex;
-		// todo:
-		/*
-		&:not(:first-child) {
-			border-top: 1px #ccc;
-		}
-		*/
+
 		h5 {
-			padding-left: 10px;
 			flex-basis: 20%;
+			margin-bottom: 0.2rem;
+			padding-left: 10px;
 		}
 
 		p {
 			flex-basis: 80%;
+			margin-bottom: 0.2rem;
 			padding-right: 10px;
 		}
 
@@ -66,12 +93,9 @@
 	}
 }
 
-
 .animation-sample-timing {
-	.animation-item {
-		svg {
-			animation-fill-mode: forwards;
-		}
+	.animation-item svg {
+		animation-fill-mode: forwards;
 	}
 
 	.animation-item-ease svg {
@@ -123,35 +147,5 @@
 
 	.animation-item-alternate-reverse svg {
 		animation-direction: alternate-reverse;
-	}
-}
-
-@keyframes fadein {
-	0% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 100;
-	}
-}
-
-@keyframes fadeout {
-	from {
-		opacity: 100;
-	}
-
-	to {
-		opacity: 0;
-	}
-}
-
-@keyframes left2right {
-	0% {
-		margin-left: 0;
-	}
-
-	100% {
-		margin-left: calc(100% - 2rem);
 	}
 }
