@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
@@ -109,6 +110,47 @@ namespace SampleTest.Json {
 
 			Assert.Equal(0, number);
 			Assert.Null(text);
+		}
+
+		private class Sample {
+			public int Number { get; set; }
+			public string Text { get; set; }
+		}
+
+		[Fact]
+		public void Deserialize_nullをパースするとArgumentNullException() {
+			// Arrange
+			// Act
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => {
+				JsonSerializer.Deserialize<Sample>(default(string));
+			});
+		}
+
+		[Theory]
+		[InlineData(typeof(Sample))]
+		[InlineData(typeof(Sample[]))]
+		public void Deserialize_空文字をパースするとJsonException(Type type) {
+			// Arrange
+			// Act
+			// Assert
+			Assert.Throws<JsonException>(() => {
+				JsonSerializer.Deserialize("", type);
+			});
+		}
+
+		[Theory]
+		[InlineData(typeof(Sample[]))]
+		[InlineData(typeof(IEnumerable<Sample>))]
+		[InlineData(typeof(List<Sample>))]
+		public void Deserialize_空配列のJSON文字をパースして空のコレクションを取得できる(Type type) {
+			// Arrange
+			// Act
+			var samples = JsonSerializer.Deserialize("[]", type) as IEnumerable;
+
+			// Assert
+			Assert.NotNull(samples);
+			Assert.Empty(samples);
 		}
 	}
 }
