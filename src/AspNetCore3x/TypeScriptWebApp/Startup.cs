@@ -13,6 +13,7 @@ namespace TypeScriptWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddRazorPages();
+			services.AddControllers();
 
 			services.Configure<RouteOptions>(options => {
 				options.LowercaseQueryStrings = true;
@@ -31,6 +32,7 @@ namespace TypeScriptWebApp {
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapRazorPages();
+				endpoints.MapControllers();
 			});
 		}
 	}
