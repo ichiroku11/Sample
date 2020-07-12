@@ -3,13 +3,15 @@ import { Assert, Test } from "../unittestlib";
 // Fetch
 // https://developer.mozilla.org/ja/docs/Web/API/Fetch_API
 
-const baseUrl = "/api/samplejson";
-type Sample = { number: number, text: string };
+type Sample = {
+	number: number,
+	text: string,
+};
 
 export const fetchTest = new Test("FetchTest")
 	.fact("GETリクエストのサンプル", async () => {
 		// GETリクエスト
-		const response = await fetch(baseUrl);
+		const response = await fetch("/api/samplejson");
 		Assert.equal(200, response.status);
 
 		// レスポンスからJSONを取り出す
@@ -18,8 +20,8 @@ export const fetchTest = new Test("FetchTest")
 		Assert.equal(json.text, "a");
 	})
 	.fact("POSTリクエスト（JSON）のサンプル", async () => {
-		// POSTリクエスト
-		const response = await fetch(baseUrl, {
+		// JSONデータをPOST
+		const response = await fetch("/api/samplejson", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -33,3 +35,23 @@ export const fetchTest = new Test("FetchTest")
 		Assert.equal(json.number, 2);
 		Assert.equal(json.text, "b");
 	})
+	.fact("POSTリクエスト（フォーム）のサンプル", async () => {
+		// フォーム
+		var param = new URLSearchParams();
+		param.append("number", "2");
+		param.append("text", "b");
+
+		// フォームのPOST
+		const response = await fetch("/api/samplejson/form", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
+			body: param,
+		});
+		Assert.equal(200, response.status);
+
+		const json: Sample = await response.json();
+		Assert.equal(json.number, 2);
+		Assert.equal(json.text, "b");
+	});

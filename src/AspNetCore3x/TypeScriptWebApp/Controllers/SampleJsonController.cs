@@ -25,5 +25,10 @@ namespace TypeScriptWebApp.Controllers {
 		public object Post(Sample sample) {
 			return sample;
 		}
+
+		[HttpPost("form")]
+		public object PostForm([FromForm]Sample sample) {
+			return sample;
+		}
 	}
 }
