@@ -58,7 +58,7 @@ class ResultHelper {
 	}
 
 	public add(description: string, failed: boolean) {
-		let result = document.createElement("li");
+		const result = document.createElement("li");
 		result.classList.add("test-result", failed ? "test-failed" : "test-done");
 		result.innerHTML = description;
 		this._container.appendChild(result);
@@ -88,7 +88,7 @@ export class Test {
 	public async run(): Promise<void> {
 		const resultHelper = new ResultHelper();
 
-		for (let { testName, testFunc } of this._testCases) {
+		for (const { testName, testFunc } of this._testCases) {
 			let failed = false;
 			try {
 				const result = testFunc();
