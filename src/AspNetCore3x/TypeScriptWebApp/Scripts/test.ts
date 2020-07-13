@@ -9,6 +9,7 @@ import { instanceofTest } from "./test/instanceof.test";
 import { promiseTest } from "./test/promise.test";
 import { spreadSyntaxTest } from "./test/spread-syntax.test";
 import { templateStringsTest } from "./test/template-strings.test";
+import { urlSearchParamsTest } from "./test/url.test";
 
 document.addEventListener("DOMContentLoaded", async () => {
 	const tests = [
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		promiseTest,
 		spreadSyntaxTest,
 		templateStringsTest,
+		urlSearchParamsTest,
 	];
 	const promises = tests.map(test => test.run());
 	await Promise.all(promises);
