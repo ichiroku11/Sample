@@ -37,6 +37,18 @@ export class Assert {
 			throw new AssertError();
 		}
 	}
+
+	public static notNull<T>(value: T) {
+		if (value === null) {
+			throw new AssertError();
+		}
+	}
+
+	public static null<T>(value: T) {
+		if (value !== null) {
+			throw new AssertError();
+		}
+	}
 }
 
 class ResultHelper {

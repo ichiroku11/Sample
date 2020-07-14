@@ -24,4 +24,21 @@ export const assertTest = new Test("AssertTest")
 		// Act
 		// Assert
 		Assert.false(false);
+	})
+	.fact("notNull_判断できる", () => {
+		// Arrange
+		// Act
+		// Assert
+		Assert.notNull(undefined);
+		Assert.notNull(false);
+		Assert.notNull(0);
+		Assert.notNull("");
+		Assert.notNull({});
+		Assert.notNull([]);
+	})
+	.fact("null_判断できる", () => {
+		// Arrange
+		// Act
+		// Assert
+		Assert.null(null);
 	});
