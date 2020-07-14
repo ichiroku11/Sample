@@ -21,6 +21,13 @@ export const urlSearchParamsTest = new Test("URLSearchParamsTest")
 		// Assert
 		Assert.equal("1", params.get("x"));
 		Assert.equal("2", params.get("y"));
-		// todo:
-		//Assert.equal(null, params.get("z"));
+	})
+	.fact("get_存在しないキーはnullを返す", () => {
+		// Arrange
+		const params = new URLSearchParams();
+
+		// Act
+		// Assert
+		Assert.false(params.has("z"));
+		Assert.null(params.get("z"));
 	});
