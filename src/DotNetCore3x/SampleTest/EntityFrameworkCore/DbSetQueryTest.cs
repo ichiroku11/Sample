@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -77,6 +78,28 @@ values
 		[Fact]
 		public async Task FirstOrDefaultAsync_述語を使って検索できる() {
 			var sample = await _context.Samples.FirstOrDefaultAsync(entity => entity.Id == 1);
+
+			Assert.Equal(1, sample.Id);
+			Assert.Equal("a", sample.Name);
+		}
+
+		// SQLに変換できないメソッド
+		private static bool Predicate(Sample entity, int value) => entity.Id == value;
+
+		[Fact]
+		public async Task FirstOrDefaultAsync_述語に変換できないメソッド呼び出しを指定するとInvalidOperationException() {
+			await Assert.ThrowsAsync<InvalidOperationException>(async () => {
+				await _context.Samples.FirstOrDefaultAsync(entity => Predicate(entity, 1));
+			});
+		}
+
+		// Expression
+		private static Expression<Func<Sample, bool>> PredicateExpression(int value)
+			=> entity => entity.Id == value;
+
+		[Fact]
+		public async Task FirstOrDefaultAsync_述語にExpressionを指定して検索できる() {
+			var sample = await _context.Samples.FirstOrDefaultAsync(PredicateExpression(1));
 
 			Assert.Equal(1, sample.Id);
 			Assert.Equal("a", sample.Name);
