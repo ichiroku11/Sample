@@ -40,5 +40,18 @@ namespace ModelBindingWebApp.Controllers.Test {
 			// Assert
 			Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
 		}
+
+		[Fact]
+		public async Task Post_フォームデータを省略するとintは0になる() {
+			// Arrange
+			using var request = new HttpRequestMessage(HttpMethod.Post, $"/valuetype/post");
+
+			// Act
+			using var response = await SendAsync(request);
+			var content = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			Assert.Equal("0", content);
+		}
 	}
 }
