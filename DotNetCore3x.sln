@@ -61,8 +61,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscWebApi", "src\AspNetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscWebApi.Test", "src\AspNetCore3x\MiscWebApi.Test\MiscWebApi.Test.csproj", "{430A8E0A-A697-442A-B62C-2245A4C8BE13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiForgryWebApp", "src\AspNetCore3x\AntiForgryWebApp\AntiForgryWebApp.csproj", "{BABC06A0-3083-4073-B159-222C08A5711D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,10 +171,6 @@ Global
 		{430A8E0A-A697-442A-B62C-2245A4C8BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{430A8E0A-A697-442A-B62C-2245A4C8BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{430A8E0A-A697-442A-B62C-2245A4C8BE13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BABC06A0-3083-4073-B159-222C08A5711D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BABC06A0-3083-4073-B159-222C08A5711D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BABC06A0-3083-4073-B159-222C08A5711D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BABC06A0-3083-4073-B159-222C08A5711D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,7 +202,6 @@ Global
 		{2792781E-6BE1-4620-BA04-4A3ED1CA3291} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{76204308-17CB-4F3E-898C-FCBBBDD73848} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{430A8E0A-A697-442A-B62C-2245A4C8BE13} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
-		{BABC06A0-3083-4073-B159-222C08A5711D} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
