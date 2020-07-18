@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace SampleTest.EntityFrameworkCore {
+	// enumを文字列にマッピングするサンプル
 	// 参考
 	// https://docs.microsoft.com/ja-jp/ef/core/modeling/value-conversions
 	[Collection("dbo.Monster")]

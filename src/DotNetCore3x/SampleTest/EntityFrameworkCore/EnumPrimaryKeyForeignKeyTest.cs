@@ -12,6 +12,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace SampleTest.EntityFrameworkCore {
+	// 主キーや外部キーをenumのプロパティにマッピングするサンプル
 	[Collection("dbo.Monster")]
 	public class EnumPrimaryKeyForeignKeyTest {
 		private enum MonsterCategoryType {
