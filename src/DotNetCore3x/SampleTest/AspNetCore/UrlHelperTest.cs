@@ -98,8 +98,14 @@ namespace SampleTest.AspNetCore {
 			return new UrlHelper(actionContext);
 		}
 
+		public static IEnumerable<object[]> GetTestDataForActionLink() {
+			yield return new[] {
+				"example.jp", "", null, null, "https://example.jp/"
+			};
+		}
+
 		[Theory]
-		[InlineData("example.jp", "", null, null, "https://example.jp/")]
+		[MemberData(nameof(GetTestDataForActionLink))]
 		public void ActionLink_絶対URLを生成できる(
 			string host, string app,
 			string action, string contoller,
