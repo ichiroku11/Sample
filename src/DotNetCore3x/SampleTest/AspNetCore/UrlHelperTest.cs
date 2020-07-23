@@ -46,9 +46,9 @@ namespace SampleTest.AspNetCore {
 		// HttpContextを生成
 		private static HttpContext CreateHttpContext(
 			IServiceProvider services,
-			string scheme = "http",
-			string host = "localhost",
-			string app = "") {
+			string scheme,
+			string host,
+			string app) {
 			var context = new DefaultHttpContext {
 				RequestServices = services
 			};
@@ -89,25 +89,29 @@ namespace SampleTest.AspNetCore {
 		}
 
 		// UrlHelperを生成
-		private static UrlHelper CreateUrlHelper() {
+		private static UrlHelper CreateUrlHelper(string scheme, string host, string app) {
 			var services = CreateServiceProvider();
-			var httpContext = CreateHttpContext(services);
+			var httpContext = CreateHttpContext(services, scheme, host, app);
 			var actionContext = CreateActionContext(httpContext);
 			actionContext.RouteData.Routers.Add(CreateRouter(services));
 
 			return new UrlHelper(actionContext);
 		}
 
-		[Fact]
-		public void ActionLink_絶対URLを生成できる() {
+		[Theory]
+		[InlineData("example.jp", "", null, null, "https://example.jp/")]
+		public void ActionLink_絶対URLを生成できる(
+			string host, string app,
+			string action, string contoller,
+			string expected) {
 			// Arrange
-			var urlHelper = CreateUrlHelper();
+			var urlHelper = CreateUrlHelper("https", host, app);
 
 			// Act
-			var url = urlHelper.ActionLink();
+			var actual = urlHelper.ActionLink(action, contoller);
 
 			// Assert
-			Assert.Equal("http://localhost/", url);
+			Assert.Equal(expected: expected, actual);
 		}
 	}
 }
