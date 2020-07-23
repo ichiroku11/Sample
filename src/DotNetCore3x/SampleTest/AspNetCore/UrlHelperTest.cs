@@ -88,14 +88,20 @@ namespace SampleTest.AspNetCore {
 			return routeBuilder.Build();
 		}
 
-		[Fact]
-		public void ActionLink_絶対URLを生成できる() {
-			// Arrange
+		// UrlHelperを生成
+		private static UrlHelper CreateUrlHelper() {
 			var services = CreateServiceProvider();
 			var httpContext = CreateHttpContext(services);
 			var actionContext = CreateActionContext(httpContext);
 			actionContext.RouteData.Routers.Add(CreateRouter(services));
-			var urlHelper = new UrlHelper(actionContext);
+
+			return new UrlHelper(actionContext);
+		}
+
+		[Fact]
+		public void ActionLink_絶対URLを生成できる() {
+			// Arrange
+			var urlHelper = CreateUrlHelper();
 
 			// Act
 			var url = urlHelper.ActionLink();
