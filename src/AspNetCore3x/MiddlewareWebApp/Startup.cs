@@ -12,6 +12,9 @@ namespace MiddlewareWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
+
+			// IStartupFilterでミドルウェアを登録する
+			services.AddTransient<IStartupFilter, SampleStartupFilter>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
