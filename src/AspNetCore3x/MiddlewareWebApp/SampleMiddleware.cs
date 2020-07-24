@@ -25,19 +25,19 @@ namespace MiddlewareWebApp {
 
 		private readonly RequestDelegate _next;
 		private readonly ILogger _logger;
-		private readonly bool _beforeRouting;
+		private readonly string _label;
 
-		public SampleMiddleware(RequestDelegate next, ILogger<SampleMiddleware> logger, bool beforeRouting) {
+		public SampleMiddleware(RequestDelegate next, ILogger<SampleMiddleware> logger, string label) {
 			_next = next;
 			_logger = logger;
-			_beforeRouting = beforeRouting;
+			_label = label;
 		}
 
 		private void Log(HttpContext context, bool beforeRequestDelegate) {
 			var routeValues = context.Request.RouteValues;
 
 			var json = new {
-				beforeRouting = _beforeRouting,
+				label = _label,
 				beforeRequestDelegate,
 				controller = routeValues["controller"],
 				action = routeValues["action"],

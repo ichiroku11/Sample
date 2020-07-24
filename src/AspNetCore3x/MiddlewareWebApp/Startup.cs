@@ -19,11 +19,11 @@ namespace MiddlewareWebApp {
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseSample(true);
+			app.UseSample("BeforeRouting");
 
 			app.UseRouting();
 
-			app.UseSample(false);
+			app.UseSample("AfterRouting");
 			//app.UseMiddleware<SampleMiddleware>();
 
 			app.UseEndpoints(endpoints => {
