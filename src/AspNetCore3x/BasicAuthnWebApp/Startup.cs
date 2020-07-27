@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,8 +25,18 @@ namespace BasicAuthnWebApp {
 			// 承認
 			services
 				.AddAuthorization(options => {
-					// todo:
+					// 認証ポリシー
+					options.AddPolicy("Authenticated", builder => {
+						builder.RequireAuthenticatedUser();
+					});
 				});
+
+			// MVC（コントローラのみ）
+			services.AddControllers(options => {
+				// グローバルフィルタで認証必須に
+				options.Filters.Add(new AuthorizeFilter("Authenticated"));
+			});
+
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -38,9 +49,10 @@ namespace BasicAuthnWebApp {
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapGet("/", async context => {
-					await context.Response.WriteAsync("Hello Basic Auth!");
-				});
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{action}/{id?}",
+					defaults: new { controller = "Default" });
 			});
 		}
 	}

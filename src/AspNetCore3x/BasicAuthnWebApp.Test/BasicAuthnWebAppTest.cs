@@ -16,17 +16,17 @@ namespace BasicAuthnWebApp.Test {
 		}
 
 		[Fact]
-		public async Task Test() {
+		public async Task DefaultController_AllowAnonymous_匿名アクセスできる() {
 			// Arrange
 			using var client = _factory.CreateClient();
 
 			// Act
-			using var response = await client.GetAsync("/");
+			using var response = await client.GetAsync("/allowanonymous");
 			var content = await response.Content.ReadAsStringAsync();
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-			Assert.Equal("Hello Basic Auth!", content);
+			Assert.Equal("AllowAnonymous", content);
 		}
 	}
 }
