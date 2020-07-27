@@ -19,14 +19,6 @@ namespace BasicAuthnWebApp {
 				.AddBasic(_ => {
 				});
 			*/
-
-			// MVC（コントローラ）
-			services.AddControllers();
-
-			services.Configure<RouteOptions>(options => {
-				options.LowercaseQueryStrings = true;
-				options.LowercaseUrls = true;
-			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -38,7 +30,7 @@ namespace BasicAuthnWebApp {
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapGet("/", async context => {
-					await context.Response.WriteAsync("Hello World!");
+					await context.Response.WriteAsync("Hello Basic Auth!");
 				});
 			});
 		}
