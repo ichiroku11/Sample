@@ -40,5 +40,21 @@ namespace BasicAuthnWebApp.Test {
 			// Assert
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
+
+		[Fact(Skip = "作成中")]
+		public async Task DefaultController_RequireAuthenticated_Basic認証でアクセスできる() {
+			// Arrange
+			using var client = _factory.CreateClient();
+
+			// todo: Basic認証ヘッダを
+
+			// Act
+			using var response = await client.GetAsync("/requireauthenticated");
+			var content = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal("RequireAuthenticated", content);
+		}
 	}
 }
