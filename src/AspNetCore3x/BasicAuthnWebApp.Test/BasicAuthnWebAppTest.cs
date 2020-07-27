@@ -28,5 +28,17 @@ namespace BasicAuthnWebApp.Test {
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal("AllowAnonymous", content);
 		}
+
+		[Fact]
+		public async Task DefaultController_RequireAuthenticated_匿名アクセスできない() {
+			// Arrange
+			using var client = _factory.CreateClient();
+
+			// Act
+			using var response = await client.GetAsync("/requireauthenticated");
+
+			// Assert
+			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+		}
 	}
 }
