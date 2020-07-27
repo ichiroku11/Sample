@@ -12,13 +12,20 @@ using Microsoft.Extensions.Hosting;
 namespace BasicAuthnWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
-			// todo:
-			// Basic認証
-			/*
-			services.AddAuthentication()
+			// 認証
+			services
+				.AddAuthentication(options => {
+					options.DefaultScheme = BasicAuthenticationDefaults.AuthenticationScheme;
+				})
+				// Basic認証ハンドラ
 				.AddBasic(_ => {
 				});
-			*/
+
+			// 承認
+			services
+				.AddAuthorization(options => {
+					// todo:
+				});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -27,6 +34,8 @@ namespace BasicAuthnWebApp {
 			}
 
 			app.UseRouting();
+			app.UseAuthentication();
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints => {
 				endpoints.MapGet("/", async context => {
