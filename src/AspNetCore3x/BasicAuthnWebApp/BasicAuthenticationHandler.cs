@@ -17,9 +17,11 @@ namespace BasicAuthnWebApp {
 			: base(options, logger, encoder, clock) {
 		}
 
-		protected override Task<AuthenticateResult> HandleAuthenticateAsync() {
+		protected override async Task<AuthenticateResult> HandleAuthenticateAsync() {
 			// todo:
-			throw new NotImplementedException();
+			await Task.Delay(0);
+
+			return AuthenticateResult.NoResult();
 		}
 	}
 }
