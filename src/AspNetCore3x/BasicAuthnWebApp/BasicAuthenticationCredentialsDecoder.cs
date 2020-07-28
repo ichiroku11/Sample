@@ -12,9 +12,9 @@ namespace BasicAuthnWebApp {
 			userName = null;
 			password = null;
 
-			byte[] credentialBytes;
+			byte[] credentialsBytes;
 			try {
-				credentialBytes = Convert.FromBase64String(encodedCredentials);
+				credentialsBytes = Convert.FromBase64String(encodedCredentials);
 			} catch (FormatException) {
 				return false;
 			}
@@ -30,7 +30,7 @@ namespace BasicAuthnWebApp {
 
 			string credentials;
 			try {
-				credentials = encoding.GetString(credentialBytes);
+				credentials = encoding.GetString(credentialsBytes);
 			} catch (DecoderFallbackException) {
 				return false;
 			}
