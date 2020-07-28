@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Net.Http.Headers;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -39,14 +40,16 @@ namespace BasicAuthnWebApp.Test {
 
 			// Assert
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+			Assert.False(response.Headers.Contains(HeaderNames.WWWAuthenticate));
 		}
 
-		[Fact(Skip = "作成中")]
+		[Fact]
 		public async Task DefaultController_RequireAuthenticated_Basic認証でアクセスできる() {
 			// Arrange
 			using var client = _factory.CreateClient();
 
-			// todo: Basic認証ヘッダを
+			// Basic認証ヘッダ
+			client.DefaultRequestHeaders.SetBasicAuthorization("abc", "xyz");
 
 			// Act
 			using var response = await client.GetAsync("/requireauthenticated");
