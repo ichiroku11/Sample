@@ -9,19 +9,17 @@ using System.Threading.Tasks;
 
 namespace BasicAuthnWebApp {
 	public static class AuthenticationBuilderExtensions {
-		public static AuthenticationBuilder AddBasic(this AuthenticationBuilder builder) {
-			return builder.AddBasic(
+		public static AuthenticationBuilder AddBasic(this AuthenticationBuilder builder)
+			=> builder.AddBasic(
 				BasicAuthenticationDefaults.AuthenticationScheme,
 				_ => { });
-		}
 
 		public static AuthenticationBuilder AddBasic(
 			this AuthenticationBuilder builder,
-			Action<BasicAuthenticationOptions> configureOptions) {
-			return builder.AddBasic(
+			Action<BasicAuthenticationOptions> configureOptions)
+			=> builder.AddBasic(
 				BasicAuthenticationDefaults.AuthenticationScheme,
 				configureOptions);
-		}
 
 		public static AuthenticationBuilder AddBasic(
 			this AuthenticationBuilder builder,
