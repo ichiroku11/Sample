@@ -49,8 +49,9 @@ namespace SampleTest.Http {
 		[InlineData("http://example.jp/", "/app")]
 		public async Task BaseAddress_ドメイン名を指定した場合(string baseUri, string requestUri) {
 			// Arrange
-			using var server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
-			server.BaseAddress = new Uri(baseUri);
+			using var server = new TestServer(new WebHostBuilder().UseStartup<Startup>()) {
+				BaseAddress = new Uri(baseUri)
+			};
 			using var client = server.CreateClient();
 
 			// Act
