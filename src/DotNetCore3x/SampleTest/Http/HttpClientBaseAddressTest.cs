@@ -41,9 +41,9 @@ namespace SampleTest.Http {
 			_output = output;
 		}
 
-		[Theory(DisplayName = "BaseAddressにドメイン名を指定した場合、requestUriが「/」で始まらなくても問題ない")]
-		[InlineData("http://example.jp", "/app")]
+		[Theory(DisplayName = "BaseAddressにドメイン名を指定した場合、requestUriが「/」で始まっても始まらなくても問題ない")]
 		[InlineData("http://example.jp", "app")]
+		[InlineData("http://example.jp", "/app")]
 		// BaseAddressが「/」で終わる場合も問題ない
 		[InlineData("http://example.jp/", "app")]
 		[InlineData("http://example.jp/", "/app")]
