@@ -64,5 +64,28 @@ namespace SampleTest.Http {
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal("app", content);
 		}
+
+		[Theory(DisplayName = "BaseAddressにパスを含めた場合、requestUriの相対パスのURLになる")]
+		[InlineData("http://example.jp/app", "/", "http://example.jp/", "root")]
+		[InlineData("http://example.jp/app/", "/", "http://example.jp/", "root")]
+		[InlineData("http://example.jp/app/path1/path2/", "/", "http://example.jp/", "root")]
+		[InlineData("http://example.jp/app/path1/path2/", "/app", "http://example.jp/app", "app")]
+		public async Task BaseAddress_パスを含めた場合(string baseUri, string requestUri, string expectedUri, string expectedContent) {
+			// Arrange
+			using var server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+			server.BaseAddress = new Uri(baseUri);
+			using var client = server.CreateClient();
+
+			// Act
+			var response = await client.GetAsync(requestUri);
+			var actualUri = response.RequestMessage.RequestUri.AbsoluteUri;
+			var actualContent = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			_output.WriteLine(actualUri);
+			Assert.Equal(expectedUri, actualUri);
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(expectedContent, actualContent);
+		}
 	}
 }
