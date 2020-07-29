@@ -24,9 +24,16 @@ namespace SampleTest.Http {
 					await context.Response.WriteAsync("app");
 				});
 			}
+			private static void ConfigureApiSub(IApplicationBuilder app) {
+				app.Run(async context => {
+					context.Response.ContentType = "text/plain";
+					await context.Response.WriteAsync("apisub");
+				});
+			}
 
 			public void Configure(IApplicationBuilder app) {
 				app.Map("/app", ConfigureApp);
+				app.Map("/api/sub", ConfigureApiSub);
 
 				app.Run(async context => {
 					context.Response.ContentType = "text/plain";
@@ -74,6 +81,30 @@ namespace SampleTest.Http {
 		[InlineData("http://example.jp/app/path1/path2/", "/", "http://example.jp/", "root")]
 		[InlineData("http://example.jp/app/path1/path2/", "/app", "http://example.jp/app", "app")]
 		public async Task BaseAddress_パスを含めた場合でリクエストURIが相対パス(
+			string baseUri, string requestUri, string expectedUri, string expectedContent) {
+			// Arrange
+			using var server = CreateServer(baseUri);
+			using var client = server.CreateClient();
+
+			// Act
+			var response = await client.GetAsync(requestUri);
+			var actualUri = response.RequestMessage.RequestUri.AbsoluteUri;
+			var actualContent = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			_output.WriteLine(actualUri);
+			Assert.Equal(expectedUri, actualUri);
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(expectedContent, actualContent);
+		}
+
+		// todo
+		[Theory(DisplayName = "BaseAddressにパスが含まれてrequestUriが「/」で始まらない場もreuqestUriの相対パスのURLへのリクエストになる")]
+		[InlineData("http://example.jp/xyz", "app", "http://example.jp/app", "app")]
+		[InlineData("http://example.jp/api/", "sub", "http://example.jp/api/sub", "root")]
+		[InlineData("http://example.jp/app", "api/sub", "http://example.jp/api/sub", "apisub")]
+		[InlineData("http://example.jp/app/path1/path2/", "api/sub", "http://example.jp/app/path1/path2/api/sub", "apisub")]
+		public async Task BaseAddress_パスを含めた場合でリクエストURIがスラッシュで始まらない(
 			string baseUri, string requestUri, string expectedUri, string expectedContent) {
 			// Arrange
 			using var server = CreateServer(baseUri);
