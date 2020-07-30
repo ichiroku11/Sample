@@ -6,6 +6,34 @@ using Xunit;
 namespace SampleTest {
 	public class UriTest {
 		[Theory]
+		[InlineData("http://example.jp", "", "http://example.jp/")]
+		[InlineData("http://example.jp", "/", "http://example.jp/")]
+		[InlineData("http://example.jp", "app/home", "http://example.jp/app/home")]
+		[InlineData("http://example.jp", "/app/home", "http://example.jp/app/home")]
+		[InlineData("http://example.jp/", "", "http://example.jp/")]
+		[InlineData("http://example.jp/", "/", "http://example.jp/")]
+		[InlineData("http://example.jp/", "app/home", "http://example.jp/app/home")]
+		[InlineData("http://example.jp/", "/app/home", "http://example.jp/app/home")]
+		// 「/」で始まる相対パスはドメイン名からの相対パスになる
+		// ベースURLがパスを含む場合は、「/」で終わっているかどうかで生成されるURLが変わってくるので注意
+		[InlineData("http://example.jp/app", "", "http://example.jp/app")]
+		[InlineData("http://example.jp/app", "/", "http://example.jp/")]
+		[InlineData("http://example.jp/app", "home", "http://example.jp/home")]
+		[InlineData("http://example.jp/app", "/home", "http://example.jp/home")]
+		[InlineData("http://example.jp/app/", "", "http://example.jp/app/")]
+		[InlineData("http://example.jp/app/", "/", "http://example.jp/")]
+		[InlineData("http://example.jp/app/", "home", "http://example.jp/app/home")]
+		[InlineData("http://example.jp/app/", "/home", "http://example.jp/home")]
+		public void Constructor_ベースURIと相対URI文字列で生成できる(string baseUri, string relativeUri, string expectedUri) {
+			// Arrange
+			// Act
+			var actualUri = new Uri(new Uri(baseUri), relativeUri);
+
+			// Assert
+			Assert.Equal(expectedUri, actualUri.AbsoluteUri);
+		}
+
+		[Theory]
 		[InlineData("http://example.jp", "http")]
 		[InlineData("https://example.jp", "https")]
 		public void Scheme_スキーマを取得できる(string url, string scheme) {
