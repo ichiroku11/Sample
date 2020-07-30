@@ -71,5 +71,46 @@ namespace SampleTest.Http {
 			// Assert
 			Assert.Equal(expectedClientBaseUri, client.BaseAddress.AbsoluteUri);
 		}
+
+		// HttpClient.BaseAddressの最後の「/」やリクエストの相対パスの最初の「/」の有無は気にしなくてよく
+		// GetAsyncで指定する相対パスのURLにリクエストを送信できる
+		[Theory]
+		[InlineData("http://example.jp", "", "http://example.jp/", "root|http://example.jp/")]
+		[InlineData("http://example.jp", "/", "http://example.jp/", "root|http://example.jp/")]
+		[InlineData("http://example.jp/", "", "http://example.jp/", "root|http://example.jp/")]
+		[InlineData("http://example.jp/", "/", "http://example.jp/", "root|http://example.jp/")]
+		[InlineData("http://example.jp", "home", "http://example.jp/home", "home|http://example.jp/home")]
+		[InlineData("http://example.jp", "/home", "http://example.jp/home", "home|http://example.jp/home")]
+		[InlineData("http://example.jp/", "home", "http://example.jp/home", "home|http://example.jp/home")]
+		[InlineData("http://example.jp/", "/home", "http://example.jp/home", "home|http://example.jp/home")]
+		[InlineData("http://example.jp", "api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		[InlineData("http://example.jp", "/api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		[InlineData("http://example.jp/", "api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		[InlineData("http://example.jp/", "/api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		public async Task BaseAddress_ドメイン直下に配置したWebアプリに対して相対パスでリクエストする(
+			string baseUri, string requestUri, string expectedUri, string expectedContent) {
+			// Arrange
+			// サーバの配置URLの「/」はどっちでも良さげ
+			using var server = CreateServer("http://example.jp");
+			//using var server = CreateServer("http://example.jp/");
+			using var client = server.CreateClient();
+			client.BaseAddress = new Uri(baseUri);
+
+			// Act
+			var response = await client.GetAsync(requestUri);
+			var actualUri = response.RequestMessage.RequestUri.AbsoluteUri;
+			var actualContent = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			_output.WriteLine(actualUri);
+			Assert.Equal(expectedUri, actualUri);
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(expectedContent, actualContent);
+		}
+
+
+		// パスに配置したアプリに対して
+		// todo: ~/app/
+		// todo: ~/app
 	}
 }
