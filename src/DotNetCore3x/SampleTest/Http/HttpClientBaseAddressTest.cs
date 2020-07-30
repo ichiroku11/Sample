@@ -77,14 +77,14 @@ namespace SampleTest.Http {
 		[Theory]
 		[InlineData("http://example.jp", "", "http://example.jp/", "root|http://example.jp/")]
 		[InlineData("http://example.jp", "/", "http://example.jp/", "root|http://example.jp/")]
-		[InlineData("http://example.jp/", "", "http://example.jp/", "root|http://example.jp/")]
-		[InlineData("http://example.jp/", "/", "http://example.jp/", "root|http://example.jp/")]
 		[InlineData("http://example.jp", "home", "http://example.jp/home", "home|http://example.jp/home")]
 		[InlineData("http://example.jp", "/home", "http://example.jp/home", "home|http://example.jp/home")]
-		[InlineData("http://example.jp/", "home", "http://example.jp/home", "home|http://example.jp/home")]
-		[InlineData("http://example.jp/", "/home", "http://example.jp/home", "home|http://example.jp/home")]
 		[InlineData("http://example.jp", "api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
 		[InlineData("http://example.jp", "/api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		[InlineData("http://example.jp/", "", "http://example.jp/", "root|http://example.jp/")]
+		[InlineData("http://example.jp/", "/", "http://example.jp/", "root|http://example.jp/")]
+		[InlineData("http://example.jp/", "home", "http://example.jp/home", "home|http://example.jp/home")]
+		[InlineData("http://example.jp/", "/home", "http://example.jp/home", "home|http://example.jp/home")]
 		[InlineData("http://example.jp/", "api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
 		[InlineData("http://example.jp/", "/api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
 		public async Task BaseAddress_ドメイン直下に配置したWebアプリに対して相対パスでリクエストする(
@@ -108,9 +108,48 @@ namespace SampleTest.Http {
 			Assert.Equal(expectedContent, actualContent);
 		}
 
+		// レスポンスが返ってくることが不思議な感じもする部分もあるが、
+		// リクエストされるURLはBassAddress＋GetAsyncの引数のURLになるっぽい
+		[Theory]
+		[InlineData("http://example.jp/app", "", "http://example.jp/app", "root|http://example.jp/app")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app", "/", "http://example.jp/", "root|http://example.jp/")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app", "home", "http://example.jp/home", "home|http://example.jp/home")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app", "/home", "http://example.jp/home", "home|http://example.jp/home")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app", "api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app", "/api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		[InlineData("http://example.jp/app/", "", "http://example.jp/app/", "root|http://example.jp/app/")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app/", "/", "http://example.jp/", "root|http://example.jp/")]
+		[InlineData("http://example.jp/app/", "home", "http://example.jp/app/home", "home|http://example.jp/app/home")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app/", "/home", "http://example.jp/home", "home|http://example.jp/home")]
+		[InlineData("http://example.jp/app/", "api/sub", "http://example.jp/app/api/sub", "apisub|http://example.jp/app/api/sub")]
+		// レスポンスが返ってくるのが不思議
+		[InlineData("http://example.jp/app/", "/api/sub", "http://example.jp/api/sub", "apisub|http://example.jp/api/sub")]
+		public async Task BaseAddress_パス以下に配置したWebアプリに対して相対パスでリクエストする(
+			string baseUri, string requestUri, string expectedUri, string expectedContent) {
+			// Arrange
+			// サーバの配置URLの「/」はどっちでも良さげ
+			//using var server = CreateServer("http://example.jp/app");
+			using var server = CreateServer("http://example.jp/app/");
+			using var client = server.CreateClient();
+			client.BaseAddress = new Uri(baseUri);
 
-		// パスに配置したアプリに対して
-		// todo: ~/app/
-		// todo: ~/app
+			// Act
+			var response = await client.GetAsync(requestUri);
+			var actualUri = response.RequestMessage.RequestUri.AbsoluteUri;
+			var actualContent = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			_output.WriteLine(actualUri);
+			Assert.Equal(expectedUri, actualUri);
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(expectedContent, actualContent);
+		}
 	}
 }
