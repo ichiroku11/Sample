@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -21,23 +22,23 @@ namespace SampleTest.Http {
 			private static void ConfigureApp(IApplicationBuilder app) {
 				app.Run(async context => {
 					context.Response.ContentType = "text/plain";
-					await context.Response.WriteAsync("app");
+					await context.Response.WriteAsync($"home|{context.Request.GetDisplayUrl()}");
 				});
 			}
 			private static void ConfigureApiSub(IApplicationBuilder app) {
 				app.Run(async context => {
 					context.Response.ContentType = "text/plain";
-					await context.Response.WriteAsync("apisub");
+					await context.Response.WriteAsync($"apisub|{context.Request.GetDisplayUrl()}");
 				});
 			}
 
 			public void Configure(IApplicationBuilder app) {
-				app.Map("/app", ConfigureApp);
+				app.Map("/home", ConfigureApp);
 				app.Map("/api/sub", ConfigureApiSub);
 
 				app.Run(async context => {
 					context.Response.ContentType = "text/plain";
-					await context.Response.WriteAsync("root");
+					await context.Response.WriteAsync($"root|{context.Request.GetDisplayUrl()}");
 				});
 			}
 		}
@@ -53,98 +54,22 @@ namespace SampleTest.Http {
 			_output = output;
 		}
 
-		[Theory(DisplayName = "BaseAddressにドメイン名を指定した場合、requestUriが「/」で始まっても始まらなくてもreuqestUriの相対パスのURLへのリクエストになる")]
-		[InlineData("http://example.jp", "app")]
-		[InlineData("http://example.jp", "/app")]
-		// BaseAddressが「/」で終わる場合も問題ない
-		[InlineData("http://example.jp/", "app")]
-		[InlineData("http://example.jp/", "/app")]
-		public async Task BaseAddress_ドメイン名を指定した場合(string baseUri, string requestUri) {
+		[Theory]
+		// ドメイン直下に配置する場合は最後のスラッシュができる
+		[InlineData("http://example.jp", "http://example.jp/")]
+		[InlineData("http://example.jp/", "http://example.jp/")]
+		// パスに配置する場合は最後のスラッシュがそのままになる
+		[InlineData("http://example.jp/app", "http://example.jp/app")]
+		[InlineData("http://example.jp/app/", "http://example.jp/app/")]
+		public void BaseAddress_TestServerとHttpClientのBaseAddressを確認する(
+			string serverBaseUri, string expectedClientBaseUri) {
 			// Arrange
-			using var server = CreateServer(baseUri);
+			// Act
+			using var server = CreateServer(serverBaseUri);
 			using var client = server.CreateClient();
 
-			// Act
-			var response = await client.GetAsync(requestUri);
-			_output.WriteLine(response.RequestMessage.RequestUri.AbsoluteUri);
-			var content = await response.Content.ReadAsStringAsync();
-
 			// Assert
-			Assert.Equal("http://example.jp/app", response.RequestMessage.RequestUri.AbsoluteUri);
-			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-			Assert.Equal("app", content);
-		}
-
-		[Theory(DisplayName = "BaseAddressにパスが含まれてrequestUriが「/」で始まる場合は、reuqestUriの相対パスのURLへのリクエストになる")]
-		[InlineData("http://example.jp/app", "/", "http://example.jp/", "root")]
-		[InlineData("http://example.jp/app/", "/", "http://example.jp/", "root")]
-		[InlineData("http://example.jp/app/path1/path2/", "/", "http://example.jp/", "root")]
-		[InlineData("http://example.jp/app/path1/path2/", "/app", "http://example.jp/app", "app")]
-		public async Task BaseAddress_パスを含めた場合でリクエストURIが相対パス(
-			string baseUri, string requestUri, string expectedUri, string expectedContent) {
-			// Arrange
-			using var server = CreateServer(baseUri);
-			using var client = server.CreateClient();
-
-			// Act
-			var response = await client.GetAsync(requestUri);
-			var actualUri = response.RequestMessage.RequestUri.AbsoluteUri;
-			var actualContent = await response.Content.ReadAsStringAsync();
-
-			// Assert
-			_output.WriteLine(actualUri);
-			Assert.Equal(expectedUri, actualUri);
-			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-			Assert.Equal(expectedContent, actualContent);
-		}
-
-		// todo
-		[Theory(DisplayName = "BaseAddressにパスが含まれてrequestUriが「/」で始まらない場もreuqestUriの相対パスのURLへのリクエストになる")]
-		[InlineData("http://example.jp/xyz", "app", "http://example.jp/app", "app")]
-		[InlineData("http://example.jp/api/", "sub", "http://example.jp/api/sub", "root")]
-		[InlineData("http://example.jp/app", "api/sub", "http://example.jp/api/sub", "apisub")]
-		[InlineData("http://example.jp/app/path1/path2/", "api/sub", "http://example.jp/app/path1/path2/api/sub", "apisub")]
-		public async Task BaseAddress_パスを含めた場合でリクエストURIがスラッシュで始まらない(
-			string baseUri, string requestUri, string expectedUri, string expectedContent) {
-			// Arrange
-			using var server = CreateServer(baseUri);
-			using var client = server.CreateClient();
-
-			// Act
-			var response = await client.GetAsync(requestUri);
-			var actualUri = response.RequestMessage.RequestUri.AbsoluteUri;
-			var actualContent = await response.Content.ReadAsStringAsync();
-
-			// Assert
-			_output.WriteLine(actualUri);
-			Assert.Equal(expectedUri, actualUri);
-			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-			Assert.Equal(expectedContent, actualContent);
-		}
-
-		[Theory(DisplayName = "requestUriが空文字列だとルートへのリクエストになる")]
-		// ドメイン名だけの場合、取得できるRequestUriの最後に「/」になる
-		[InlineData("http://example.jp", "http://example.jp/", "root")]
-		[InlineData("http://example.jp/", "http://example.jp/", "root")]
-		// ドメイン名とパスの場合、取得できるRequestUriの最後に「/」がつかず、baseUriのまま
-		[InlineData("http://example.jp/app", "http://example.jp/app", "root")]
-		[InlineData("http://example.jp/app/", "http://example.jp/app/", "root")]
-		public async Task BaseAddress_リクエストURIが空文字列(
-			string baseUri, string expectedUri, string expectedContent) {
-			// Arrange
-			using var server = CreateServer(baseUri);
-			using var client = server.CreateClient();
-
-			// Act
-			var response = await client.GetAsync("");
-			var actualUri = response.RequestMessage.RequestUri.AbsoluteUri;
-			var actualContent = await response.Content.ReadAsStringAsync();
-
-			// Assert
-			_output.WriteLine(actualUri);
-			Assert.Equal(expectedUri, actualUri);
-			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-			Assert.Equal(expectedContent, actualContent);
+			Assert.Equal(expectedClientBaseUri, client.BaseAddress.AbsoluteUri);
 		}
 	}
 }
