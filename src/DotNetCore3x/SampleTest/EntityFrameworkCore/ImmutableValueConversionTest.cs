@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace SampleTest.EntityFrameworkCore {
+	// 参考
 	// https://docs.microsoft.com/ja-jp/ef/core/modeling/value-comparers
 	public class ImmutableValueConversionTest {
 		// 値オブジェクト
