@@ -5,6 +5,6 @@ using System.Text;
 namespace SampleTest.EntityFrameworkCore {
 	// 参考
 	// https://docs.microsoft.com/ja-jp/ef/core/modeling/owned-entities
-	public class OwnedTypeTest {
+	public class OwnedEntityTest {
 	}
 }
