@@ -13,12 +13,18 @@ namespace MiscConsoleApp {
 		static void Main(string[] args) {
 			Console.WriteLine("Hello World!");
 
-			var sample = new Sample1();
-			sample.Method();
-			sample.Property = 1;
+			// inheridocを使わなくてもIntelliSenseが有効
+			var sample1 = new Sample1();
+			sample1.Method();
+			sample1.Property = 1;
 
-			CallMethod(sample);
-			GetProperty(sample);
+			CallMethod(sample1);
+			GetProperty(sample1);
+
+			// summaryは上書きできる
+			var sample2 = new Sample2();
+			sample2.Method();
+			sample2.Property = 2;
 		}
 	}
 }
