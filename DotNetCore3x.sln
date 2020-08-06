@@ -63,9 +63,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscWebApi.Test", "src\AspN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntiForgeryWebApp", "src\AspNetCore3x\AntiForgeryWebApp\AntiForgeryWebApp.csproj", "{FB133ACC-2562-42A3-9820-4AE93B5CA541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAuthnWebApp", "src\AspNetCore3x\BasicAuthnWebApp\BasicAuthnWebApp.csproj", "{72C817B5-CCB4-4610-9502-9F734DEBE408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicAuthnWebApp", "src\AspNetCore3x\BasicAuthnWebApp\BasicAuthnWebApp.csproj", "{72C817B5-CCB4-4610-9502-9F734DEBE408}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAuthnWebApp.Test", "src\AspNetCore3x\BasicAuthnWebApp.Test\BasicAuthnWebApp.Test.csproj", "{00F71E15-9959-49FB-85E9-CF6EFB755441}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicAuthnWebApp.Test", "src\AspNetCore3x\BasicAuthnWebApp.Test\BasicAuthnWebApp.Test.csproj", "{00F71E15-9959-49FB-85E9-CF6EFB755441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiscConsoleApp", "src\DotNetCore3x\MiscConsoleApp\MiscConsoleApp.csproj", "{79AE5199-AE4E-4E84-9BCF-591DD75F59AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -189,6 +191,10 @@ Global
 		{00F71E15-9959-49FB-85E9-CF6EFB755441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00F71E15-9959-49FB-85E9-CF6EFB755441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00F71E15-9959-49FB-85E9-CF6EFB755441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79AE5199-AE4E-4E84-9BCF-591DD75F59AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79AE5199-AE4E-4E84-9BCF-591DD75F59AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79AE5199-AE4E-4E84-9BCF-591DD75F59AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79AE5199-AE4E-4E84-9BCF-591DD75F59AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,6 +229,7 @@ Global
 		{FB133ACC-2562-42A3-9820-4AE93B5CA541} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{72C817B5-CCB4-4610-9502-9F734DEBE408} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
 		{00F71E15-9959-49FB-85E9-CF6EFB755441} = {558EBECF-4398-4B54-8147-BA2BB02CFF4B}
+		{79AE5199-AE4E-4E84-9BCF-591DD75F59AF} = {31E0DF25-725C-41CB-BDEC-D5876935533F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01FD03BD-6C05-4AE0-BCAD-70AE4435C85E}
