@@ -105,7 +105,51 @@ namespace SampleTest.Linq {
 
 			// Act
 			// Assert
-			Assert.NotNull(items.ToList<ISample>() as IList<ISample>);
+			Assert.True(items.ToList<ISample>() is List<ISample>);
+		}
+
+		private class Item {
+			public Item(string name, IEnumerable<Item> children = default) {
+				Name = name;
+				Children = children ?? Enumerable.Empty<Item>();
+			}
+
+			public string Name { get; }
+
+			public IEnumerable<Item> Children { get; }
+		}
+
+		[Fact]
+		public void SelectMany_平坦化するサンプル() {
+			// Arrange
+			var items = new[] {
+				new Item("1a", new [] {
+					new Item("2a", new [] {
+						new Item("3a"),
+						new Item("3b"),
+					}),
+					new Item("2b", new [] {
+						new Item("3c"),
+					}),
+				}),
+				new Item("1b", new [] {
+					new Item("2c", new [] {
+						new Item("3d"),
+					}),
+				}),
+			};
+
+			// Act
+			var actual = items
+				.SelectMany(item => item.Children)
+				.SelectMany(item => item.Children)
+				.Select(item => item.Name);
+
+			// Assert
+			IEnumerable<string> expected = new[] {
+				"3a", "3b", "3c", "3d"
+			};
+			Assert.Equal(expected, actual);
 		}
 	}
 }
