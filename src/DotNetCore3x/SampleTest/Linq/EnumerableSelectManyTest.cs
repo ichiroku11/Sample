@@ -6,6 +6,25 @@ using Xunit;
 
 namespace SampleTest.Linq {
 	public class EnumerableSelectManyTest {
+		[Fact]
+		public void SelectMany_配列の配列を平坦化するサンプル() {
+			// Arrange
+			// Act
+			var actual = new[] {
+					new [] { 1, 2, 3 },
+					new [] { 4 },
+					new [] { 5, 6 },
+				}
+				.SelectMany(values => values);
+
+			// Assert
+			var expected = new[] {
+				1, 2, 3, 4, 5, 6
+			};
+			Assert.Equal(expected, actual);
+		}
+
+		// 子を持つ（階層構造がある）クラス
 		private class Item {
 			public Item(string name, IEnumerable<Item> children = default) {
 				Name = name;
@@ -36,7 +55,7 @@ namespace SampleTest.Linq {
 			};
 
 		[Fact]
-		public void SelectMany_2階層目を平坦化するサンプル() {
+		public void SelectMany_あるオブジェクトのコレクションの2階層目を平坦化するサンプル() {
 			// Arrange
 			// Act
 			var actual = _items
@@ -51,7 +70,7 @@ namespace SampleTest.Linq {
 		}
 
 		[Fact]
-		public void SelectMany_3階層目を平坦化するサンプル() {
+		public void SelectMany_あるオブジェクトのコレクションの3階層目を平坦化するサンプル() {
 			// Arrange
 			// Act
 			var actual = _items
