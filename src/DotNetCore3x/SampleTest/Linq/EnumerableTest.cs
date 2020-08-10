@@ -107,5 +107,44 @@ namespace SampleTest.Linq {
 			// Assert
 			Assert.True(items.ToList<ISample>() is List<ISample>);
 		}
+
+		[Fact]
+		public void Single_シーケンスが空だとInvalidOperationExceptionがスロー() {
+			// Arrange
+			// Act
+			// Assert
+			Assert.Throws<InvalidOperationException>(() => {
+				Enumerable.Empty<int>().Single();
+			});
+		}
+
+		[Fact]
+		public void Single_シーケンスの要素が2つ以上だとInvalidOperationExceptionがスロー() {
+			// Arrange
+			// Act
+			// Assert
+			Assert.Throws<InvalidOperationException>(() => {
+				Enumerable.Repeat(0, 2).Single();
+			});
+		}
+
+		[Fact]
+		public void SingleOrDefault_シーケンスが空だと例外がスローされずでファルト値を取得できる() {
+			// Arrange
+			// Act
+			var value = Enumerable.Empty<int>().SingleOrDefault();
+			// Assert
+			Assert.Equal(0, value);
+		}
+
+		[Fact]
+		public void SingleOrDefault_シーケンスの要素が2つ以上だとInvalidOperationExceptionがスロー() {
+			// Arrange
+			// Act
+			// Assert
+			Assert.Throws<InvalidOperationException>(() => {
+				Enumerable.Repeat(0, 2).SingleOrDefault();
+			});
+		}
 	}
 }
