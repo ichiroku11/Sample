@@ -129,12 +129,12 @@ namespace SampleTest.Linq {
 		}
 
 		[Fact]
-		public void SingleOrDefault_シーケンスが空だと例外がスローされずでファルト値を取得できる() {
+		public void SingleOrDefault_シーケンスが空の場合は例外がスローされずデフォルト値を取得できる() {
 			// Arrange
 			// Act
 			var value = Enumerable.Empty<int>().SingleOrDefault();
 			// Assert
-			Assert.Equal(0, value);
+			Assert.Equal(default, value);
 		}
 
 		[Fact]
