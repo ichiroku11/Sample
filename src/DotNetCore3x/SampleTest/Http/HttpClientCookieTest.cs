@@ -19,6 +19,7 @@ namespace SampleTest.Http {
 
 			private static void ConfigureCookieTest(IApplicationBuilder app) {
 				app.Run(async context => {
+					// Cookieヘッダをレスポンスとして出力
 					if (context.Request.Cookies.Count > 0) {
 						var cookies = context.Request.Cookies.Select(cookie => $"{cookie.Key}={cookie.Value}");
 						await context.Response.WriteAsync(string.Join('$', cookies));
@@ -86,6 +87,20 @@ namespace SampleTest.Http {
 			Assert.Equal(HttpStatusCode.BadRequest, statusCode);
 		}
 
+		[Fact]
+		public async Task GetAsync_Cookieヘッダを送信する() {
+			// Arrange
+			using var client = _server.CreateClient();
+			client.DefaultRequestHeaders.Add("Cookie", "abc=xyz");
 
+			// Act
+			var response = await client.GetAsync("/cookie");
+			var statusCode = response.StatusCode;
+			var responseContent = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			Assert.Equal(HttpStatusCode.OK, statusCode);
+			Assert.Equal("abc=xyz", responseContent);
+		}
 	}
 }
