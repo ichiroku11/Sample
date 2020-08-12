@@ -16,10 +16,19 @@ namespace SampleTest.Http {
 			public void ConfigureServices(IServiceCollection services) {
 			}
 
-			public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+			private static void ConfigureSetCookieTest(IApplicationBuilder app) {
 				app.Run(context => {
 					// Set-Cookieヘッダを付与
 					context.Response.Cookies.Append("abc", "xyz");
+					return Task.CompletedTask;
+				});
+			}
+
+			public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+				app.Map("/setcookie", ConfigureSetCookieTest);
+
+				app.Run(context => {
+					context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 					return Task.CompletedTask;
 				});
 			}
@@ -40,7 +49,7 @@ namespace SampleTest.Http {
 			// Arrange
 			using var client = _server.CreateClient();
 			// Act
-			var response = await client.GetAsync("/");
+			var response = await client.GetAsync("/setcookie");
 
 			var statusCode = response.StatusCode;
 			var containsSetCookie = response.Headers.TryGetValues("Set-Cookie", out var cookieValues);
