@@ -83,8 +83,9 @@ namespace SampleTest.Http {
 		[Fact]
 		public async Task SendAsync_クエリ文字列を使う() {
 			// Arrange
-			// Act
 			var request = new HttpRequestMessage(HttpMethod.Get, "/query?test=xyz");
+
+			// Act
 			var response = await _client.SendAsync(request);
 			var content = await response.Content.ReadAsStringAsync();
 
@@ -95,10 +96,11 @@ namespace SampleTest.Http {
 		[Fact]
 		public async Task PostAsync_フォームデータのPOSTする() {
 			// Arrange
-			// Act
 			var nameValues = new Dictionary<string, string> {
 				{ "test", "abc" }
 			};
+
+			// Act
 			var response = await _client.PostAsync("/form", new FormUrlEncodedContent(nameValues));
 			var content = await response.Content.ReadAsStringAsync();
 
@@ -110,13 +112,14 @@ namespace SampleTest.Http {
 		[Fact]
 		public async Task SendAsync_フォームデータのPOSTする() {
 			// Arrange
-			// Act
 			var nameValues = new Dictionary<string, string> {
 				{ "test", "abc" }
 			};
 			var request = new HttpRequestMessage(HttpMethod.Post, "/form") {
 				Content = new FormUrlEncodedContent(nameValues),
 			};
+
+			// Act
 			var response = await _client.SendAsync(request);
 			var content = await response.Content.ReadAsStringAsync();
 
