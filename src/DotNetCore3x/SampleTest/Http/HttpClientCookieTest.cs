@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,14 @@ namespace SampleTest.Http {
 
 			private static void ConfigureCookieTest(IApplicationBuilder app) {
 				app.Run(async context => {
-					// Cookieヘッダをレスポンスとして出力
-					if (context.Request.Cookies.Count > 0) {
-						var cookies = context.Request.Cookies.Select(cookie => $"{cookie.Key}={cookie.Value}");
-						await context.Response.WriteAsync(string.Join('$', cookies));
-					} else {
+					if (context.Request.Cookies.Count <= 0) {
 						context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+						return;
 					}
+
+					// Cookieヘッダをレスポンスとして出力
+					var cookies = context.Request.Cookies.Select(cookie => $"{cookie.Key}={cookie.Value}");
+					await context.Response.WriteAsync(string.Join('$', cookies));
 				});
 			}
 
@@ -66,7 +68,7 @@ namespace SampleTest.Http {
 			// Act
 			var response = await client.GetAsync("/setcookie");
 			var statusCode = response.StatusCode;
-			var containsSetCookie = response.Headers.TryGetValues("Set-Cookie", out var cookieValues);
+			var containsSetCookie = response.Headers.TryGetValues(HeaderNames.SetCookie, out var cookieValues);
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, statusCode);
@@ -91,7 +93,7 @@ namespace SampleTest.Http {
 		public async Task GetAsync_Cookieヘッダを送信する() {
 			// Arrange
 			using var client = _server.CreateClient();
-			client.DefaultRequestHeaders.Add("Cookie", "abc=xyz");
+			client.DefaultRequestHeaders.Add(HeaderNames.Cookie, "abc=xyz");
 
 			// Act
 			var response = await client.GetAsync("/cookie");
