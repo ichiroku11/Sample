@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Testing.Handlers;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -61,7 +63,7 @@ namespace SampleTest.Http {
 		}
 
 		[Fact]
-		public async Task GetAsync_レスポンスのSetCookieヘッダを取得する() {
+		public async Task レスポンスのSetCookieヘッダを取得する() {
 			// Arrange
 			using var client = _server.CreateClient();
 
@@ -77,7 +79,7 @@ namespace SampleTest.Http {
 		}
 
 		[Fact]
-		public async Task GetAsync_デフォルトではCookieヘッダを送信しない() {
+		public async Task Cookieヘッダを送信しない_デフォルトの動き() {
 			// Arrange
 			using var client = _server.CreateClient();
 
@@ -90,7 +92,7 @@ namespace SampleTest.Http {
 		}
 
 		[Fact]
-		public async Task GetAsync_Cookieヘッダを送信する() {
+		public async Task Cookieヘッダを送信する() {
 			// Arrange
 			using var client = _server.CreateClient();
 			client.DefaultRequestHeaders.Add(HeaderNames.Cookie, "abc=xyz");
@@ -103,6 +105,35 @@ namespace SampleTest.Http {
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, statusCode);
 			Assert.Equal("abc=xyz", responseContent);
+		}
+
+		[Fact]
+		public async Task CookieContainerを使ってCookieをやり取りする() {
+			// Arrange
+			using var handler = new CookieContainerHandler {
+				InnerHandler = _server.CreateHandler(),
+			};
+			using var client = new HttpClient(handler) {
+				BaseAddress = _server.BaseAddress,
+			};
+			Assert.Equal(0, handler.Container.Count);
+			Assert.Empty(handler.Container.GetCookies(_server.BaseAddress));
+
+			// Act
+			// レスポンスにSet-Cookieヘッダが含まれる
+			var response1 = await client.GetAsync("/setcookie");
+			var statusCode1 = response1.StatusCode;
+
+			var response2 = await client.GetAsync("/cookie");
+			var statusCode2 = response2.StatusCode;
+			var response2Content = await response2.Content.ReadAsStringAsync();
+
+			// Assert
+			Assert.Equal(1, handler.Container.Count);
+			Assert.Single(handler.Container.GetCookies(_server.BaseAddress));
+			Assert.Equal(HttpStatusCode.OK, statusCode1);
+			Assert.Equal(HttpStatusCode.OK, statusCode2);
+			Assert.Equal("abc=xyz", response2Content);
 		}
 	}
 }
