@@ -14,6 +14,25 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
+		public void Empty_onCompletedだけが呼ばれる() {
+			// Arrange
+			var completed = false;
+
+			// Act
+			Observable.Empty<int>().Subscribe(
+				onNext: _ => Assert.False(true),
+				onError: _ => Assert.False(true),
+				// onCompletedだけが呼ばれる
+				onCompleted: () => {
+					Assert.False(completed);
+					completed = true;
+				});
+
+			// Assert
+			Assert.True(completed);
+		}
+
+		[Fact]
 		public void Range_onNextとonCompletedが呼ばれる() {
 			// Arrange
 			var values = new List<int>();
@@ -44,24 +63,6 @@ namespace SampleTest.Reactive {
 
 			// Assert
 			Assert.Equal(new List<int>() { 0, 1, 2 }, values);
-			Assert.True(completed);
-		}
-
-		[Fact]
-		public void Empty_onCompletedだけが呼ばれる() {
-			// Arrange
-			var completed = false;
-
-			// Act
-			Observable.Empty<int>().Subscribe(
-				onNext: _ => Assert.False(true),
-				onError: _ => Assert.False(true),
-				// onCompletedだけが呼ばれる
-				onCompleted: () => {
-					completed = true;
-				});
-
-			// Assert
 			Assert.True(completed);
 		}
 	}
