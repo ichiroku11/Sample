@@ -33,6 +33,25 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
+		public void Never_何も呼ばれない() {
+			// Arrange
+			var next = false;
+			var error = false;
+			var completed = false;
+
+			// Act
+			Observable.Never<int>().Subscribe(
+				onNext: _ => next = true,
+				onError: _ => error = true,
+				onCompleted: () => completed = true);
+
+			// Assert
+			Assert.False(next);
+			Assert.False(error);
+			Assert.False(completed);
+		}
+
+		[Fact]
 		public void Range_onNextとonCompletedが呼ばれる() {
 			// Arrange
 			var values = new List<int>();
