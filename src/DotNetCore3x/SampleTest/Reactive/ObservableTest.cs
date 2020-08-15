@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -33,22 +34,36 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
-		public void Never_何も呼ばれない() {
+		public void FromAsync_TaskをObservableに変換するとonNextとonCompletedが呼ばれる() {
 			// Arrange
-			var next = false;
-			var error = false;
+			var expected = 11;
+			var actual = 0;
 			var completed = false;
 
 			// Act
-			Observable.Never<int>().Subscribe(
-				onNext: _ => next = true,
-				onError: _ => error = true,
-				onCompleted: () => completed = true);
+			Observable.FromAsync(() => Task.FromResult(expected)).Subscribe(
+				onNext: value => {
+					actual = value;
+				},
+				onCompleted: () => {
+					Assert.False(completed);
+					completed = true;
+				});
 
 			// Assert
-			Assert.False(next);
-			Assert.False(error);
-			Assert.False(completed);
+			Assert.True(completed);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void Never_何も呼ばれない() {
+			// Arrange
+			// Act
+			// Assert
+			Observable.Never<int>().Subscribe(
+				onNext: _ => Assert.False(true),
+				onError: _ => Assert.False(true),
+				onCompleted: () => Assert.False(true));
 		}
 
 		[Fact]
@@ -96,7 +111,7 @@ namespace SampleTest.Reactive {
 				onNext: _ => Assert.False(true),
 				// onErrorだけが呼ばれる
 				onError: exception => actual = exception,
-				onCompleted: () => Assert.True(false));
+				onCompleted: () => Assert.False(true));
 
 			// Assert
 			Assert.Equal(expected, actual);
