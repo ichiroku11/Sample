@@ -21,8 +21,8 @@ namespace SampleTest.Reactive {
 
 			// Act
 			Observable.Empty<int>().Subscribe(
-				onNext: _ => Assert.False(true),
-				onError: _ => Assert.False(true),
+				onNext: _ => AssertHelper.Fail(),
+				onError: _ => AssertHelper.Fail(),
 				// onCompletedだけが呼ばれる
 				onCompleted: () => {
 					Assert.False(completed);
@@ -61,9 +61,9 @@ namespace SampleTest.Reactive {
 			// Act
 			// Assert
 			Observable.Never<int>().Subscribe(
-				onNext: _ => Assert.False(true),
-				onError: _ => Assert.False(true),
-				onCompleted: () => Assert.False(true));
+				onNext: _ => AssertHelper.Fail(),
+				onError: _ => AssertHelper.Fail(),
+				onCompleted: () => AssertHelper.Fail());
 		}
 
 		[Fact]
@@ -85,7 +85,7 @@ namespace SampleTest.Reactive {
 				},
 				onError: _ => {
 					// エラーが発生しないので呼ばれない
-					Assert.False(true);
+					AssertHelper.Fail();
 				},
 				onCompleted: () => {
 					_output.WriteLine($"onCompleted");
@@ -108,10 +108,10 @@ namespace SampleTest.Reactive {
 
 			// Act
 			Observable.Throw<int>(expected).Subscribe(
-				onNext: _ => Assert.False(true),
+				onNext: _ => AssertHelper.Fail(),
 				// onErrorだけが呼ばれる
 				onError: exception => actual = exception,
-				onCompleted: () => Assert.False(true));
+				onCompleted: () => AssertHelper.Fail());
 
 			// Assert
 			Assert.Equal(expected, actual);
