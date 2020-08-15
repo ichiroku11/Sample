@@ -101,6 +101,64 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
+		public void Repeat_onNextとonCompletedが呼ばれる() {
+			// Arrange
+			var values = new List<int>();
+			var completed = false;
+
+			// Act
+			Observable.Repeat(1, 3).Subscribe(
+				onNext: value => {
+					Assert.False(completed);
+
+					_output.WriteLine($"onNext: {value}");
+					values.Add(value);
+				},
+				onError: _ => {
+					AssertHelper.Fail();
+				},
+				onCompleted: () => {
+					Assert.False(completed);
+
+					_output.WriteLine($"onCompleted");
+					completed = true;
+				});
+
+			// Assert
+			Assert.Equal(new List<int>() { 1, 1, 1 }, values);
+			Assert.True(completed);
+		}
+
+		[Fact]
+		public void Return_onNextとonCompletedが呼ばれる() {
+			// Arrange
+			var values = new List<int>();
+			var completed = false;
+
+			// Act
+			Observable.Return(1).Subscribe(
+				onNext: value => {
+					Assert.False(completed);
+
+					_output.WriteLine($"onNext: {value}");
+					values.Add(value);
+				},
+				onError: _ => {
+					AssertHelper.Fail();
+				},
+				onCompleted: () => {
+					Assert.False(completed);
+
+					_output.WriteLine($"onCompleted");
+					completed = true;
+				});
+
+			// Assert
+			Assert.Equal(new List<int>() { 1 }, values);
+			Assert.True(completed);
+		}
+
+		[Fact]
 		public void Throw_onErrorだけが呼ばれる() {
 			// Arrange
 			var expected = new Exception();
