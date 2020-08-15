@@ -65,5 +65,22 @@ namespace SampleTest.Reactive {
 			Assert.Equal(new List<int>() { 0, 1, 2 }, values);
 			Assert.True(completed);
 		}
+
+		[Fact]
+		public void Throw_onErrorだけが呼ばれる() {
+			// Arrange
+			var expected = new Exception();
+			var actual = default(Exception);
+
+			// Act
+			Observable.Throw<int>(expected).Subscribe(
+				onNext: _ => Assert.False(true),
+				// onErrorだけが呼ばれる
+				onError: exception => actual = exception,
+				onCompleted: () => Assert.True(false));
+
+			// Assert
+			Assert.Equal(expected, actual);
+		}
 	}
 }
