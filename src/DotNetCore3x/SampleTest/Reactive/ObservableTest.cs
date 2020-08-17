@@ -8,6 +8,7 @@ using Xunit.Abstractions;
 
 namespace SampleTest.Reactive {
 	// 参考
+	// https://www.atmarkit.co.jp/fdotnet/introrx/introrx_02/introrx_02_01.html
 	// https://blog.okazuki.jp/entry/20111104/1320409976
 	public class ObservableTest {
 		private readonly ITestOutputHelper _output;
