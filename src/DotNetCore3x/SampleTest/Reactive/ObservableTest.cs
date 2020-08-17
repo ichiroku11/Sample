@@ -7,12 +7,21 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace SampleTest.Reactive {
+	// 参考
+	// https://blog.okazuki.jp/entry/20111104/1320409976
 	public class ObservableTest {
 		private readonly ITestOutputHelper _output;
 
 		public ObservableTest(ITestOutputHelper output) {
 			_output = output;
 		}
+
+		// todo:
+		// Create
+		// Defer
+		// Interval
+		// Timer
+		// Using
 
 		[Fact]
 		public void Empty_onCompletedだけが呼ばれる() {
@@ -53,6 +62,29 @@ namespace SampleTest.Reactive {
 			// Assert
 			Assert.True(completed);
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void Generate_for文のようなイメージでシーケンスを生成できる() {
+			// Arrange
+			var completed = false;
+			var values = new List<int>();
+
+			// Act
+			Observable
+				.Generate(
+					initialState: 1,
+					condition: value => value <= 3,
+					iterate: value => value + 1,
+					resultSelector: value => value * 2)
+				.Subscribe(
+					onNext: value => values.Add(value),
+					onError: _ => AssertHelper.Fail(),
+					onCompleted: () => completed = true);
+
+			// Assert
+			Assert.True(completed);
+			Assert.Equal(new List<int> { 2, 4, 6 }, values);
 		}
 
 		[Fact]
