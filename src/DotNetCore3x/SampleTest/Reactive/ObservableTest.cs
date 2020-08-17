@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
@@ -18,11 +19,43 @@ namespace SampleTest.Reactive {
 		}
 
 		// todo:
-		// Create
+
 		// Defer
 		// Interval
 		// Timer
 		// Using
+
+		[Fact]
+		public void Create_任意のObservableを生成する() {
+			// Arrange
+			var disposed = false;
+			var observable = Observable.Create<int>(observer => {
+				observer.OnNext(1);
+				observer.OnNext(2);
+				observer.OnNext(3);
+
+				// OnCompletedでDisposeが呼ばれる
+				observer.OnCompleted();
+
+				// Disposeが呼ばれたときの処理
+				return () => {
+					disposed = true;
+				};
+			});
+			var values = new List<int>();
+			var completed = false;
+
+			// Act
+			observable.Subscribe(
+				onNext: value => values.Add(value),
+				onError: _ => AssertHelper.Fail(),
+				onCompleted: () => completed = true);
+
+			// Assert
+			Assert.True(disposed);
+			Assert.True(completed);
+			Assert.Equal(new List<int> { 1, 2, 3 }, values);
+		}
 
 		[Fact]
 		public void Empty_onCompletedだけが呼ばれる() {
