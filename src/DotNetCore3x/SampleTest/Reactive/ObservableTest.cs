@@ -58,6 +58,35 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
+		public void Select_試す() {
+			// Arrange
+			var values = new List<int>();
+
+			// Act
+			Observable.Return(2)
+				.Select(value => value * value)
+				.Subscribe(value => values.Add(value));
+
+			// Assert
+			Assert.Equal(new List<int> { 4 }, values);
+		}
+
+		[Fact]
+		public void Where_試す() {
+			// Arrange
+			var values = new List<int>();
+
+			// Act
+			Observable.Range(0, 5)
+				.Where(value => value % 2 == 0)
+				.Subscribe(value => values.Add(value));
+
+			// Assert
+			Assert.Equal(new List<int> { 0, 2, 4 }, values);
+		}
+
+		#region 生成系
+		[Fact]
 		public void Create_任意のObservableを生成する() {
 			// Arrange
 			var disposed = false;
@@ -272,5 +301,6 @@ namespace SampleTest.Reactive {
 			// Assert
 			Assert.Equal(expected, actual);
 		}
+		#endregion
 	}
 }
