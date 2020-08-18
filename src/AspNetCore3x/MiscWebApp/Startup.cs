@@ -11,6 +11,13 @@ using Microsoft.Extensions.Hosting;
 
 namespace MiscWebApp {
 	public class Startup {
+		private static readonly JsonSerializerOptions _jsonSerializerOptions
+			= new JsonSerializerOptions {
+				DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				WriteIndented = true,
+			};
+
 		public void ConfigureServices(IServiceCollection services) {
 		}
 
@@ -35,12 +42,21 @@ namespace MiscWebApp {
 							Port = context.Connection.RemotePort
 						},
 					};
-					var options = new JsonSerializerOptions {
-						DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-						PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-						WriteIndented = true,
+
+					var json = JsonSerializer.Serialize(connection, _jsonSerializerOptions);
+					await context.Response.WriteAsync(json);
+				});
+
+				endpoints.MapGet("/request/{**path}", async context => {
+					var request = new {
+						context.Request.Scheme,
+						// リクエストのホスト名にポート番号が含まれる
+						Host = context.Request.Host.Value,
+						PathBase = context.Request.PathBase.Value,
+						Path = context.Request.Path.Value,
+						QueryString = context.Request.QueryString.Value,
 					};
-					var json = JsonSerializer.Serialize(connection, options);
+					var json = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 					await context.Response.WriteAsync(json);
 				});
 
