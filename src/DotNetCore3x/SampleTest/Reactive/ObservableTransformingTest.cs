@@ -14,7 +14,7 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
-		public void Select_試す() {
+		public void Select_新しい形式に投影する() {
 			// Arrange
 			var values = new List<int>();
 
@@ -28,7 +28,7 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
-		public void SelectMany_試す() {
+		public void SelectMany_新しい形式のシーケンスに投影する() {
 			// Arrange
 			var actual = new List<int>();
 

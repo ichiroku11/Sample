@@ -14,7 +14,7 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
-		public void Where_試す() {
+		public void Where_シーケンスをフィルタする() {
 			// Arrange
 			var values = new List<int>();
 
@@ -28,7 +28,7 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
-		public void Skip_試す() {
+		public void Skip_シーケンスの開始から指定した数の要素を無視する() {
 			// Arrange
 			var values = new List<int>();
 
@@ -42,7 +42,7 @@ namespace SampleTest.Reactive {
 		}
 
 		[Fact]
-		public void Take_試す() {
+		public void Take_シーケンスの開始から指定した数の要素を取り出す() {
 			// Arrange
 			var values = new List<int>();
 
