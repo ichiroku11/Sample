@@ -27,5 +27,24 @@ namespace SampleTest.Reactive {
 			Assert.Equal(new List<int> { 4 }, values);
 		}
 
+		[Fact]
+		public void SelectMany_試す() {
+			// Arrange
+			var actual = new List<int>();
+
+			// Act
+			Observable.Range(1, 3)
+				.SelectMany(value => Observable.Range(10, value))
+				.Subscribe(value => actual.Add(value));
+
+			// Assert
+			var expected = new List<int> {
+				10,
+				10, 11,
+				10, 11, 12,
+			};
+			Assert.Equal(expected, actual);
+		}
+
 	}
 }
