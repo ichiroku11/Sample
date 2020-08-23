@@ -8,7 +8,7 @@ using Xunit;
 namespace SampleTest.Reactive {
 	public class ObservableCombiningTest {
 		[Fact]
-		public void Merge_シーケンスのマージする() {
+		public void Merge_シーケンスをマージする() {
 			// Arrange
 			var subject1 = new Subject<int>();
 			var subject2 = new Subject<int>();
