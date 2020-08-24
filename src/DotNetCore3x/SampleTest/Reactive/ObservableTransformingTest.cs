@@ -14,7 +14,7 @@ namespace SampleTest.Reactive {
 		}
 
 		// http://reactivex.io/documentation/operators/scan.html
-		// Aggregateに似ている
+		// Aggregateに似ているが、Scanは都度onNextが呼ばれる
 		[Fact]
 		public void Scan_シーケンスを集計する() {
 			// Arrange
