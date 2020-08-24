@@ -13,6 +13,22 @@ namespace SampleTest.Reactive {
 			_output = output;
 		}
 
+		// http://reactivex.io/documentation/operators/scan.html
+		// Aggregateに似ている
+		[Fact]
+		public void Scan_シーケンスを集計する() {
+			// Arrange
+			var values = new List<int>();
+
+			// Act
+			Observable.Range(1, 3)
+				.Scan((accumulate, current) => accumulate + current)
+				.Subscribe(value => values.Add(value));
+
+			// Assert
+			Assert.Equal(new List<int> { 1, 3, 6 }, values);
+		}
+
 		[Fact]
 		public void Select_新しい形式に投影する() {
 			// Arrange
@@ -45,6 +61,5 @@ namespace SampleTest.Reactive {
 			};
 			Assert.Equal(expected, actual);
 		}
-
 	}
 }
