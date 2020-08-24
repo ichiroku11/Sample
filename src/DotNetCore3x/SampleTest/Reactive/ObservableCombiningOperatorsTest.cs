@@ -6,7 +6,7 @@ using System.Text;
 using Xunit;
 
 namespace SampleTest.Reactive {
-	public class ObservableCombiningTest {
+	public class ObservableCombiningOperatorsTest {
 		// CombineLatestはZipに近いかも
 		[Fact]
 		public void CombineLatest_シーケンスの最新を結合する() {

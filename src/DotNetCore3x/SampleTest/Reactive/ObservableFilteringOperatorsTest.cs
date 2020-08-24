@@ -6,10 +6,10 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace SampleTest.Reactive {
-	public class ObservableFilteringTest {
+	public class ObservableFilteringOperatorsTest {
 		private readonly ITestOutputHelper _output;
 
-		public ObservableFilteringTest(ITestOutputHelper output) {
+		public ObservableFilteringOperatorsTest(ITestOutputHelper output) {
 			_output = output;
 		}
 

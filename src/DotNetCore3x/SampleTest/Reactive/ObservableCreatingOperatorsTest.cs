@@ -10,10 +10,10 @@ namespace SampleTest.Reactive {
 	// 参考
 	// https://www.atmarkit.co.jp/fdotnet/introrx/introrx_02/introrx_02_01.html
 	// https://blog.okazuki.jp/entry/20111104/1320409976
-	public class ObservableCreatingTest {
+	public class ObservableCreatingOperatorsTest {
 		private readonly ITestOutputHelper _output;
 
-		public ObservableCreatingTest(ITestOutputHelper output) {
+		public ObservableCreatingOperatorsTest(ITestOutputHelper output) {
 			_output = output;
 		}
 

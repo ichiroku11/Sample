@@ -6,7 +6,7 @@ using System.Reactive.Subjects;
 using Xunit;
 
 namespace SampleTest.Reactive {
-	public class ObservableMathematicalAndAggregateTest {
+	public class ObservableMathematicalAndAggregateOperatorsTest {
 		// http://reactivex.io/documentation/operators/reduce.html
 		// Scanに似ている
 		[Fact]
