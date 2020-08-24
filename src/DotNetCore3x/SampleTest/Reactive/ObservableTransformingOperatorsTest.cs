@@ -7,12 +7,6 @@ using Xunit.Abstractions;
 
 namespace SampleTest.Reactive {
 	public class ObservableTransformingOperatorsTest {
-		private readonly ITestOutputHelper _output;
-
-		public ObservableTransformingOperatorsTest(ITestOutputHelper output) {
-			_output = output;
-		}
-
 		// http://reactivex.io/documentation/operators/scan.html
 		// Aggregateに似ているが、Scanは都度onNextが呼ばれる
 		[Fact]

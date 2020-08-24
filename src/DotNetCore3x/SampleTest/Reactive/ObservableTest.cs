@@ -11,12 +11,6 @@ namespace SampleTest.Reactive {
 	// https://www.atmarkit.co.jp/fdotnet/introrx/introrx_02/introrx_02_01.html
 	// https://blog.okazuki.jp/entry/20111104/1320409976
 	public class ObservableTest {
-		private readonly ITestOutputHelper _output;
-
-		public ObservableTest(ITestOutputHelper output) {
-			_output = output;
-		}
-
 		[Fact]
 		public void Subscribe_リターンされたIDisposableのDisposeメソッドはUnsubscribeという意味() {
 			// Arrange

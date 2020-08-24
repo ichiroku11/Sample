@@ -7,12 +7,6 @@ using Xunit.Abstractions;
 
 namespace SampleTest.Reactive {
 	public class ObservableFilteringOperatorsTest {
-		private readonly ITestOutputHelper _output;
-
-		public ObservableFilteringOperatorsTest(ITestOutputHelper output) {
-			_output = output;
-		}
-
 		[Fact]
 		public void Where_シーケンスをフィルタする() {
 			// Arrange
