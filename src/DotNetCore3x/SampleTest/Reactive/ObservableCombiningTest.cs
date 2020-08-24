@@ -17,7 +17,8 @@ namespace SampleTest.Reactive {
 
 			// Act
 			// Assert
-			subject1.CombineLatest(subject2, (value1, value2) => $"{value1}:{value2}")
+			subject1
+				.CombineLatest(subject2, (value1, value2) => $"{value1}:{value2}")
 				.Subscribe(value => values.Add(value));
 
 			// 2つ目のシーケンスが発行されていないのでまだ空
@@ -81,35 +82,35 @@ namespace SampleTest.Reactive {
 		[Fact]
 		public void Zip_シーケンスをマージする() {
 			// Arrange
-			var values = new List<int>();
+			var values = new List<string>();
 
 			// Act
 			Observable.Range(1, 3)
 				.Zip(
-					Observable.Repeat(2, 3),
-					(first, second) => first + second)
+					Observable.Range(4, 3),
+					(value1, value2) => $"{value1}:{value2}")
 				.Subscribe(value => values.Add(value));
 
 			// Assert
-			Assert.Equal(new List<int> { 3, 4, 5 }, values);
+			Assert.Equal(new List<string> { "1:4", "2:5", "3:6" }, values);
 		}
 
 		[Fact]
 		public void Zip_どちらかのシーケンスが完了した段階で完了する() {
 			// Arrange
-			var values = new List<int>();
+			var values = new List<string>();
 
 			// Act
 			// 1つ目はシーケンスは3つ発行して完了
 			// 2つ目のシーケンスは2つ発行して完了
 			Observable.Range(1, 3)
 				.Zip(
-					Observable.Repeat(2, 2),
-					(first, second) => first + second)
+					Observable.Range(4, 2),
+					(value1, value2) => $"{value1}:{value2}")
 				.Subscribe(value => values.Add(value));
 
 			// Assert
-			Assert.Equal(new List<int> { 3, 4 }, values);
+			Assert.Equal(new List<string> { "1:4", "2:5" }, values);
 		}
 	}
 }
