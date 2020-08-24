@@ -1,12 +1,28 @@
+using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
 using Xunit;
 
 namespace SampleTest.Reactive {
 	public class ObservableMathematicalAndAggregateTest {
+		// http://reactivex.io/documentation/operators/reduce.html
+		// Scanに似ている
+		[Fact]
+		public void Aggregate_シーケンスを集計する() {
+			// Arrange
+			var values = new List<int>();
+
+			// Act
+			Observable.Range(1, 3)
+				.Aggregate((accumulate, current) => accumulate + current)
+				.Subscribe(value => values.Add(value));
+
+			// Assert
+			Assert.Equal(new List<int> { 6 }, values);
+		}
+
 		[Fact]
 		public void Concat_シーケンスを連結する() {
 			// Arrange
