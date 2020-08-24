@@ -7,6 +7,34 @@ using Xunit;
 
 namespace SampleTest.Reactive {
 	public class ObservableCombiningTest {
+		// CombineLatestはZipに近いかも
+		[Fact]
+		public void CombineLatest_シーケンスの最新を結合する() {
+			// Arrange
+			var subject1 = new Subject<int>();
+			var subject2 = new Subject<int>();
+			var values = new List<string>();
+
+			// Act
+			// Assert
+			subject1.CombineLatest(subject2, (value1, value2) => $"{value1}:{value2}")
+				.Subscribe(value => values.Add(value));
+
+			// 2つ目のシーケンスが発行されていないのでまだ空
+			subject1.OnNext(1);
+			Assert.Empty(values);
+
+			// 2つ目のシーケンスが発行されたので発行される
+			subject2.OnNext(2);
+			Assert.Equal(new List<string> { "1:2" }, values);
+
+			subject2.OnNext(3);
+			Assert.Equal(new List<string> { "1:2", "1:3" }, values);
+
+			subject1.OnNext(4);
+			Assert.Equal(new List<string> { "1:2", "1:3", "4:3" }, values);
+		}
+
 		[Fact]
 		public void Merge_シーケンスをマージする() {
 			// Arrange
