@@ -1,31 +1,31 @@
 .fc-menu-container {
 	background-color: #eee;
 	width: 300px;
-}
 
-ul {
-	display: flex;
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-
-li {
-	text-align: center;
-}
-
-a {
-	color: #333;
-	display: inline-block;
-	padding: .5rem;
-
-	&:hover {
-		background-color: #ccc;
+	ul {
+		display: flex;
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
 	}
-}
 
-svg {
-	vertical-align: middle;
+	li {
+		text-align: center;
+	}
+
+	a {
+		color: #333;
+		display: inline-block;
+		padding: .5rem;
+
+		&:hover {
+			background-color: #ccc;
+		}
+	}
+
+	svg {
+		vertical-align: middle;
+	}
 }
 
 .fc-sample-menu {
@@ -54,3 +54,48 @@ svg {
 		}
 	}
 }
+
+.fc-sample-palette {
+	ul {
+		display: flex;
+		line-height: 3.0;
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		width: 400px;
+	}
+
+	li {
+		flex: 1;
+		// 以下と同じ
+		//flex-grow: 1;
+
+		transition: flex 0.3s ease-out;
+
+		&:first-child {
+			background-color: #f54237;
+		}
+
+		&:nth-child(2) {
+			background-color: #f0faec;
+		}
+
+		&:nth-child(3) {
+			background-color: #98d1db;
+		}
+
+		&:nth-child(4) {
+			background-color: #366d97;
+		}
+
+		&:last-child {
+			background-color: #1a2e50;
+		}
+	}
+
+	li:hover {
+		cursor: pointer;
+		flex: 4;
+	}
+}
+
