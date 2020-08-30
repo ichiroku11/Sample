@@ -112,18 +112,18 @@
 
 @functions {
 	// ChevronLeft以外
-	private static IEnumerable<Icon> _actionIcons = new[] {
-		Icon.HandThumbsUp,
-		Icon.ChatLeft,
-		Icon.Upload,
-		Icon.ThreeDots,
+	private static IEnumerable<(Icon icon, string label)> _actionItems = new[] {
+		(Icon.HandThumbsUp, "Like"),
+		(Icon.ChatLeft, "Comment"),
+		(Icon.Upload, "Share"),
+		(Icon.ThreeDots, ""),
 	};
 }
 <section class="app-sample fc-sample-action">
 	<h3>アクションフッタ</h3>
 	<ul>
-		@foreach (var icon in _actionIcons) {
-			<li><a href="#">@{ RenderIcon(icon); }</a></li>
+		@foreach (var (icon, label) in _actionItems) {
+			<li><a href="#">@{ RenderIcon(icon); } @label</a></li>
 		}
 	</ul>
 </section>
