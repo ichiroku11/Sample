@@ -112,7 +112,6 @@
 		flex: 1;
 		// 以下と同じ
 		//flex-grow: 1;
-
 		transition: flex 0.3s ease-out;
 
 		&:first-child {
@@ -142,3 +141,49 @@
 	}
 }
 
+
+.fc-sample-card {
+	width: 500px;
+
+	.fc-card-option-row {
+		display: flex;
+		height: 150px;
+		position: relative;
+	}
+
+	.fc-card-option-input {
+		position: absolute;
+		opacity: 0;
+		top: 0;
+		z-index: -1;
+	}
+
+	.fc-card-option-label {
+		cursor: pointer;
+		display: block;
+		flex-grow: 1;
+		opacity: .5;
+		position: relative;
+
+		&:before,
+		&:after {
+		}
+
+		&:before {
+		}
+
+		&:after {
+		}
+
+		label {
+
+			sub {
+			}
+		}
+	}
+
+	.fc-card-option-input:checked + .fc-card-option-label {
+		flex-grow: 4;
+		opacity: 1;
+	}
+}
