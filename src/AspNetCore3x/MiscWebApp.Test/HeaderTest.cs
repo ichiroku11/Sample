@@ -16,7 +16,7 @@ namespace MiscWebApp.Test {
 		}
 
 		[Fact]
-		public async Task OKレスポンスを取得できる() {
+		public async Task テスト実行がだとレスポンスヘッダがなさげ() {
 			// Arrange
 			var request = new HttpRequestMessage(HttpMethod.Get, "/header");
 
@@ -25,6 +25,7 @@ namespace MiscWebApp.Test {
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+			Assert.Empty(response.Headers);
 		}
 	}
 }
