@@ -60,6 +60,10 @@ namespace MiscWebApp {
 					await context.Response.WriteAsync(json);
 				});
 
+				endpoints.MapGet("/header", async context => {
+					await context.Response.WriteAsync("Header");
+				});
+
 				endpoints.MapGet("/", async context => {
 					await context.Response.WriteAsync("Hello World!");
 				});
