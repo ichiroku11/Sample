@@ -63,7 +63,7 @@ clock?.addEventListener("load", _ => {
 		knob.setAttribute("cx", "125");
 		knob.setAttribute("cy", "125");
 		knob.setAttribute("r", "6");
-		knob.style.setProperty("fill", "#333", null);
+		knob.style.setProperty("fill", "#333");
 		clock.appendChild(knob);
 	} finally {
 		clock.unsuspendRedrawAll();
