@@ -143,12 +143,17 @@
 
 
 .fc-sample-card {
-	width: 500px;
+	background: linear-gradient(to bottom, #4678f3, #64d6ee);
+	width: 600px;
 
 	.fc-card-option-row {
+		align-items: stretch;
 		display: flex;
 		height: 150px;
+		justify-content: center;
+		margin: auto;
 		position: relative;
+		width: 90%;
 	}
 
 	.fc-card-option-input {
@@ -159,25 +164,56 @@
 	}
 
 	.fc-card-option-label {
+		background: #fff;
+		border-radius: .25em;
 		cursor: pointer;
 		display: block;
 		flex-grow: 1;
+		font-size: 4rem;
+		margin: .1em;
 		opacity: .5;
 		position: relative;
 
 		&:before,
 		&:after {
+			border: solid 2px #64d6ee;
+			content: "";
+			display: block;
+			visibility: visible;
 		}
 
 		&:before {
+			border-radius: 50%;
+			height: .25em;
+			right: .5em;
+			position: absolute;
+			top: .5em;
+			width: .25em;
 		}
 
 		&:after {
+			transform: scaleX(.2);
+			transform-origin: 0 0;
+			transition: inherit;
+			transition-property: transform, opacity;
+			width: 100%;
 		}
 
 		label {
+			display: inline-block;
+			font-size: 1.5em;
+			font-weight: bold;
+			text-transform: uppercase;
+			transform: scale(.7);
+			transform-origin: left bottom;
+			transition: inherit;
+			transition-property: transform, opacity;
 
 			sub {
+				display: inline-block;
+				font-size: .4em;
+				margin-left: .25em;
+				vertical-align: .3em;
 			}
 		}
 	}
