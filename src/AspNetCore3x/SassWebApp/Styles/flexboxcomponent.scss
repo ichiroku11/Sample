@@ -145,8 +145,9 @@
 .fc-sample-card {
 	.fc-card-container {
 		background: linear-gradient(to bottom, #4678f3, #64d6ee);
+		font-size: 62.5%;
 		padding: 20px 30px;
-		width: 600px;
+		width: 500px;
 	}
 
 	.fc-card-option-row {
@@ -166,25 +167,33 @@
 	}
 
 	.fc-card-option-label {
+		align-items: flex-start;
 		background: #fff;
 		border-radius: .25em;
 		cursor: pointer;
-		display: block;
+		display: flex;
+		flex-direction: column;
 		flex-grow: 1;
-		font-size: 4rem;
+		font-size: 4em;
+		justify-content: flex-end;
 		margin: .1em;
 		opacity: .5;
+		padding: .5em;
 		position: relative;
+		transition-duration: .8s, .6s;
+		transition-property: flex-grow, opacity;
+		transition-timing-function: cubic-bezier(.98, 0, .22, .98), ease-in-out;
 
-		&:before,
-		&:after {
+		&::before,
+		&::after {
 			border: solid 2px #64d6ee;
 			content: "";
 			display: block;
 			visibility: visible;
 		}
 
-		&:before {
+		// 丸
+		&::before {
 			border-radius: 50%;
 			height: .25em;
 			right: .5em;
@@ -193,35 +202,48 @@
 			width: .25em;
 		}
 
-		&:after {
+		// 下線
+		&::after {
 			transform: scaleX(.2);
 			transform-origin: 0 0;
 			transition: inherit;
 			transition-property: transform, opacity;
 			width: 100%;
 		}
+	}
 
-		label {
+	.fc-card-option-label-text {
+		display: inline-block;
+		font-size: 1.5em;
+		font-weight: bold;
+		text-transform: uppercase;
+		transform: scale(.7);
+		transform-origin: left bottom;
+		transition: inherit;
+		transition-property: transform, opacity;
+
+		sub {
 			display: inline-block;
-			font-size: 1.5em;
-			font-weight: bold;
-			text-transform: uppercase;
-			transform: scale(.7);
-			transform-origin: left bottom;
-			transition: inherit;
-			transition-property: transform, opacity;
-
-			sub {
-				display: inline-block;
-				font-size: .4em;
-				margin-left: .25em;
-				vertical-align: .3em;
-			}
+			font-size: .4em;
+			margin-left: .25em;
+			vertical-align: .3em;
 		}
 	}
 
 	.fc-card-option-input:checked + .fc-card-option-label {
 		flex-grow: 4;
 		opacity: 1;
+
+		&::before {
+			background: #64d6ee;
+		}
+
+		&::after {
+			transform: scaleX(1);
+		}
+
+		.fc-card-option-label-text {
+			transform: scale(1);
+		}
 	}
 }
