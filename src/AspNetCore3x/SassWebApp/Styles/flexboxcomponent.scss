@@ -143,8 +143,11 @@
 
 
 .fc-sample-card {
-	background: linear-gradient(to bottom, #4678f3, #64d6ee);
-	width: 600px;
+	.fc-card-container {
+		background: linear-gradient(to bottom, #4678f3, #64d6ee);
+		padding: 20px 30px;
+		width: 600px;
+	}
 
 	.fc-card-option-row {
 		align-items: stretch;
@@ -153,7 +156,6 @@
 		justify-content: center;
 		margin: auto;
 		position: relative;
-		width: 90%;
 	}
 
 	.fc-card-option-input {
