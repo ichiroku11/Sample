@@ -69,7 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicAuthnWebApp.Test", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscConsoleApp", "src\DotNetCore3x\MiscConsoleApp\MiscConsoleApp.csproj", "{79AE5199-AE4E-4E84-9BCF-591DD75F59AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiscWebApp.Test", "src\AspNetCore3x\MiscWebApp.Test\MiscWebApp.Test.csproj", "{834554E8-74C5-478C-AE8D-37015B4C3AE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscWebApp.Test", "src\AspNetCore3x\MiscWebApp.Test\MiscWebApp.Test.csproj", "{834554E8-74C5-478C-AE8D-37015B4C3AE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
