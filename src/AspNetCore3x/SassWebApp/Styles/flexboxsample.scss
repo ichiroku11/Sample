@@ -29,12 +29,6 @@ header {
 	a {
 		color: #fff;
 	}
-
-	/*
-	@media (max-width: 600px) {
-		padding: .5rem;
-	}
-	*/
 }
 
 .header-logo {
@@ -44,22 +38,47 @@ header {
 
 .header-nav {
 	margin-left: auto;
+	flex-wrap: wrap;
 
 	ul {
 		display: flex;
 	}
-
-	li {
-	}
-
 	a {
 		padding: 8px;
 	}
 }
 
 .header-user {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
 
+	svg {
+		height: 32px;
+		margin-left: 10px;
+		width: 32px;
+	}
 }
+
+@media (max-width: 600px) {
+	.header {
+		padding: .5rem;
+	}
+
+	.header-logo {
+		margin: 1rem 0;
+	}
+
+	.header-nav {
+		margin-left: initial;
+	}
+
+	.header-user {
+		display: none;
+	}
+}
+
+
 
 
 // main
