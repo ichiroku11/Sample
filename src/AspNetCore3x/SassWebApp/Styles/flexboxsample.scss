@@ -1,7 +1,71 @@
+
+$main-color: #1a6ccc;
+
 * {
 	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
 }
 
 a {
 	text-decoration: none;
 }
+
+ul {
+	list-style: none;
+}
+
+// header
+header {
+	align-items: center;
+	background-color: $main-color;
+	box-shadow: 0 5px 13px 0 rgba(#000, .15);
+	display: flex;
+	padding: 0 8px;
+
+	a {
+		color: #fff;
+	}
+
+	/*
+	@media (max-width: 600px) {
+		padding: .5rem;
+	}
+	*/
+}
+
+.header-logo {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.header-nav {
+	margin-left: auto;
+
+	ul {
+		display: flex;
+	}
+
+	li {
+	}
+
+	a {
+		padding: 8px;
+	}
+}
+
+.header-user {
+
+}
+
+
+// main
+main {
+	// todo: 仮
+	height: 80vh;
+}
+
+// footer
