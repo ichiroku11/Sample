@@ -8,16 +8,30 @@ namespace SassWebApp {
 	public enum Svg {
 		None = 0,
 
+		AwardFill,
+
+		Cart,
+
 		// </>
 		CodeSlash,
 
 		// 水滴、インク
 		DropletFill,
 
+		GearFill,
+
+		HouseDoorFill,
+
 		PersonCircle,
 
 		// ★
 		StarFill,
+
+		Sliders,
+
+		TagsFill,
+
+		TrophyFill,
 
 		// トラック
 		Truck,
