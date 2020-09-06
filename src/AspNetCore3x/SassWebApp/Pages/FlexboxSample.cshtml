@@ -1,4 +1,37 @@
 @page
 @{
-	ViewBag.Title = "Flexboxを使ったサンプル";
+	Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Flexboxを使ったサンプル - SASS/CSS Sample</title>
+	<partial name="_PageCss" />
+</head>
+<body>
+	<header>
+		<h1 class="header-logo"><a href="#">Xxx Store</a></h1>
+		<div class="header-nav">
+			<nav>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Works</a></li>
+				</ul>
+			</nav>
+		</div>
+		<a href="#" class="header-user">
+			<span class="header-user-name">Xxxx Xxxxx</span>
+			<span class="header-user-avatar">
+				<partial name="_Svg" model="Svg.PersonCircle" />
+			</span>
+		</a>
+	</header>
+	<main>
+	</main>
+	<footer>
+		<a href="https://coliss.com/articles/build-websites/operation/css/flexbox-real-world-use-cases.html">CSS Flexboxで、Webページによく使用されるUIコンポーネントを実装するテクニックのまとめ | コリス</a>
+	</footer>
+</body>
+</html>

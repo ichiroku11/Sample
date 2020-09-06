@@ -14,6 +14,8 @@ namespace SassWebApp {
 		// 水滴、インク
 		DropletFill,
 
+		PersonCircle,
+
 		// ★
 		StarFill,
 
