@@ -16,6 +16,7 @@ a {
 
 ul {
 	list-style: none;
+	padding: 0;
 }
 
 // header
@@ -101,6 +102,31 @@ header {
 }
 
 aside {
+	nav {
+		& > ul {
+			display: flex;
+			flex-direction: column;
+		}
+
+		a {
+			$active-cColor: #f3f7fc;
+			color: #c3c3c3;
+			cursor: pointer;
+			display: block;
+			height: 2rem;
+			width: 100%;
+			text-decoration: none;
+
+			&:hover {
+				background: $active-cColor;
+			}
+
+			&.active {
+				background: $active-cColor;
+				color: $main-color;
+			}
+		}
+	}
 }
 
 main {
