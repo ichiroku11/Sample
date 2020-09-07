@@ -97,39 +97,57 @@ header {
 		background: #fff;
 		border-radius: 5px;
 		box-shadow: 0 4px 4px 0 rgba(#000, .05);
-		padding: 1rem;
 	}
 }
 
 aside {
 	nav {
-		& > ul {
+		padding: .5rem .5rem 1rem 0;
+
+		ul {
 			display: flex;
 			flex-direction: column;
 		}
 
 		a {
 			$active-cColor: #f3f7fc;
+			$height: 2.5rem;
+
+			align-items: center;
+			border-radius: 0 $height * 0.5 $height * 0.5 0;
 			color: #c3c3c3;
 			cursor: pointer;
-			display: block;
-			height: 2rem;
+			display: flex;
+			height: $height;
+			padding: 0 1rem;
 			width: 100%;
 			text-decoration: none;
 
+			&.active,
 			&:hover {
 				background: $active-cColor;
-			}
-
-			&.active {
+				color: $main-color;
 				background: $active-cColor;
 				color: $main-color;
+			}
+
+			svg {
+				height: 1.5rem;
+				width: 1.5rem;
+				margin-right: 1rem;
+			}
+
+			span {
+				font-weight: bold;
 			}
 		}
 	}
 }
 
 main {
+	article {
+		padding: 1rem;
+	}
 }
 
 

@@ -1,6 +1,14 @@
 @page
 @{
 	Layout = null;
+
+	var asideNavs = new[] {
+		(icon: Svg.HouseDoorFill, label: "Home", active: true),
+		(icon: Svg.Cart, label: "Card", active: false),
+		(icon: Svg.TagsFill, label: "Coupons", active: false),
+		(icon: Svg.StarFill, label: "Favorite Items", active: false),
+		(icon: Svg.GearFill, label: "Settings", active: false),
+	};
 }
 <!DOCTYPE html>
 <html>
@@ -30,11 +38,14 @@
 		<aside>
 			<nav>
 				<ul>
-					<li><a class="active" href="#">Home</a></li>
-					<li><a href="#">Cart</a></li>
-					<li><a href="#">Coupons</a></li>
-					<li><a href="#">Favorite Items</a></li>
-					<li><a href="#">Settings</a></li>
+					@foreach (var (icon, label, active) in asideNavs) {
+						<li>
+							<a class="@(active ? "active": "")" href="#">
+								<partial name="_Svg" model="icon" />
+								<span>@label</span>
+							</a>
+						</li>
+					}
 				</ul>
 			</nav>
 		</aside>
