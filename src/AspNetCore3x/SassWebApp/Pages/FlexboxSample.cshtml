@@ -55,7 +55,17 @@
 					<partial name="_Svg" model="Svg.AwardFill" />
 					<span>Top Sellers</span>
 				</h2>
-				<div></div>
+				<ul class="top-shellers">
+					@foreach (var index in Enumerable.Range(1, 8)) {
+						<li>
+							<partial name="_Svg" model="Svg.PersonCircle" />
+							<div>
+								<h3>Xxxx Xxxxx</h3>
+								<p>154 orders</p>
+							</div>
+						</li>
+					}
+				</ul>
 				<hr />
 				<h2>
 					<partial name="_Svg" model="Svg.AwardFill" />
