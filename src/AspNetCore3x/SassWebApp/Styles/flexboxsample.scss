@@ -94,7 +94,7 @@ header {
 	padding-right: 1rem;
 
 	nav,
-	article {
+	section {
 		background: #fff;
 		border-radius: 5px;
 		box-shadow: 0 4px 4px 0 rgba(#000, .05);
@@ -144,10 +144,10 @@ aside > nav {
 	}
 }
 
-main > article {
+main > section {
 	padding: .5rem 1rem;
 
-	& + article {
+	& + section {
 		margin-top: 18px;
 	}
 
