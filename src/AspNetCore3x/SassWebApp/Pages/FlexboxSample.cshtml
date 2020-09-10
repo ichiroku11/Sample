@@ -71,9 +71,17 @@
 					<partial name="_Svg" model="Svg.AwardFill" />
 					<span>Top Articles</span>
 				</h2>
-				<div class="top-articles">
-
-				</div>
+				<ul class="top-articles">
+					@foreach (var index in Enumerable.Range(0, 4)) {
+						<li class="card">
+							<div class="card-image"></div>
+							<div class="card-body">
+								<h3>How to design in a logo in 5 steps</h3>
+								<p>By Xxxx Xxxxx</p>
+							</div>
+						</li>
+					}
+				</ul>
 			</section>
 			<section>
 				<h2>

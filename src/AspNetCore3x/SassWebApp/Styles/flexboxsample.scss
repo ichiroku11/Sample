@@ -227,9 +227,38 @@ main > section {
 	}
 }
 
-
 .top-articles {
-	// todo:
+	display: flex;
+	flex-wrap: wrap;
+
+	.card {
+		align-items: center;
+		display: flex;
+		flex: 0 0 50%;
+		margin-bottom: 1rem;
+	}
+
+	.card-image {
+		background-color: $main-color;
+		border-radius: 5px;
+		display: block;
+		height: 80px;
+		margin-right: .5rem;
+		width: 120px;
+	}
+
+	.card-body {
+	}
+
+	h3 {
+		font-size: .9rem;
+		margin: 0;
+	}
+
+	p {
+		font-size: .7rem;
+		margin: 0;
+	}
 }
 
 // footer
