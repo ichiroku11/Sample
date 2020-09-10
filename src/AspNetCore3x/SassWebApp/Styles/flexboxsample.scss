@@ -233,6 +233,7 @@ main > section {
 
 	.card {
 		align-items: center;
+		color: #5c5c5c;
 		display: flex;
 		flex: 0 0 50%;
 		margin-bottom: 1rem;
@@ -242,12 +243,13 @@ main > section {
 		background-color: $main-color;
 		border-radius: 5px;
 		display: block;
+		flex: 0 0 120px;
 		height: 80px;
 		margin-right: .5rem;
-		width: 120px;
 	}
 
 	.card-body {
+		flex: 0 1 auto;
 	}
 
 	h3 {
