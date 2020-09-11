@@ -177,6 +177,7 @@ main > section {
 .top-shellers {
 	display: flex;
 	flex-wrap: wrap;
+	margin: 1rem 0;
 
 	li {
 		align-items: center;
@@ -230,6 +231,7 @@ main > section {
 .top-articles {
 	display: flex;
 	flex-wrap: wrap;
+	margin: 1rem 0;
 
 	.card {
 		align-items: center;
@@ -260,6 +262,30 @@ main > section {
 	p {
 		font-size: .7rem;
 		margin: 0;
+	}
+}
+
+.search {
+	display: flex;
+	margin: 1rem 0;
+
+	input, button {
+		font-size: .9rem;
+		border-radius: 1.5rem;
+	}
+
+	input {
+		border: 2px solid #e2e2e2;
+		flex-grow: 1;
+		padding: 8px;
+		margin-right: 12px;
+	}
+
+	button {
+		background-color: $main-color;
+		border: none;
+		color: #fff;
+		padding: 8px 16px;
 	}
 }
 
