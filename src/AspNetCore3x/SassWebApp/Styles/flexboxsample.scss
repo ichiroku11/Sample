@@ -231,6 +231,7 @@ main > section {
 .top-articles {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-evenly;
 	margin: 1rem 0;
 
 	.card {
@@ -245,8 +246,9 @@ main > section {
 		background-color: $main-color;
 		border-radius: 5px;
 		display: block;
-		flex: 0 0 120px;
+		flex: 0 0 auto;
 		height: 80px;
+		width: 120px;
 		margin-right: .5rem;
 	}
 
@@ -266,7 +268,7 @@ main > section {
 			height: 100px;
 			margin-right: 0;
 			margin-bottom: .5rem;
-			width: 100%;
+			width: 180px;
 		}
 
 		.card-body {
@@ -283,6 +285,28 @@ main > section {
 		margin: 0;
 	}
 }
+
+
+@media (max-width: 700px) {
+	.top-articles {
+		.card {
+			flex: 0 0 100%;
+		}
+
+		.card.stacked {
+			flex: 0 0 100%;
+		}
+	}
+}
+
+@media (min-width: 600px) {
+	.top-articles {
+		.card.stacked {
+			flex: 0 0 30%;
+		}
+	}
+}
+
 
 .search {
 	display: flex;
