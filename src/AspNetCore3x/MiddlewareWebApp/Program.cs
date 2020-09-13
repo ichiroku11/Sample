@@ -17,7 +17,10 @@ namespace MiddlewareWebApp {
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder => {
 					// SampleMiddleware、SampleStartupFilterを使ったStartup
-					webBuilder.UseStartup<SampleStartup>();
+					//webBuilder.UseStartup<SampleStartup>();
+
+					// Use/UseWhen/Runを使ったStartup
+					webBuilder.UseStartup<ExtensionMethodStartup>();
 				});
 	}
 }
