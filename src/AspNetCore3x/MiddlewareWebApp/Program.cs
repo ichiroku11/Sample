@@ -16,7 +16,8 @@ namespace MiddlewareWebApp {
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder => {
-					webBuilder.UseStartup<Startup>();
+					// SampleMiddleware、SampleStartupFilterを使ったStartup
+					webBuilder.UseStartup<SampleStartup>();
 				});
 	}
 }

@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace MiddlewareWebApp {
-	public class Startup {
+	// SampleMiddleware、SampleStartupFilterを使ったStartup
+	public class SampleStartup {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
 
