@@ -17,6 +17,7 @@ const config = {
 		gridrepeat: path.resolve(__dirname, "styles/gridrepeat.scss"),
 		index: path.resolve(__dirname, "styles/index.scss"),
 		media: path.resolve(__dirname, "styles/media.scss"),
+		onelinelayout: path.resolve(__dirname, "styles/onelinelayout.scss"),
 		transform: path.resolve(__dirname, "styles/transform.scss"),
 		transition: path.resolve(__dirname, "styles/transition.scss")
 	},
