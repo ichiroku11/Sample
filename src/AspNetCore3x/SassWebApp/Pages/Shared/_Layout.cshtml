@@ -9,7 +9,12 @@
 </head>
 <body>
 	<header>
-		<h1>@ViewBag.Title</h1>
+		<h1>
+			@ViewBag.Title
+			@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
+				<small>@ViewBag.Subtitle</small>
+			}
+		</h1>
 	</header>
 	<main>
 		@RenderBody()

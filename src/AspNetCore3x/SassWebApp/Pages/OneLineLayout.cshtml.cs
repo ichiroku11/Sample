@@ -14,5 +14,11 @@ namespace SassWebApp.Pages {
 	public class OneLineLayoutModel : PageModel {
 		[BindProperty(SupportsGet = true)]
 		public OneLineLayout Layout { get; set; } = OneLineLayout.Index;
+
+		public string Subtitle => Layout switch {
+			OneLineLayout.Index => nameof(Index),
+			OneLineLayout.SuperCentered => "Super Centered: place-items: center",
+			_ => throw new InvalidOperationException(),
+		};
 	}
 }
