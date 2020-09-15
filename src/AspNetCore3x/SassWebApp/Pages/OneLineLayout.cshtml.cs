@@ -7,18 +7,24 @@ using System.Threading.Tasks;
 
 namespace SassWebApp.Pages {
 	public enum OneLineLayout {
-		Index = 0,
-		SuperCentered,
+		SuperCentered = 1,
+	}
+
+	public static class OneLineLayoutExtensions {
+		public static string GetDisplayName(this OneLineLayout layout) {
+			// 雑・・・
+			return layout switch {
+				OneLineLayout.SuperCentered => "Super Centered: place-items: center",
+				_ => throw new InvalidOperationException(),
+			};
+		}
 	}
 
 	public class OneLineLayoutModel : PageModel {
 		[BindProperty(SupportsGet = true)]
-		public OneLineLayout Layout { get; set; } = OneLineLayout.Index;
+		public OneLineLayout Layout { get; set; } = OneLineLayout.SuperCentered;
 
-		public string Subtitle => Layout switch {
-			OneLineLayout.Index => nameof(Index),
-			OneLineLayout.SuperCentered => "Super Centered: place-items: center",
-			_ => throw new InvalidOperationException(),
-		};
+		public void OnGet() {
+		}
 	}
 }

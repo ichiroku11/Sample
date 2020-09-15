@@ -1,6 +1,9 @@
-@page "{layout?}"
+@page "{layout}"
 @model OneLineLayoutModel
 @{
 	ViewBag.Title = "Ten modern layouts in one line of CSS";
-	ViewBag.Subtitle = Model.Subtitle;
+	ViewBag.Subtitle = Model.Layout.GetDisplayName();
 }
+<section class="app-sample">
+</section>
+
