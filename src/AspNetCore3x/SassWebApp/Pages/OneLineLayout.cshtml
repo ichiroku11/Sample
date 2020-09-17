@@ -4,6 +4,12 @@
 	ViewBag.Title = "Ten modern layouts in one line of CSS";
 	ViewBag.Subtitle = Model.Layout.GetDisplayName();
 }
-<section class="app-sample">
+<section class="app-sample oll-sample@((int)Model.Layout)">
+	@if (Model.Layout == OneLineLayout.SuperCentered) {
+		<div class="oll-parent">
+			<div class="oll-child">
+				:)
+			</div>
+		</div>
+	}
 </section>
-
