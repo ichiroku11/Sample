@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 namespace SassWebApp.Pages {
 	public enum OneLineLayout {
 		SuperCentered = 1,
+		DeconstructedPancake,
 	}
 
 	public static class OneLineLayoutExtensions {
 		public static string GetDisplayName(this OneLineLayout layout) {
 			// 雑・・・
 			return layout switch {
-				OneLineLayout.SuperCentered => "Super Centered: place-items: center",
+				OneLineLayout.SuperCentered => "01. Super Centered: place-items: center",
+				OneLineLayout.DeconstructedPancake => "02. The Deconstructed Pancake: flex: <grow> <shrink> <baseWidth>",
 				_ => throw new InvalidOperationException(),
 			};
 		}

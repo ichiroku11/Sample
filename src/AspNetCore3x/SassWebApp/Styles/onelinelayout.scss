@@ -6,19 +6,49 @@
 
 .oll-sample1 {
 	.oll-parent {
-		background-color: #9fdde5;
 		display: grid;
-		height: 100%;
-
 		align-items: center;
 		justify-items: center;
 		// ↓は↑2つと同じ
 		//place-items: center;
+
+		background-color: #9fdde5;
+
+		overflow: hidden;
+		resize: both;
+
+		height: 300px;
+		width: 300px;
 	}
 
 	.oll-child {
 		background-color: #f3c0a1;
 		border-radius: 10px;
 		padding: 10px;
+	}
+}
+
+.oll-sample2 {
+	.oll-parent {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		overflow: hidden;
+		resize: both;
+
+		height: 300px;
+		width: 300px;
+	}
+
+	.oll-box {
+		flex: 0 1 150px;
+
+		align-items: center;
+		background-color: #d1f7bf;
+		border-radius: 10px;
+		display: grid;
+		justify-items: center;
+		margin: 5px;
 	}
 }
