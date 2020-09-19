@@ -16,7 +16,7 @@ namespace MiscWebApp.Test {
 		}
 
 		[Fact]
-		public async Task テスト実行がだとレスポンスヘッダがなさげ() {
+		public async Task テスト実行だとレスポンスヘッダがなさげ() {
 			// Arrange
 			var request = new HttpRequestMessage(HttpMethod.Get, "/header");
 
