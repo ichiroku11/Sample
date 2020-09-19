@@ -1,24 +1,27 @@
 
 .app-sample {
-	height: calc(100vh - 150px);
 	margin: 0;
+
+	.oll-parent {
+		box-shadow: 0 0 6px 4px rgb(128, 128, 128, .2);
+		overflow: hidden;
+		resize: both;
+		// 初期のサイズ
+		height: 400px;
+		width: 600px;
+	}
 }
 
 .oll-sample1 {
 	.oll-parent {
+		// コンテンツを中央にそろえるる
 		display: grid;
 		align-items: center;
 		justify-items: center;
-		// ↓は↑2つと同じ
+		// align-items、justify-itemsの2つとplace-itemsは同じ
 		//place-items: center;
 
 		background-color: #9fdde5;
-
-		overflow: hidden;
-		resize: both;
-
-		height: 300px;
-		width: 300px;
 	}
 
 	.oll-child {
@@ -33,22 +36,21 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-
-		overflow: hidden;
-		resize: both;
-
-		height: 300px;
-		width: 300px;
 	}
 
 	.oll-box {
+		// ボックスを伸縮させない
 		flex: 0 1 150px;
+		// ボックスを伸縮させるなら
+		//flex: 0 1 150px;
 
+		// コンテンツを中央にそろえるる
+		display: grid;
 		align-items: center;
+		justify-items: center;
+		//
 		background-color: #d1f7bf;
 		border-radius: 10px;
-		display: grid;
-		justify-items: center;
 		margin: 5px;
 	}
 }
