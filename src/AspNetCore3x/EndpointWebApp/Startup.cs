@@ -27,7 +27,7 @@ namespace EndpointWebApp {
 
 					// エンドポイント一覧
 					foreach (var endpoint in endpointDataSource.Endpoints) {
-						await context.Response.WriteAsync($"{endpoint.DisplayName}{Environment.NewLine}");
+						await context.Response.WriteLineAsync(endpoint.DisplayName);
 					}
 				}).WithDisplayName("endpoints");
 
