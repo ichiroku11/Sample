@@ -22,6 +22,16 @@ namespace EndpointWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
+				endpoints.MapGet("/metadata", async context => {
+					// UseRouting以降のミドルウェアであればエンドポイントを取得できる
+					var endpoint = context.GetEndpoint();
+					await context.Response.WriteLineAsync(endpoint.DisplayName);
+
+					// エンドポイントに関連するメタデータを取得
+					var metadata = endpoint.Metadata.GetMetadata<ISampleMetadata>();
+					await context.Response.WriteLineAsync($"{nameof(ISampleMetadata)}:{metadata.Value}");
+				}).WithMetadata(new SampleMetadataAttribute(value: 1));
+
 				endpoints.MapGet("/endpoints", async context => {
 					var endpointDataSource = context.RequestServices.GetRequiredService<EndpointDataSource>();
 
