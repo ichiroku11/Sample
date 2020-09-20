@@ -54,3 +54,22 @@
 		margin: 5px;
 	}
 }
+
+.oll-sample3 {
+	.oll-parent {
+		display: grid;
+		grid-template-columns: minmax(150px, 25%) 1fr;
+	}
+
+	aside, main {
+		padding: .5rem;
+	}
+
+	aside {
+		background: #fee6ae;
+	}
+
+	main {
+		background: #dbcde0;
+	}
+}
