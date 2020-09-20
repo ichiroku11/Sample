@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -21,9 +22,18 @@ namespace EndpointWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
+				endpoints.MapGet("/endpoints", async context => {
+					var endpointDataSource = context.RequestServices.GetRequiredService<EndpointDataSource>();
+
+					// エンドポイント一覧
+					foreach (var endpoint in endpointDataSource.Endpoints) {
+						await context.Response.WriteAsync($"{endpoint.DisplayName}{Environment.NewLine}");
+					}
+				}).WithDisplayName("endpoints");
+
 				endpoints.MapGet("/", async context => {
 					await context.Response.WriteAsync("Hello World!");
-				});
+				}).WithDisplayName("root");
 			});
 		}
 	}
