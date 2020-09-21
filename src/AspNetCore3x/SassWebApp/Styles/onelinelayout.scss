@@ -96,3 +96,46 @@
 		background: #d1c4d9;
 	}
 }
+
+.oll-sample5 {
+	.oll-parent {
+		display: grid;
+		grid-template: auto 1fr auto / auto 1fr auto;
+
+		& > * {
+			padding: .5rem;
+		}
+	}
+
+	header {
+		background: #f4dce6;
+		grid-column: 1 / 4;
+		grid-row: 1 / 2;
+	}
+
+	.oll-sidebar {
+		grid-row: 2 / 3;
+	}
+
+	.oll-sidebar-left {
+		background: #9fdee6;
+		grid-column: 1 / 2;
+	}
+
+	.oll-sidebar-right {
+		background: #fee6ae;
+		grid-column: 3 / 4;
+	}
+
+	main {
+		background: #f4c1a3;
+		grid-column: 2 / 3;
+		grid-row: 2 / 3;
+	}
+
+	footer {
+		background: #cef0bf;
+		grid-column: 1 / 4;
+		grid-row: 3 / 4;
+	}
+}

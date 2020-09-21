@@ -21,13 +21,13 @@ namespace SassWebApp.Pages {
 
 	public static class OneLineLayoutExtensions {
 		public static string GetDisplayName(this OneLineLayout layout) {
-			// 雑・・・
+			// 雑な実装（本当ならDisplayAttributeかな）
 			return layout switch {
 				OneLineLayout.SuperCentered => "01. 上下中央揃え: place-items: center",
 				OneLineLayout.DeconstructedPancake => "02. パンケーキ解体レイアウト: flex: grow | shrink | baseWidth",
 				OneLineLayout.SidebarSays => "03. サイドバー付きレイアウト: grid-template-columns: minmax(, ) …)",
 				OneLineLayout.PancakeStack => "04. パンケーキ重ねレイアウト: grid-template-rows: auto 1fr auto",
-				OneLineLayout.ClassicHolyGrailLayout => "05. 聖杯レイアウト: grid-template: auto 1 fr auto / auto 1fr auto",
+				OneLineLayout.ClassicHolyGrailLayout => "05. 聖杯レイアウト: grid-template: auto 1fr auto / auto 1fr auto",
 				OneLineLayout.TwelveSpanGrid => "06. 12カラムグリッド: grid-template-columns: repeat(12, 1fr)",
 				OneLineLayout.RepeatAutoMinMax => "07. RAM(Repeat, Auto, MinMax): grid-template-columns(auto-fit, minmax(, 1fr))",
 				OneLineLayout.LineUp => "08. 要素の整列: justify-content: space-between",
