@@ -59,10 +59,10 @@
 	.oll-parent {
 		display: grid;
 		grid-template-columns: minmax(150px, 25%) 1fr;
-	}
 
-	aside, main {
-		padding: .5rem;
+		& > * {
+			padding: .5rem;
+		}
 	}
 
 	aside {
@@ -71,5 +71,28 @@
 
 	main {
 		background: #dbcde0;
+	}
+}
+
+.oll-sample4 {
+	.oll-parent {
+		display: grid;
+		grid-template-rows: auto 1fr auto;
+
+		& > * {
+			padding: .5rem;
+		}
+	}
+
+	header {
+		background: #a5e4e6;
+	}
+
+	main {
+		background: #f0bda3;
+	}
+
+	footer {
+		background: #d1c4d9;
 	}
 }

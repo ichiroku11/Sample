@@ -10,6 +10,7 @@ namespace SassWebApp.Pages {
 		SuperCentered = 1,
 		DeconstructedPancake,
 		SidebarSays,
+		PancakeStack,
 	}
 
 	public static class OneLineLayoutExtensions {
@@ -19,6 +20,7 @@ namespace SassWebApp.Pages {
 				OneLineLayout.SuperCentered => "01. Super Centered: place-items: center",
 				OneLineLayout.DeconstructedPancake => "02. The Deconstructed Pancake: flex: <grow> <shrink> <baseWidth>",
 				OneLineLayout.SidebarSays => "03. Sidebar Says: grid-template-columns: minmax(<min>, <max>) ...)",
+				OneLineLayout.PancakeStack => "04. Pancake Stack: grid-template-rows: auto 1fr auto",
 				_ => throw new InvalidOperationException(),
 			};
 		}

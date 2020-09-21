@@ -2,7 +2,6 @@
 @model OneLineLayoutModel
 @{
 	// 参考
-	// https://web.dev/one-line-layouts/
 	// http://photoshopvip.net/123968
 	ViewBag.Title = "Ten modern layouts in one line of CSS";
 	ViewBag.Subtitle = Model.Layout.GetDisplayName();
@@ -24,6 +23,12 @@
 		<div class="oll-parent">
 			<aside>Min: 150px<br />Max: 25%</aside>
 			<main>This element takes the second grid position (1fr), meaning it takes up the rest of the remaining space.</main>
+		</div>
+	} else if (Model.Layout == OneLineLayout.PancakeStack) {
+		<div class="oll-parent">
+			<header>Header</header>
+			<main>Main</main>
+			<footer>Footer</footer>
 		</div>
 	}
 </section>
