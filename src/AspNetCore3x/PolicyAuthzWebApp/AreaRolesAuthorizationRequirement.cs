@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PolicyAuthzWebApp {
 	// エリアにアクセスできるロールを指定する要件
-	// 作ってはみたものの結局はエリア専用のコントローラを作るような気がする
+	// 作ってはみたものの結局はエリア専用のコントローラを作るか、エンドポイントで指定するかって気がしてきた
 	/*
 	[Area("Hoge"), Authorize(Roles = "Fuge")]
 	public abstract class HogeAreaController : Controller {
