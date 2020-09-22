@@ -9,6 +9,10 @@
 		// 初期のサイズ
 		height: 400px;
 		width: 600px;
+
+		& > * {
+			padding: .5rem;
+		}
 	}
 }
 
@@ -20,14 +24,13 @@
 		justify-items: center;
 		// align-items、justify-itemsの2つとplace-itemsは同じ
 		//place-items: center;
-
 		background-color: #9fdde5;
 	}
 
 	.oll-child {
 		background-color: #f3c0a1;
 		border-radius: 10px;
-		padding: 10px;
+		padding: .75rem;
 	}
 }
 
@@ -59,10 +62,6 @@
 	.oll-parent {
 		display: grid;
 		grid-template-columns: minmax(150px, 25%) 1fr;
-
-		& > * {
-			padding: .5rem;
-		}
 	}
 
 	aside {
@@ -78,10 +77,6 @@
 	.oll-parent {
 		display: grid;
 		grid-template-rows: auto 1fr auto;
-
-		& > * {
-			padding: .5rem;
-		}
 	}
 
 	header {
@@ -101,10 +96,6 @@
 	.oll-parent {
 		display: grid;
 		grid-template: auto 1fr auto / auto 1fr auto;
-
-		& > * {
-			padding: .5rem;
-		}
 	}
 
 	header {
@@ -137,5 +128,38 @@
 		background: #cef0bf;
 		grid-column: 1 / 4;
 		grid-row: 3 / 4;
+	}
+}
+
+.oll-sample6 {
+	.oll-parent {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+	}
+
+	.oll-span {
+		display: grid;
+		align-items: center;
+		justify-items: center;
+	}
+
+	.oll-span-12 {
+		background: #cef0bf;
+		grid-column: 1 / span 12;
+	}
+
+	.oll-span-6 {
+		background: #f4c1a3;
+		grid-column: 1 / span 6;
+	}
+
+	.oll-span-4 {
+		background: #9fdee6;
+		grid-column: 4 / span 4;
+	}
+
+	.oll-span-2 {
+		background: #fee6ae;
+		grid-column: 3 / span 2;
 	}
 }
