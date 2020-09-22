@@ -16,7 +16,11 @@ namespace EndpointWebApp {
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder => {
-					webBuilder.UseStartup<SampleStartup>();
+					// MVCを使わない場合のEndpointとMetadataを確認する
+					//webBuilder.UseStartup<SampleStartup>();
+
+					// MVC、コントローラを使った場合のEndpointとMetadataを確認する
+					webBuilder.UseStartup<ControllerStartup>();
 				});
 	}
 }
