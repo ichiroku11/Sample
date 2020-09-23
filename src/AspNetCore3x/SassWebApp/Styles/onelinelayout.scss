@@ -163,3 +163,39 @@
 		grid-column: 3 / span 2;
 	}
 }
+
+.oll-sample7 {
+	.oll-parent {
+		display: grid;
+
+		& > * {
+			display: grid;
+			align-items: center;
+			justify-items: center;
+		}
+
+		div:first-child {
+			background: #f2d9e6;
+		}
+
+		div:nth-child(2) {
+			background: #dacbe0;
+		}
+
+		div:nth-child(3) {
+			background: #a5e4e6;
+		}
+
+		div:last-child {
+			background: #d1f7bf;
+		}
+	}
+
+	.oll-parent-autofit {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	}
+
+	.oll-parent-autofill {
+		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	}
+}

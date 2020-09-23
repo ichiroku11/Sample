@@ -45,6 +45,19 @@
 			<div class="oll-span oll-span-4">Sapn 4</div>
 			<div class="oll-span oll-span-2">Sapn 2</div>
 		</div>
+	} else if (Model.Layout == OneLineLayout.RepeatAutoMinMax) {
+		<h4>auto-fit</h4>
+		<div class="oll-parent oll-parent-autofit">
+			@foreach (var index in Enumerable.Range(1, 4)) {
+				<div>@index</div>
+			}
+		</div>
+		<h4>auto-fill</h4>
+		<div class="oll-parent oll-parent-autofill">
+			@foreach (var index in Enumerable.Range(1, 4)) {
+				<div>@index</div>
+			}
+		</div>
 	} else {
 		<p>Coming soon</p>
 	}
