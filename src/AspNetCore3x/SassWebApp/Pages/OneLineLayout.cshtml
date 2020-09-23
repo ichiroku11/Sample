@@ -26,17 +26,17 @@
 		</div>
 	} else if (Model.Layout == OneLineLayout.PancakeStack) {
 		<div class="oll-parent">
-			<header>Header</header>
-			<main>Main</main>
-			<footer>Footer</footer>
+			<header contenteditable>Header</header>
+			<main contenteditable>Main</main>
+			<footer contenteditable>Footer</footer>
 		</div>
 	} else if (Model.Layout == OneLineLayout.ClassicHolyGrailLayout) {
 		<div class="oll-parent">
-			<header>Header</header>
-			<aside class="oll-sidebar oll-sidebar-left">Sidebar(Left)</aside>
-			<main>Main</main>
-			<aside class="oll-sidebar oll-sidebar-right">Sidebar(Right)</aside>
-			<footer>Footer</footer>
+			<header contenteditable>Header</header>
+			<aside class="oll-sidebar oll-sidebar-left" contenteditable>Sidebar(Left)</aside>
+			<main contenteditable>Main</main>
+			<aside class="oll-sidebar oll-sidebar-right" contenteditable>Sidebar(Right)</aside>
+			<footer contenteditable>Footer</footer>
 		</div>
 	} else if (Model.Layout == OneLineLayout.TwelveSpanGrid) {
 		<div class="oll-parent">
@@ -58,6 +58,11 @@
 				<div>@index</div>
 			}
 		</div>
+		@*
+	} else if (Model.Layout == OneLineLayout.LineUp) {
+		<div class="oll-parent">
+		</div>
+		*@
 	} else {
 		<p>Coming soon</p>
 	}
