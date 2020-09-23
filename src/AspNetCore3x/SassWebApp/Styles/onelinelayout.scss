@@ -167,11 +167,14 @@
 .oll-sample7 {
 	.oll-parent {
 		display: grid;
+		grid-gap: 1rem;
 
 		& > * {
 			display: grid;
 			align-items: center;
 			justify-items: center;
+
+			border-radius: 10px;
 		}
 
 		div:first-child {
