@@ -1,13 +1,19 @@
-// 色定義
-$coral: hsl(23, 83%, 82%);
-$pink: hsl(335, 52%, 92%);
-$yellow: hsl(42, 97%, 85%);
-$green: hsl(100, 64%, 86%);
-$blue: hsl(187, 61%, 79%);
-$purple: hsl(283, 24%, 86%);
-$light-gray-blue: hsl(182, 29%, 96%);
-
 .app-sample {
+	// 色定義
+	--coral: hsl(23, 83%, 82%);
+	--coral-border: hsl(23, 99%, 75%);
+	--pink: hsl(335, 52%, 92%);
+	--pink-border: hsl(335, 82%, 86%);
+	--yellow: hsl(42, 97%, 85%);
+	--yellow-border: hsl(42, 100%, 73%);
+	--green: hsl(100, 64%, 86%);
+	--green-border: hsl(100, 41%, 76%);
+	--blue: hsl(187, 61%, 79%);
+	--blue-border: hsl(187, 54%, 68%);
+	--purple: hsl(283, 24%, 86%);
+	--purple-border: hsl(283, 43%, 80%);
+	--light-gray-blue: hsl(182, 29%, 96%);
+
 	margin: 0;
 
 	.oll-parent {
@@ -22,6 +28,36 @@ $light-gray-blue: hsl(182, 29%, 96%);
 			padding: .5rem;
 		}
 	}
+
+	.oll-coral {
+		background-color: var(--coral);
+		border: 1px solid var(--coral-border);
+	}
+
+	.oll-pink {
+		background-color: var(--pink);
+		border: 1px solid var(--pink-border);
+	}
+
+	.oll-yellow {
+		background-color: var(--yellow);
+		border: 1px solid var(--yellow-border);
+	}
+
+	.oll-green {
+		background-color: var(--green);
+		border: 1px solid var(--green-border);
+	}
+
+	.oll-blue {
+		background-color: var(--blue);
+		border: 1px solid var(--blue-border);
+	}
+
+	.oll-purple {
+		background-color: var(--purple);
+		border: 1px solid var(--purple-border)
+	}
 }
 
 .oll-sample1 {
@@ -32,11 +68,9 @@ $light-gray-blue: hsl(182, 29%, 96%);
 		justify-items: center;
 		// align-items、justify-itemsの2つとplace-itemsは同じ
 		//place-items: center;
-		background-color: $blue;
 	}
 
 	.oll-child {
-		background-color: $coral;
 		border-radius: 10px;
 		padding: .75rem;
 	}
@@ -60,7 +94,6 @@ $light-gray-blue: hsl(182, 29%, 96%);
 		align-items: center;
 		justify-items: center;
 		//
-		background-color: $green;
 		border-radius: 10px;
 		margin: 5px;
 	}
@@ -71,32 +104,12 @@ $light-gray-blue: hsl(182, 29%, 96%);
 		display: grid;
 		grid-template-columns: minmax(150px, 25%) 1fr;
 	}
-
-	aside {
-		background: $yellow;
-	}
-
-	main {
-		background: $purple;
-	}
 }
 
 .oll-sample4 {
 	.oll-parent {
 		display: grid;
 		grid-template-rows: auto 1fr auto;
-	}
-
-	header {
-		background: $blue;
-	}
-
-	main {
-		background: $coral;
-	}
-
-	footer {
-		background: $purple;
 	}
 }
 
@@ -107,7 +120,6 @@ $light-gray-blue: hsl(182, 29%, 96%);
 	}
 
 	header {
-		background: $pink;
 		grid-column: 1 / 4;
 		grid-row: 1 / 2;
 	}
@@ -117,23 +129,19 @@ $light-gray-blue: hsl(182, 29%, 96%);
 	}
 
 	.oll-sidebar-left {
-		background: $blue;
 		grid-column: 1 / 2;
 	}
 
 	.oll-sidebar-right {
-		background: $coral;
 		grid-column: 3 / 4;
 	}
 
 	main {
-		background: $yellow;
 		grid-column: 2 / 3;
 		grid-row: 2 / 3;
 	}
 
 	footer {
-		background: $green;
 		grid-column: 1 / 4;
 		grid-row: 3 / 4;
 	}
@@ -152,22 +160,18 @@ $light-gray-blue: hsl(182, 29%, 96%);
 	}
 
 	.oll-span-12 {
-		background: $green;
 		grid-column: 1 / span 12;
 	}
 
 	.oll-span-6 {
-		background: $coral;
 		grid-column: 1 / span 6;
 	}
 
 	.oll-span-4 {
-		background: $blue;
 		grid-column: 4 / span 4;
 	}
 
 	.oll-span-2 {
-		background: $yellow;
 		grid-column: 3 / span 2;
 	}
 }
@@ -181,24 +185,7 @@ $light-gray-blue: hsl(182, 29%, 96%);
 			display: grid;
 			align-items: center;
 			justify-items: center;
-
 			border-radius: 10px;
-		}
-
-		div:first-child {
-			background: $pink;
-		}
-
-		div:nth-child(2) {
-			background: $purple;
-		}
-
-		div:nth-child(3) {
-			background: $blue;
-		}
-
-		div:last-child {
-			background: $green;
 		}
 	}
 
