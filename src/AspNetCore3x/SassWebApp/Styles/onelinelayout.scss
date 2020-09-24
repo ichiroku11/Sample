@@ -1,3 +1,11 @@
+// 色定義
+$coral: hsl(23, 83%, 82%);
+$pink: hsl(335, 52%, 92%);
+$yellow: hsl(42, 97%, 85%);
+$green: hsl(100, 64%, 86%);
+$blue: hsl(187, 61%, 79%);
+$purple: hsl(283, 24%, 86%);
+$light-gray-blue: hsl(182, 29%, 96%);
 
 .app-sample {
 	margin: 0;
@@ -14,8 +22,6 @@
 			padding: .5rem;
 		}
 	}
-
-	// todo: color定義
 }
 
 .oll-sample1 {
@@ -26,11 +32,11 @@
 		justify-items: center;
 		// align-items、justify-itemsの2つとplace-itemsは同じ
 		//place-items: center;
-		background-color: #9fdde5;
+		background-color: $blue;
 	}
 
 	.oll-child {
-		background-color: #f3c0a1;
+		background-color: $coral;
 		border-radius: 10px;
 		padding: .75rem;
 	}
@@ -54,7 +60,7 @@
 		align-items: center;
 		justify-items: center;
 		//
-		background-color: #d1f7bf;
+		background-color: $green;
 		border-radius: 10px;
 		margin: 5px;
 	}
@@ -67,11 +73,11 @@
 	}
 
 	aside {
-		background: #fee6ae;
+		background: $yellow;
 	}
 
 	main {
-		background: #dbcde0;
+		background: $purple;
 	}
 }
 
@@ -82,15 +88,15 @@
 	}
 
 	header {
-		background: #a5e4e6;
+		background: $blue;
 	}
 
 	main {
-		background: #f0bda3;
+		background: $coral;
 	}
 
 	footer {
-		background: #d1c4d9;
+		background: $purple;
 	}
 }
 
@@ -101,7 +107,7 @@
 	}
 
 	header {
-		background: #f4dce6;
+		background: $pink;
 		grid-column: 1 / 4;
 		grid-row: 1 / 2;
 	}
@@ -111,23 +117,23 @@
 	}
 
 	.oll-sidebar-left {
-		background: #9fdee6;
+		background: $blue;
 		grid-column: 1 / 2;
 	}
 
 	.oll-sidebar-right {
-		background: #fee6ae;
+		background: $coral;
 		grid-column: 3 / 4;
 	}
 
 	main {
-		background: #f4c1a3;
+		background: $yellow;
 		grid-column: 2 / 3;
 		grid-row: 2 / 3;
 	}
 
 	footer {
-		background: #cef0bf;
+		background: $green;
 		grid-column: 1 / 4;
 		grid-row: 3 / 4;
 	}
@@ -146,22 +152,22 @@
 	}
 
 	.oll-span-12 {
-		background: #cef0bf;
+		background: $green;
 		grid-column: 1 / span 12;
 	}
 
 	.oll-span-6 {
-		background: #f4c1a3;
+		background: $coral;
 		grid-column: 1 / span 6;
 	}
 
 	.oll-span-4 {
-		background: #9fdee6;
+		background: $blue;
 		grid-column: 4 / span 4;
 	}
 
 	.oll-span-2 {
-		background: #fee6ae;
+		background: $yellow;
 		grid-column: 3 / span 2;
 	}
 }
@@ -180,19 +186,19 @@
 		}
 
 		div:first-child {
-			background: #f2d9e6;
+			background: $pink;
 		}
 
 		div:nth-child(2) {
-			background: #dacbe0;
+			background: $purple;
 		}
 
 		div:nth-child(3) {
-			background: #a5e4e6;
+			background: $blue;
 		}
 
 		div:last-child {
-			background: #d1f7bf;
+			background: $green;
 		}
 	}
 
