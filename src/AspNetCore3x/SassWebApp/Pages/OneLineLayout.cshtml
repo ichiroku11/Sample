@@ -60,12 +60,26 @@
 			<div class="oll-blue">3</div>
 			<div class="oll-green">4</div>
 		</div>
-		@* todo: *@
-		@*
-			} else if (Model.Layout == OneLineLayout.LineUp) {
-				<div class="oll-parent">
+	} else if (Model.Layout == OneLineLayout.LineUp) {
+		<div class="oll-parent">
+			<div class="oll-card-container">
+				<div class="oll-card oll-yellow">
+					<h3>Title - Card 1</h3>
+					<p contenteditable>Medium length description with a few more words here.</p>
+					<div class="oll-card-visual oll-pink"></div>
 				</div>
-		*@
+				<div class="oll-card oll-yellow">
+					<h3>Title - Card 2</h3>
+					<p contenteditable>Long Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+					<div class="oll-card-visual oll-blue"></div>
+				</div>
+				<div class="oll-card oll-yellow">
+					<h3>Title - Card 3</h3>
+					<p contenteditable>Short Description.</p>
+					<div class="oll-card-visual oll-green"></div>
+				</div>
+			</div>
+		</div>
 	} else {
 		<p>Coming soon</p>
 	}

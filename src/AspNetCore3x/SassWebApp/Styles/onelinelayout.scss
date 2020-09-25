@@ -197,3 +197,34 @@
 		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	}
 }
+
+.oll-sample8 {
+	.oll-parent {
+		display: grid;
+		align-items: center;
+	}
+
+	.oll-card-container {
+		display: grid;
+		grid-gap: 1rem;
+		grid-template-columns: repeat(3, 1fr);
+		height: auto;
+	}
+
+	.oll-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 1rem;
+	}
+
+	h3 {
+		margin: 0;
+	}
+
+	.oll-card-visual {
+		height: 100px;
+		width: 100%;
+	}
+}
+
