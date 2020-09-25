@@ -228,3 +228,29 @@
 	}
 }
 
+.oll-sample9 {
+	.oll-parent {
+		display: grid;
+		align-items: center;
+		justify-items: center;
+	}
+
+	.oll-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 1rem;
+		width: clamp(23ch, 50%, 43ch);
+	}
+
+	h3 {
+		margin-top: 0;
+	}
+
+	.oll-card-visual {
+		height: 100px;
+		width: 100%;
+	}
+}
+
+
