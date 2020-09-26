@@ -35,7 +35,7 @@ namespace SampleTest.EntityFrameworkCore {
 			}
 		}
 
-		#region FromSqlInterpolated
+		// FromSqlInterpolated
 		[Fact]
 		public async Task FromSqlInterpolated_パラメータを使わないクエリ() {
 			var samples = await _context.Samples
@@ -79,9 +79,8 @@ namespace SampleTest.EntityFrameworkCore {
 			Assert.Equal(1, sample.Id);
 			Assert.Equal("a", sample.Name);
 		}
-		#endregion
 
-		#region FromSqlRaw
+		// FromSqlRaw
 		[Fact]
 		public async Task FromSqlRaw_パラメータを使わないクエリ() {
 			var samples = await _context.Samples
@@ -105,6 +104,5 @@ namespace SampleTest.EntityFrameworkCore {
 			Assert.Equal(1, sample.Id);
 			Assert.Equal("a", sample.Name);
 		}
-		#endregion
 	}
 }

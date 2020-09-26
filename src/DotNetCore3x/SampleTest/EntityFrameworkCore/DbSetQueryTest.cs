@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace SampleTest.EntityFrameworkCore {
+	[Collection("dbo.Sample")]
 	public class DbSetQueryTest : IDisposable {
 		private class Sample {
 			public int Id { get; set; }
