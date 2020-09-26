@@ -253,4 +253,26 @@
 	}
 }
 
+.oll-sample10 {
+	.oll-parent {
+		display: grid;
+		align-items: center;
+		justify-items: center;
+	}
 
+	.oll-card {
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		width: 50%;
+	}
+
+	h3 {
+		margin-top: 0;
+	}
+
+	.oll-card-visual {
+		// Chrome84+とあるけどダメっぽい？
+		//aspect-ratio: 16 / 9;
+	}
+}
