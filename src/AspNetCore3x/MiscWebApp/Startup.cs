@@ -47,6 +47,10 @@ namespace MiscWebApp {
 					await context.Response.WriteAsync(json);
 				});
 
+				endpoints.MapGet("/header", async context => {
+					await context.Response.WriteAsync("Header");
+				});
+
 				endpoints.MapGet("/request/{**path}", async context => {
 					var request = new {
 						context.Request.Scheme,
@@ -58,10 +62,6 @@ namespace MiscWebApp {
 					};
 					var json = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 					await context.Response.WriteAsync(json);
-				});
-
-				endpoints.MapGet("/header", async context => {
-					await context.Response.WriteAsync("Header");
 				});
 
 				endpoints.MapGet("/", async context => {
