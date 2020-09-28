@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -19,6 +21,7 @@ namespace MiscWebApp {
 			};
 
 		public void ConfigureServices(IServiceCollection services) {
+			services.AddSingleton<IContentTypeProvider, FileExtensionContentTypeProvider>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -29,6 +32,7 @@ namespace MiscWebApp {
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints => {
+				// クライアント・サーバのIPアドレス・ポート番号を確認するEndpoint
 				endpoints.MapGet("/connection", async context => {
 					var connection = new {
 						// サーバのIPアドレスとポート番号
@@ -47,10 +51,25 @@ namespace MiscWebApp {
 					await context.Response.WriteAsync(json);
 				});
 
+				// 拡張子からコンテンツタイプ（MIME）を取得するEndpoint
+				endpoints.MapGet("contenttype/{subpath}", async context => {
+					var provider = context.RequestServices.GetRequiredService<IContentTypeProvider>();
+
+					var subpath = context.Request.RouteValues["subpath"] as string;
+					if (!provider.TryGetContentType(subpath, out var contentType)) {
+						context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+						return;
+					}
+
+					await context.Response.WriteAsync(contentType);
+				});
+
+				// HTTPヘッダを確認するEndpoint
 				endpoints.MapGet("/header", async context => {
 					await context.Response.WriteAsync("Header");
 				});
 
+				// リクエストを確認するEndpoint
 				endpoints.MapGet("/request/{**path}", async context => {
 					var request = new {
 						context.Request.Scheme,
