@@ -7,6 +7,7 @@ using ModelBindingWebApp.Helpers;
 using ModelBindingWebApp.Models;
 
 namespace ModelBindingWebApp.Controllers {
+	// ModelStateをTempDataに保存し、TempDataから読み出すサンプル
 	public class DefaultController : Controller {
 		[LoadModelState]
 		public IActionResult Index() {

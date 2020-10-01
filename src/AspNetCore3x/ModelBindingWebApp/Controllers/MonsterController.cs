@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ModelBindingWebApp.Helpers;
 using ModelBindingWebApp.Models;
 
 namespace ModelBindingWebApp.Controllers {
-	// ModelStateをTempDataに保存し、TempDataから読み出すサンプル
+	// あるあるなモデルバインドのサンプル
 	public class MonsterController : Controller {
 		[LoadModelState]
 		public IActionResult Index() {
