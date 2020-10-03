@@ -8,12 +8,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ModelBindingWebApp.Models;
 
 namespace ModelBindingWebApp {
 	public class Startup {
 		public void ConfigureServices(IServiceCollection services) {
 			services
-				.AddControllersWithViews()
+				.AddControllersWithViews(options => {
+					options.ModelBinderProviders.Insert(0, new GeometryModelBinderProvider());
+				})
 				.AddViewOptions(options => {
 					// クライアント側バリーデーションを無効にする
 					options.HtmlHelperOptions.ClientValidationEnabled = false;

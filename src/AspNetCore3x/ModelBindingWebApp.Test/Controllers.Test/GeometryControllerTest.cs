@@ -70,7 +70,7 @@ namespace ModelBindingWebApp.Controllers.Test {
 
 			// Assert
 			// todo:
-			Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 		}
 	}
 }
