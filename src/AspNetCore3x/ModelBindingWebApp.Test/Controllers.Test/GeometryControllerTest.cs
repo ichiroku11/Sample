@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using ModelBindingWebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -57,19 +59,60 @@ namespace ModelBindingWebApp.Controllers.Test {
 			return new FormUrlEncodedContent(nameValues);
 		}
 
+		private class GeometryModelComparer : IEqualityComparer<GeometryModel> {
+			public bool Equals([AllowNull] GeometryModel x, [AllowNull] GeometryModel y) {
+				if (x.GetType() != y.GetType()) {
+					return false;
+				}
+
+				if (x.GeometryType == GeometryType.Line && y.GeometryType == GeometryType.Line) {
+					var lineX = x as GeometryLineModel;
+					var lineY = y as GeometryLineModel;
+
+					return lineX.X1 == lineY.X1
+						&& lineX.Y1 == lineY.Y1
+						&& lineX.X2 == lineY.X2
+						&& lineX.Y2 == lineY.Y2;
+
+				} else if (x.GeometryType == GeometryType.Circle && y.GeometryType == GeometryType.Circle) {
+					var circleX = x as GeometryCircleModel;
+					var circleY = x as GeometryCircleModel;
+
+					return circleX.R == circleY.R
+						&& circleX.X == circleY.X
+						&& circleX.Y == circleY.Y;
+				}
+
+				throw new ArgumentException($"{nameof(x)}, {nameof(y)}");
+			}
+
+			public int GetHashCode([DisallowNull] GeometryModel obj) {
+				return obj switch {
+					GeometryLineModel line => HashCode.Combine(line.GeometryType, line.X1, line.Y1, line.X2, line.Y2),
+					GeometryCircleModel circle => HashCode.Combine(circle.GeometryType, circle.R, circle.X, circle.Y),
+					_ => throw new ArgumentException(nameof(obj)),
+				};
+			}
+		}
+
 		[Theory]
 		[MemberData(nameof(GetTestData))]
-		public async Task Save_サブクラスをバインドできる(GeometryModel model) {
+		public async Task Save_サブクラスをバインドできる(GeometryModel expected) {
 			// Arrange
-			using var request = new HttpRequestMessage(HttpMethod.Post, "/geometry/save");
-			request.Content = GetContent(model);
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/geometry/save") {
+				Content = GetContent(expected)
+			};
 
 			// Act
 			using var response = await SendAsync(request);
 			var content = await response.Content.ReadAsStringAsync();
+			var actual = JsonSerializer.Deserialize(content, expected.GetType(),
+				new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase })
+				as GeometryModel;
 
 			// Assert
-			// todo:
+			Assert.IsType(expected.GetType(), actual);
+			Assert.Equal(expected, actual, new GeometryModelComparer());
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 		}
 	}

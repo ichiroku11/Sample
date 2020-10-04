@@ -11,6 +11,12 @@ namespace ModelBindingWebApp.Controllers {
 	public class GeometryController : Controller {
 		[HttpPost]
 		public IActionResult Save(GeometryModel model) {
+			if (model.GeometryType == GeometryType.Line) {
+				return Json(model as GeometryLineModel);
+			} else if (model.GeometryType == GeometryType.Circle) {
+				return Json(model as GeometryCircleModel);
+			}
+
 			return new EmptyResult();
 		}
 	}
