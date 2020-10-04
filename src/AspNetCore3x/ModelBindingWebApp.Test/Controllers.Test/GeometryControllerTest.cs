@@ -13,6 +13,11 @@ using Xunit.Abstractions;
 
 namespace ModelBindingWebApp.Controllers.Test {
 	public class GeometryControllerTest : ControllerTestBase {
+		private static readonly JsonSerializerOptions _jsonSerializerOptions
+			= new JsonSerializerOptions {
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			};
+
 		public GeometryControllerTest(
 			ITestOutputHelper output,
 			WebApplicationFactory<Startup> factory)
@@ -38,6 +43,7 @@ namespace ModelBindingWebApp.Controllers.Test {
 			};
 		}
 
+		// GeometryModelからPOSTデータを作成
 		private static FormUrlEncodedContent GetContent(GeometryModel geometry) {
 			var nameValues = geometry switch  {
 				GeometryLineModel line => new Dictionary<string, string> {
@@ -59,6 +65,7 @@ namespace ModelBindingWebApp.Controllers.Test {
 			return new FormUrlEncodedContent(nameValues);
 		}
 
+		// サブクラスを考慮したGeometryModelの比較
 		private class GeometryModelComparer : IEqualityComparer<GeometryModel> {
 			public bool Equals([AllowNull] GeometryModel x, [AllowNull] GeometryModel y) {
 				if (x.GetType() != y.GetType()) {
@@ -106,9 +113,7 @@ namespace ModelBindingWebApp.Controllers.Test {
 			// Act
 			using var response = await SendAsync(request);
 			var content = await response.Content.ReadAsStringAsync();
-			var actual = JsonSerializer.Deserialize(content, expected.GetType(),
-				new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase })
-				as GeometryModel;
+			var actual = JsonSerializer.Deserialize(content, expected.GetType(), _jsonSerializerOptions) as GeometryModel;
 
 			// Assert
 			Assert.IsType(expected.GetType(), actual);
