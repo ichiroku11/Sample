@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MiscWebApi.Controllers.Test {
+namespace ModelBindingWebApp.Controllers.Test {
 	public class EnumControllerTest : ControllerTestBase {
 		public EnumControllerTest(ITestOutputHelper output, WebApplicationFactory<Startup> factory)
 			: base(output, factory) {

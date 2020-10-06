@@ -1,16 +1,23 @@
 using Microsoft.AspNetCore.Mvc.Testing;
-using MiscWebApi.Models;
+using ModelBindingWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MiscWebApi.Controllers.Test {
+namespace ModelBindingWebApp.Controllers.Test {
 	public class CollectionControllerTest : ControllerTestBase {
+		private static readonly JsonSerializerOptions _jsonSerializerOptions
+			= new JsonSerializerOptions {
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			};
+
+
 		public CollectionControllerTest(ITestOutputHelper output, WebApplicationFactory<Startup> factory)
 			: base(output, factory) {
 		}
@@ -69,7 +76,8 @@ namespace MiscWebApi.Controllers.Test {
 
 			// Act
 			using var response = await SendAsync(request);
-			var values = await DeserializeAsync<IEnumerable<int>>(response);
+			var json = await response.Content.ReadAsStringAsync();
+			var values = JsonSerializer.Deserialize<IEnumerable<int>>(json, _jsonSerializerOptions);
 
 			// Assert
 			Assert.Equal(new[] { 1, 2 }, values);
@@ -96,7 +104,8 @@ namespace MiscWebApi.Controllers.Test {
 
 			// Act
 			using var response = await SendAsync(request);
-			var values = await DeserializeAsync<IEnumerable<Sample>>(response);
+			var json = await response.Content.ReadAsStringAsync();
+			var values = JsonSerializer.Deserialize<IEnumerable<Sample>>(json, _jsonSerializerOptions);
 
 			// Assert
 			Assert.Equal(new[] { new Sample { Id = 1, Name = "a" }, new Sample { Id = 2, Name = "b" } }, values);

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MiscWebApi.Controllers {
+namespace ModelBindingWebApp.Controllers {
+	// enumへのバインドを試す
 	[Route("api/[controller]")]
 	[ApiController]
 	public class EnumController : ControllerBase {

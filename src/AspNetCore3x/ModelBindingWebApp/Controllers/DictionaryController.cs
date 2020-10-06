@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MiscWebApi.Models;
+using ModelBindingWebApp.Models;
 
-namespace MiscWebApi.Controllers {
+namespace ModelBindingWebApp.Controllers {
 	// ディクショナリへのバインドを試す
 	// https://docs.microsoft.com/ja-jp/aspnet/core/mvc/models/model-binding?view=aspnetcore-3.1
 
