@@ -8,70 +8,18 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace SampleTest.Json {
-	public class JsonConverterAttributeTest {
+	public class DateTimeConverterTest {
 		private readonly ITestOutputHelper _output;
 
-		public JsonConverterAttributeTest(ITestOutputHelper output) {
+		public DateTimeConverterTest(ITestOutputHelper output) {
 			_output = output;
 		}
 
-		private class NumberBooleanConverter : JsonConverter<bool> {
-			public override bool Read(
-				ref Utf8JsonReader reader,
-				Type typeToConvert,
-				JsonSerializerOptions options)
-				// 数値をboolとして取得する
-				=> reader.GetInt32() > 0;
-
-			public override void Write(
-				Utf8JsonWriter writer,
-				bool value,
-				JsonSerializerOptions options)
-				// boolを数値として書き込む
-				=> writer.WriteNumberValue(value ? 1 : 0);
-		}
-
 		private class ConverterSample {
-			[JsonConverter(typeof(NumberBooleanConverter))]
-			public bool Enable { get; set; }
-		}
-
-		[Fact]
-		public void JsonConverter属性を使ってboolを数値にシリアライズする() {
-			// Arrange
-			var data = new ConverterSample {
-				Enable = true,
-			};
-			var options = new JsonSerializerOptions {
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			};
-
-			// Act
-			var json = JsonSerializer.Serialize(data, options);
-
-			// Assert
-			Assert.Equal(@"{""enable"":1}", json);
-		}
-
-		[Fact]
-		public void JsonConverter属性を使って数値をboolにデシリアライズする() {
-			// Arrange
-			var json = @"{""enable"":1}";
-			var options = new JsonSerializerOptions {
-				PropertyNameCaseInsensitive = true,
-			};
-
-			// Act
-			var data = JsonSerializer.Deserialize<ConverterSample>(json, options);
-
-			// Assert
-			Assert.True(data.Enable);
-		}
-
-		private class ConverterSample2 {
 			public DateTime Value { get; set; }
 		}
 
+		// 独自フォーマットの日付文字列とDateTimeを変換するコンバータ
 		private class DateTimeConverter : JsonConverter<DateTime> {
 			private static readonly string _format = "yyyy/MM/dd HH:mm:ss";
 
@@ -99,9 +47,9 @@ namespace SampleTest.Json {
 			// Act
 			// Assert
 			var exception = Assert.Throws<JsonException>(() => {
-				JsonSerializer.Deserialize<ConverterSample2>(json, options);
+				JsonSerializer.Deserialize<ConverterSample>(json, options);
 			});
-			_output.WriteLine(exception.ToString()); ;
+			_output.WriteLine(exception.ToString());
 		}
 
 		[Fact]
@@ -114,7 +62,7 @@ namespace SampleTest.Json {
 			options.Converters.Add(new DateTimeConverter());
 
 			// Act
-			var sample = JsonSerializer.Deserialize<ConverterSample2>(json, options);
+			var sample = JsonSerializer.Deserialize<ConverterSample>(json, options);
 
 			// Assert
 			Assert.Equal(new DateTime(2020, 6, 1, 12, 34, 56), sample.Value);
