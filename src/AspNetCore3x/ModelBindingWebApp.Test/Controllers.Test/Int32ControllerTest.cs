@@ -9,8 +9,8 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace ModelBindingWebApp.Controllers.Test {
-	public class ValueTypeControllerTest : ControllerTestBase {
-		public ValueTypeControllerTest(
+	public class Int32ControllerTest : ControllerTestBase {
+		public Int32ControllerTest(
 			ITestOutputHelper output,
 			WebApplicationFactory<Startup> factory)
 			: base(output, factory) {
@@ -19,7 +19,7 @@ namespace ModelBindingWebApp.Controllers.Test {
 		[Fact]
 		public async Task GetWithQuery_クエリ文字列を省略するとintは0になる() {
 			// Arrange
-			using var request = new HttpRequestMessage(HttpMethod.Get, $"/valuetype/getwithquery");
+			using var request = new HttpRequestMessage(HttpMethod.Get, "/int32/getwithquery");
 
 			// Act
 			using var response = await SendAsync(request);
@@ -32,7 +32,7 @@ namespace ModelBindingWebApp.Controllers.Test {
 		[Fact]
 		public async Task GetWithRoute_ルートのパラメータを省略するとNotFound() {
 			// Arrange
-			using var request = new HttpRequestMessage(HttpMethod.Get, $"/valuetype/getwithroute");
+			using var request = new HttpRequestMessage(HttpMethod.Get, "/int32/getwithroute");
 
 			// Act
 			using var response = await SendAsync(request);
@@ -44,7 +44,7 @@ namespace ModelBindingWebApp.Controllers.Test {
 		[Fact]
 		public async Task Post_フォームデータを省略するとintは0になる() {
 			// Arrange
-			using var request = new HttpRequestMessage(HttpMethod.Post, $"/valuetype/post");
+			using var request = new HttpRequestMessage(HttpMethod.Post, "/int32/post");
 
 			// Act
 			using var response = await SendAsync(request);
