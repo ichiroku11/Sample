@@ -5,6 +5,14 @@ import { Assert, Test } from "../unittestlib";
 const range = (start: number, count: number) => Array.from({ length: count }, (_, index) => start + index);
 
 export const arrayTest = new Test("ArrayTest")
+	.fact("concat_数値や数値の配列を結合できる", () => {
+		// Arrange
+		// Act
+		const actual = [1].concat([2, 3], 4);
+
+		// Assert
+		Assert.equal([1, 2, 3, 4], actual);
+	})
 	.fact("filter_試す", () => {
 		// Arrange
 		// Act
@@ -13,7 +21,15 @@ export const arrayTest = new Test("ArrayTest")
 		// Assert
 		Assert.equal([2, 4], actual);
 	})
-	.fact("from_rangeメソッドを作る", () => {
+	.fact("flat_試す", () => {
+		// Arrange
+		// Act
+		const actual = [[1, 2], 3, [4]].flat();
+
+		// Assert
+		Assert.equal([1, 2, 3, 4], actual);
+	})
+	.fact("from_range関数を作る", () => {
 		// Arrange
 		// Act
 		const actual = range(1, 3);
