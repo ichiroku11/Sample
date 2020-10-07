@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TypeScriptWebApp.Controllers {
-	public class Sample {
-		public int Number { get; set; }
-		public string Text { get; set; }
-	}
-
 	[Route("api/[controller]")]
 	[ApiController]
 	public class SampleJsonController : ControllerBase {
+		public class Sample {
+			public int Number { get; set; }
+			public string Text { get; set; }
+		}
+
 		public object Get() {
 			return new Sample {
 				Number = 1,
