@@ -36,10 +36,17 @@ export class Model {
 		return y * this._width + x;
 	}
 
-	// 指定した座標のセルが生きているかどうかを取得
-	public alive(x: number, y: number): boolean {
+	// 指定した座標のセルの生存状態を取得する・設定する
+	public alive(x: number, y: number, alive: boolean): void;
+	public alive(x: number, y: number): boolean;
+	public alive(x: number, y: number, alive?: boolean): void | boolean {
 		const index = this.index(x, y);
-		return this._cells[index];
+		if (alive === undefined) {
+			return this._cells[index];
+		}
+
+		this._cells[index] = alive;
+		return;
 	}
 
 	// 周囲8セルのうち生きているセルの個数を求める
@@ -84,9 +91,7 @@ export class Model {
 					}
 				}
 
-				// todo:
-				const index = this.index(x, y);
-				this._cells[index] = alive;
+				this.alive(x, y, alive);
 			}
 		}
 	}
