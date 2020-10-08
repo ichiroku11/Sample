@@ -1,6 +1,5 @@
+import { range } from "./gameoflife-helper";
 import { Model } from "./gameoflife-model";
-
-const range = (start: number, count: number) => Array.from({ length: count }, (_, index) => start + index);
 
 export class CanvasView {
 	private readonly _options = {
