@@ -29,6 +29,25 @@ export const arrayTest = new Test("ArrayTest")
 		// Assert
 		Assert.equal([1, 2, 3, 4], actual);
 	})
+	.fact("flatMap_2重ループを平坦化で表現する", () => {
+		// Arrange
+		const source1 = range(0, 3);
+		const source2 = range(1, 2);
+
+		// Act
+		// 本当はこのテストをしたいけど、objectの比較をどうしてよいかわからず
+		//const actual = source1.flatMap(x => source2.map(y => ({ x, y })));
+		// 仮のテスト
+		const actual = source1.flatMap(x => source2.map(y => x + y));
+
+		// Assert
+		const expected = [
+			1, 2,
+			2, 3,
+			3, 4,
+		];
+		Assert.equal(expected, actual);
+	})
 	.fact("from_range関数を作る", () => {
 		// Arrange
 		// Act
