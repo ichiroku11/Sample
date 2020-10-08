@@ -1,6 +1,28 @@
 import { range } from "./gameoflife-helper";
 
+type Point = {
+	x: number,
+	y: number,
+};
+
 export class Model {
+	public static random(width: number, height: number): Model {
+		const alives: Point[] = [];
+		for (const x of range(0, width)) {
+			for (const y of range(0, height)) {
+				if (Math.random() >= 0.1) {
+					continue;
+				}
+
+				alives.push({ x, y });
+			}
+		}
+
+		const model = new Model(width, height);
+		model.init(alives);
+		return model;
+	}
+
 	private readonly _width: number;
 	private readonly _height: number;
 	// 現在の生存状態
@@ -12,15 +34,7 @@ export class Model {
 
 		const length = width * height;
 		this._cells = new Array<boolean>(length);
-		this._cells.fill(false);
-
-		// todo: 適当
-		this._cells[1] = true;
-		this._cells[2] = true;
-		this._cells[3] = true;
-		this._cells[42] = true;
-		this._cells[82] = true;
-		this._cells[122] = true;
+		this.init();
 	}
 
 	public get width(): number {
@@ -47,6 +61,15 @@ export class Model {
 
 		this._cells[index] = alive;
 		return;
+	}
+
+	// 初期化
+	public init(alives?: Point[]): void {
+		this._cells.fill(false);
+
+		alives?.forEach(value => {
+			this.alive(value.x, value.y, true);
+		});
 	}
 
 	// 周囲8セルのうち生きているセルの個数を求める
