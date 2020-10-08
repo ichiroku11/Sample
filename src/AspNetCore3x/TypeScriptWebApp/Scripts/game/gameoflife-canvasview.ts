@@ -1,5 +1,7 @@
 import { Model } from "./gameoflife-model";
 
+const range = (start: number, count: number) => Array.from({ length: count }, (_, index) => start + index);
+
 export class CanvasView {
 	private readonly _options = {
 		cellSize: 10,
@@ -34,8 +36,13 @@ export class CanvasView {
 
 		context.fillStyle = this._options.fillStyle;
 		const cellSize = this._options.cellSize;
-		const x = 10;
-		const y = 20;
-		context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+		for (const x of range(0, this._model.width)) {
+			for (const y of range(0, this._model.height)) {
+				if (!this._model.alive(x, y)) {
+					continue;
+				}
+				context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+			}
+		}
 	}
 }
