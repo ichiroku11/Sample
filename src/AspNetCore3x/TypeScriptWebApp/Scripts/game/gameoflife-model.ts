@@ -5,9 +5,17 @@ type Point = {
 	y: number,
 };
 
+/**
+ * モデル
+ */
 export class Model {
-	// ランダムな生存状態でモデルを生成する
+	/**
+	 * ランダムな生存状態でモデルを生成する
+	 * @param width 幅
+	 * @param height 高さ
+	 */
 	public static random(width: number, height: number): Model {
+		// ランダムで生きているセルを生成する
 		const alives: Point[] = [];
 		for (const x of range(0, width)) {
 			for (const y of range(0, height)) {
@@ -29,6 +37,11 @@ export class Model {
 	// 現在の生存状態
 	private readonly _cells: boolean[];
 
+	/**
+	 * 
+	 * @param width 幅
+	 * @param height 高さ
+	 */
 	public constructor(width: number, height: number) {
 		this._width = width;
 		this._height = height;
@@ -38,22 +51,43 @@ export class Model {
 		this.init();
 	}
 
+	/**
+	 * 幅
+	 */
 	public get width(): number {
 		return this._width;
 	}
 
+	/**
+	 * 高さ
+	 */
 	public get height(): number {
 		return this._height;
 	}
 
-	// (x, y) => 配列のindex
+	/**
+	 * 指定した座標 => 配列のindex
+	 * @param x
+	 * @param y
+	 */
 	private index(x: number, y: number): number {
 		return y * this._width + x;
 	}
 
-	// 指定した座標のセルの生存状態を取得する・設定する
-	public alive(x: number, y: number, alive: boolean): void;
+	/**
+	 * 指定した座標のセルの生存状態を取得する
+	 * @param x
+	 * @param y
+	 * @returns 生存しているかどうか
+	 */
 	public alive(x: number, y: number): boolean;
+	/**
+	 * 指定した座標のセルの生存状態を設定する
+	 * @param x
+	 * @param y
+	 * @param alive セルの生存状態
+	 */
+	public alive(x: number, y: number, alive: boolean): void;
 	public alive(x: number, y: number, alive?: boolean): void | boolean {
 		const index = this.index(x, y);
 		if (alive === undefined) {
@@ -64,8 +98,11 @@ export class Model {
 		return;
 	}
 
-	// 初期化する
-	public init(alives?: Point[]): void {
+	/**
+	 * 初期化する
+	 * @param alives 生存しているセルの位置
+	 */
+	private init(alives?: Point[]): void {
 		this._cells.fill(false);
 
 		alives?.forEach(value => {
@@ -73,7 +110,11 @@ export class Model {
 		});
 	}
 
-	// 周囲8セルのうち生きているセルの個数を求める
+	/**
+	 * 周囲8セルのうち生きているセルの個数を求める
+	 * @param x
+	 * @param y
+	 */
 	private countAlive(x: number, y: number): number {
 		// 上下左右のセルの位置
 		const top = (y - 1 + this._height) % this._height;
@@ -96,7 +137,9 @@ export class Model {
 			.length;
 	}
 
-	// 次の世代へ
+	/**
+	 * 次の世代へ
+	 */
 	public next(): void {
 		for (const x of range(0, this._width)) {
 			for (const y of range(0, this._height)) {

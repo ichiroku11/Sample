@@ -1,6 +1,9 @@
 import { range } from "./gameoflife-helper";
 import { Model } from "./gameoflife-model";
 
+/**
+ * canvas要素を利用したビュー
+ */
 export class CanvasView {
 	private readonly _options = {
 		cellSize: 10,
@@ -10,6 +13,10 @@ export class CanvasView {
 	private readonly _model: Model;
 	private readonly _element: HTMLCanvasElement;
 
+	/**
+	 * 
+	 * @param model
+	 */
 	public constructor(model: Model) {
 		this._model = model;
 
@@ -19,12 +26,16 @@ export class CanvasView {
 		this._element = canvas;
 	}
 
-	// HTML要素を取得
-	public get element() {
+	/**
+	 * canvas要素
+	 */
+	public get element(): HTMLCanvasElement {
 		return this._element;
 	}
 
-	// 描画
+	/**
+	 * 描画する
+	 */
 	public render(): void {
 		const width = this._element.width;
 		const height = this._element.height;
@@ -35,6 +46,7 @@ export class CanvasView {
 
 		context.clearRect(0, 0, width, height);
 
+		// 生存しているセルを塗りつぶす
 		context.fillStyle = this._options.fillStyle;
 		const cellSize = this._options.cellSize;
 		for (const x of range(0, this._model.width)) {
