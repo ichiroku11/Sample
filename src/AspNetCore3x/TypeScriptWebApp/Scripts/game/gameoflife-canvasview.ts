@@ -19,10 +19,12 @@ export class CanvasView {
 		this._element = canvas;
 	}
 
+	// HTML要素を取得
 	public get element() {
 		return this._element;
 	}
 
+	// 描画
 	public render(): void {
 		const width = this._element.width;
 		const height = this._element.height;

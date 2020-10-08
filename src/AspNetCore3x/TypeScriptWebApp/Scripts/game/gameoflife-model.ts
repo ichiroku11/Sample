@@ -6,6 +6,7 @@ type Point = {
 };
 
 export class Model {
+	// ランダムな生存状態でモデルを生成する
 	public static random(width: number, height: number): Model {
 		const alives: Point[] = [];
 		for (const x of range(0, width)) {
@@ -63,7 +64,7 @@ export class Model {
 		return;
 	}
 
-	// 初期化
+	// 初期化する
 	public init(alives?: Point[]): void {
 		this._cells.fill(false);
 
