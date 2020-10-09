@@ -7,6 +7,7 @@ import { fetchTest } from "./test/fetch.test";
 import { functionAsteriskTest } from "./test/function-asterisk.test";
 import { instanceofTest } from "./test/instanceof.test";
 import { promiseTest } from "./test/promise.test";
+import { rxjsCreatingOperatorsTest } from "./test/rxjs.test"
 import { spreadSyntaxTest } from "./test/spread-syntax.test";
 import { templateStringsTest } from "./test/template-strings.test";
 import { urlSearchParamsTest } from "./test/url.test";
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		functionAsteriskTest,
 		instanceofTest,
 		promiseTest,
+		rxjsCreatingOperatorsTest,
 		spreadSyntaxTest,
 		templateStringsTest,
 		urlSearchParamsTest,

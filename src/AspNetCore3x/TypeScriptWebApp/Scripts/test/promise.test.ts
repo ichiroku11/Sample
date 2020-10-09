@@ -22,13 +22,13 @@ export const promiseTest = new Test("PromiseTest")
 		// ↑は以下のシンタックスシュガー
 		// const value = new Promise(resolve => resolve(1));
 
-		// Asseert
+		// Assert
 		Assert.equal(1, value);
 	})
 	.fact("promise_rejectはシンタックスシュガー", async () => {
 		// Arrange
 		// Act
-		// Asseert
+		// Assert
 
 		let error = false;
 		try {

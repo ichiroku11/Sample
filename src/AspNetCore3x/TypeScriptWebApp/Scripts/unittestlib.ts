@@ -38,13 +38,17 @@ export class Assert {
 		}
 	}
 
-	public static notNull<T>(value: T) {
+	public static fail(): void {
+		Assert.true(false);
+	}
+
+	public static notNull<T>(value: T): void {
 		if (value === null) {
 			throw new AssertError();
 		}
 	}
 
-	public static null<T>(value: T) {
+	public static null<T>(value: T): void {
 		if (value !== null) {
 			throw new AssertError();
 		}

@@ -15,7 +15,11 @@ const config = {
 	},
 	module: {
 		rules: [
-			{ test: /\.ts$/, use: "ts-loader" }
+			{
+				test: /\.ts$/,
+				use: "ts-loader",
+				exclude: /node_modules/
+			}
 		]
 	},
 	// todo: lib.tsを別ファイルにしたい
@@ -30,10 +34,10 @@ const config = {
 		path: path.resolve(__dirname, "wwwroot/js")
 	},
 	resolve: {
-		extensions: [".ts"],
 		alias: {
 			vue: "vue/dist/vue.js"
-		}
+		},
+		extensions: [".ts", ".js"]
 	}
 };
 

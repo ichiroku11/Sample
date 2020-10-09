@@ -13,7 +13,7 @@ export const instanceofTest = new Test("InstanceOfTest")
 	.fact("instanceof_特定のクラスのインスタンスかどうか判定できる", async () => {
 		// Arrange
 		// Act
-		// Asseert
+		// Assert
 
 		// instanceofは継承も考慮して特定のクラスに属しているか（特定のクラスのサブクラスか）を判定できる
 
@@ -32,7 +32,7 @@ export const instanceofTest = new Test("InstanceOfTest")
 	.fact("instanceof_Errorクラスのインスタンスかどうか判定できる（念のため）", () => {
 		// Arrange
 		// Act
-		// Asseert
+		// Assert
 		const error = new TestError();
 
 		// これはもちろんtrue
