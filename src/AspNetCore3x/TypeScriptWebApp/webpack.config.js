@@ -18,7 +18,9 @@ const config = {
 			{
 				test: /\.ts$/,
 				use: "ts-loader",
-				exclude: /node_modules/
+				// どっちがよいのか
+				//exclude: /node_modules/
+				exclude: path.resolve(__dirname, "node_modules")
 			}
 		]
 	},
