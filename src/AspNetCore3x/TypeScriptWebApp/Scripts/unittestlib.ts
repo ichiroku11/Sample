@@ -56,28 +56,47 @@ export class Assert {
 }
 
 class ResultHelper {
-	private readonly _container: HTMLElement;
+	// モジュールをdetails、summaryを使って表す
+	private readonly _details: HTMLDetailsElement;
+	// テストケースを格納するul
+	private readonly _ul: HTMLElement;
 
-	constructor(selector = ".test-container") {
+	constructor(moduleName: string, selector = ".test-container") {
 		const container = document.querySelector(selector);
 		if (!container) {
 			throw new Error("container is null");
 		}
 
-		let list = container.querySelector("ul");
-		if (!list) {
-			list = document.createElement("ul");
-			container.appendChild(list);
-		}
+		const details = document.createElement("details");
 
-		this._container = list;
+		const summary = document.createElement("summary");
+		summary.innerText = moduleName;
+		details.appendChild(summary);
+
+		const ul = document.createElement("ul");
+		details.appendChild(ul);
+
+		container.appendChild(details);
+
+		this._details = details;
+		this._ul = ul;
 	}
 
 	public add(description: string, failed: boolean) {
 		const result = document.createElement("li");
-		result.classList.add("test-result", failed ? "test-failed" : "test-done");
+		result.classList.add(failed ? "test-failed" : "test-done");
 		result.innerHTML = description;
-		this._container.appendChild(result);
+		this._ul.appendChild(result);
+
+		if (failed) {
+			this._details.setAttribute("open", "");
+			this._details.classList.remove("test-done");
+			this._details.classList.add("test-failed");
+		} else {
+			if (!this._details.classList.contains("test-failed")) {
+				this._details.classList.add("test-done");
+			}
+		}
 	}
 }
 
@@ -102,7 +121,7 @@ export class Test {
 	}
 
 	public async run(): Promise<void> {
-		const resultHelper = new ResultHelper();
+		const resultHelper = new ResultHelper(this._moduleName);
 
 		for (const { testName, testFunc } of this._testCases) {
 			let failed = false;
@@ -114,9 +133,8 @@ export class Test {
 			} catch (ex) {
 				failed = true;
 			} finally {
-				resultHelper.add(`${this._moduleName}: ${testName}`, failed);
+				resultHelper.add(`${testName}`, failed);
 			}
 		}
 	}
 }
-
