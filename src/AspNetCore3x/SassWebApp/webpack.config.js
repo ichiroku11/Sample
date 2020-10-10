@@ -8,6 +8,7 @@ const config = {
 		lib: path.resolve(__dirname, "styles/lib.scss"),
 		animation: path.resolve(__dirname, "styles/animation.scss"),
 		boxsizing: path.resolve(__dirname, "styles/boxsizing.scss"),
+		detailssummary: path.resolve(__dirname, "styles/detailssummary.scss"),
 		flexbox: path.resolve(__dirname, "styles/flexbox.scss"),
 		flexboxcomponent: path.resolve(__dirname, "styles/flexboxcomponent.scss"),
 		flexboxgridwrapper: path.resolve(__dirname, "styles/flexboxgridwrapper.scss"),
