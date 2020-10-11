@@ -27,6 +27,12 @@ export const functionAsteriskTest = new Test("FunctionAsteriskTest")
 		Assert.equal([1, 2, 3], actual);
 	})
 	.fact("function*_forof文で使ってみる", () => {
+		// for...of
+		// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/for...of
+		// for...in
+		// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/for...in
+		// 注: for...in はインデックスの順序が重要となる 配列 の繰り返しには使うべきではありません
+
 		// Arrange
 		// Act
 		const actual: number[] = [];
