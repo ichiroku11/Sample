@@ -14,6 +14,7 @@ const config = {
 		flexboxgridwrapper: path.resolve(__dirname, "styles/flexboxgridwrapper.scss"),
 		flexboxsample: path.resolve(__dirname, "styles/flexboxsample.scss"),
 		grid: path.resolve(__dirname, "styles/grid.scss"),
+		gridfullbleed: path.resolve(__dirname, "styles/gridfullbleed.scss"),
 		gridlayout: path.resolve(__dirname, "styles/gridlayout.scss"),
 		gridrepeat: path.resolve(__dirname, "styles/gridrepeat.scss"),
 		index: path.resolve(__dirname, "styles/index.scss"),
