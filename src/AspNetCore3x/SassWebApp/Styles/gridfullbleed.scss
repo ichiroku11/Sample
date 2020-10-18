@@ -1,8 +1,17 @@
 
 .gfb-wrapper {
+	display: grid;
+	grid-template-columns:
+		1fr
+		min(65ch, 100%),
+		1fr;
 
+	& > * {
+		grid-column: 2;
+	}
 }
 
 .gfb-fullbleed {
-
+	width: 100%;
+	grid-column: 1 / 4;
 }
