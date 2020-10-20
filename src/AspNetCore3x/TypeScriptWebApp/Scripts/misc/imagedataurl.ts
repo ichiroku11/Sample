@@ -5,5 +5,19 @@ document.addEventListener("DOMContentLoaded", _ => {
 		return;
 	}
 
-	droparea.addEventListener("click", _ => alert("droparea"));
+	droparea.addEventListener("dragenter", _ => {
+		console.log("dragenter");
+	});
+
+	droparea.addEventListener("dragover", _ => {
+		console.log("dragover");
+	});
+
+	droparea.addEventListener("dragleave", _ => {
+		console.log("dragleave");
+	});
+
+	droparea.addEventListener("drop", _ => {
+		console.log("drop");
+	});
 });
