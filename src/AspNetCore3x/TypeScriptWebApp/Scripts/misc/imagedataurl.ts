@@ -1,4 +1,15 @@
 
+
+function isImage(blob: Blob): boolean {
+	switch (blob.type) {
+		case "image/png":
+		case "image/jpeg":
+			break;
+	}
+
+	return false;
+}
+
 function readAsDataUrl(blob: Blob): Promise<string> {
 	return new Promise<string>((resolve, reject) => {
 		const reader = new FileReader();
@@ -48,7 +59,7 @@ document.addEventListener("DOMContentLoaded", _ => {
 			return;
 		}
 
-		var files = event.dataTransfer?.files;
+		const files = event.dataTransfer?.files;
 		if (!files) {
 			return;
 		}
@@ -56,7 +67,10 @@ document.addEventListener("DOMContentLoaded", _ => {
 			return;
 		}
 
-		var file = files[0];
+		const file = files[0];
+		if (!isImage(file)) {
+			return;
+		}
 		const dataUrl = await readAsDataUrl(file);
 
 		while (result.firstChild) {
