@@ -1,6 +1,9 @@
-import { SudokuResolver } from "./sudoku-resolver";
+import { SudokuDefault, SudokuResolver } from "./sudoku-resolver";
 
 document.addEventListener("DOMContentLoaded", _ => {
-	var resolver = new SudokuResolver();
+	const defaults: SudokuDefault[] = [
+	];
+
+	const resolver = new SudokuResolver(defaults);
 	resolver.resolve();
 });
