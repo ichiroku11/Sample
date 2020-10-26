@@ -6,7 +6,8 @@
 @section style {
 	<style>
 		:root {
-			--border: 2px solid #344861;
+			--border-bold: 2px solid #344861;
+			--border-thin: 1px solid #bec6d4;
 			--cell-size: 50px;
 		}
 
@@ -21,25 +22,34 @@
 			border-collapse: collapse;
 		}
 
-		#sudoku-view tr:first-child {
-			border-top: var(--border);
+		/* 行ごとの横線 */
+		#sudoku-view tr {
+			border-top: var(--border-thin);
 		}
-
+		#sudoku-view tr:first-child {
+			border-top: var(--border-bold);
+		}
 		#sudoku-view tr:nth-child(3n) {
-			border-bottom: var(--border);
+			border-bottom: var(--border-bold);
 		}
 
 		#sudoku-view td {
+			border-left: var(--border-thin);
+			cursor: pointer;
 			height: var(--cell-size);
 			width: var(--cell-size);
 		}
 
+		#sudoku-view td:hover {
+			background: #ddeeff;
+		}
+
 		#sudoku-view td:first-child {
-			border-left: var(--border);
+			border-left: var(--border-bold);
 		}
 
 		#sudoku-view td:nth-child(3n) {
-			border-right: var(--border);
+			border-right: var(--border-bold);
 		}
 	</style>
 }
