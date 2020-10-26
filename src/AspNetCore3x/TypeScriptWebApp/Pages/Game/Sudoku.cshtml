@@ -3,7 +3,61 @@
 	ViewBag.Title = "Sudoku";
 }
 
+@section style {
+	<style>
+		:root {
+			--border: 2px solid #344861;
+			--cell-size: 50px;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		#sudoku-view {
+		}
+
+		#sudoku-view > table {
+			border-collapse: collapse;
+		}
+
+		#sudoku-view tr:first-child {
+			border-top: var(--border);
+		}
+
+		#sudoku-view tr:nth-child(3n) {
+			border-bottom: var(--border);
+		}
+
+		#sudoku-view td {
+			height: var(--cell-size);
+			width: var(--cell-size);
+		}
+
+		#sudoku-view td:first-child {
+			border-left: var(--border);
+		}
+
+		#sudoku-view td:nth-child(3n) {
+			border-right: var(--border);
+		}
+	</style>
+}
 @*
 	table?
 	start button?
 *@
+
+<div id="sudoku-view">
+	<table>
+		<tbody>
+			@foreach (var row in Enumerable.Range(0, 9)) {
+				<tr>
+					@foreach (var column in Enumerable.Range(0, 9)) {
+						<td></td>
+					}
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
