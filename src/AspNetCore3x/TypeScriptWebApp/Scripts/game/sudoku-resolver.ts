@@ -15,14 +15,19 @@ export type SudokuDefault = Coord & {
 	value: Digit,
 };
 
+
+/*
+// todo: cell
+type SudokuCell = {
+	readonly: boolean;
+	value: UndefinedOrDigit;
+};
+*/
+
 /**
  * 数独リゾルバ
  */
 export class SudokuResolver {
-	// todo:
-	// 現在の確定済み盤面 (x: number, y: number) => number
-	// 候補一覧 (x: number, y: numer) => number[]
-
 	// マス
 	// todo: 9 * 9
 	private readonly _cells: UndefinedOrDigit[] = new Array<UndefinedOrDigit>(9 * 9);
@@ -54,10 +59,10 @@ export class SudokuResolver {
 	}
 
 	// 指定したセルの数値を取得
-	public digit(x: Component, y: Component): UndefinedOrDigit;
+	private digit(x: Component, y: Component): UndefinedOrDigit;
 	// 指定したセルの値を設定
-	public digit(x: Component, y: Component, value: UndefinedOrDigit): void;
-	public digit(x: Component, y: Component, value?: UndefinedOrDigit): void | UndefinedOrDigit {
+	private digit(x: Component, y: Component, value: UndefinedOrDigit): void;
+	private digit(x: Component, y: Component, value?: UndefinedOrDigit): void | UndefinedOrDigit {
 		const index = this.index(x, y);
 		if (value == undefined) {
 			return this._cells[index];
@@ -67,6 +72,15 @@ export class SudokuResolver {
 		return;
 	}
 
-	public resolve(): void {
+	public subscribe(
+		next: (x: Component, y: Component, value: Digit) => void,
+		completed: () => void): this {
+		// todo:
+
+		return this;
+	}
+
+	public resolve(): this {
+		return this;
 	}
 }
