@@ -1,4 +1,4 @@
-import { Component, Digit, SudokuDefault, UndefinedOrDigit } from "./sudoku-helper";
+import { SudokuComponent, SudokuDigit, SudokuDefault, SudokuUndefinedOrDigit } from "./sudoku-helper";
 
 /**
  * 数独リゾルバ
@@ -6,7 +6,7 @@ import { Component, Digit, SudokuDefault, UndefinedOrDigit } from "./sudoku-help
 export class SudokuResolver {
 	// マス
 	// todo: 9 * 9
-	private readonly _cells: UndefinedOrDigit[] = new Array<UndefinedOrDigit>(9 * 9);
+	private readonly _cells: SudokuUndefinedOrDigit[] = new Array<SudokuUndefinedOrDigit>(9 * 9);
 
 	public constructor(defaults: SudokuDefault[]) {
 		this.init(defaults);
@@ -17,7 +17,7 @@ export class SudokuResolver {
 	 * @param x
 	 * @param y
 	 */
-	private index(x: Component, y: Component): number {
+	private index(x: SudokuComponent, y: SudokuComponent): number {
 		// todo: 9
 		return x + y * 9;
 	}
@@ -35,10 +35,10 @@ export class SudokuResolver {
 	}
 
 	// 指定したセルの数値を取得
-	private digit(x: Component, y: Component): UndefinedOrDigit;
+	private digit(x: SudokuComponent, y: SudokuComponent): SudokuUndefinedOrDigit;
 	// 指定したセルの値を設定
-	private digit(x: Component, y: Component, value: UndefinedOrDigit): void;
-	private digit(x: Component, y: Component, value?: UndefinedOrDigit): void | UndefinedOrDigit {
+	private digit(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void;
+	private digit(x: SudokuComponent, y: SudokuComponent, value?: SudokuUndefinedOrDigit): void | SudokuUndefinedOrDigit {
 		const index = this.index(x, y);
 		if (value == undefined) {
 			return this._cells[index];
@@ -50,7 +50,7 @@ export class SudokuResolver {
 
 	// todo:
 	public subscribe(
-		next: (x: Component, y: Component, value: Digit) => void,
+		next: (x: SudokuComponent, y: SudokuComponent, value: SudokuDigit) => void,
 		completed: () => void): this {
 
 		return this;

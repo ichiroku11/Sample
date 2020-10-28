@@ -1,4 +1,4 @@
-import { Component, SudokuDefault, UndefinedOrDigit } from "./sudoku-helper";
+import { SudokuComponent, SudokuDefault, SudokuUndefinedOrDigit } from "./sudoku-helper";
 
 /*
  * 数独table要素ビュー
@@ -16,7 +16,7 @@ export class SudokuTableView {
 		this._table = table;
 	}
 
-	public update(x: Component, y: Component, value: UndefinedOrDigit) {
+	public update(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit) {
 		const tr = this._table.querySelector<HTMLTableRowElement>(`tr:nth-child(${y})`);
 		if (!tr) {
 			// todo:
