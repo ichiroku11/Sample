@@ -1,28 +1,4 @@
-
-// 座標のx成分、y成分
-type Component = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-// 座標
-type Coord = {
-	x: Component,
-	y: Component,
-};
-
-// 数独の数値
-type Digit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-type UndefinedOrDigit = undefined | Digit;
-
-export type SudokuDefault = Coord & {
-	value: Digit,
-};
-
-
-/*
-// todo: cell
-type SudokuCell = {
-	readonly: boolean;
-	value: UndefinedOrDigit;
-};
-*/
+import { Component, Digit, SudokuDefault, UndefinedOrDigit } from "./sudoku-helper";
 
 /**
  * 数独リゾルバ
@@ -72,15 +48,17 @@ export class SudokuResolver {
 		return;
 	}
 
+	// todo:
 	public subscribe(
 		next: (x: Component, y: Component, value: Digit) => void,
 		completed: () => void): this {
-		// todo:
 
 		return this;
 	}
 
+	// todo:
 	public resolve(): this {
+
 		return this;
 	}
 }
