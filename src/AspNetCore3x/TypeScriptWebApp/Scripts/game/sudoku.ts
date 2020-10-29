@@ -1,11 +1,9 @@
-import { SudokuDefault } from "./sudoku-helper";
+import { SudokuQuestions } from "./sudoku-helper";
 import { SudokuResolver } from "./sudoku-resolver";
 import { SudokuTableView } from "./sudoku-tableview";
 
 document.addEventListener("DOMContentLoaded", _ => {
-	const defaults: SudokuDefault[] = [
-		{ x: 1, y: 2, value: 7},
-	];
+	const defaults = SudokuQuestions.sample1;
 
 	const view = new SudokuTableView("#sudoku-view");
 	view.init(defaults);

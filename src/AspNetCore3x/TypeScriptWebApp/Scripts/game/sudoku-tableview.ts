@@ -17,13 +17,13 @@ export class SudokuTableView {
 	}
 
 	public update(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit) {
-		const tr = this._table.querySelector<HTMLTableRowElement>(`tr:nth-child(${y})`);
+		const tr = this._table.querySelector<HTMLTableRowElement>(`tr:nth-child(${y + 1})`);
 		if (!tr) {
 			// todo:
 			return;
 		}
 
-		const td = tr.querySelector(`td:nth-child(${x})`);
+		const td = tr.querySelector(`td:nth-child(${x + 1})`);
 		if (!td) {
 			// todo:
 			return;
