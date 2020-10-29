@@ -3,13 +3,14 @@
 export type SudokuComponent = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 // 座標
-export type SudokuCoord = {
+type SudokuCoord = {
 	x: SudokuComponent,
 	y: SudokuComponent,
 };
 
 // 数独の数値
-export type SudokuDigit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export const sudokuDigits = [1, 2, 3, 4, 5, 6, 7, 8, 9] as const;
+export type SudokuDigit = typeof sudokuDigits[number];
 
 export type SudokuUndefinedOrDigit = undefined | SudokuDigit;
 

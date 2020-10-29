@@ -1,5 +1,4 @@
-import { SudokuComponent, SudokuDigit, SudokuDefault, SudokuUndefinedOrDigit } from "./sudoku-helper";
-
+import { SudokuComponent, SudokuDigit, SudokuDefault, SudokuUndefinedOrDigit, sudokuDigits } from "./sudoku-helper";
 
 type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuDigit) => void;
 type SudokuCompleted = () => void;
@@ -55,6 +54,17 @@ export class SudokuResolver {
 		return;
 	}
 
+	private findChoices(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
+		const choices = Array.from(sudokuDigits);
+
+		// todo:
+		// 同じ行で使われている数字を取り除く
+		// 同じ列で使われている数字を取り除く
+		// 同じ3x3ブロックで使われている数字を取り除く
+
+		return choices;
+	}
+
 	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {
 		this._next = next;
 		this._completed = completed;
@@ -64,6 +74,10 @@ export class SudokuResolver {
 
 	// todo:
 	public resolve(): this {
+
+		// 空セルの候補を探す
+		// 候補の一番少ないセルで確定できるものがあれば確定する
+
 
 		return this;
 	}
