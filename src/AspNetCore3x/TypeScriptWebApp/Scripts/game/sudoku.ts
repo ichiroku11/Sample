@@ -4,11 +4,11 @@ import { SudokuTableView } from "./sudoku-tableview";
 
 document.addEventListener("DOMContentLoaded", _ => {
 	const defaults = SudokuQuestions.sample1;
-
+	const resolver = new SudokuResolver(defaults);
 	const view = new SudokuTableView("#sudoku-view");
+
 	view.init(defaults);
 
-	const resolver = new SudokuResolver(defaults);
 	resolver
 		.subscribe(
 			(x, y, value) => {

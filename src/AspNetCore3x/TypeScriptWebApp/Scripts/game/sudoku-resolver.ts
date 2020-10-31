@@ -1,4 +1,11 @@
-import { SudokuComponent, SudokuDigit, SudokuDefault, SudokuUndefinedOrDigit, sudokuDigits } from "./sudoku-helper";
+import {
+	SudokuComponent,
+	SudokuDigit,
+	SudokuDefault,
+	SudokuUndefinedOrDigit,
+	sudokuDigits,
+	sudokuComponents
+} from "./sudoku-helper";
 
 type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuDigit) => void;
 type SudokuCompleted = () => void;
@@ -52,6 +59,53 @@ export class SudokuResolver {
 
 		this._cells[index] = value;
 		return;
+	}
+
+	private findInRow(x: SudokuComponent): SudokuDigit[] {
+		const digits: SudokuDigit[] = [];
+
+		for (const y of sudokuComponents) {
+			const value = this.digit(x, y);
+			if (value !== undefined) {
+				digits.push(value);
+			}
+		}
+
+		return digits;
+	}
+
+	private findInCol(y: SudokuComponent): SudokuDigit[] {
+		const digits: SudokuDigit[] = [];
+
+		for (const x of sudokuComponents) {
+			const value = this.digit(x, y);
+			if (value !== undefined) {
+				digits.push(value);
+			}
+		}
+
+		return digits;
+	}
+
+	private blockRange(value: SudokuComponent): SudokuComponent[] {
+		const start = Math.floor(value / 3) * 3;
+		return Array.from({ length: 3 }, (_, index) => start + index) as SudokuComponent[];
+	}
+
+	private findInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
+		const digits: SudokuDigit[] = [];
+
+		// ブロック内の数字を列挙する
+		for (const bx of this.blockRange(x)) {
+			for (const by of this.blockRange(y)) {
+				const value = this.digit(bx, by);
+				if (value !== undefined) {
+					digits.push(value);
+				}
+			}
+		}
+
+		return digits;
 	}
 
 	private findChoices(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {

@@ -16,7 +16,7 @@ export class SudokuTableView {
 		this._table = table;
 	}
 
-	public update(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit) {
+	public update(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit, fixed = false) {
 		const tr = this._table.querySelector<HTMLTableRowElement>(`tr:nth-child(${y + 1})`);
 		if (!tr) {
 			// todo:
@@ -32,11 +32,15 @@ export class SudokuTableView {
 		td.textContent = value === undefined
 			? ""
 			: value.toString();
+
+		if (fixed) {
+			td.classList.add("fixed");
+		}
 	}
 
 	public init(defaults: SudokuDefault[]) {
 		for (const { x, y, value } of defaults) {
-			this.update(x, y, value);
+			this.update(x, y, value, true);
 		}
 	}
 }
