@@ -8,6 +8,7 @@ import { functionAsteriskTest } from "./test/function-asterisk.test";
 import { instanceofTest } from "./test/instanceof.test";
 import { promiseTest } from "./test/promise.test";
 import { rxjsCreatingOperatorsTest } from "./test/rxjs.test"
+import { setTest } from "./test/set.test"
 import { spreadSyntaxTest } from "./test/spread-syntax.test";
 import { templateStringsTest } from "./test/template-strings.test";
 import { urlSearchParamsTest } from "./test/url.test";
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		instanceofTest,
 		promiseTest,
 		rxjsCreatingOperatorsTest,
+		setTest,
 		spreadSyntaxTest,
 		templateStringsTest,
 		urlSearchParamsTest,
