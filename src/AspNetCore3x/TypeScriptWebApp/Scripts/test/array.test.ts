@@ -56,6 +56,16 @@ export const arrayTest = new Test("ArrayTest")
 		// Assert
 		Assert.equal([1, 2, 3], actual);
 	})
+	.fact("from_Setから配列に変換する", () => {
+		// Arrange
+		const set = new Set([1, 2, 3]);
+
+		// Act
+		const actual = Array.from(set);
+
+		// Assert
+		Assert.equal([1, 2, 3], actual);
+	})
 	.fact("map_試す", () => {
 		// Arrange
 		// Act
