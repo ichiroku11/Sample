@@ -61,7 +61,7 @@ export class SudokuResolver {
 		return;
 	}
 
-	private findInRow(x: SudokuComponent): SudokuDigit[] {
+	private findDigitsInCol(x: SudokuComponent): SudokuDigit[] {
 		const digits: SudokuDigit[] = [];
 
 		for (const y of sudokuComponents) {
@@ -74,7 +74,7 @@ export class SudokuResolver {
 		return digits;
 	}
 
-	private findInCol(y: SudokuComponent): SudokuDigit[] {
+	private findDigitsInRow(y: SudokuComponent): SudokuDigit[] {
 		const digits: SudokuDigit[] = [];
 
 		for (const x of sudokuComponents) {
@@ -92,7 +92,7 @@ export class SudokuResolver {
 		return Array.from({ length: 3 }, (_, index) => start + index) as SudokuComponent[];
 	}
 
-	private findInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
+	private findDigitsInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
 		const digits: SudokuDigit[] = [];
 
 		// ブロック内の数字を列挙する
@@ -119,19 +119,17 @@ export class SudokuResolver {
 		return choices;
 	}
 
-	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {
-		this._next = next;
-		this._completed = completed;
+	// todo:
+	public resolve(): this {
+		// 空セルの候補を探す
+		// 候補の一番少ないセルで確定できるものがあれば確定する
 
 		return this;
 	}
 
-	// todo:
-	public resolve(): this {
-
-		// 空セルの候補を探す
-		// 候補の一番少ないセルで確定できるものがあれば確定する
-
+	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {
+		this._next = next;
+		this._completed = completed;
 
 		return this;
 	}
