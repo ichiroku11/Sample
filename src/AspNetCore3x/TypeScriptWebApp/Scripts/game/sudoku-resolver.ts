@@ -61,26 +61,26 @@ export class SudokuResolver {
 		return;
 	}
 
-	private findDigitsInCol(x: SudokuComponent): SudokuDigit[] {
-		const digits: SudokuDigit[] = [];
+	private findDigitsInCol(x: SudokuComponent): Set<SudokuDigit> {
+		const digits = new Set<SudokuDigit>();
 
 		for (const y of sudokuComponents) {
 			const value = this.digit(x, y);
 			if (value !== undefined) {
-				digits.push(value);
+				digits.add(value);
 			}
 		}
 
 		return digits;
 	}
 
-	private findDigitsInRow(y: SudokuComponent): SudokuDigit[] {
-		const digits: SudokuDigit[] = [];
+	private findDigitsInRow(y: SudokuComponent): Set<SudokuDigit> {
+		const digits = new Set<SudokuDigit>();
 
 		for (const x of sudokuComponents) {
 			const value = this.digit(x, y);
 			if (value !== undefined) {
-				digits.push(value);
+				digits.add(value);
 			}
 		}
 
@@ -92,15 +92,15 @@ export class SudokuResolver {
 		return Array.from({ length: 3 }, (_, index) => start + index) as SudokuComponent[];
 	}
 
-	private findDigitsInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
-		const digits: SudokuDigit[] = [];
+	private findDigitsInBlock(x: SudokuComponent, y: SudokuComponent): Set<SudokuDigit> {
+		const digits = new Set<SudokuDigit>();
 
 		// ブロック内の数字を列挙する
 		for (const bx of this.blockRange(x)) {
 			for (const by of this.blockRange(y)) {
 				const value = this.digit(bx, by);
 				if (value !== undefined) {
-					digits.push(value);
+					digits.add(value);
 				}
 			}
 		}
