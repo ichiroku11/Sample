@@ -41,4 +41,13 @@ export const spreadSyntaxTest = new Test("SpreadSyntaxTest")
 
 		// Assert
 		Assert.equal(6, actual);
+	})
+	.fact("spread_配列リテラルに関数の戻り値を指定する", () => {
+		// Arrange
+		const items = () => [1, 2];
+		// Act
+		const actual = [0, ...items(), ...items()];
+
+		// Assert
+		Assert.equal([0, 1, 2, 1, 2], actual);
 	});
