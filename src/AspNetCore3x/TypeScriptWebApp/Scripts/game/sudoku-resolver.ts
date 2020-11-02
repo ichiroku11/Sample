@@ -61,26 +61,26 @@ export class SudokuResolver {
 		return;
 	}
 
-	private findDigitsInCol(x: SudokuComponent): Set<SudokuDigit> {
-		const digits = new Set<SudokuDigit>();
+	private findDigitsInCol(x: SudokuComponent): SudokuDigit[] {
+		const digits: SudokuDigit[] = [];
 
 		for (const y of sudokuComponents) {
 			const value = this.digit(x, y);
 			if (value !== undefined) {
-				digits.add(value);
+				digits.push(value);
 			}
 		}
 
 		return digits;
 	}
 
-	private findDigitsInRow(y: SudokuComponent): Set<SudokuDigit> {
-		const digits = new Set<SudokuDigit>();
+	private findDigitsInRow(y: SudokuComponent): SudokuDigit[] {
+		const digits: SudokuDigit[] = [];
 
 		for (const x of sudokuComponents) {
 			const value = this.digit(x, y);
 			if (value !== undefined) {
-				digits.add(value);
+				digits.push(value);
 			}
 		}
 
@@ -92,15 +92,15 @@ export class SudokuResolver {
 		return Array.from({ length: 3 }, (_, index) => start + index) as SudokuComponent[];
 	}
 
-	private findDigitsInBlock(x: SudokuComponent, y: SudokuComponent): Set<SudokuDigit> {
-		const digits = new Set<SudokuDigit>();
+	private findDigitsInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
+		const digits: SudokuDigit[] = [];
 
 		// ブロック内の数字を列挙する
 		for (const bx of this.blockRange(x)) {
 			for (const by of this.blockRange(y)) {
 				const value = this.digit(bx, by);
 				if (value !== undefined) {
-					digits.add(value);
+					digits.push(value);
 				}
 			}
 		}
@@ -108,15 +108,20 @@ export class SudokuResolver {
 		return digits;
 	}
 
-	private findChoices(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
-		const choices = Array.from(sudokuDigits);
+	private findChoices(x: SudokuComponent, y: SudokuComponent): Set<SudokuDigit> {
+		const choiceDigits = new Set(sudokuDigits);
 
-		// todo:
-		// 同じ行で使われている数字を取り除く
-		// 同じ列で使われている数字を取り除く
-		// 同じ3x3ブロックで使われている数字を取り除く
+		// 同じ行・同じ列・同じ3x3ブロックで使われている数字を取り除く
+		const usedDigits = new Set([
+			...this.findDigitsInRow(x),
+			...this.findDigitsInRow(y),
+			...this.findDigitsInBlock(x, y)
+		]);
+		for (const usedDigit of usedDigits) {
+			choiceDigits.delete(usedDigit);
+		}
 
-		return choices;
+		return choiceDigits;
 	}
 
 	// todo:
