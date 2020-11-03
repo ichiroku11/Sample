@@ -35,6 +35,7 @@
 
 		#sudoku-view td {
 			border-left: var(--border-thin);
+			color: #4963df;
 			cursor: pointer;
 			font-size: 2rem;
 			height: var(--cell-size);
@@ -59,9 +60,13 @@
 		}
 	</style>
 }
+<div>
+	<button id="sudoku-button-resolve" type="button">Resolve</button>
+</div>
 <div id="sudoku-view">
 	<table>
 		<tbody>
+			@* // todo: 9 *@
 			@foreach (var row in Enumerable.Range(0, 9)) {
 				<tr>
 					@foreach (var column in Enumerable.Range(0, 9)) {

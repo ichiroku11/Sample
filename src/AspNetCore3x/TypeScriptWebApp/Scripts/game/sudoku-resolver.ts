@@ -8,7 +8,7 @@ import {
 	sudokuDigits,
 } from "./sudoku-helper";
 
-type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuDigit) => void;
+type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit) => void;
 type SudokuCompleted = () => void;
 
 /**
@@ -44,28 +44,26 @@ export class SudokuResolver {
 		this._cells.fill(undefined);
 
 		for (const { x, y, value } of defaults) {
-			this.digit(x, y, value);
+			this.put(x, y, value);
 		}
 	}
 
 	// 指定したセルの数値を取得
-	private digit(x: SudokuComponent, y: SudokuComponent): SudokuUndefinedOrDigit;
-	// 指定したセルの値を設定
-	private digit(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void;
-	private digit(x: SudokuComponent, y: SudokuComponent, value?: SudokuUndefinedOrDigit): void | SudokuUndefinedOrDigit {
+	public get(x: SudokuComponent, y: SudokuComponent): SudokuUndefinedOrDigit {
 		const index = this.index(x, y);
-		if (value == undefined) {
-			return this._cells[index];
-		}
+		return this._cells[index];
+	}
 
+	// 指定したセルの値を設定
+	private put(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void {
+		const index = this.index(x, y);
 		this._cells[index] = value;
-		return;
 	}
 
 	private findUndefined(): SudokuCoord | null {
 		for (const y of sudokuComponents) {
 			for (const x of sudokuComponents) {
-				const value = this.digit(x, y);
+				const value = this.get(x, y);
 				if (value === undefined) {
 					return { x, y };
 				}
@@ -75,51 +73,51 @@ export class SudokuResolver {
 		return null;
 	}
 
-	private findDigitsInCol(x: SudokuComponent): SudokuDigit[] {
-		const digits: SudokuDigit[] = [];
+	private findUsedInCol(x: SudokuComponent): SudokuDigit[] {
+		const values: SudokuDigit[] = [];
 
 		for (const y of sudokuComponents) {
-			const value = this.digit(x, y);
-			if (value !== undefined) {
-				digits.push(value);
+			const digit = this.get(x, y);
+			if (digit !== undefined) {
+				values.push(digit);
 			}
 		}
 
-		return digits;
+		return values;
 	}
 
-	private findDigitsInRow(y: SudokuComponent): SudokuDigit[] {
-		const digits: SudokuDigit[] = [];
+	private findUsedInRow(y: SudokuComponent): SudokuDigit[] {
+		const values: SudokuDigit[] = [];
 
 		for (const x of sudokuComponents) {
-			const value = this.digit(x, y);
+			const value = this.get(x, y);
 			if (value !== undefined) {
-				digits.push(value);
+				values.push(value);
 			}
 		}
 
-		return digits;
+		return values;
 	}
 
-	private blockRange(value: SudokuComponent): SudokuComponent[] {
+	private getBlockRange(value: SudokuComponent): SudokuComponent[] {
 		const start = Math.floor(value / 3) * 3;
 		return Array.from({ length: 3 }, (_, index) => start + index) as SudokuComponent[];
 	}
 
-	private findDigitsInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
-		const digits: SudokuDigit[] = [];
+	private findUsedInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
+		const values: SudokuDigit[] = [];
 
 		// ブロック内の数字を列挙する
-		for (const by of this.blockRange(y)) {
-			for (const bx of this.blockRange(x)) {
-				const value = this.digit(bx, by);
+		for (const by of this.getBlockRange(y)) {
+			for (const bx of this.getBlockRange(x)) {
+				const value = this.get(bx, by);
 				if (value !== undefined) {
-					digits.push(value);
+					values.push(value);
 				}
 			}
 		}
 
-		return digits;
+		return values;
 	}
 
 	private findChoices(x: SudokuComponent, y: SudokuComponent): Set<SudokuDigit> {
@@ -127,9 +125,9 @@ export class SudokuResolver {
 
 		// 同じ行・同じ列・同じ3x3ブロックで使われている数字を取り除く
 		const usedDigits = new Set([
-			...this.findDigitsInCol(x),
-			...this.findDigitsInRow(y),
-			...this.findDigitsInBlock(x, y)
+			...this.findUsedInRow(y),
+			...this.findUsedInCol(x),
+			...this.findUsedInBlock(x, y)
 		]);
 		for (const usedDigit of usedDigits) {
 			choiceDigits.delete(usedDigit);
@@ -138,12 +136,48 @@ export class SudokuResolver {
 		return choiceDigits;
 	}
 
-	// todo:
-	public resolve(): this {
-		// 空セルの候補を探す
-		// 候補の一番少ないセルで確定できるものがあれば確定する
+	private next(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void {
+		console.log(`next: (${x}, ${y}), ${value}`);
+		if (this._next) {
+			this._next(x, y, value);
+		}
+	}
 
-		return this;
+	private completed(): void {
+		if (this._completed) {
+			this._completed();
+		}
+	}
+
+	public resolve(): boolean {
+		// 空セルを探す
+		// 見つからなければ終了
+		const coord = this.findUndefined();
+		if (coord === null) {
+			this.completed();
+			return true;
+		}
+
+		const { x, y } = coord;
+		const choices = this.findChoices(x, y);
+		console.log(`search: (${x}, ${y}), [${Array.from(choices).join(", ")}]`);
+
+		// 深さ優先探索（バックトラッキング）による探索
+		for (const choice of choices) {
+			this.put(x, y, choice);
+			this.next(x, y, choice);
+
+			// 再帰呼び出し
+			const resolved = this.resolve();
+			if (resolved) {
+				return true;
+			}
+
+			this.put(x, y, undefined);
+			this.next(x, y, undefined);
+		}
+
+		return false;
 	}
 
 	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {
