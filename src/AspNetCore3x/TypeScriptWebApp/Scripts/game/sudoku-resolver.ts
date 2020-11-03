@@ -1,10 +1,11 @@
 import {
 	SudokuComponent,
-	SudokuDigit,
+	SudokuCoord,
 	SudokuDefault,
+	SudokuDigit,
 	SudokuUndefinedOrDigit,
+	sudokuComponents,
 	sudokuDigits,
-	sudokuComponents
 } from "./sudoku-helper";
 
 type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuDigit) => void;
@@ -61,6 +62,19 @@ export class SudokuResolver {
 		return;
 	}
 
+	private findUndefined(): SudokuCoord | null {
+		for (const y of sudokuComponents) {
+			for (const x of sudokuComponents) {
+				const value = this.digit(x, y);
+				if (value === undefined) {
+					return { x, y };
+				}
+			}
+		}
+
+		return null;
+	}
+
 	private findDigitsInCol(x: SudokuComponent): SudokuDigit[] {
 		const digits: SudokuDigit[] = [];
 
@@ -96,8 +110,8 @@ export class SudokuResolver {
 		const digits: SudokuDigit[] = [];
 
 		// ブロック内の数字を列挙する
-		for (const bx of this.blockRange(x)) {
-			for (const by of this.blockRange(y)) {
+		for (const by of this.blockRange(y)) {
+			for (const bx of this.blockRange(x)) {
 				const value = this.digit(bx, by);
 				if (value !== undefined) {
 					digits.push(value);
