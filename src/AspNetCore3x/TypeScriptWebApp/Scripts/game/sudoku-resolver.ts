@@ -113,7 +113,7 @@ export class SudokuResolver {
 
 		// 同じ行・同じ列・同じ3x3ブロックで使われている数字を取り除く
 		const usedDigits = new Set([
-			...this.findDigitsInRow(x),
+			...this.findDigitsInCol(x),
 			...this.findDigitsInRow(y),
 			...this.findDigitsInBlock(x, y)
 		]);
