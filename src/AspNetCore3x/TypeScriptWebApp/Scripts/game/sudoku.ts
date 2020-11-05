@@ -1,4 +1,4 @@
-import { SudokuQuestions } from "./sudoku-helper";
+import { SudokuQuestions } from "./sudoku-questions";
 import { SudokuResolver } from "./sudoku-resolver";
 import { SudokuTableView } from "./sudoku-tableview";
 
