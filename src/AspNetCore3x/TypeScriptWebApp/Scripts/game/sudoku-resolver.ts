@@ -1,11 +1,12 @@
 import {
+	range,
 	SudokuComponent,
 	SudokuCoord,
 	SudokuDefault,
 	SudokuDigit,
 	SudokuUndefinedOrDigit,
 	sudokuComponents,
-	sudokuDigits,
+	sudokuDigits
 } from "./sudoku-helper";
 
 type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit) => void;
@@ -101,7 +102,7 @@ export class SudokuResolver {
 
 	private getBlockRange(value: SudokuComponent): SudokuComponent[] {
 		const start = Math.floor(value / 3) * 3;
-		return Array.from({ length: 3 }, (_, index) => start + index) as SudokuComponent[];
+		return range(start, 3) as SudokuComponent[];
 	}
 
 	private findUsedInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {

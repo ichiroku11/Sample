@@ -1,5 +1,8 @@
 import { SudokuDefault } from "./sudoku-helper";
 
+/**
+ * 数独の問題
+ */
 export class SudokuQuestions {
 	public static easy1: SudokuDefault[] = [
 		{ x: 1, y: 0, value: 2 },
