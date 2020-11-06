@@ -1,4 +1,4 @@
-import { range, SudokuComponent, SudokuDefault, SudokuUndefinedOrDigit } from "./sudoku-helper";
+import { range, sudokuCellCount, SudokuComponent, SudokuDefault, SudokuUndefinedOrDigit } from "./sudoku-helper";
 
 /*
  * 数独table要素ビュー
@@ -20,9 +20,9 @@ export class SudokuTableView {
 	private create(): HTMLTableElement {
 		const table = document.createElement("table");
 		const tbody = document.createElement("tbody");
-		for (const _ of range(0, 9)) {
+		for (const _ of range(0, sudokuCellCount)) {
 			const tr = document.createElement("tr");
-			for (const _ of range(0, 9)) {
+			for (const _ of range(0, sudokuCellCount)) {
 				const td = document.createElement("td");
 				tr.appendChild(td);
 			}

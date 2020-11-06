@@ -1,15 +1,8 @@
-import {
-	range,
-	SudokuComponent,
-	SudokuCoord,
-	SudokuDefault,
-	SudokuDigit,
-	SudokuUndefinedOrDigit,
-	sudokuComponents,
-	sudokuDigits
-} from "./sudoku-helper";
+import { range, sudokuCellCount, SudokuComponent, sudokuComponents, SudokuCoord, SudokuDefault, SudokuDigit, sudokuDigits, SudokuUndefinedOrDigit } from "./sudoku-helper";
 
+// nextコールバック
 type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit) => void;
+// completedコールバック
 type SudokuCompleted = () => void;
 
 /**
@@ -17,12 +10,14 @@ type SudokuCompleted = () => void;
  */
 export class SudokuResolver {
 	// マス
-	// todo: 9 * 9
-	private readonly _cells: SudokuUndefinedOrDigit[] = new Array<SudokuUndefinedOrDigit>(9 * 9);
+	private readonly _cells: SudokuUndefinedOrDigit[] = new Array<SudokuUndefinedOrDigit>(sudokuCellCount * sudokuCellCount);
 	private _next: SudokuNext = () => { };
 	private _completed: SudokuCompleted = () => { };
 
-
+	/**
+	 * 
+	 * @param defaults
+	 */
 	public constructor(defaults: SudokuDefault[]) {
 		this.init(defaults);
 	}
@@ -33,8 +28,7 @@ export class SudokuResolver {
 	 * @param y
 	 */
 	private index(x: SudokuComponent, y: SudokuComponent): number {
-		// todo: 9
-		return x + y * 9;
+		return x + y * sudokuCellCount;
 	}
 
 	/**
@@ -101,8 +95,10 @@ export class SudokuResolver {
 	}
 
 	private getBlockRange(value: SudokuComponent): SudokuComponent[] {
-		const start = Math.floor(value / 3) * 3;
-		return range(start, 3) as SudokuComponent[];
+		// ブロック内の1行（1列）文のセル数
+		const count = sudokuCellCount / 3;
+		const start = Math.floor(value / count) * count;
+		return range(start, count) as SudokuComponent[];
 	}
 
 	private findUsedInBlock(x: SudokuComponent, y: SudokuComponent): SudokuDigit[] {
