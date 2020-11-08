@@ -133,29 +133,32 @@ export class SudokuResolver {
 		return choiceDigits;
 	}
 
-	private next(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): Promise<void> {
-		return new Promise<void>(resolve => {
-			setTimeout(() => {
-				console.log(`next: (${x}, ${y}), ${value}`);
-				if (this._next) {
-					this._next(x, y, value);
-				}
-				resolve();
-			});
-		});
+	/**
+	 * セルに値を配置して通知
+	 * @param x
+	 * @param y
+	 * @param value
+	 */
+	private putAndNotifyNext(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void {
+		this.put(x, y, value);
+
+		console.log(`next: (${x}, ${y}), ${value}`);
+		if (this._next) {
+			this._next(x, y, value);
+		}
 	}
 
-	private completed(): Promise<void> {
-		return new Promise<void>(resolve => {
-			setTimeout(() => {
-				if (this._completed) {
-					this._completed();
-				}
-				resolve();
-			});
-		});
+	/**
+	 * 完了を通知
+	 */
+	private notifyCompleted(): void {
+		if (this._completed) {
+			this._completed();
+		}
 	}
 
+	// Promiseのresolveと紛らわしいので改名しただけ
+	/** 数独を解く */
 	private resolveCore(): Promise<boolean> {
 		return new Promise(resolve => {
 			setTimeout(async () => {
@@ -163,7 +166,7 @@ export class SudokuResolver {
 				// 見つからなければ終了
 				const coord = this.findUndefined();
 				if (coord === null) {
-					await this.completed();
+					this.notifyCompleted();
 					resolve(true);
 					return;
 				}
@@ -174,8 +177,7 @@ export class SudokuResolver {
 
 				// 深さ優先探索（バックトラッキング）による探索
 				for (const choice of choices) {
-					this.put(x, y, choice);
-					await this.next(x, y, choice);
+					this.putAndNotifyNext(x, y, choice);
 
 					// 再帰呼び出し
 					const resolved = await this.resolveCore();
@@ -184,8 +186,7 @@ export class SudokuResolver {
 						return;
 					}
 
-					this.put(x, y, undefined);
-					await this.next(x, y, undefined);
+					this.putAndNotifyNext(x, y, undefined);
 				}
 
 				resolve(false);
@@ -193,10 +194,16 @@ export class SudokuResolver {
 		});
 	}
 
+	/** 数独を解く */
 	public resolve(): Promise<boolean> {
 		return this.resolveCore();
 	}
 
+	/**
+	 * 通知を購読する
+	 * @param next 次の数値を配置すたときの通知コールバック
+	 * @param completed 完了したときの通知コールバック
+	 */
 	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {
 		this._next = next;
 		this._completed = completed;
