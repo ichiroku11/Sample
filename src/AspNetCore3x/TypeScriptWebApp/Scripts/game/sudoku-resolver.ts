@@ -133,48 +133,68 @@ export class SudokuResolver {
 		return choiceDigits;
 	}
 
-	private next(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void {
-		console.log(`next: (${x}, ${y}), ${value}`);
-		if (this._next) {
-			this._next(x, y, value);
-		}
+	private next(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): Promise<void> {
+		return new Promise<void>(resolve => {
+			setTimeout(() => {
+				console.log(`next: (${x}, ${y}), ${value}`);
+				if (this._next) {
+					this._next(x, y, value);
+				}
+				resolve();
+			});
+		});
 	}
 
-	private completed(): void {
-		if (this._completed) {
-			this._completed();
-		}
+	private completed(): Promise<void> {
+		return new Promise<void>(resolve => {
+			setTimeout(() => {
+				if (this._completed) {
+					this._completed();
+				}
+				resolve();
+			});
+		});
 	}
 
-	public resolve(): boolean {
-		// 空セルを探す
-		// 見つからなければ終了
-		const coord = this.findUndefined();
-		if (coord === null) {
-			this.completed();
-			return true;
-		}
+	private resolveCore(): Promise<boolean> {
+		return new Promise(resolve => {
+			setTimeout(async () => {
+				// 空セルを探す
+				// 見つからなければ終了
+				const coord = this.findUndefined();
+				if (coord === null) {
+					await this.completed();
+					resolve(true);
+					return;
+				}
 
-		const { x, y } = coord;
-		const choices = this.findChoices(x, y);
-		console.log(`search: (${x}, ${y}), [${Array.from(choices).join(", ")}]`);
+				const { x, y } = coord;
+				const choices = this.findChoices(x, y);
+				console.log(`search: (${x}, ${y}), [${Array.from(choices).join(", ")}]`);
 
-		// 深さ優先探索（バックトラッキング）による探索
-		for (const choice of choices) {
-			this.put(x, y, choice);
-			this.next(x, y, choice);
+				// 深さ優先探索（バックトラッキング）による探索
+				for (const choice of choices) {
+					this.put(x, y, choice);
+					await this.next(x, y, choice);
 
-			// 再帰呼び出し
-			const resolved = this.resolve();
-			if (resolved) {
-				return true;
-			}
+					// 再帰呼び出し
+					const resolved = await this.resolveCore();
+					if (resolved) {
+						resolve(true);
+						return;
+					}
 
-			this.put(x, y, undefined);
-			this.next(x, y, undefined);
-		}
+					this.put(x, y, undefined);
+					await this.next(x, y, undefined);
+				}
 
-		return false;
+				resolve(false);
+			});
+		});
+	}
+
+	public resolve(): Promise<boolean> {
+		return this.resolveCore();
 	}
 
 	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {

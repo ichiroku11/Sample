@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", _ => {
 	view.init(defaults);
 
 	const button = document.querySelector("#sudoku-button-resolve");
-	button?.addEventListener("click", () => {
-		resolver.resolve();
+	button?.addEventListener("click", async () => {
+		await resolver.resolve();
 	});
 });
