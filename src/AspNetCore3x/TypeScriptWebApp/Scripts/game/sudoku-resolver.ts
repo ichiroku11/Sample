@@ -157,10 +157,11 @@ export class SudokuResolver {
 		}
 	}
 
-	// Promiseのresolveと紛らわしいので改名しただけ
+	// Promiseのresolveと紛らわしいので別名のメソッドにしただけ
 	/** 数独を解く */
 	private resolveCore(): Promise<boolean> {
 		return new Promise(resolve => {
+			// setTimeoutを使ってUI描画のタイミングを作作る
 			setTimeout(async () => {
 				// 空セルを探す
 				// 見つからなければ終了
