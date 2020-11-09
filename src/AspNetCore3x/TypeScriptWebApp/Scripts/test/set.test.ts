@@ -1,5 +1,7 @@
 import { Assert, Test } from "../unittestlib";
 
+// Set
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Set
 
 export const setTest = new Test("SetTest")
 	.fact("constructor_引数に配列を渡せる", () => {

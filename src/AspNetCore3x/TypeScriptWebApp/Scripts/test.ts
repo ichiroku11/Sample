@@ -6,6 +6,7 @@ import { errorTest } from "./test/error.test";
 import { fetchTest } from "./test/fetch.test";
 import { functionAsteriskTest } from "./test/function-asterisk.test";
 import { instanceofTest } from "./test/instanceof.test";
+import { mapTest } from "./test/map.test"
 import { promiseTest } from "./test/promise.test";
 import { rxjsCreatingOperatorsTest } from "./test/rxjs.test"
 import { setTest } from "./test/set.test"
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		fetchTest,
 		functionAsteriskTest,
 		instanceofTest,
+		mapTest,
 		promiseTest,
 		rxjsCreatingOperatorsTest,
 		setTest,
