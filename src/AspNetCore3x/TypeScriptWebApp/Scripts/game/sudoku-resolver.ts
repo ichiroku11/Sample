@@ -172,6 +172,9 @@ export class SudokuResolver {
 					return;
 				}
 
+				// todo:
+				// 空のセル群から候補が少ないセルを優先して探索する
+
 				const { x, y } = coord;
 				const choices = this.findChoices(x, y);
 				console.log(`search: (${x}, ${y}), [${Array.from(choices).join(", ")}]`);
