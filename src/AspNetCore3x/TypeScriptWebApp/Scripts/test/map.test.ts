@@ -13,4 +13,13 @@ export const mapTest = new Test("MapTest")
 		Assert.equal(2, map.size);
 		Assert.equal("x", map.get(1));
 		Assert.equal("y", map.get(2));
+	})
+	.fact("constructor_引数に重複した要素を渡すと上書きされる", () => {
+		// Arrange
+		// Act
+		const map = new Map([[1, "x"], [1, "y"]]);
+
+		// Assert
+		Assert.equal(1, map.size);
+		Assert.equal("y", map.get(1));
 	});
