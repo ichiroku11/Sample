@@ -22,4 +22,21 @@ export const mapTest = new Test("MapTest")
 		// Assert
 		Assert.equal(1, map.size);
 		Assert.equal("y", map.get(1));
+	})
+	.fact("entries_挿入順に取得できる", () => {
+		// Arrange
+		const map = new Map<number, string>();
+		map.set(1, "x").set(2, "y");
+
+		// Act
+		const keys: number[] = [];
+		const values: string[] = [];
+		for (const [key, value] of map.entries()) {
+			keys.push(key);
+			values.push(value);
+		}
+
+		// Assert
+		Assert.equal([1, 2], keys);
+		Assert.equal(["x", "y"], values);
 	});
