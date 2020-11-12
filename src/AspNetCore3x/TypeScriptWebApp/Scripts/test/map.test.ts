@@ -39,4 +39,16 @@ export const mapTest = new Test("MapTest")
 		// Assert
 		Assert.equal([1, 2], keys);
 		Assert.equal(["x", "y"], values);
+	})
+	.fact("forEach_列挙できる", () => {
+		// Arrange
+		const map = new Map([[1, "x"]]);
+
+		// Act
+		// Assert
+		Assert.equal(1, map.size);
+		map.forEach((value, key) => {
+			Assert.equal(key, 1);
+			Assert.equal(value, "x");
+		});
 	});
