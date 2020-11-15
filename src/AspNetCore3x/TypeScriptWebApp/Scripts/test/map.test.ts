@@ -51,4 +51,16 @@ export const mapTest = new Test("MapTest")
 			Assert.equal(key, 1);
 			Assert.equal(value, "x");
 		});
+	})
+	.fact("forof_列挙できる", () => {
+		// Arrange
+		const map = new Map([[1, "x"]]);
+
+		// Act
+		// Assert
+		Assert.equal(1, map.size);
+		for (const [key, value] of map) {
+			Assert.equal(key, 1);
+			Assert.equal(value, "x");
+		}
 	});
