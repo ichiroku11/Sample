@@ -1,3 +1,4 @@
+import { SudokuBoard } from "./sudoku-board";
 import { SudokuQuestions } from "./sudoku-questions";
 import { SudokuResolver } from "./sudoku-resolver";
 import { SudokuTableView } from "./sudoku-tableview";
@@ -5,7 +6,7 @@ import { SudokuTableView } from "./sudoku-tableview";
 document.addEventListener("DOMContentLoaded", _ => {
 	const defaults = SudokuQuestions.hard1;
 
-	const resolver = new SudokuResolver(defaults);
+	const resolver = new SudokuResolver(new SudokuBoard(defaults));
 	resolver
 		.subscribe(
 			(x, y, value) => {
