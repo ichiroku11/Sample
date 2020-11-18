@@ -13,6 +13,7 @@ const config = {
 		flexboxcomponent: path.resolve(__dirname, "styles/flexboxcomponent.scss"),
 		flexboxgridwrapper: path.resolve(__dirname, "styles/flexboxgridwrapper.scss"),
 		flexboxsample: path.resolve(__dirname, "styles/flexboxsample.scss"),
+		focuswithin: path.resolve(__dirname, "styles/focuswithin.scss"),
 		grid: path.resolve(__dirname, "styles/grid.scss"),
 		gridfullbleed: path.resolve(__dirname, "styles/gridfullbleed.scss"),
 		gridlayout: path.resolve(__dirname, "styles/gridlayout.scss"),
