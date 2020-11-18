@@ -6,17 +6,27 @@ type SudokuNext = (x: SudokuComponent, y: SudokuComponent, value: SudokuUndefine
 // completedコールバック
 type SudokuCompleted = () => void;
 
+
 /**
  * 数独リゾルバ
  */
-export class SudokuResolver {
+abstract class SudokuResolver {
 	private readonly _board: SudokuBoard;
 
 	private _next: SudokuNext = () => { };
 	private _completed: SudokuCompleted = () => { };
 
+	/**
+	 * 
+	 * @param board
+	 */
 	constructor(board: SudokuBoard) {
 		this._board = board;
+	}
+
+	/** 数独ボードを取得 */
+	protected get board(): SudokuBoard {
+		return this._board;
 	}
 
 	/**
@@ -25,8 +35,8 @@ export class SudokuResolver {
 	 * @param y
 	 * @param value
 	 */
-	private putAndNotifyNext(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void {
-		this._board.put(x, y, value);
+	protected putAndNotifyNext(x: SudokuComponent, y: SudokuComponent, value: SudokuUndefinedOrDigit): void {
+		this.board.put(x, y, value);
 
 		console.log(`next: (${x}, ${y}), ${value}`);
 		if (this._next) {
@@ -37,32 +47,54 @@ export class SudokuResolver {
 	/**
 	 * 完了を通知
 	 */
-	private notifyCompleted(): void {
+	protected notifyCompleted(): void {
 		if (this._completed) {
 			this._completed();
 		}
 	}
 
-	// Promiseのresolveと紛らわしいので別名のメソッドにしただけ
 	/** 数独を解く */
-	private resolveCore(): Promise<boolean> {
+	protected abstract resolveCore(): Promise<boolean>;
+
+	/** 数独を解く */
+	public resolve(): Promise<boolean> {
+		return this.resolveCore();
+	}
+
+	/**
+	 * 通知を購読する
+	 * @param next 次の数値を配置すたときの通知コールバック
+	 * @param completed 完了したときの通知コールバック
+	 */
+	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {
+		this._next = next;
+		this._completed = completed;
+
+		return this;
+	}
+}
+
+/**
+ * 数独リゾルバ
+ * 左上の空セルからバックトラッキングで探索する
+ */
+export class SimpleSudokuResolver extends SudokuResolver {
+	/** 数独を解く */
+	protected resolveCore(): Promise<boolean> {
 		return new Promise(resolve => {
-			// setTimeoutを使ってUI描画のタイミングを作作る
+			// setTimeoutを使ってUI描画のタイミングを作る
 			setTimeout(async () => {
 				// 空セルを探す
 				// 見つからなければ終了
-				const coord = this._board.getUndefined();
+				const coord = this.board.getUndefined();
 				if (coord === null) {
 					this.notifyCompleted();
 					resolve(true);
 					return;
 				}
 
-				// todo:
-				// 空のセル群から候補が少ないセルを優先して探索する
-
 				const { x, y } = coord;
-				const choices = this._board.getChoices(x, y);
+				const choices = this.board.getChoices(x, y);
 				console.log(`search: (${x}, ${y}), [${Array.from(choices).join(", ")}]`);
 
 				// 深さ優先探索（バックトラッキング）による探索
@@ -83,21 +115,21 @@ export class SudokuResolver {
 			});
 		});
 	}
+}
 
-	/** 数独を解く */
-	public resolve(): Promise<boolean> {
-		return this.resolveCore();
-	}
 
+/**
+ * 数独リゾルバ
+ * 候補が少ないセルを優先的に探索する
+ */
+export class FewChoicesFirstSudokuResolver extends SudokuResolver {
 	/**
-	 * 通知を購読する
-	 * @param next 次の数値を配置すたときの通知コールバック
-	 * @param completed 完了したときの通知コールバック
+	 * 
 	 */
-	public subscribe(next: SudokuNext, completed: SudokuCompleted): this {
-		this._next = next;
-		this._completed = completed;
+	protected resolveCore(): Promise<boolean> {
+		// todo:
+		// 空のセル群から候補が少ないセルを優先して探索する
 
-		return this;
+		throw new Error("Method not implemented.");
 	}
 }

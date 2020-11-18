@@ -1,6 +1,8 @@
 import { range, sudokuCellCount, SudokuComponent, sudokuComponents, SudokuCoord, SudokuDefault, SudokuDigit, sudokuDigits, SudokuUndefinedOrDigit } from "./sudoku-helper";
 
-
+/**
+ * 数独ボード
+ */
 export class SudokuBoard {
 	// マス
 	private readonly _cells: SudokuUndefinedOrDigit[] = new Array<SudokuUndefinedOrDigit>(sudokuCellCount * sudokuCellCount);
@@ -91,7 +93,7 @@ export class SudokuBoard {
 
 	/**
 	 * 指定した行で使われている値を取得
-	 * @param y
+	 * @param y	
 	 */
 	private getUsedInRow(y: SudokuComponent): SudokuDigit[] {
 		const values: SudokuDigit[] = [];
