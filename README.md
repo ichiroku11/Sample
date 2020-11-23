@@ -2,14 +2,5 @@
 
 Sample code.
 
-## .NET Core 3.x
-
-- 
-
-## ASP.NET Core 3.x
-
-- 
-
-## EF Core 3.x
-
-- 
+- .Net sample moved to https://github.com/ichiroku11/dotnet-sample.
+- TypeScript, Sass sample moved to https://github.com/ichiroku11/web-sample.
